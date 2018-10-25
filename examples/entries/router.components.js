@@ -2,6 +2,11 @@ import Router from '../assets/router'
 
 const Button = require('../docs/components/button.md')
 const Input = require('../docs/components/input.md')
+const Checkbox = require('../docs/components/checkbox.md')
+const Modal = require('../docs/components/modal.md')
+
+
+
 
 const $contianer = document.getElementById('container')
 
@@ -45,6 +50,8 @@ router
   .set('/')
   .set('/button', setPage(Button, 'Button'))
   .set('/input', setPage(Input, 'Input'))
+  .set('/checkbox', setPage(Checkbox, 'Checkbox'))
+  .set('/modal', setPage(Modal, 'Modal', runScript))
   .init()
 
 
