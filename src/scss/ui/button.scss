@@ -1,0 +1,125 @@
+@mixin SpreadStyle ($map) {
+  border-color: map-get($map: $map, $key: border);
+  color: map-get($map: $map, $key: color);
+  background-color: map-get($map: $map, $key: background);
+}
+
+@mixin Style ($normal, $hover) {
+  @include SpreadStyle($normal);
+
+  &:not([disabled]):not(.nv-disabled) {
+    &:hover,
+    &:active {
+      @include SpreadStyle($hover);
+    }
+  }
+}
+
+@mixin Size ($height, $font-size, $padding-x) {
+  $y: (strip-units($height) - strip-units($font-size * $btn-line-height) - 2) / 2 * 1px;
+
+  height: $height;
+  font-size: $font-size;
+  padding: $y $padding-x;
+}
+
+// button
+.nv-btn {
+  display: inline-flex;
+  -webkit-appearance: none;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border: 1px solid;
+  outline: none;
+  white-space: nowrap;
+  border-radius: $btn-radius;
+  line-height: $btn-line-height;
+  transition: color .2s $transition-timing-function, background-color .2s $transition-timing-function, border-color .2s $transition-timing-function;
+  @include Size($btn-height, $btn-font-size, $btn-padding-x);
+  @include Style($btn-default, $btn-default-hover);
+
+  &.nv-btn--primary {
+    @include Style($btn-primary, $btn-primary-hover);
+  }
+
+  &.nv-btn--small {
+    @include Size($btn-height-small, $btn-font-size, $btn-padding-x-small);
+  }
+
+  // 大圆角
+  &.nv-btn--pill {
+    border-radius: 200px;
+  }
+
+  // disabled
+  &:disabled,
+  &.nv-disabled {
+    opacity: $btn-disabled-opacity;
+    cursor: not-allowed;
+  }
+}
+
+// button group
+
+.nv-btns {
+  display: inline-flex;
+  font-size: 0;
+  flex-flow: row nowrap;
+  align-items: center;
+  justify-content: flex-start;
+
+  > .nv-btn {
+    margin-left: 0;
+    transition: none;
+
+    + .nv-btn {
+      margin-left: -1px !important;
+    }
+
+    &:not(:first-child):not(:last-child) {
+      border-radius: 0;
+    }
+
+    &:first-child:not(:last-child) {
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+
+    &:last-child:not(:first-child) {
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+    }
+
+    &:hover, &:active {
+      position: relative;
+      z-index: 1;
+    }
+
+    &.nv-actived {
+      position: relative;
+      z-index: 2;
+    }
+
+    @include Style($btn-default, $btn-default-hover);
+
+    &:not([disabled]):not(.nv-disabled) {
+      &:hover,
+      &:active,
+      &.nv-actived {
+        @include SpreadStyle($btn-default-group-hover);
+      }
+    }
+  }
+
+  &.nv-btns--primary {
+    > .nv-btn {
+      &:not([disabled]):not(.nv-disabled) {
+        &:active,
+        &.nv-actived {
+          @include SpreadStyle($btn-primary);
+        }
+      }
+    }
+  }
+}

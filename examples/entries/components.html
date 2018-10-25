@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>组件 | Nova UI</title>
+  <style>
+    .app-head .app-nav a.app-nav--components {
+      color: #43a3fb;
+      font-weight: bold;
+    }
+  </style>
+  <script>
+    window.instances = []
+  </script>
+</head>
+
+<body>
+  <header id="head" class="app-head"></header>
+  <div class="app-main">
+    <aside class="app-aside">
+      <nav class="app-aside__nav">
+        <div class="nav-group">
+          <h4 class="nav-group__title">基础组件</h4>
+          <ul class="nav-group__items">
+            <li class="nav-group__item">
+              <a href="#/button">Button<small>按钮</small></a>
+            </li>
+            <li class="nav-group__item">
+              <a>Icon<small>图标</small></a>
+            </li>
+          </ul>
+        </div>
+        <div class="nav-group">
+          <h4 class="nav-group__title">表单组件</h4>
+          <ul class="nav-group__items">
+            <li class="nav-group__item">
+              <a>Radio<small>单选框</small></a>
+            </li>
+            <li class="nav-group__item">
+              <a>Checkbox<small>复选框</small></a>
+            </li>
+            <li class="nav-group__item">
+              <a href="#/input">Input<small>输入框</small></a>
+            </li>
+            <li class="nav-group__item">
+              <a>InputNumber<small>计数器</small></a>
+            </li>
+            <li class="nav-group__item">
+              <a>DatePicker<small>日期选择器</small></a>
+            </li>
+            <li class="nav-group__item">
+              <a>TimePicker<small>时间选择器</small></a>
+            </li>
+            <li class="nav-group__item">
+              <a>Select<small>选择器</small></a>
+            </li>
+            <li class="nav-group__item">
+              <a>Switch<small>开关</small></a>
+            </li>
+            <li class="nav-group__item">
+              <a>Slider<small>滑块</small></a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </aside>
+    <div class="app-container">
+      <div class="app-viewport" id="container"></div>
+    </div>
+  </div>
+</body>
+
+</html>

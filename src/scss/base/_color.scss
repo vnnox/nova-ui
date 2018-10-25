@@ -4,6 +4,8 @@ $color-primary: #43a3fb !default;
 $color-success: #2fc25b !default;
 // 告警色
 $color-danger: #ff6c60 !default;
+// 标题色
+$color-title: #464c5b !default;
 // 主文本色
 $color-text: #464c5b !default;
 // 次级文本色
@@ -16,3 +18,14 @@ $color-line: #dce3f3 !default;
 $color-btn-hover: #3b93ff !default;
 // 链接色
 $color-link: #257cef !default;
+
+// btn
+$btn-default: (color: $color-text, border: $color-line, background: white) !default;
+
+$btn-default-hover: (color: $color-btn-hover, border: $color-btn-hover, background: white) !default;
+
+$btn-default-group-hover: (color: $color-btn-hover, border: $color-btn-hover, background: #dcf0fe) !default;
+
+$btn-primary: (color: white, border: $color-primary, background: $color-primary) !default;
+
+$btn-primary-hover: (color: white, border: #1e81fa, background: #1e81fa) !default;

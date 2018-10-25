@@ -1,0 +1,71 @@
+@mixin Size($font-size, $height, $x) {
+  $y: (strip-units($height) - strip-units($font-size * $input-line-height) -2 ) / 2 * 1px;
+
+  font-size: $font-size;
+  height: $height;
+  padding: $y $x;
+}
+
+@mixin Placeholder {
+  &::-webkit-input-placeholder {
+    @content;
+  }
+
+  &::-moz-placeholder {
+    @content;
+  }
+
+  &:-ms-input-placeholder {
+    @content;
+  }
+}
+
+.nv-input {
+  display: inline-block;
+  line-height: $input-line-height;
+  border: 1px solid $color-line;
+  outline: none;
+  border-radius: $input-radius;
+  background-color: white;
+  @include Size($input-font-size, $input-height, $input-padding-x);
+  @include Placeholder {
+    color: $color-placeholder;
+  }
+
+  &:not([disabled]):not(.nv-disabled):not(.nv-input--danger) {
+    transition: border-color .2s $transition-timing-function;
+
+    &:hover,
+    &:active,
+    &:focus {
+      border-color: $color-primary;
+    }
+  }
+
+  &.nv-input--danger {
+    border-color: $color-danger;
+  }
+
+  // 小尺寸
+  &.nv-input--small {
+    @include Size($input-font-size, $input-height-small, $input-padding-x-small);
+  }
+
+  // 自适应宽度
+  &.nv-fluid {
+    width: 100%;
+  }
+
+  &:disabled,
+  &.nv-disabled {
+    border-color: $input-disabled-line;
+    background-color: $input-disabled-background;
+    color: $input-disabled-color;
+    cursor: not-allowed;
+    user-select: none;
+  }
+}
+
+textarea.nv-input {
+  height: auto;
+}
