@@ -1,4 +1,7 @@
 {
+  "plugins": [
+    "stylelint-scss"
+  ],
   "rules": {
     "at-rule-no-unknown": null,
     "block-no-empty": true,
@@ -12,6 +15,8 @@
         ]
       }
     ],
+    "selector-class-pattern":"^[a-z][a-z-_]+$",
+    "max-nesting-depth": 5,
     "declaration-block-no-shorthand-property-overrides": true,
     "font-family-no-duplicate-names": true,
     "font-family-no-missing-generic-family-keyword": true,
@@ -39,7 +44,8 @@
           "first-nested"
         ],
         "ignore": [
-          "after-comment"
+          "after-comment",
+          "inside-block"
         ]
       }
     ],
@@ -125,7 +131,7 @@
     "media-query-list-comma-space-before": "never",
     "no-eol-whitespace": true,
     "no-missing-end-of-source-newline": true,
-    "number-leading-zero": "always",
+    "number-leading-zero": "never",
     "number-no-trailing-zeros": true,
     "property-case": "lower",
     "rule-empty-line-before": [
@@ -145,7 +151,7 @@
     "selector-combinator-space-after": "always",
     "selector-combinator-space-before": "always",
     "selector-descendant-combinator-no-non-space": true,
-    "selector-list-comma-newline-after": "always",
+    "selector-list-comma-newline-after": "always-multi-line",
     "selector-list-comma-space-before": "never",
     "selector-max-empty-lines": 0,
     "selector-pseudo-class-case": "lower",

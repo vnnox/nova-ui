@@ -1,0 +1,20 @@
+/**
+ * 去掉数值的单位
+ * strip-units(16px) => 16
+ */
+
+@function strip-units ($number) {
+  @return $number / ($number * 0 + 1);
+}
+
+@mixin clearFix() {
+  &::before,
+  &::after {
+    display: table;
+    content: ' ';
+  }
+
+  &::after {
+    clear: both;
+  }
+}
