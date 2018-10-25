@@ -141,7 +141,7 @@ module.exports = {
         minifyJS: true
       },
       chunksSortMode: 'dependency',
-      chunks: ['index']
+      chunks: ['index', 'nova.ui']
     }),
 
     new HtmlWebpackPlugin({
