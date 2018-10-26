@@ -1,0 +1,45 @@
+.nv-switch {
+  .nv-switch__icon {
+    width: 40px;
+    height: 20px;
+    border: none;
+    border-radius: 10px;
+    background-color: $color-line;
+    transition: background-color .2s cubic-bezier(.71, -.46, .88, .6);
+    &::before {
+      content: '';
+      width: 16px;
+      height: 16px;
+      position: absolute;
+      top: 2px;
+      left: 2px;
+      background-color: white;
+      border-radius: 50%;
+      transition: all .2s;
+    }
+  }
+
+  > input[type="checkbox"] {
+    &:checked {
+      ~ .nv-switch__icon {
+        background-color: $color-primary;
+        &::before {
+          left: 100%;
+          margin-left: -18px;
+        }
+      }
+    }
+
+    &:disabled {
+      ~ .nv-switch__icon {
+        opacity: $check-icon-disabled-opacity;
+        cursor: not-allowed;
+      }
+
+      ~ .nv-switch_label {
+        color: $color-text-disabled;
+        cursor: not-allowed;
+      }
+    }
+  }
+}
