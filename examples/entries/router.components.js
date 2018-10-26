@@ -3,6 +3,7 @@ import Router from '../assets/router'
 const Button = require('../docs/components/button.md')
 const Input = require('../docs/components/input.md')
 const Checkbox = require('../docs/components/checkbox.md')
+const Radio = require('../docs/components/radio.md')
 const Modal = require('../docs/components/modal.md')
 
 
@@ -51,6 +52,7 @@ router
   .set('/button', setPage(Button, 'Button'))
   .set('/input', setPage(Input, 'Input'))
   .set('/checkbox', setPage(Checkbox, 'Checkbox'))
+  .set('/radio', setPage(Radio, 'Radio'))
   .set('/modal', setPage(Modal, 'Modal', runScript))
   .init()
 

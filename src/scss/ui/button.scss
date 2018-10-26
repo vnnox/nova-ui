@@ -1,30 +1,8 @@
-@mixin SpreadStyle ($map) {
-  border-color: map-get($map: $map, $key: border);
-  color: map-get($map: $map, $key: color);
-  background-color: map-get($map: $map, $key: background);
-}
-
-@mixin Style ($normal, $hover) {
-  @include SpreadStyle($normal);
-
-  &:not([disabled]):not(.nv-disabled) {
-    &:hover,
-    &:active {
-      @include SpreadStyle($hover);
-    }
-  }
-}
-
-@mixin Size ($height, $font-size, $padding-x) {
-  $y: (strip-units($height) - strip-units($font-size * $btn-line-height) - 2) / 2 * 1px;
-
-  height: $height;
-  font-size: $font-size;
-  padding: $y $padding-x;
-}
+@import '../mixins/button';
 
 // button
-.nv-btn {
+.nv-btn,
+.nv-check__btn {
   display: inline-flex;
   -webkit-appearance: none;
   align-items: center;
@@ -36,16 +14,21 @@
   border-radius: $btn-radius;
   line-height: $btn-line-height;
   text-decoration: none;
-  transition: color .2s $transition-timing-function, background-color .2s $transition-timing-function, border-color .2s $transition-timing-function;
-  @include Size($btn-height, $btn-font-size, $btn-padding-x);
-  @include Style($btn-default, $btn-default-hover);
+  @include ButtonSize($btn-height, $btn-font-size, $btn-padding-x);
+}
 
+.nv-btn {
+  transition: color .2s $transition-timing-function, background-color .2s $transition-timing-function, border-color .2s $transition-timing-function;
+  @include ButtonStyle($btn-default, $btn-default-hover);
+
+  // primary
   &.nv-btn--primary {
-    @include Style($btn-primary, $btn-primary-hover);
+    @include ButtonStyle($btn-primary, $btn-primary-hover);
   }
 
+  // small size
   &.nv-btn--small {
-    @include Size($btn-height-small, $btn-font-size, $btn-padding-x-small);
+    @include ButtonSize($btn-height-small, $btn-font-size, $btn-padding-x-small);
   }
 
   // 大圆角
@@ -64,8 +47,8 @@
 a.nv-btn:hover {
   text-decoration: none;
 }
-// button group
 
+// button group
 .nv-btns {
   display: inline-flex;
   font-size: 0;
@@ -76,6 +59,7 @@ a.nv-btn:hover {
   > .nv-btn {
     margin-left: 0;
     transition: none;
+    @include ButtonStyle(false, $btn-group-hover);
 
     + .nv-btn {
       margin-left: -1px !important;
@@ -95,7 +79,8 @@ a.nv-btn:hover {
       border-bottom-left-radius: 0;
     }
 
-    &:hover, &:active {
+    &:not([disabled]):not(.nv-actived):active,
+    &:not([disabled]):not(.nv-actived):hover {
       position: relative;
       z-index: 1;
     }
@@ -103,27 +88,14 @@ a.nv-btn:hover {
     &.nv-actived {
       position: relative;
       z-index: 2;
-    }
-
-    @include Style($btn-default, $btn-default-hover);
-
-    &:not([disabled]):not(.nv-disabled) {
-      &:hover,
-      &:active,
-      &.nv-actived {
-        @include SpreadStyle($btn-default-group-hover);
-      }
+      @include ButtonSpreadStyle($btn-group-actived);
     }
   }
 
   &.nv-btns--primary {
-    > .nv-btn {
-      &:not([disabled]):not(.nv-disabled) {
-        &:active,
-        &.nv-actived {
-          @include SpreadStyle($btn-primary);
-        }
-      }
+    > .nv-btn.nv-actived {
+      box-shadow: -1px 0 0 0 $color-btn-hover-bg;
+      @include ButtonSpreadStyle($btn-primary);
     }
   }
 }

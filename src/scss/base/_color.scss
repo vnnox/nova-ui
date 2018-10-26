@@ -14,17 +14,24 @@ $color-hint: #657180 !default;
 $color-placeholder: #9ea8b4 !default;
 // 描边色
 $color-line: #dce3f3 !default;
+// 加深描边
+$color-line-dark: #c9cace !default;
+// 文字禁用
+$color-text-disabled: $color-line-dark !default;
 // 按钮hover，active
 $color-btn-hover: #3b93ff !default;
 // 链接色
 $color-link: #257cef !default;
+$color-btn-hover-bg: #dcf0fe !default;
 
 // btn
 $btn-default: (color: $color-text, border: $color-line, background: white) !default;
 
 $btn-default-hover: (color: $color-btn-hover, border: $color-btn-hover, background: white) !default;
 
-$btn-default-group-hover: (color: $color-btn-hover, border: $color-btn-hover, background: #dcf0fe) !default;
+$btn-group-hover: (color: $color-btn-hover, border: $color-btn-hover, background: white) !default;
+
+$btn-group-actived: (color: $color-btn-hover, border: $color-btn-hover, background: $color-btn-hover-bg) !default;
 
 $btn-primary: (color: white, border: $color-primary, background: $color-primary) !default;
 
