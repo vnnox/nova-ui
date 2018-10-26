@@ -1,0 +1,23 @@
+.nv-breadcrumb {
+  font-size: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  .nv-breadcrumb__item,
+  .nv-breadcrumb__separator {
+    display: inline-block;
+    vertical-align: middle;
+    font-size: $font-size-base;
+    color: $color-hint;
+  }
+  .nv-breadcrumb__separator {
+    position: relative;
+    margin: 0 10px;
+    line-height: 1;
+    width: 1px;
+    height: 10px;
+    background-color: $color-placeholder;
+    font-size: 0;
+    transform: rotate(20deg);
+  }
+}

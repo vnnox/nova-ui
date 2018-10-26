@@ -5,7 +5,8 @@ const Input = require('../docs/components/input.md')
 const Checkbox = require('../docs/components/checkbox.md')
 const Radio = require('../docs/components/radio.md')
 const Modal = require('../docs/components/modal.md')
-
+const Breadcrumb = require('../docs/components/breadcrumb.md')
+const Badge = require('../docs/components/badge.md')
 
 
 
@@ -53,6 +54,8 @@ router
   .set('/input', setPage(Input, 'Input'))
   .set('/checkbox', setPage(Checkbox, 'Checkbox'))
   .set('/radio', setPage(Radio, 'Radio'))
+  .set('/breadcrumb', setPage(Breadcrumb, 'Breadcrumb'))
+  .set('/badge', setPage(Badge, 'Badge'))
   .set('/modal', setPage(Modal, 'Modal', runScript))
   .init()
 

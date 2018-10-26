@@ -152,11 +152,20 @@ $container-width: 100% !default;
   section {
     > h1 {
       font-size: 1.75rem;
+      margin-bottom: 1rem;
     }
 
     > h3 {
       font-size: 1.25rem;
       margin-top: 2.5rem;
+    }
+
+    blockquote {
+      background-color: #f4f7fc;
+      padding: 1rem;
+      p {
+        margin-bottom: 0;
+      }
     }
   }
 }
