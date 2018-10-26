@@ -1,6 +1,6 @@
 # Radio 单选框
 
-### 基本使用
+### 基础用法
 :::demo
 ```html
 <div class="doc-row">
