@@ -23,10 +23,10 @@ module.exports = {
   output: {
     publicPath: '/',
     path: path.resolve(__dirname, '../docs/'),
-    filename: 'assets/[name].js',
-    chunkFilename: 'assets/[name].js'
+    filename: 'assets/[name]-[hash].js',
+    chunkFilename: 'assets/[name]-[hash].js'
   },
-  devtool: 'source-map',
+  devtool: false,
   module: {
     rules: [
       {
@@ -175,8 +175,8 @@ module.exports = {
     }),
 
     new MiniCssExtractPlugin({
-      filename: 'assets/[name].css',
-      chunkFilename: 'assets/[name].css'
+      filename: 'assets/[name]-[hash].css',
+      chunkFilename: 'assets/[name]-[hash].css'
     }),
     new OptimizeCSSPlugin({ safe: true, map: false, discardComments: { removeAll: true } }),
   ]

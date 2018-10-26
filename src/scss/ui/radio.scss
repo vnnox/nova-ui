@@ -1,0 +1,50 @@
+.nv-radio {
+  .nv-radio__icon {
+    width: 16px;
+    height: 16px;
+    border: 1px solid $color-line;
+    border-radius: 50%;
+
+    &::before {
+      content: '';
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      background-color: $color-primary;
+      transform: translate(-50%, -50%);
+      opacity: 0;
+    }
+  }
+
+  > input[type="radio"] {
+    &:checked {
+      ~ .nv-radio__icon {
+        &::before {
+          transition: opacity .15s cubic-bezier(.71, -.46, .88, .6);
+          opacity: 1;
+        }
+      }
+    }
+
+    &:not([disabled]):not([checked]) {
+      ~ .nv-radio__icon:hover {
+        border-color: $color-line-dark;
+      }
+    }
+
+    &:disabled {
+      ~ .nv-radio__icon {
+        opacity: $check-icon-disabled-opacity;
+        cursor: not-allowed;
+      }
+
+      ~ .nv-radio__label {
+        color: $color-text-disabled;
+        cursor: not-allowed;
+      }
+    }
+  }
+}
