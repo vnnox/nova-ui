@@ -70,7 +70,7 @@
     <div class="nv-btns nv-btns--primary">
       <button class="nv-btn">选项一</button>
       <button class="nv-btn nv-actived">选项二</button>
-      <button class="nv-btn">选项三</button>
+      <button class="nv-btn nv-actived">选项三</button>
       <button class="nv-btn">选项四</button>
     </div>  
   </div>

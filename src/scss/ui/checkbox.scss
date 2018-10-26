@@ -1,0 +1,50 @@
+.nv-checkbox {
+  .nv-checkbox__icon {
+    width: 16px;
+    height: 16px;
+    border: 1px solid $color-line;
+    border-radius: 3px;
+
+    &::before {
+      content: '';
+      width: 11px;
+      height: 8px;
+      top: 3px;
+      left: 2px;
+      position: absolute;
+      background: $checkbox-icon no-repeat center;
+      background-size: cover;
+      transform: scale(0);
+      transform-origin: center;
+    }
+  }
+
+  > input[type="checkbox"] {
+    &:checked {
+      ~ .nv-checkbox__icon {
+        &::before {
+          transition: transform .15s cubic-bezier(.71, -.46, .88, .6);
+          transform: scale(1);
+        }
+      }
+    }
+
+    &:not([disabled]):not([checked]) {
+      ~ .nv-checkbox__icon:hover {
+        border-color: $color-line-dark;
+      }
+    }
+
+    &:disabled {
+      ~ .nv-checkbox__icon {
+        opacity: $check-icon-disabled-opacity;
+        cursor: not-allowed;
+      }
+
+      ~ .nv-checkbox__label {
+        color: $color-text-disabled;
+        cursor: not-allowed;
+      }
+    }
+  }
+}

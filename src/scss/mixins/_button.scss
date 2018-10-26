@@ -1,0 +1,28 @@
+@mixin ButtonSpreadStyle ($map) {
+  border-color: map-get($map: $map, $key: border);
+  color: map-get($map: $map, $key: color);
+  background-color: map-get($map: $map, $key: background);
+}
+
+@mixin ButtonSize ($height, $font-size, $padding-x) {
+  $y: (strip-units($height) - strip-units($font-size * $btn-line-height) - 2) / 2 * 1px;
+
+  height: $height;
+  font-size: $font-size;
+  padding: $y $padding-x;
+}
+
+@mixin ButtonStyle ($normal, $hover) {
+  @if ($normal) {
+    @include ButtonSpreadStyle($normal);
+  }
+
+  @if ($hover) {
+    &:not([disabled]):not(.nv-disabled):not(.nv-actived) {
+      &:hover,
+      &:active {
+        @include ButtonSpreadStyle($hover);
+      }
+    }
+  }
+}
