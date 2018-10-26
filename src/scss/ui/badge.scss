@@ -1,0 +1,20 @@
+// 因为chrome无法支持10px的字号，
+// 因此font-size,padding,height等全部放大两倍，然后在缩小一半
+.nv-badge {
+  background-color: $color-danger;
+  color: white;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  padding: 0 9px;
+  font-size: 20px;
+  height: 28px;
+  border-radius: 14px;
+  position: absolute;
+  top: 0;
+  right: 10px;
+  transform: translateY(-50%) translateX(100%) scale(.5);
+  transform-origin: left;
+  user-select: none;
+}

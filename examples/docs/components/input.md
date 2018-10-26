@@ -1,6 +1,6 @@
 # Input 输入框
 
-### 基础使用
+### 基础用法
 :::demo
 ```html
 <div class="doc-row">

@@ -14,6 +14,7 @@
   border-radius: $btn-radius;
   line-height: $btn-line-height;
   text-decoration: none;
+  position: relative;
   @include ButtonSize($btn-height, $btn-font-size, $btn-padding-x);
 }
 
