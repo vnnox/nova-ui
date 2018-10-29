@@ -8,6 +8,7 @@ const Switch = require('../docs/components/switch.md')
 const Modal = require('../docs/components/modal.md')
 const Breadcrumb = require('../docs/components/breadcrumb.md')
 const Badge = require('../docs/components/badge.md')
+const InputNumber = require('../docs/components/input-number.md')
 
 
 
@@ -59,6 +60,7 @@ router
   .set('/breadcrumb', setPage(Breadcrumb, 'Breadcrumb'))
   .set('/badge', setPage(Badge, 'Badge'))
   .set('/modal', setPage(Modal, 'Modal', runScript))
+  .set('/input-number', setPage(InputNumber, 'InputNumber', runScript))
   .init()
 
 
