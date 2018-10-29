@@ -1,3 +1,16 @@
+/*
+ * File: _button.scss
+ * Project: @vnnox/novaui
+ * Description: 生成按钮样式，尺寸的mixin函数
+ * Created: 2018-10-26 11:39
+ * Author: smohan (mengxw@novastar.tech)
+ * -----
+ * Last Modified: 2018-10-29 11:15
+ * Modified By: smohan (mengxw@novastar.tech>)
+ * -----
+ * Copyright 2018, NovaStar Tech Co., Ltd
+ */
+
 @mixin ButtonSpreadStyle ($map) {
   border-color: map-get($map: $map, $key: border);
   color: map-get($map: $map, $key: color);

@@ -1,3 +1,16 @@
+/*
+ * File: _color.scss
+ * Project: @vnnox/novaui
+ * Description: 颜色配置文件
+ * Created: 2018-10-25 03:56
+ * Author: smohan (mengxw@novastar.tech)
+ * -----
+ * Last Modified: 2018-10-29 11:13
+ * Modified By: smohan (mengxw@novastar.tech>)
+ * -----
+ * Copyright 2018, NovaStar Tech Co., Ltd
+ */
+
 // 主色调
 $color-primary: #43a3fb !default;
 // 成功色
@@ -36,3 +49,6 @@ $btn-group-actived: (color: $color-btn-hover, border: $color-btn-hover, backgrou
 $btn-primary: (color: white, border: $color-primary, background: $color-primary) !default;
 
 $btn-primary-hover: (color: white, border: #1e81fa, background: #1e81fa) !default;
+
+// switch 默背景色
+$color-switch-bg: #dcdfe6 !default;

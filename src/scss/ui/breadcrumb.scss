@@ -1,15 +1,22 @@
+/*
+ * File: breadcrumb.scss
+ * Project: @vnnox/novaui
+ * Description: 面包屑类
+ * Created: 2018-10-26 04:15
+ * Author: smohan (mengxw@novastar.tech)
+ * -----
+ * Last Modified: 2018-10-29 11:16
+ * Modified By: smohan (mengxw@novastar.tech>)
+ * -----
+ * Copyright 2018, NovaStar Tech Co., Ltd
+ */
+
 .nv-breadcrumb {
   font-size: 0;
   margin: 0;
   padding: 0;
   list-style: none;
-  .nv-breadcrumb__item,
-  .nv-breadcrumb__separator {
-    display: inline-block;
-    vertical-align: middle;
-    font-size: $font-size-base;
-    color: $color-hint;
-  }
+
   .nv-breadcrumb__separator {
     position: relative;
     margin: 0 10px;
@@ -19,5 +26,13 @@
     background-color: $color-placeholder;
     font-size: 0;
     transform: rotate(20deg);
+  }
+
+  .nv-breadcrumb__item,
+  .nv-breadcrumb__separator {
+    display: inline-block;
+    vertical-align: middle;
+    font-size: $font-size-base;
+    color: $color-hint;
   }
 }

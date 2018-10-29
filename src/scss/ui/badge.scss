@@ -1,3 +1,16 @@
+/*
+ * File: badge.scss
+ * Project: @vnnox/novaui
+ * Description: 徽标类
+ * Created: 2018-10-26 04:36
+ * Author: smohan (mengxw@novastar.tech)
+ * -----
+ * Last Modified: 2018-10-29 11:16
+ * Modified By: smohan (mengxw@novastar.tech>)
+ * -----
+ * Copyright 2018, NovaStar Tech Co., Ltd
+ */
+
 // 因为chrome无法支持10px的字号，
 // 因此font-size,padding,height等全部放大两倍，然后在缩小一半
 .nv-badge {
