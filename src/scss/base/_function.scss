@@ -1,8 +1,20 @@
+/*
+ * File: _function.scss
+ * Project: @vnnox/novaui
+ * Description: 全局函数库
+ * Created: 2018-10-25 03:57
+ * Author: smohan (mengxw@novastar.tech)
+ * -----
+ * Last Modified: 2018-10-29 11:13
+ * Modified By: smohan (mengxw@novastar.tech>)
+ * -----
+ * Copyright 2018, NovaStar Tech Co., Ltd
+ */
+
 /**
  * 去掉数值的单位
  * strip-units(16px) => 16
  */
-
 @function strip-units ($number) {
   @return $number / ($number * 0 + 1);
 }

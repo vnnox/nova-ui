@@ -1,3 +1,16 @@
+/*
+ * File: input.scss
+ * Project: @vnnox/novaui
+ * Description: 输入框类
+ * Created: 2018-10-26 11:39
+ * Author: smohan (mengxw@novastar.tech)
+ * -----
+ * Last Modified: 2018-10-29 11:17
+ * Modified By: smohan (mengxw@novastar.tech>)
+ * -----
+ * Copyright 2018, NovaStar Tech Co., Ltd
+ */
+
 @mixin Size($font-size, $height, $x) {
   $y: (strip-units($height) - strip-units($font-size * $input-line-height) -2 ) / 2 * 1px;
 

@@ -1,11 +1,25 @@
+/*
+ * File: switch.scss
+ * Project: @vnnox/novaui
+ * Description: 开关类
+ * Created: 2018-10-26 05:30
+ * Author: smohan (mengxw@novastar.tech)
+ * -----
+ * Last Modified: 2018-10-29 11:18
+ * Modified By: smohan (mengxw@novastar.tech>)
+ * -----
+ * Copyright 2018, NovaStar Tech Co., Ltd
+ */
+
 .nv-switch {
   .nv-switch__icon {
     width: 40px;
     height: 20px;
     border: none;
     border-radius: 10px;
-    background-color: $color-line;
+    background-color: $color-switch-bg;
     transition: background-color .2s cubic-bezier(.71, -.46, .88, .6);
+
     &::before {
       content: '';
       width: 16px;
@@ -23,6 +37,7 @@
     &:checked {
       ~ .nv-switch__icon {
         background-color: $color-primary;
+
         &::before {
           left: 100%;
           margin-left: -18px;

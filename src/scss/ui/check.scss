@@ -1,3 +1,16 @@
+/*
+ * File: check.scss
+ * Project: @vnnox/novaui
+ * Description: checkbox, radio, switch
+ * Created: 2018-10-26 02:51
+ * Author: smohan (mengxw@novastar.tech)
+ * -----
+ * Last Modified: 2018-10-29 11:17
+ * Modified By: smohan (mengxw@novastar.tech>)
+ * -----
+ * Copyright 2018, NovaStar Tech Co., Ltd
+ */
+
 @import '../mixins/button';
 
 @mixin ElementStyle {
@@ -154,6 +167,7 @@
     input[type="checkbox"],
     input[type="radio"] {
       &:checked ~ .nv-check__btn {
+        z-index: 0;
         box-shadow: -1px 0 0 0 $color-btn-hover-bg;
         @include ButtonSpreadStyle($btn-primary);
       }

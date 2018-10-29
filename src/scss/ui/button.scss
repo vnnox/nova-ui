@@ -1,3 +1,16 @@
+/*
+ * File: button.scss
+ * Project: @vnnox/novaui
+ * Description: 按钮类
+ * Created: 2018-10-26 02:51
+ * Author: smohan (mengxw@novastar.tech)
+ * -----
+ * Last Modified: 2018-10-29 11:16
+ * Modified By: smohan (mengxw@novastar.tech>)
+ * -----
+ * Copyright 2018, NovaStar Tech Co., Ltd
+ */
+
 @import '../mixins/button';
 
 // button
@@ -95,8 +108,11 @@ a.nv-btn:hover {
 
   &.nv-btns--primary {
     > .nv-btn.nv-actived {
-      box-shadow: -1px 0 0 0 $color-btn-hover-bg;
       @include ButtonSpreadStyle($btn-primary);
+
+      + .nv-btn.nv-actived {
+        box-shadow: -1px 0 0 0 $color-btn-hover-bg;
+      }
     }
   }
 }
