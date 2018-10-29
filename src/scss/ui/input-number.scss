@@ -1,0 +1,73 @@
+.nv-input-number {
+  position: relative;
+  margin: 0;
+  padding: 0;
+  display: inline-block;
+  width: 130px;
+
+  + .nv-input-number {
+    margin-left: 20px;
+  }
+
+  .nv-input {
+    padding-right: 32px;
+    width: 100%;
+  }
+
+  .nv-input-number__increase,
+  .nv-input-number__decrease {
+    user-select: none;
+    position: absolute;
+    height: 50%;
+    width: 24px;
+    right: 1px;
+
+    &::after {
+      content: '';
+      border-left: 4px solid transparent;
+      border-right: 4px solid transparent;
+      width: 0;
+      height: 0;
+      position: absolute;
+      right: 10px;
+    }
+
+    &.nv-disabled {
+      cursor: not-allowed;
+    }
+  }
+
+  .nv-input-number__increase {
+    top: 1px;
+
+    &::after {
+      border-bottom: 5px solid $color-spin;
+      bottom: 5px;
+    }
+
+    &:hover::after {
+      border-bottom-color: $color-hint;
+    }
+
+    &.nv-disabled::after {
+      border-bottom-color: $color-spin-disabled;
+    }
+  }
+
+  .nv-input-number__decrease {
+    bottom: 1px;
+
+    &::after {
+      border-top: 5px solid $color-spin;
+      top: 5px;
+    }
+
+    &:hover::after {
+      border-top-color: $color-hint;
+    }
+
+    &.nv-disabled::after {
+      border-top-color: $color-spin-disabled;
+    }
+  }
+}

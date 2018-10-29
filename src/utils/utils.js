@@ -216,7 +216,6 @@ export function mixins() {
 export const objectClone = object => JSON.parse(JSON.stringify(object))
 
 
-
 const hyphenateRE = /\B([A-Z])/g
 
 
@@ -275,6 +274,28 @@ let uid = 0
 export const uuid = () => ++uid
 
 
+/**
+ * 抛出异常
+ * @param {*} message 
+ * @param {*} type 
+ */
+export const throwError = (message,  type) => {
+  message = `[NOVA.UI.ERROR] ${message.toString()}`
+  let method
+  switch (type) {
+  case 'type':
+    method = TypeError
+    break
+  case 'range':
+    method = RangeError
+    break
+  default:
+    method = Error
+  }
+  throw new method(message)
+}
+
+
 export default {
   isString,
   isObject,
@@ -296,6 +317,7 @@ export default {
   hyphenate,
   escapeRegExp,
   getObjectValue,
-  uuid
+  uuid,
+  throwError
 }
 
