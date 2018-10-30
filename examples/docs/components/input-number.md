@@ -117,3 +117,56 @@
 </script>  
 ```
 :::
+
+
+### 自定义样式
+:::demo
+```html
+<div class="doc-row">
+  <h5 class="doc-row__title">自定义宽度</h5>
+  <p class="doc-row__describe">通过预设<code>width</code>配置项，可自定义输入框宽度</p>
+  <div class="doc-row__body">
+    <div id="ins8"></div>
+  </div>
+</div>
+<div class="doc-row">
+  <h5 class="doc-row__title">小尺寸</h5>
+  <p class="doc-row__describe">通过预设<code>size</code>配置项，可指定输入框尺寸，其尺寸值同<a href="/components/#/input">输入框尺寸</a></p>
+  <div class="doc-row__body">
+    <div id="ins9"></div>
+  </div>
+</div>
+<div class="doc-row">
+  <h5 class="doc-row__title">自定义样式</h5>
+  <p class="doc-row__describe">通过预设<code>customClass</code>配置项，可自定义输入框样式</p>
+  <div class="doc-row__body">
+    <div id="ins10"></div>
+  </div>
+</div>
+
+<script>
+  var ins8 = new Nova.InputNumber(document.getElementById('ins8'), {
+    min: 0,
+    max: 100,
+    value: 10,
+    width: '100%'
+  })
+  var ins9 = new Nova.InputNumber(document.getElementById('ins9'), {
+    min: 0,
+    max: 100,
+    value: 10,
+    size: 'small',
+    width: 100
+  })
+  var ins10 = new Nova.InputNumber(document.getElementById('ins10'), {
+    min: 0,
+    max: 100,
+    value: 10,
+    customClass: 'nv-input-number--row'
+  })
+
+  // 回收示例
+  window.instances.push(ins8, ins9, ins10)
+</script>  
+```
+:::

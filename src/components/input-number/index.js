@@ -12,7 +12,7 @@
  */
 
 import Events from '../../utils/events'
-import { isElement, throwError, mixins, isNumber } from '../../utils/utils'
+import { isElement, throwError, mixins, isNumber, isNumberString } from '../../utils/utils'
 import { correctProps } from './utils'
 import template from '../../utils/template'
 import { addClass, qsa, bind, unbind } from '../../utils/dom'
@@ -45,6 +45,10 @@ const defaults = {
   placeholder: null,
   // 输入框name属性
   name: null,
+  // 宽度
+  width: '130px',
+  // 输入框尺寸
+  size: 'default',
   // 自定义样式
   customClass: null,
   // 格式化
@@ -66,14 +70,28 @@ function render() {
   const $el = document.createElement('label')
   $el.className = 'nv-input-number'
   addClass($el, props.customClass)
+  let size 
+  if (['large', 'small'].indexOf(props.size) > -1) {
+    size = props.size
+  }
   $el.innerHTML = template(skeletonTpl, {
     name: props.name,
     disabled: props.disabled,
     editable: props.editable,
     min: props.min,
     max: props.max,
-    placeholder: props.placeholder
+    placeholder: props.placeholder,
+    size
   })
+  
+  let width = props.width
+  if (isNumberString(width)) {
+    width += 'px'
+  }
+  if (isNaN(parseFloat(width))) {
+    width = defaults.width
+  }
+  $el.style.width = width
   states.$container.appendChild($el)
   states.$el = $el
   states.$input = qsa(Selectors.input, $el)[0]
@@ -294,6 +312,7 @@ export class InputNumber extends Events {
     }
 
     // oldValue === ''
+    let valueStr = ''
     if (newValue !== '') {
       newValue = toPrecision(newValue, precision)
       if (newValue >= max) {
@@ -302,10 +321,11 @@ export class InputNumber extends Events {
       if (newValue <= min) {
         newValue = min
       }
+      valueStr = newValue.toFixed(precision)
     }
-
-    let formatValue = props.formatter && props.formatter(newValue)
-    states.$input.value = formatValue || newValue
+    
+    let formatValue = props.formatter && props.formatter(valueStr)
+    states.$input.value = formatValue || valueStr
     if (oldValue !== newValue) {
       states.value = newValue
       states.oldValue = newValue

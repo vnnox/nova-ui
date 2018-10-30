@@ -16,7 +16,7 @@ const SLICE = Array.prototype.slice
 const TOSTRING = Object.prototype.toString
 const HASOWN = Object.prototype.hasOwnProperty
 const PRIMITIVE_VALUES = ['string', 'number', 'boolean', 'symbol', 'undefined']
-
+const NUMBER_REG = /^-?\d*\.?\d+$/
 
 /**
  * 校验传入值是否是字符串
@@ -83,6 +83,14 @@ export const isBoolean = value => typeof value === 'boolean'
  * @returns {Boolean}
  */
 export const isNumber = value => !isNaN(value) && typeof value === 'number'
+
+
+/**
+ * 校验传入值是否是数字字符串
+ * @param {*} value
+ * @returns {Boolean} 
+ */
+export const isNumberString = value => NUMBER_REG.test(value)
 
 
 /**

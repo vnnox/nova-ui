@@ -71,8 +71,8 @@
 
   &:disabled,
   &.nv-disabled {
-    border-color: $input-disabled-line;
-    background-color: $input-disabled-background;
+    border-color: $color-line;
+    background-color: $color-bg-disabled;
     color: $input-disabled-color;
     cursor: not-allowed;
     user-select: none;
