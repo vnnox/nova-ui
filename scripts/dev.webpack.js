@@ -29,7 +29,7 @@ module.exports = env => {
       filename: isProd ? 'assets/js/[name]-[hash:7].js' : 'assets/js/[name].js',
       chunkFilename: isProd ? 'assets/js/[name]-[hash:7].js' : 'assets/js/[name].js'
     },
-    devtool: 'source-map',
+    devtool: isProd ? false : 'source-map',
     module: {
       rules: [
         {

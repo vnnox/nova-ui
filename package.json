@@ -9,7 +9,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "rm -rf docs/assets/* && webpack --env=development  --mode=development  --config scripts/dev.webpack.js --watch",
-    "doc": "rm -rf docs/assets/* && webpack --env=production --mode=production --config scripts/doc.webpack.js",
+    "doc": "rm -rf docs/assets/* && webpack --env=production --mode=production --config scripts/dev.webpack.js",
     "stylelint": "stylelint src/**/*.scss examples/**/*.scss",
     "stylelint-fix": "stylelint --fix src/**/*.scss examples/**/*.scss"
   },
