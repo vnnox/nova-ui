@@ -3,7 +3,6 @@
   margin: 0;
   padding: 0;
   display: inline-block;
-  width: 130px;
 
   + .nv-input-number {
     margin-left: 20px;
@@ -68,6 +67,72 @@
 
     &.nv-disabled::after {
       border-top-color: $color-spin-disabled;
+    }
+  }
+
+  &.nv-input-number--row {
+    .nv-input {
+      padding-left: 42px;
+      padding-right: 42px;
+    }
+
+    .nv-input-number__increase,
+    .nv-input-number__decrease {
+      top: 1px;
+      bottom: 1px;
+      height: auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      padding: 0;
+      color: $color-spin;
+      line-height: 1;
+
+      &::after {
+        border: none;
+        position: static;
+        left: auto;
+        bottom: auto;
+        top: auto;
+        right: auto;
+        width: auto;
+        height: auto;
+        font-size: 12px;
+      }
+
+      &:hover {
+        color: $color-hint;
+      }
+
+      &.nv-disabled {
+        color: $color-spin-disabled;
+        background-color: $color-bg-disabled;
+      }
+    }
+
+    .nv-input-number__decrease {
+      left: 1px;
+      right: auto;
+      border-right: 1px solid $color-line;
+      border-top-left-radius: $input-radius;
+      border-bottom-left-radius: $input-radius;
+
+      &::after {
+        content: '－';
+      }
+    }
+
+    .nv-input-number__increase {
+      left: auto;
+      right: 1px;
+      border-left: 1px solid $color-line;
+      border-top-right-radius: $input-radius;
+      border-bottom-right-radius: $input-radius;
+
+      &::after {
+        content: '＋';
+      }
     }
   }
 }
