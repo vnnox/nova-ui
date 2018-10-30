@@ -3,7 +3,6 @@
   margin: 0;
   padding: 0;
   display: inline-block;
-  width: 130px;
 
   + .nv-input-number {
     margin-left: 20px;
@@ -21,18 +20,21 @@
     height: 50%;
     width: 24px;
     right: 1px;
+    color: $color-spin;
+    display: flex;
+    align-items: center;
+    padding-left: 4px;
 
     &::after {
-      content: '';
-      border-left: 4px solid transparent;
-      border-right: 4px solid transparent;
-      width: 0;
-      height: 0;
-      position: absolute;
-      right: 10px;
+      @extend .icon-font;
+    }
+
+    &:hover {
+      color: $color-hint;
     }
 
     &.nv-disabled {
+      color: $color-spin-disabled;
       cursor: not-allowed;
     }
   }
@@ -41,16 +43,7 @@
     top: 1px;
 
     &::after {
-      border-bottom: 5px solid $color-spin;
-      bottom: 5px;
-    }
-
-    &:hover::after {
-      border-bottom-color: $color-hint;
-    }
-
-    &.nv-disabled::after {
-      border-bottom-color: $color-spin-disabled;
+      content: '\e900';
     }
   }
 
@@ -58,16 +51,55 @@
     bottom: 1px;
 
     &::after {
-      border-top: 5px solid $color-spin;
-      top: 5px;
+      content: '\e901';
+    }
+  }
+
+  &.nv-input-number--row {
+    .nv-input {
+      padding-left: 42px;
+      padding-right: 42px;
     }
 
-    &:hover::after {
-      border-top-color: $color-hint;
+    .nv-input-number__increase,
+    .nv-input-number__decrease {
+      top: 1px;
+      bottom: 1px;
+      height: auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      padding: 0;
+      line-height: 1;
+
+      &.nv-disabled {
+        background-color: $color-bg-disabled;
+      }
     }
 
-    &.nv-disabled::after {
-      border-top-color: $color-spin-disabled;
+    .nv-input-number__decrease {
+      left: 1px;
+      right: auto;
+      border-right: 1px solid $color-line;
+      border-top-left-radius: $input-radius;
+      border-bottom-left-radius: $input-radius;
+
+      &::after {
+        content: '\e903';
+      }
+    }
+
+    .nv-input-number__increase {
+      left: auto;
+      right: 1px;
+      border-left: 1px solid $color-line;
+      border-top-right-radius: $input-radius;
+      border-bottom-right-radius: $input-radius;
+
+      &::after {
+        content: '\e902';
+      }
     }
   }
 }
