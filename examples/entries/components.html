@@ -79,9 +79,33 @@
       </nav>
     </aside>
     <div class="app-container">
-      <div class="app-viewport" id="container"></div>
+      <div class="app-viewport">
+        <ul class="doc-tabs">
+          <li class="doc-tabs__item doc-tabs--actived" data-target="native"><a>Native</a></li>
+          <li class="doc-tabs__item" data-target="vue"><a>Vue</a></li>
+        </ul>
+        <div class="doc-panel doc-panel--actived" id="container-native"></div>    
+        <div class="doc-panel" id="container-vue"></div>    
+      </div>
     </div>
   </div>
+  <script src="https://cdn.bootcss.com/vue/2.5.17/vue.min.js"></script>
+  <script>
+    var $tabs = document.querySelectorAll('.doc-tabs__item')
+    var $panels = document.querySelectorAll('.doc-panel')
+    $tabs.forEach(function(tab) {
+      tab.addEventListener('click', function () {
+        $tabs.forEach(function(_tab) {
+          _tab.classList.remove('doc-tabs--actived')
+        })
+        $panels.forEach(function(panel) {
+          panel.classList.remove('doc-panel--actived')
+        })
+        tab.classList.add('doc-tabs--actived')
+        let target = tab.getAttribute('data-target')
+        document.getElementById('container-' + target).classList.add('doc-panel--actived')
+      })
+    })
+  </script>  
 </body>
-
 </html>

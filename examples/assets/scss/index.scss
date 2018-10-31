@@ -147,7 +147,7 @@ $container-width: 100% !default;
 }
 
 .app-container .app-viewport {
-  padding: 40px 2rem;
+  padding: 20px 0;
 
   section {
     > h1 {
@@ -289,5 +289,58 @@ $container-width: 100% !default;
     .nv-btn {
       margin: 0 20px;
     }
+  }
+}
+
+// 页面tabs
+.doc-tabs {
+  list-style: none;
+  margin: 0 0 1rem 0;
+  padding: 0;
+  border-bottom: 2px solid #dce3f3;
+  user-select: none;
+
+  .doc-tabs__item {
+    display: inline-flex;
+    border: 1px solid #dce3f3;
+    border-bottom-color: transparent;
+    font-size: 1rem;
+    margin-left: -1px;
+    position: relative;
+    cursor: pointer;
+
+    a {
+      display: block;
+      padding: 10px 2rem;
+      position: relative;
+      z-index: 2;
+      color: #464c5b;
+    }
+
+    &.doc-tabs--actived {
+      a {
+        color: #257cef;
+      }
+
+      &::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: -3px;
+        background-color: #fff;
+        z-index: 1;
+      }
+    }
+  }
+}
+
+.doc-panel {
+  padding: 20px 2rem;
+  display: none;
+
+  &.doc-panel--actived {
+    display: block;
   }
 }

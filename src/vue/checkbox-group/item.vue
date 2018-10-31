@@ -1,0 +1,43 @@
+<template>
+  <label role="checkbox" class="nv-check-item" :tabindex="disabled ? -1 : 0">
+    <input type="checkbox" :name="name" :value="label" :disabled="disabled" v-model="value">
+    <span class="nv-check__btn"><slot></slot></span>
+  </label>
+</template>
+<script>
+  export default {
+    name: 'NvCheckboxItem',
+    props: {
+      label: {
+        type: [String, Number, Boolean],
+        required: true
+      },
+      disabled: Boolean
+    },
+    computed: {
+      _checkboxGroup() {
+        let parent = this.$parent
+        while (parent) {
+          let componentName = parent.$options.componentName || parent.$options.name 
+          if (componentName !== 'NvCheckboxGroup') {
+            parent = parent.$parent
+          } else {
+            return parent
+          }
+        }
+        return false
+      },
+      name () {
+        return this._checkboxGroup.name
+      },
+      value: {
+        get () {
+          return this._checkboxGroup.value
+        },
+        set (value) {
+          this._checkboxGroup.$emit('input', value)
+        }
+      }
+    }
+  }
+</script>
