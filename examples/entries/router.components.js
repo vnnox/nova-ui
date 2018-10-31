@@ -10,13 +10,18 @@ const Breadcrumb = require('../docs/components/breadcrumb.md')
 const Badge = require('../docs/components/badge.md')
 const InputNumber = require('../docs/components/input-number.md')
 
+const RadioVue = require('../docs/components/vue/radio.md')
+const CheckboxVue = require('../docs/components/vue/checkbox.md')
 
 
-const $contianer = document.getElementById('container')
 
-function setPage (page, title, cb) {
+const $contianerNative = document.getElementById('container-native')
+const $contianerVue = document.getElementById('container-vue')
+
+function setPage (pages, title, cb) {
   return function () {
-    $contianer.innerHTML = page
+    $contianerNative.innerHTML = pages.native
+    $contianerVue.innerHTML = pages.vue || '同原生用法'
     document.title = `${title} | Nova UI Components`
     setTimeout(() => {
       cb && typeof cb === 'function' && cb()
@@ -28,10 +33,23 @@ function setPage (page, title, cb) {
 function runScript () {
   let $code = document.querySelectorAll('.code-view')
   Array.prototype.slice.call($code).forEach(el => {
-    let code = JSON.parse(el.getAttribute('data-eval'))
-    if (code.script) {
-      var source = new Function(code.script)
-      source()
+    let codeNative = el.getAttribute('data-eval')
+    let codeVue = el.getAttribute('data-vue-eval')
+    if (codeNative) {
+      codeNative = JSON.parse(codeNative)
+      if (codeNative.script) {
+        var source = new Function(codeNative.script)
+        source()
+      }
+    }
+
+    if (codeVue) {
+      codeVue = JSON.parse(codeVue)
+      let scripts = codeVue.script
+      let source = scripts || Object.create(null)
+      let $container = el.querySelector('.code-view__view')
+      let vm = new window.Vue(source).$mount()
+      $container.appendChild(vm.$el)
     }
   })
 }
@@ -52,15 +70,35 @@ export const router = new Router(routerChange)
 
 router
   .set('/')
-  .set('/button', setPage(Button, 'Button'))
-  .set('/input', setPage(Input, 'Input'))
-  .set('/checkbox', setPage(Checkbox, 'Checkbox'))
-  .set('/radio', setPage(Radio, 'Radio'))
-  .set('/switch', setPage(Switch, 'Switch'))
-  .set('/breadcrumb', setPage(Breadcrumb, 'Breadcrumb'))
-  .set('/badge', setPage(Badge, 'Badge'))
-  .set('/modal', setPage(Modal, 'Modal', runScript))
-  .set('/input-number', setPage(InputNumber, 'InputNumber', runScript))
+  .set('/button', setPage({
+    native: Button
+  }, 'Button'))
+  .set('/input', setPage({
+    native: Input
+  }, 'Input'))
+  .set('/checkbox', setPage({
+    native: Checkbox,
+    vue: CheckboxVue
+  }, 'Checkbox', runScript))
+  .set('/radio', setPage({
+    native: Radio,
+    vue: RadioVue
+  }, 'Radio', runScript))
+  .set('/switch', setPage({
+    native: Switch
+  }, 'Switch'))
+  .set('/breadcrumb', setPage({
+    native: Breadcrumb
+  }, 'Breadcrumb'))
+  .set('/badge', setPage({
+    native: Badge
+  }, 'Badge'))
+  .set('/modal', setPage({
+    native: Modal
+  }, 'Modal', runScript))
+  .set('/input-number', setPage({
+    native: InputNumber
+  }, 'InputNumber', runScript))
   .init()
 
 

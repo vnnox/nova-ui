@@ -4,6 +4,9 @@ const md = require('markdown-it')()
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin')
+const VueLoaderPlugin = require('vue-loader/lib/plugin')
+const Babel = require('@babel/core')
+
 //const CopyWebpackPlugin = require('copy-webpack-plugin')
 
 function convert(str) {
@@ -21,7 +24,8 @@ module.exports = env => {
     entry: {
       index: path.resolve(__dirname, '../examples/entries/index.js'),
       docs: path.resolve(__dirname, '../examples/entries/docs.js'),
-      components: path.resolve(__dirname, '../examples/entries/components.js')
+      components: path.resolve(__dirname, '../examples/entries/components.js'),
+      'ui.vue': path.resolve(__dirname, '../src/vue/index.js'),
     },
     output: {
       publicPath: '/',
@@ -30,12 +34,23 @@ module.exports = env => {
       chunkFilename: isProd ? 'assets/js/[name]-[hash:7].js' : 'assets/js/[name].js'
     },
     devtool: isProd ? false : 'source-map',
+    resolve: {
+      extensions: ['.js', '.vue', '.json'],
+      alias: {
+        'vue$': 'vue/dist/vue.esm.js',
+        '@': path.resolve(__dirname, '../src')
+      }
+    },
     module: {
       rules: [
         {
+          test: /\.vue$/,
+          loader: 'vue-loader'
+        },
+        {
           test: /\.js$/,
           loader: 'babel-loader',
-          exclude: /node_modules/
+          exclude: /node_modules/,
         },
         {
           test: /\.md$/,
@@ -78,11 +93,62 @@ module.exports = env => {
                           let content = tokens[index + 1].content
                           let html = convert(striptags.strip(content, ['script', 'style'])).replace(/(<[^>]*)=""(?=.*>)/g, '$1')
                           let script = striptags.fetch(content, 'script')
-                          let style = striptags.fetch(content, 'style')
+                          // let style = striptags.fetch(content, 'style')
                           description = description ? `<div class="code-view__describe">${md.render(description)}</div>` : ''
-                          let evalCode = JSON.stringify({ style, script })
+                          let evalCode = JSON.stringify({  script })
                           return `<div class="code-view" data-eval="${md.utils.escapeHtml(evalCode)}">
                             <div class="code-view__view">${html}</div>
+                            <div class="code-view__detail">
+                              ${description}
+                              <div class="code-view__source">`
+                        }
+                        return ` </div>\n</div>
+                        <button type="button" class="code-view__ctrl">Source Code</button>
+                        </div>\n`
+                      }
+                    }
+                  ],
+                  [
+                    require('markdown-it-container'),
+                    'vue-demo',
+                    {
+                      validate(params) {
+                        return params.trim().match(/^vue-demo\s*(.*)$/)
+                      },
+                      render(tokens, index) {
+                        let token = tokens[index]
+                        if (token.nesting === 1) {
+                          const m = token.info.trim().match(/^vue-demo\s*(.*)$/)
+
+                          let description = (m && m.length > 1) ? m[1] : ''
+                          let content = tokens[index + 1].content
+                          // let html = convert(striptags.strip(content, ['script', 'style', 'template'])).replace(/(<[^>]*)=""(?=.*>)/g, '$1')
+                          let script = striptags.fetch(content, 'script')
+                          let sourceCode = Babel.transform(script, {
+                            presets: ['@babel/preset-env'],
+                            sourceType: 'module'
+                          })
+                          let scriptCode = Object.create(null)
+                          try {
+                            let code = `
+                              var exports = Object.create(null);
+                              ${sourceCode.code}
+                              return exports;
+                            `
+                            let res = (new Function(code))()
+                            scriptCode = res.default
+                            if (scriptCode.data && typeof scriptCode.data === 'function') {
+                              scriptCode.data = scriptCode.data()
+                            }
+                          } catch (error) {
+                            console.log(error)
+                          }
+                          scriptCode.template = striptags.fetch(content, 'template')
+                          // let style = striptags.fetch(content, 'style')
+                          description = description ? `<div class="code-view__describe">${md.render(description)}</div>` : ''
+                          let evalCode = JSON.stringify({ script:scriptCode })
+                          return `<div class="code-view" data-vue-eval="${md.utils.escapeHtml(evalCode)}">
+                            <div class="code-view__view"></div>
                             <div class="code-view__detail">
                               ${description}
                               <div class="code-view__source">`
@@ -130,9 +196,17 @@ module.exports = env => {
           novaui: {
             test: /[\\/]src[\\/]/,
             name: 'nova.ui',
-            chunks: 'all',
+            chunks(chunk) {
+              return chunk.name !== 'ui.vue'
+            },
             minSize: 1
-          }
+          },
+          // novauivue: {
+          //   test: /[\\/]src[\\/]vue[\\/]/,
+          //   name: 'nova.ui.vue',
+          //   chunks: 'all',
+          //   minSize: 1
+          // }
         }
       }
     },
@@ -152,7 +226,7 @@ module.exports = env => {
           minifyJS: true
         },
         chunksSortMode: 'dependency',
-        chunks: ['index', 'nova.ui']
+        chunks: ['index', 'nova.ui', 'ui.vue']
       }),
 
       new HtmlWebpackPlugin({
@@ -167,7 +241,7 @@ module.exports = env => {
           minifyJS: true
         },
         chunksSortMode: 'dependency',
-        chunks: ['docs', 'template', 'nova.ui']
+        chunks: ['docs', 'template', 'nova.ui', 'ui.vue']
       }),
 
       new HtmlWebpackPlugin({
@@ -182,7 +256,7 @@ module.exports = env => {
           minifyJS: true
         },
         chunksSortMode: 'dependency',
-        chunks: ['components', 'template', 'nova.ui']
+        chunks: [ 'template', 'nova.ui', 'ui.vue', 'components',]
       }),
 
       new MiniCssExtractPlugin({
@@ -191,6 +265,8 @@ module.exports = env => {
       }),
 
       new OptimizeCSSPlugin({ safe: true, map: false, discardComments: { removeAll: true } }),
+
+      new VueLoaderPlugin(),
     ]
   }
 }
