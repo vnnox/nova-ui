@@ -3,7 +3,7 @@
 </template>
 <script>
   export default {
-    name: 'NvRadioGroup',
+    name: 'nv-radio-group',
     props: {
       value: [String, Number, Boolean],
       name: {

@@ -128,25 +128,27 @@ module.exports = env => {
                             presets: ['@babel/preset-env'],
                             sourceType: 'module'
                           })
-                          let scriptCode = Object.create(null)
-                          try {
-                            let code = `
-                              var exports = Object.create(null);
-                              ${sourceCode.code}
-                              return exports;
-                            `
-                            let res = (new Function(code))()
-                            scriptCode = res.default
-                            if (scriptCode.data && typeof scriptCode.data === 'function') {
-                              scriptCode.data = scriptCode.data()
-                            }
-                          } catch (error) {
-                            console.log(error)
-                          }
-                          scriptCode.template = striptags.fetch(content, 'template')
+                          // console.log(sourceCode)
+                          // let scriptCode = Object.create(null)
+                          // try {
+                          //   let code = `
+                          //     var exports = Object.create(null);
+                          //     ${sourceCode.code}
+                          //     return exports;
+                          //   `
+                          //   // let res = (new Function(code))()
+                          //   // scriptCode = res.default
+                          //   // if (scriptCode.data && typeof scriptCode.data === 'function') {
+                          //   //   scriptCode.data = scriptCode.data()
+                          //   // }
+                          // } catch (error) {
+                          //   console.log(error)
+                          // }
+                          let template = striptags.fetch(content, 'template')
+                          let evalCode = JSON.stringify({code: sourceCode.code, template})
                           // let style = striptags.fetch(content, 'style')
                           description = description ? `<div class="code-view__describe">${md.render(description)}</div>` : ''
-                          let evalCode = JSON.stringify({ script:scriptCode })
+    
                           return `<div class="code-view" data-vue-eval="${md.utils.escapeHtml(evalCode)}">
                             <div class="code-view__view"></div>
                             <div class="code-view__detail">

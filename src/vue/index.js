@@ -2,6 +2,9 @@ import Radio from './radio'
 import RadioGroups from './radio-group'
 import Checkbox from './checkbox'
 import CheckboxGroups from './checkbox-group'
+import Switch from './switch'
+import InputNumber from './input-number'
+
 
 const RadioGroup = RadioGroups.NvRadioGroup
 const RadioItem = RadioGroups.NvRadioItem
@@ -15,6 +18,8 @@ const components = [
   Checkbox,
   CheckboxGroup,
   CheckboxItem,
+  Switch,
+  InputNumber,
 ]
 
 const Vue = window.Vue
@@ -31,4 +36,6 @@ export default {
   Checkbox,
   CheckboxGroup,
   CheckboxItem,
+  Switch,
+  InputNumber
 }

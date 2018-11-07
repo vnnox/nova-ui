@@ -424,6 +424,7 @@ export class InputNumber extends Events {
     unbindEvents.call(this)
     this.states.$el && this.states.$el.parentNode && this.states.$el.parentNode.removeChild(this.states.$el)
     this.states = null
+    this.props = null
     this._events = null
   }
 }

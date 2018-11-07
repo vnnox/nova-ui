@@ -1,8 +1,17 @@
-.nv-input-number {
+// 用于vue的包裹容器
+.nv-input-number--wrap {
   position: relative;
   margin: 0;
   padding: 0;
   display: inline-block;
+
+  + .nv-input-number--wrap {
+    margin-left: 20px;
+  }
+}
+
+.nv-input-number {
+  @extend .nv-input-number--wrap;
 
   + .nv-input-number {
     margin-left: 20px;
