@@ -6,7 +6,7 @@
 </template>
 <script>
   export default {
-    name: 'NvCheckboxItem',
+    name: 'nv-checkbox-item',
     props: {
       label: {
         type: [String, Number, Boolean],
@@ -19,7 +19,7 @@
         let parent = this.$parent
         while (parent) {
           let componentName = parent.$options.componentName || parent.$options.name 
-          if (componentName !== 'NvCheckboxGroup') {
+          if (componentName !== 'nv-checkbox-group') {
             parent = parent.$parent
           } else {
             return parent

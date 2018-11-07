@@ -1,13 +1,14 @@
 <template>
   <label class="nv-checkbox" role="checkbox" :tabindex="disabled ? -1 : 0">
     <input type="checkbox" :name="name" :value="label" v-model="val" :disabled="disabled" @change="change">
+    <span class="nv-checkbox__label" v-if="$slots.before"><slot name="before"></slot></span>
     <i class="nv-checkbox__icon"></i>
-    <span class="nv-checkbox__label"><slot></slot></span>
+    <span class="nv-checkbox__label" v-if="$slots.default"><slot></slot></span>
   </label>
 </template>
 <script>
   export default {
-    name: 'NvCheckbox',
+    name: 'nv-checkbox',
     props: {
       value: {},
       label: {

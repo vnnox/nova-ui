@@ -1,13 +1,14 @@
 <template>
   <label class="nv-radio" role="radio" :tabindex="disabled ? -1 : 0">
     <input type="radio" :name="name" :value="label" v-model="val" @change="change" :disabled="disabled" />
+    <span class="nv-radio__label" v-if="$slots.before"><slot name="before"></slot></span>
     <i class="nv-radio__icon"></i>
-    <span class="nv-radio__label"><slot></slot></span>
+    <span class="nv-radio__label" v-if="$slots.default"><slot></slot></span>
   </label>
 </template>
 <script>
   export default {
-    name: 'NvRadio',
+    name: 'nv-radio',
     props: {
       value: [String, Number, Boolean],
       label: {

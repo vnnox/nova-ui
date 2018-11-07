@@ -3,7 +3,7 @@
 </template>
 <script>
   export default {
-    name: 'NvCheckboxGroup',
+    name: 'nv-checkbox-group',
     props: {
       value: {},
       name: String,
