@@ -364,6 +364,7 @@ $container-width: 100% !default;
     margin: 1rem 0;
     padding: 0;
     font-size: 2rem;
+
     li {
       width: 1 / 6 * 100%;
       padding: 1rem .5rem;
@@ -378,10 +379,20 @@ $container-width: 100% !default;
       i {
         font-size: inherit;
       }
+
       span {
         font-size: 12px;
         margin-top: 10px;
       }
     }
   }
+}
+
+// dmo
+.table-demo-thumb {
+  width: 40px;
+  height: 40px;
+  display: inline-block;
+  margin: 0;
+  background-color: rgb(183, 180, 204);
 }
