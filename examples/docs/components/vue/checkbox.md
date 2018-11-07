@@ -8,6 +8,7 @@
   <div>
     <nv-checkbox name="demo-vue" :label="2" v-model="value">可用</nv-checkbox>
     <nv-checkbox name="demo-vue" :label="2" v-model="value2" disabled>禁用</nv-checkbox>
+    <nv-checkbox name="demo-vue" :label="2" v-model="value3"><span slot="before">文字在前，图标在后</span></nv-checkbox>
   </div>  
 </template>
 <script>
@@ -15,7 +16,8 @@
     data() {
       return {
         value: true,
-        value2: true
+        value2: true,
+        value3: true
       }
     }
   }

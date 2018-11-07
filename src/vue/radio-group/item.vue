@@ -6,7 +6,7 @@
 </template>
 <script>
   export default {
-    name: 'NvRadioItem',
+    name: 'nv-radio-item',
     props: {
       label: {
         type: [String, Number, Boolean],
@@ -19,7 +19,7 @@
         let parent = this.$parent
         while (parent) {
           let componentName = parent.$options.componentName || parent.$options.name 
-          if (componentName !== 'NvRadioGroup') {
+          if (componentName !== 'nv-radio-group') {
             parent = parent.$parent
           } else {
             return parent

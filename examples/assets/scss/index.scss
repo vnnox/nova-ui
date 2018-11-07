@@ -6,7 +6,7 @@ $container-width: 100% !default;
   width: 100%;
   top: 0;
   left: 0;
-  background-color: rgba(white, .75);
+  background-color: rgba(white, .9);
   z-index: 100;
   box-shadow: 0 2px 8px #f0f1f2;
 
@@ -67,7 +67,7 @@ $container-width: 100% !default;
 
 .app-main {
   width: $container-width;
-  padding: 60px 0 0 0;
+  padding: 0;
   margin: 0 auto;
   height: 100vh;
   position: relative;
@@ -81,6 +81,7 @@ $container-width: 100% !default;
     overflow: hidden;
     padding-left: 2rem;
     border-right: 1px solid #f0f1f2;
+    padding-top: 60px;
   }
 
   .app-aside__nav {
@@ -142,7 +143,9 @@ $container-width: 100% !default;
     width: 1px;
     flex: 1 1 auto;
     height: 100%;
-    overflow: auto;
+    overflow-x: hidden;
+    overflow-y: auto;
+    padding-top: 60px;
   }
 }
 
@@ -294,43 +297,39 @@ $container-width: 100% !default;
 
 // 页面tabs
 .doc-tabs {
+  display: inline-block;
   list-style: none;
-  margin: 0 0 1rem 0;
+  margin: -20px 0 1rem 0;
   padding: 0;
-  border-bottom: 2px solid #dce3f3;
   user-select: none;
+  position: sticky;
+  top: -60px;
+  z-index: 101;
 
   .doc-tabs__item {
     display: inline-flex;
-    border: 1px solid #dce3f3;
-    border-bottom-color: transparent;
+    // border: 1px solid #f0f1f2;
+    border-bottom: none;
     font-size: 1rem;
     margin-left: -1px;
     position: relative;
     cursor: pointer;
 
     a {
+      height: 60px;
+      line-height: 30px;
       display: block;
-      padding: 10px 2rem;
+      padding: 15px 2.5rem;
       position: relative;
       z-index: 2;
       color: #464c5b;
     }
 
     &.doc-tabs--actived {
+      border-bottom: 2px solid #257cef;
+
       a {
         color: #257cef;
-      }
-
-      &::after {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: -3px;
-        background-color: #fff;
-        z-index: 1;
       }
     }
   }
@@ -342,5 +341,47 @@ $container-width: 100% !default;
 
   &.doc-panel--actived {
     display: block;
+  }
+}
+
+.icon-lists {
+  .icon-font-adjust {
+    text-align: right;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+
+    span {
+      display: inline-block;
+      margin-left: 10px;
+    }
+  }
+
+  .icon-rows {
+    display: flex;
+    flex-flow: row wrap;
+    list-style: none;
+    margin: 1rem 0;
+    padding: 0;
+    font-size: 2rem;
+    li {
+      width: 1 / 6 * 100%;
+      padding: 1rem .5rem;
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid #dce3f3;
+      margin-top: -1px;
+      margin-left: -1px;
+
+      i {
+        font-size: inherit;
+      }
+      span {
+        font-size: 12px;
+        margin-top: 10px;
+      }
+    }
   }
 }
