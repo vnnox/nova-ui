@@ -10,7 +10,9 @@ const Modal = require('../docs/components/modal.md')
 const Breadcrumb = require('../docs/components/breadcrumb.md')
 const Badge = require('../docs/components/badge.md')
 const InputNumber = require('../docs/components/input-number.md')
+const Table = require('../docs/components/table.md')
 
+// VUE
 const RadioVue = require('../docs/components/vue/radio.md')
 const CheckboxVue = require('../docs/components/vue/checkbox.md')
 const SwitchVue = require('../docs/components/vue/switch.md')
@@ -156,6 +158,9 @@ router
     native: InputNumber,
     vue: InputNumberVue
   }, 'InputNumber', runScript))
+  .set('/table', setPage({
+    native: Table,
+  }, 'Table', runScript))
   .init()
 
 
