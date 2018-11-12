@@ -11,6 +11,8 @@ const Breadcrumb = require('../docs/components/breadcrumb.md')
 const Badge = require('../docs/components/badge.md')
 const InputNumber = require('../docs/components/input-number.md')
 const Table = require('../docs/components/table.md')
+const Tree = require('../docs/components/tree.md')
+
 
 // VUE
 const RadioVue = require('../docs/components/vue/radio.md')
@@ -161,6 +163,9 @@ router
   .set('/table', setPage({
     native: Table,
   }, 'Table', runScript))
+  .set('/tree', setPage({
+    native: Tree,
+  }, 'Tree', runScript))
   .init()
 
 

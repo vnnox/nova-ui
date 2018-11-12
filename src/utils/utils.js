@@ -291,14 +291,14 @@ export const throwError = (message,  type) => {
   message = `[NOVA.UI.ERROR] ${message.toString()}`
   let method
   switch (type) {
-  case 'type':
-    method = TypeError
-    break
-  case 'range':
-    method = RangeError
-    break
-  default:
-    method = Error
+    case 'type':
+      method = TypeError
+      break
+    case 'range':
+      method = RangeError
+      break
+    default:
+      method = Error
   }
   throw new method(message)
 }

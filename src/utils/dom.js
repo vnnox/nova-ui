@@ -204,6 +204,13 @@ export const getScrollbarWidth = () => {
 }
 
 
+/**
+ * 安全的移除元素
+ * @param {*} el 
+ */
+export const removeNode = el => el && el.parentNode && el.parentNode.removeChild(el)
+
+
 export default {
   bind,
   unbind,
@@ -214,5 +221,6 @@ export default {
   qsa,
   proxy,
   addClass,
-  getScrollbarWidth
+  getScrollbarWidth,
+  removeNode
 }
