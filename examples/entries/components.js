@@ -4,8 +4,15 @@ document.getElementById('head').innerHTML = require('html-loader?interpolate!./h
 require('./router.components')
 
 import InputNumber from '../../src/components/input-number'
+import Tree from '../../src/components/tree'
+import Dom from '../../src/utils/dom'
+
+
 
 const Nova = Object.create(null)
 Nova.InputNumber = InputNumber
+Nova.Tree = Tree
+Nova.Dom = Dom 
+
 
 window.Nova = Nova
