@@ -1,0 +1,163 @@
+.nv-select {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  max-width: 100%;
+
+  &::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-bottom: 8px solid $color-spin;
+    border-left: 8px solid transparent;
+    right: 3px;
+    bottom: 3px;
+    z-index: 1;
+  }
+
+  &:not(.nv-disabled) {
+    cursor: pointer;
+  }
+
+  .nv-select__value {
+    width: 100%;
+    padding-right: 30px;
+  }
+
+  &.show-clean .nv-select__value {
+    padding-right: 50px;
+  }
+
+  .nv-select__value:not([disabled]) {
+    cursor: pointer;
+    user-select: none;
+  }
+
+  &.nv-disabled {
+    cursor: not-allowed;
+
+    &::after {
+      opacity: .4;
+    }
+  }
+
+  // .nv-select__btn {
+  //   color: $color-icon;
+  //   .nv-icon-circle-close{
+  //     display: none;
+  //   }
+  //   .nv-icon-arrow-bottom {
+  //     transition: transform .2s;
+  //     position: relative;
+  //     top: 1px;
+  //   }
+  // }
+
+  // &.show-clean:hover {
+  //   .nv-select__btn {
+  //     .nv-icon-circle-close{
+  //       display: block;
+  //     }
+  //     .nv-icon-arrow-down {
+  //       display: none
+  //     }
+  //   }
+  // }
+  // &.nv-select--open {
+  //   .nv-select__btn {
+  //     .nv-icon-arrow-down {
+  //       transform: rotate(-180deg);
+  //       top: 0;
+  //     }
+  //   }
+  // }
+  // &.nv-disabled {
+  //   user-select: none;
+  //   .nv-select__btn {
+  //     color: $color-line-dark;
+  //   }
+  // }
+}
+
+.nv-select-picker {
+  font-size: $font-size-base;
+  color: $color-text;
+  user-select: none;
+  padding: 8px 0;
+  overflow: hidden;
+
+  .select-options__wrap {
+    max-height: 260px;
+    overflow-y: auto;
+    position: relative;
+  }
+
+  .nv-select__options {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    position: relative;
+    z-index: 1;
+  }
+
+  .nv-select__option {
+    height: 30px;
+    line-height: 20px;
+    padding: 5px 12px;
+    cursor: pointer;
+    transition: all .2s ease-in;
+
+    &:not(.nv-disabled):hover {
+      background-color: $color-select-hover;
+      color: $color-primary;
+    }
+
+    &.nv-hover {
+      background-color: $color-select-hover;
+    }
+
+    &.nv-actived {
+      color: $color-primary;
+      font-weight: bold;
+    }
+
+    &.nv-disabled {
+      color: $color-text-disabled;
+      cursor: not-allowed;
+      background-color: transparent;
+    }
+  }
+
+  // 分组
+  .nv-select__group {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    position: relative;
+    z-index: 1;
+
+    &:not(:last-of-type) {
+      padding-bottom: 24px;
+
+      &::after {
+        background-color: $color-line;
+        bottom: 12px;
+        content: '';
+        display: block;
+        height: 1px;
+        left: 12px;
+        position: absolute;
+        right: 12px;
+      }
+    }
+
+    .nv-select__title {
+      color: $color-placeholder;
+      font-size: 12px;
+      line-height: 30px;
+      margin: 0;
+      padding: 0 12px;
+    }
+  }
+}

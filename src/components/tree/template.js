@@ -20,6 +20,15 @@ export const skeletonTpl = `
 </li>
 `
 
+export const noDataTpl = `
+<li class="nv-tree__empty"><%=noDataText%></li>
+`
+
+export const noMatchDataTpl = `
+<li class="nv-tree__empty no-match"><%=noMatchDataText%></li>
+`
+
 export default {
-  skeletonTpl
+  skeletonTpl,
+  noDataTpl
 }

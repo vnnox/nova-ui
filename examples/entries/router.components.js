@@ -12,6 +12,8 @@ const Badge = require('../docs/components/badge.md')
 const InputNumber = require('../docs/components/input-number.md')
 const Table = require('../docs/components/table.md')
 const Tree = require('../docs/components/tree.md')
+const Select = require('../docs/components/select.md')
+
 
 
 // VUE
@@ -19,6 +21,8 @@ const RadioVue = require('../docs/components/vue/radio.md')
 const CheckboxVue = require('../docs/components/vue/checkbox.md')
 const SwitchVue = require('../docs/components/vue/switch.md')
 const InputNumberVue = require('../docs/components/vue/input-number.md')
+const TreeVue = require('../docs/components/vue/tree.md')
+const SelectVue = require('../docs/components/vue/select.md')
 
 
 // 每次icon图标改变的时候需要同时维护该数组
@@ -165,7 +169,12 @@ router
   }, 'Table', runScript))
   .set('/tree', setPage({
     native: Tree,
+    vue: TreeVue
   }, 'Tree', runScript))
+  .set('/select', setPage({
+    native: Select,
+    vue: SelectVue
+  }, 'Select', runScript))
   .init()
 
 
