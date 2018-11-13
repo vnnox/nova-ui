@@ -1,0 +1,122 @@
+.nv-table {
+  width: 100%;
+  min-width: 100%;
+  border-collapse: collapse;
+  border-spacing: 0;
+  background-color: white;
+
+  td,
+  th {
+    font-size: $font-size-base;
+    vertical-align: middle;
+    box-sizing: border-box;
+    padding: 10px;
+    position: relative;
+
+    &::after {
+      content: '';
+      width: 100%;
+      height: 1px;
+      background-color: $color-line;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+    }
+
+    .nv-table__cell {
+      display: inline-flex;
+      flex-flow: column;
+      width: 100%;
+      max-width: 100%;
+      min-height: 20px;
+      line-height: 20px;
+      white-space: normal;
+      align-items: flex-start;
+      justify-content: center;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    &[align="left"] .nv-table__cell {
+      text-align: left;
+      align-items: flex-start;
+    }
+
+    &[align="center"] .nv-table__cell {
+      text-align: center;
+      align-items: center;
+    }
+
+    &[align="right"] .nv-table__cell {
+      text-align: right;
+      align-items: flex-end;
+    }
+  }
+
+  thead th {
+    font-weight: bold;
+    white-space: nowrap;
+
+    .nv-table__cell {
+      white-space: nowrap;
+      min-height: 20px;
+      line-height: 20px;
+    }
+  }
+
+  // 多行
+  &.nv-table--multiline {
+    tbody td {
+      .nv-table__cell {
+        min-height: 50px;
+
+        p {
+          margin: 0;
+          padding: 0;
+        }
+      }
+    }
+  }
+
+  // 斑马纹
+  &.nv-table--striped {
+    thead {
+      tr {
+        background-color: $color-table-thead-bg;
+      }
+
+      th {
+        border-top: 1px solid $color-line;
+
+        &:not(:first-child)::before {
+          content: '';
+          position: absolute;
+          top: 10px;
+          bottom: 10px;
+          width: 1px;
+          left: 0;
+          background-color: $color-line;
+        }
+      }
+    }
+
+    tbody {
+      tr:nth-of-type(even) {
+        background-color: $color-table-even-bg;
+
+        &:hover,
+        &.nv-selected {
+          background-color: $color-table-hover;
+        }
+      }
+    }
+  }
+
+  tbody {
+    tr:hover,
+    tr.nv-selected {
+      background-color: $color-table-hover;
+    }
+  }
+}

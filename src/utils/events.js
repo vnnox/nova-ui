@@ -14,10 +14,11 @@
 
 import { isFunction } from './utils'
 
+
 /**
  * 发布订阅器类
- * @author smohan(mengxw@novastar.tech)
- * @date 2018-10-29
+ * 事件基类
+ * @date 2018-11-08
  * @export
  * @class Events
  */
@@ -25,8 +26,7 @@ export class Events {
 
   /**
    * Creates an instance of Events.
-   * @author smohan(mengxw@novastar.tech)
-   * @date 2018-10-29
+   * @date 2018-11-08
    * @memberof Events
    */
   constructor() {
@@ -36,8 +36,7 @@ export class Events {
 
   /**
    * 注册事件
-   * @author smohan(mengxw@novastar.tech)
-   * @date 2018-10-29
+   * @date 2018-11-08
    * @param {*} name
    * @param {*} handle
    * @param {*} context
@@ -60,8 +59,7 @@ export class Events {
 
   /**
    * 解绑事件
-   * @author smohan(mengxw@novastar.tech)
-   * @date 2018-10-29
+   * @date 2018-11-08
    * @param {*} name
    * @param {*} handle
    * @param {*} context
@@ -101,8 +99,7 @@ export class Events {
 
   /**
    * 一次性事件绑定
-   * @author smohan(mengxw@novastar.tech)
-   * @date 2018-10-29
+   * @date 2018-11-08
    * @param {*} name
    * @param {*} handle
    * @param {*} context
@@ -126,8 +123,7 @@ export class Events {
 
   /**
    * 触发事件
-   * @author smohan(mengxw@novastar.tech)
-   * @date 2018-10-29
+   * @date 2018-11-08
    * @param {*} name
    * @param {*} args
    * @returns
@@ -150,8 +146,7 @@ export class Events {
   
   /**
    * 销毁
-   * @author smohan(mengxw@novastar.tech)
-   * @date 2018-10-29
+   * @date 2018-11-08
    * @memberof Events
    */
   destroy() {

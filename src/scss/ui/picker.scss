@@ -1,0 +1,95 @@
+.nv-picker {
+  position: absolute;
+  line-height: 1.4;
+  text-align: justify;
+  z-index: 19900206;
+
+  .nv-picker__body {
+    background-color: white;
+    border: 1px solid $color-line;
+    box-shadow: 0 0 10px 0 rgba(24, 91, 193, .25);
+    padding: 0;
+    margin: 0;
+    min-width: 120px;
+    min-height: 40px;
+  }
+
+  .nv-picker__arrow {
+    background-color: white;
+    width: 9px;
+    height: 9px;
+    transform: rotate(45deg);
+    position: absolute;
+    display: block;
+    border-color: transparent;
+    border-style: solid;
+  }
+
+  &[x-placement="top-start"],
+  &[x-placement="top"],
+  &[x-placement="top-end"] {
+    .nv-picker__arrow {
+      bottom: -4.5px;
+      box-shadow: 3px 3px 7px rgba(24, 91, 193, .07);
+    }
+  }
+
+  &[x-placement="bottom-start"],
+  &[x-placement="bottom"],
+  &[x-placement="bottom-end"] {
+    .nv-picker__arrow {
+      box-shadow: -2px -2px 5px rgba(24, 91, 193, .06);
+      top: -4.5px;
+    }
+  }
+
+  &[x-placement="left-start"],
+  &[x-placement="left"],
+  &[x-placement="left-end"] {
+    .nv-picker__arrow {
+      right: -4.5px;
+      box-shadow: 3px -3px 7px rgba(24, 91, 193, .07);
+    }
+  }
+
+  &[x-placement="right-start"],
+  &[x-placement="right"],
+  &[x-placement="right-end"] {
+    .nv-picker__arrow {
+      left: -4.5px;
+      box-shadow: -3px 3px 7px rgba(24, 91, 193, .07);
+    }
+  }
+
+  &[x-placement="top-start"] .nv-picker__arrow,
+  &[x-placement="bottom-start"] .nv-picker__arrow {
+    left: 16px;
+  }
+
+  &[x-placement="top"] .nv-picker__arrow,
+  &[x-placement="bottom"] .nv-picker__arrow {
+    left: 50%;
+    transform: translateX(-50%) rotate(45deg);
+  }
+
+  &[x-placement="top-end"] .nv-picker__arrow,
+  &[x-placement="bottom-end"] .nv-picker__arrow {
+    right: 16px;
+  }
+
+  &[x-placement="left-start"] .nv-picker__arrow,
+  &[x-placement="right-start"] .nv-picker__arrow {
+    top: 16px;
+  }
+
+  &[x-placement="left"] .nv-picker__arrow,
+  &[x-placement="right"] .nv-picker__arrow {
+    top: 50%;
+    transform: translateY(-50%) rotate(45deg);
+  }
+
+  &[x-placement="left-end"] .nv-picker__arrow,
+  &[x-placement="right-end"] .nv-picker__arrow {
+    bottom: 16px;
+  }
+}

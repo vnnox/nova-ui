@@ -15,7 +15,7 @@ import Events from '../../utils/events'
 import { isElement, throwError, mixins, isNumber, isNumberString } from '../../utils/utils'
 import { correctProps } from './utils'
 import template from '../../utils/template'
-import { addClass, qsa, bind, unbind } from '../../utils/dom'
+import { addClass, qsa, bind, unbind, removeNode } from '../../utils/dom'
 import { skeletonTpl } from './template'
 
 // 选择器
@@ -59,8 +59,6 @@ const defaults = {
 /**
  * render
  * @private
- * @author smohan(mengxw@novastar.tech)
- * @date 2018-10-29
  */
 function render() {
   const { states, props } = this
@@ -102,11 +100,9 @@ function render() {
 
 
 /**
- * input change
+ * input change 
  * @private
- * @author smohan(mengxw@novastar.tech)
- * @date 2018-10-29
- * @param {*} e
+ * @param {*} e 
  */
 function handleInputChange(e) {
   if (this.props.disabled) {
@@ -118,10 +114,7 @@ function handleInputChange(e) {
 
 /**
  * input keydown
- * @private
- * @author smohan(mengxw@novastar.tech)
- * @date 2018-10-29
- * @param {*} e
+ * @param {*} e 
  */
 function handleInputKeydown(e) {
   let code = e.keyCode
@@ -135,8 +128,7 @@ function handleInputKeydown(e) {
 
 /**
  * 绑定DOM事件
- * @author smohan(mengxw@novastar.tech)
- * @date 2018-10-29
+ * @private
  */
 function bindEvents() {
   const { states } = this
@@ -156,8 +148,6 @@ function bindEvents() {
 /**
  * 解绑DOM事件
  * @private
- * @author smohan(mengxw@novastar.tech)
- * @date 2018-10-29
  */
 function unbindEvents() {
   const { states } = this
@@ -172,10 +162,7 @@ function unbindEvents() {
 /**
  * 递增
  * @private
- * @author smohan(mengxw@novastar.tech)
- * @date 2018-10-29
- * @param {*} val
- * @returns
+ * @param {*} val 
  */
 function increase(val) {
   const { props, states } = this
@@ -192,10 +179,7 @@ function increase(val) {
 /**
  * 递减
  * @private
- * @author smohan(mengxw@novastar.tech)
- * @date 2018-10-29
- * @param {*} val
- * @returns
+ * @param {*} val 
  */
 function decrease(val) {
   const { props, states } = this
@@ -212,8 +196,6 @@ function decrease(val) {
 /**
  * 设置increase/decrease按钮禁用状态
  * @private
- * @author smohan(mengxw@novastar.tech)
- * @date 2018-10-29
  */
 function toggleBtnDisabled() {
   let { states, props } = this
@@ -233,11 +215,8 @@ function toggleBtnDisabled() {
 /**
  * 精确化值
  * @private
- * @author smohan(mengxw@novastar.tech)
- * @date 2018-10-29
- * @param {*} value
- * @param {*} precision
- * @returns
+ * @param {*} value 
+ * @param {*} precision 
  */
 function toPrecision(value, precision) {
   return parseFloat(parseFloat(Number(value).toFixed(precision)))
@@ -245,9 +224,8 @@ function toPrecision(value, precision) {
 
 
 /**
- * 数字输入框
- * @author smohan(mengxw@novastar.tech)
- * @date 2018-10-29
+ * 计数器组件
+ * @date 2018-11-08
  * @export
  * @class InputNumber
  * @extends {Events}
@@ -256,8 +234,7 @@ export class InputNumber extends Events {
 
   /**
    * Creates an instance of InputNumber.
-   * @author smohan(mengxw@novastar.tech)
-   * @date 2018-10-29
+   * @date 2018-11-08
    * @param {*} container
    * @param {*} options
    * @memberof InputNumber
@@ -280,8 +257,7 @@ export class InputNumber extends Events {
   /**
    * 初始化
    * 当配置文件改变时调用
-   * @author smohan(mengxw@novastar.tech)
-   * @date 2018-10-29
+   * @date 2018-11-08
    * @param {*} options
    * @memberof InputNumber
    */
@@ -297,8 +273,7 @@ export class InputNumber extends Events {
 
   /**
    * 设置值
-   * @author smohan(mengxw@novastar.tech)
-   * @date 2018-10-29
+   * @date 2018-11-08
    * @param {*} newValue
    * @memberof InputNumber
    */
@@ -340,8 +315,7 @@ export class InputNumber extends Events {
 
   /**
    * 获取值
-   * @author smohan(mengxw@novastar.tech)
-   * @date 2018-10-29
+   * @date 2018-11-08
    * @returns
    * @memberof InputNumber
    */
@@ -352,8 +326,7 @@ export class InputNumber extends Events {
 
   /**
    * 递增
-   * @author smohan(mengxw@novastar.tech)
-   * @date 2018-10-29
+   * @date 2018-11-08
    * @memberof InputNumber
    */
   increase() {
@@ -368,8 +341,7 @@ export class InputNumber extends Events {
 
   /**
    * 递减
-   * @author smohan(mengxw@novastar.tech)
-   * @date 2018-10-29
+   * @date 2018-11-08
    * @memberof InputNumber
    */
   decrease() {
@@ -384,8 +356,7 @@ export class InputNumber extends Events {
   
   /**
    * 禁用
-   * @author smohan(mengxw@novastar.tech)
-   * @date 2018-10-29
+   * @date 2018-11-08
    * @memberof InputNumber
    */
   disable() {
@@ -400,8 +371,7 @@ export class InputNumber extends Events {
 
   /**
    * 启用
-   * @author smohan(mengxw@novastar.tech)
-   * @date 2018-10-29
+   * @date 2018-11-08
    * @memberof InputNumber
    */
   enable() {
@@ -416,13 +386,12 @@ export class InputNumber extends Events {
 
   /**
    * 销毁
-   * @author smohan(mengxw@novastar.tech)
-   * @date 2018-10-29
+   * @date 2018-11-08
    * @memberof InputNumber
    */
   destroy() {
     unbindEvents.call(this)
-    this.states.$el && this.states.$el.parentNode && this.states.$el.parentNode.removeChild(this.states.$el)
+    removeNode(this.states.$el)
     this.states = null
     this.props = null
     this._events = null
