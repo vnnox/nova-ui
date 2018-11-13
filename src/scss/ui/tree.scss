@@ -101,18 +101,26 @@
       > .tree-node__check {
         cursor: inherit;
       }
-      
+         
       > .tree-node__label {
         color: $color-text-disabled;
       }
     }
-  } // 叶子节点
-  .tree-node--leaf {
-     
   }
 
   // 不可见
   .tree-node--hidden {
     display: none !important;
+  }
+
+  .nv-tree__empty {
+    line-height: 24px;
+    padding: 6px 0;
+    color: $color-hint;
+    cursor: text;
+
+    &.no-match {
+      color: $color-danger;
+    }
   }
 }

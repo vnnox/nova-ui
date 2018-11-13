@@ -14,16 +14,15 @@
 import { Events } from '../../utils/events'
 import { template } from '../../utils/template'
 import { mixins, isArray, isPlainObject, uuid, isFunction, throwError } from '../../utils/utils'
-import { bind, unbind, proxy, qsa } from '../../utils/dom'
+import { bind, unbind, proxy, qsa, removeNode } from '../../utils/dom'
 import Node from './node'
-import { skeletonTpl } from './template'
+import { skeletonTpl, noDataTpl, noMatchDataTpl } from './template'
 
 const UI_NAME = 'nv-tree'
-
 const CLASS_EXPANDED = 'tree-node--expanded'
-
 const CLASS_SELECTED = 'tree-node--selected'
 
+// default config
 const defaults = {
   // [ array ] tree数据
   data: [],
@@ -51,17 +50,32 @@ const defaults = {
   defaultCheckedKeys: null,
   // [ array ] 默认展开的节点ids
   defaultExpandedKeys: null,
+  // [ string ] 节点为空时显示的文本
+  noDataText: '',
+  // [ string ] 无匹配节点时显示的文本
+  noMatchDataText: ''
 }
 
+// selectors
 const Selectors = {
   node: '.nv-tree__node',
   input: '.tree-node__value',
   check: '.tree-node__check',
   children: '.tree-node__children',
-  inner: '.tree-node__inner'
+  inner: '.tree-node__inner',
+  noMatch: '.no-match'
 }
 
 
+/**
+ * 递归转换Node节点
+ * @date 2018-11-13
+ * @method
+ * @param {*} data
+ * @param {*} parent
+ * @param {*} options
+ * @returns
+ */
 function deepToNode(data, parent, options) {
   let i = -1
   let len = data.length
@@ -88,6 +102,15 @@ function deepToNode(data, parent, options) {
   return parent
 }
 
+
+/**
+ * 将Nodes节点转换为Map映射
+ * @date 2018-11-13
+ * @method
+ * @param {*} nodes
+ * @param {*} map
+ * @returns
+ */
 function nodesToMap(nodes, map) {
   map = map || Object.create(null)
   let i = -1
@@ -104,23 +127,18 @@ function nodesToMap(nodes, map) {
 }
 
 
-
-
-function renderItems(nodes) {
-  const {props} = this 
-  const self = this 
+/**
+ * 渲染条目
+ * @date 2018-11-13
+ * @method
+ * @param {*} nodes
+ * @param {*} options
+ * @returns
+ */
+function renderItems(nodes, options) {
   let i = -1
   let len = nodes.length
   let tpl = ''
-  const options = {
-    indent: props.indent,
-    checkable: props.checkable,
-    chooseType: props.radio ? 'radio' : 'checkbox',
-    checkName: props.checkName || `${UI_NAME}-${uuid()}`,
-    expandAll: props.expandAll,
-    disabled: props.disabled,
-    labelRender: isFunction(props.labelRender) ? props.labelRender : null
-  }
   while (++i < len) {
     const node = nodes[i]
     let label = options.labelRender && options.labelRender(node)
@@ -129,7 +147,7 @@ function renderItems(nodes) {
       node,
       ...options,
       callback(children) {
-        return renderItems.call(self, children)
+        return renderItems(children, options)
       }
     })
   }
@@ -137,6 +155,14 @@ function renderItems(nodes) {
 }
 
 
+/**
+ * 通过ID查找Node节点
+ * @date 2018-11-13
+ * @method
+ * @param {*} id
+ * @param {*} $nodes
+ * @returns
+ */
 function findNodeDomById(id, $nodes) {
   id = String(id)
   let $el
@@ -149,6 +175,13 @@ function findNodeDomById(id, $nodes) {
   return $el
 }
 
+
+/**
+ * 设置节点的check状态
+ * @date 2018-11-13
+ * @private
+ * @param {*} node
+ */
 function toggleAllChildrenChecked(node) {
   const { states } = this
   let children = node.children
@@ -169,7 +202,12 @@ function toggleAllChildrenChecked(node) {
 }
 
 
-
+/**
+ * 设置当前节点的父节点和子节点的关联选中
+ * @date 2018-11-13
+ * @private
+ * @param {*} node
+ */
 function toggleAllChecked(node) {
   toggleAllChildrenChecked.call(this, node)
   let parent = node.parent
@@ -188,6 +226,14 @@ function toggleAllChecked(node) {
 }
 
 
+/**
+ * 通过关键词过滤节点
+ * @date 2018-11-13
+ * @private
+ * @param {*} keyword
+ * @param {*} nodes
+ * @returns
+ */
 function filterNode(keyword, nodes) {
   const { nodeFilter } = this.props
   let visibleCount = 0
@@ -225,6 +271,12 @@ function filterNode(keyword, nodes) {
 }
 
 
+/**
+ * render dom
+ * @date 2018-11-13
+ * @private
+ * @param {*} nodes
+ */
 function render(nodes) {
   const { props, states } = this
   let $el = states.$el
@@ -239,19 +291,41 @@ function render(nodes) {
     isInit = true
   }
 
-  nodes = nodes && isArray(nodes) ? nodes : states.nodes
-  $el.innerHTML = renderItems.call(this, nodes)
+  const options = {
+    indent: props.indent,
+    checkable: props.checkable,
+    chooseType: props.radio ? 'radio' : 'checkbox',
+    checkName: props.checkName || `${UI_NAME}-${states.treeId}`,
+    expandAll: props.expandAll,
+    disabled: props.disabled,
+    labelRender: isFunction(props.labelRender) ? props.labelRender : null
+  }
 
+  nodes = nodes && isArray(nodes) ? nodes : states.nodes
+  if (nodes.length) {
+    $el.innerHTML = renderItems(nodes, options)
+  } else {
+    $el.innerHTML = template(noDataTpl, {
+      noDataText: props.noDataText
+    })
+  }
   states.$nodes = qsa(Selectors.node, $el)
   // 只有在初始化的时候才绑定事件
   isInit && bindEvents.call(this)
 }
 
 
+/**
+ * bind dom evens
+ * @date 2018-11-13
+ * @private
+ */
 function bindEvents() {
   const { props, states } = this
   const handles = states.handles
   const self = this
+
+  // 点击Node节点
   handles.nodeClick = proxy(states.$el, Selectors.inner, function (event) {
     if (event.target.closest(Selectors.check) || event.target.closest('.nv-event-stop')) {
       return
@@ -259,6 +333,7 @@ function bindEvents() {
     let $parent = this.parentNode
     let id = $parent.getAttribute('data-node')
     let node = states.nodesMap[id]
+    self.emit('click', node, $parent)
     if (node.children && node.children.length) {
       $parent.classList[node.expanded ? 'remove' : 'add'](CLASS_EXPANDED)
       node.updateStates('expanded', !node.expanded)
@@ -277,7 +352,7 @@ function bindEvents() {
     }
   })
 
-
+  // 选中/取消选中
   handles.onCheckChange = proxy(states.$el, Selectors.input, function (e) {
     e.stopPropagation()
     let node = states.nodesMap[this.value]
@@ -289,6 +364,7 @@ function bindEvents() {
     if (!props.checkStrictly && !props.radio) {
       toggleAllChecked.call(self, node)
     }
+    self.emit('check', checked, node, findNodeDomById(node.id, states.$nodes))
   })
 
   bind(states.$el, 'click', handles.nodeClick)
@@ -298,9 +374,37 @@ function bindEvents() {
 }
 
 
+/**
+ * unbind dom events
+ * @date 2018-11-13
+ * @private
+ */
+function unbindEvents () {
+  const { props, states } = this
+  const handles = states.handles
+  unbind(states.$el, 'click', handles.nodeClick)
+  if (props.checkable) {
+    unbind(states.$el, 'change', handles.onCheckChange)
+  }
+}
 
 
+/**
+ * Tree Component
+ * @date 2018-11-13
+ * @export
+ * @class Tree
+ * @extends {Events}
+ */
 export class Tree extends Events {
+
+  /**
+   * Creates an instance of Tree.
+   * @date 2018-11-13
+   * @param {*} container
+   * @param {*} options
+   * @memberof Tree
+   */
   constructor(container, options) {
     super()
     if (!(this instanceof Tree)) {
@@ -312,6 +416,7 @@ export class Tree extends Events {
     props.defaultExpandedKeys = isArray(defaultExpandedKeys) ? defaultExpandedKeys : []
 
     const states = this.states = Object.create(null)
+    states.treeId = uuid()
     states.nodes = []
     states.nodesMap = Object.create(null)
     states.$container = container
@@ -320,12 +425,27 @@ export class Tree extends Events {
     delete this.props.data
   }
 
+
+  /**
+   * 将节点数组转换为tree
+   * @date 2018-11-13
+   * @param {*} data
+   * @memberof Tree
+   */
   setNodesTree(data) {
     this.states.nodes = this.arrayToNodes(data)
     this.states.nodesMap = nodesToMap(this.states.nodes)
     render.call(this)
   }
 
+
+  /**
+   * 将数组转换为节点组
+   * @date 2018-11-13
+   * @param {*} data
+   * @returns
+   * @memberof Tree
+   */
   arrayToNodes(data) {
     if (!data) {
       return null
@@ -344,6 +464,14 @@ export class Tree extends Events {
     return nodes
   }
 
+
+  /**
+   * 将对象转换为树结构
+   * @date 2018-11-13
+   * @param {*} object
+   * @returns
+   * @memberof Tree
+   */
   objectToTree(object) {
     if (!isPlainObject(object)) {
       return null
@@ -364,6 +492,16 @@ export class Tree extends Events {
     return node
   }
 
+  
+  /**
+   * 过滤树结构
+   * 并且返回匹配的结果总数
+   * @date 2018-11-13
+   * @param {*} keyword
+   * @returns
+   * @memberof Tree
+   * @returns {Number}
+   */
   filter(keyword) {
     if (!this.props.nodeFilter || !isFunction(this.props.nodeFilter)) {
       throwError('The \'nodeFilter\' method must be provided.')
@@ -371,9 +509,22 @@ export class Tree extends Events {
     keyword = (keyword || '').toString().trim()
     let count = filterNode.call(this, keyword, this.states.nodes)
     render.call(this)
+    if (!count && this.states.nodes) {
+      this.states.$el.innerHTML += template(noMatchDataTpl, {
+        noMatchDataText: this.props.noMatchDataText
+      })
+    }
     return count
   }
 
+
+  /**
+   * 获取Node节点
+   * @date 2018-11-13
+   * @param {*} node
+   * @returns
+   * @memberof Tree
+   */
   getNode (node) {
     if (node instanceof Node) {
       return node 
@@ -381,6 +532,14 @@ export class Tree extends Events {
     return this.states.nodesMap[node]
   }
 
+
+  /**
+   * 插入子节点
+   * @date 2018-11-13
+   * @param {*} parent
+   * @param {*} node
+   * @memberof Tree
+   */
   appendNode (parent, node) {
     let parentNode = this.getNode(parent)
     if (parentNode) {
@@ -391,7 +550,17 @@ export class Tree extends Events {
     }
   }
 
+
+  /**
+   * 移除节点
+   * @date 2018-11-13
+   * @param {*} node
+   * @param {boolean} [deep=true]
+   * @memberof Tree
+   */
   removeNode (node, deep = true) {
+    // 这地方根节点有点问题，暂时强制deep = true
+    deep = true
     node = this.getNode(node)
     if (node.parent) {
       node.remove(deep)  
@@ -404,7 +573,48 @@ export class Tree extends Events {
     render.call(this)
   }
 
+
+  /**
+   * 获取选中的节点
+   * @date 2018-11-13
+   * @param {boolean} [useDisabled=false]
+   * @returns {Array}
+   * @memberof Tree
+   */
+  getCheckedNodes (useDisabled = false) {
+    const isRadio = this.props.radio
+    const nodes = []
+    const finder = node => {
+      if (isRadio && nodes.length) {
+        return
+      }
+      if (node.checked) {
+        if (!node.disabled || useDisabled) {
+          nodes.push(node)
+        }
+      }
+      if (node.children && node.children.length) {
+        node.children.forEach(child => finder(child))
+      }
+    }
+    this.states.nodes.forEach(node => finder(node))
+
+    return nodes
+  }
+
+
+  /**
+   * destroy
+   * @date 2018-11-13
+   * @memberof Tree
+   */
+  destroy () {
+    unbindEvents.call(this)
+    removeNode(this.states.$el)
+    this.states = null
+    this.props = null
+    this._events = null
+  }
 }
 
 export default Tree
-

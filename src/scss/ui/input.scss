@@ -40,6 +40,8 @@
   outline: none;
   border-radius: $input-radius;
   background-color: white;
+  color: $color-text;
+
   @include Size($input-font-size, $input-height, $input-padding-x);
   @include Placeholder {
     color: $color-placeholder;
@@ -50,7 +52,8 @@
 
     &:hover,
     &:active,
-    &:focus {
+    &:focus,
+    &.nv-focusin {
       border-color: $color-primary;
     }
   }

@@ -211,6 +211,84 @@ export const getScrollbarWidth = () => {
 export const removeNode = el => el && el.parentNode && el.parentNode.removeChild(el)
 
 
+/**
+ * 将元素滚动到指定位置
+ * @param {*} element 
+ * @param {*} to 
+ * @param {*} duration 
+ */
+export const scrollTo = (element, to, duration) => {
+  const requestAnimationFrame = window.requestAnimationFrame ||
+    function requestAnimationFrameTimeout() {
+      return setTimeout(arguments[0], 10);
+    }
+  // jump to target if duration zero
+  if (duration <= 0) {
+    element.scrollTop = to
+    return
+  }
+  const difference = to - element.scrollTop
+  const perTick = difference / duration * 10
+
+  requestAnimationFrame(() => {
+    element.scrollTop = element.scrollTop + perTick
+    if (element.scrollTop === to) return
+    scrollTo(element, to, duration - 10)
+  })
+}
+
+
+/**
+ * 获取元素距离指定相对父级的位置
+ * @param {*} element 
+ * @param {*} parent 必须具有相对/绝对定位的属性
+ * @returns {Object}
+ */
+export const getOffsetByParent = (element, parent) => {
+  let top = element.offsetTop
+  let left = element.offsetLeft
+  let offsetParent = element
+  while ((offsetParent = offsetParent.offsetParent)) {
+    if (offsetParent === parent) {
+      break
+    }
+    top += offsetParent.offsetTop
+    left += offsetParent.offsetLeft
+  }
+  return {
+    top,
+    left
+  }
+}
+
+
+/**
+ * 获取元素的滚动父级
+ * @param {*} element 
+ */
+export const getScrollParent = element => {
+  if (!element) {
+    return document.body
+  }
+
+  switch (element.nodeName) {
+    case 'HTML':
+    case 'BODY':
+      return element.ownerDocument.body
+    case '#document':
+      return element.body
+  }
+  const { overflow, overflowX, overflowY } = getStyle(element)
+  if (/(auto|scroll|overlay)/.test(overflow + overflowY + overflowX)) {
+    return element
+  }
+
+  return getScrollParent(element.parentNode)
+}
+
+
+
+
 export default {
   bind,
   unbind,
@@ -222,5 +300,8 @@ export default {
   proxy,
   addClass,
   getScrollbarWidth,
-  removeNode
+  removeNode,
+  scrollTo,
+  getOffsetByParent,
+  getScrollParent
 }

@@ -4,6 +4,11 @@ import Checkbox from './checkbox'
 import CheckboxGroups from './checkbox-group'
 import Switch from './switch'
 import InputNumber from './input-number'
+import Tree from './tree'
+import Select from './select'
+import Option from './option'
+
+
 
 
 const RadioGroup = RadioGroups.NvRadioGroup
@@ -20,6 +25,9 @@ const components = [
   CheckboxItem,
   Switch,
   InputNumber,
+  Tree,
+  Option,
+  Select,
 ]
 
 const Vue = window.Vue
@@ -37,5 +45,8 @@ export default {
   CheckboxGroup,
   CheckboxItem,
   Switch,
-  InputNumber
+  InputNumber,
+  Tree,
+  Option,
+  Select,
 }

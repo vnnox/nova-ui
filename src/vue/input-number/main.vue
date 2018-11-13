@@ -66,6 +66,7 @@
 
     beforeDestroy() {
       this.instance && this.instance.destroy()
+      this.$nextTick(() => this.instance = null)
     }
   }
 </script>
