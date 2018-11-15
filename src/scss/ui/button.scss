@@ -45,6 +45,12 @@
     @include ButtonSize($btn-height-small, $btn-font-size, $btn-padding-x-small);
   }
 
+  // 纯icon
+  &.nv-btn--icon-pure {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
   // 大圆角
   &.nv-btn--pill {
     border-radius: 200px;
@@ -55,6 +61,18 @@
   &.nv-disabled {
     opacity: $btn-disabled-opacity;
     cursor: not-allowed;
+  }
+
+  [class^="nv-icon-"], [class*=" nv-icon-"] {
+    margin: 0 5px;
+  }
+
+  > :first-child {
+    margin-left: 0;
+  }
+
+  > :last-child {
+    margin-right: 0;
   }
 }
 
