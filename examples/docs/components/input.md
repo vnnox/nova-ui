@@ -30,6 +30,27 @@
 ```
 :::
 
+### 组合
+:::demo
+```html
+<div class="doc-row">
+  <div class="doc-row__body">
+    <div class="nv-input-group">
+      <span class="nv-input-group__addon">https://</span>
+      <input type="text" class="nv-input" placeholder="请输入域名...">
+    </div>  
+    <hr class="nv-hr" />
+    <div class="nv-input-group">
+      <input type="text" class="nv-input" placeholder="请输入子域名...">
+      <span class="nv-input-group__addon">.vnnox.com</span>
+    </div> 
+  </div>
+</div>
+```
+:::
+
+
+
 ### 尺寸
 :::demo
 ```html
