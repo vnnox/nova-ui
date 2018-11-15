@@ -1,8 +1,9 @@
 // 骨架
 export const skeletonTpl = `
-<div class="nv-select__input">
-  <input type="text" class="nv-input nv-select__value" name="<%=name%>" readonly autocomplete="off"<%if (disabled) {%> disabled<% } if (placeholder) {%> placeholder="<%=placeholder%>"<%}%>>
-</div>
+<input type="text" class="nv-input nv-select__value" name="<%=name%>" readonly autocomplete="off"<%if (disabled) {%> disabled<% } if (placeholder) {%> placeholder="<%=placeholder%>"<%}%> />
+<% if (clearable) { %>
+<a class="nv-select__clean"><i class="nv-icon-close"></i></a>
+<% } %> 
 `
 
 // picker骨架

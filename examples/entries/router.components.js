@@ -13,7 +13,7 @@ const InputNumber = require('../docs/components/input-number.md')
 const Table = require('../docs/components/table.md')
 const Tree = require('../docs/components/tree.md')
 const Select = require('../docs/components/select.md')
-
+const Pagination = require('../docs/components/pagination.md')
 
 
 // VUE
@@ -23,12 +23,13 @@ const SwitchVue = require('../docs/components/vue/switch.md')
 const InputNumberVue = require('../docs/components/vue/input-number.md')
 const TreeVue = require('../docs/components/vue/tree.md')
 const SelectVue = require('../docs/components/vue/select.md')
+const PaginationVue = require('../docs/components/vue/pagination.md')
 
 
 // 每次icon图标改变的时候需要同时维护该数组
 const ICON_LIST = [
   'caret-top', 'caret-bottom', 'plus', 'minus', 'help', 'warning', 'info', 'count', 'info-square', 'cart', 'yuan', 'refresh', 'eye', 'filter', 'menu', 'list', 'download', 'fullscreen', 'upload', 'gear', 'export', 'move', 'copy',
-  'delete', 'edit', 'list-add', 'add', 'search', 'zoom-out', 'zoom-in'
+  'delete', 'edit', 'list-add', 'add', 'search', 'zoom-out', 'zoom-in', 'check', 'close', 'arrow-left', 'arrow-right'
 ]
 
 function genIconsTpl () {
@@ -175,6 +176,10 @@ router
     native: Select,
     vue: SelectVue
   }, 'Select', runScript))
+  .set('/pagination', setPage({
+    native: Pagination,
+    vue: PaginationVue
+  }, 'Pagination', runScript))
   .init()
 
 

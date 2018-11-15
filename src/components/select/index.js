@@ -1,3 +1,16 @@
+/*
+ * File: index.js
+ * Project: @vnnox/novaui
+ * Description: Select Picker
+ * Created: 2018-11-13 02:32
+ * Author: smohan (mengxw@novastar.tech)
+ * -----
+ * Last Modified: 2018-11-15 09:07
+ * Modified By: smohan (mengxw@novastar.tech>)
+ * -----
+ * Copyright 2018, NovaStar Tech Co., Ltd
+ */
+
 import { Events } from '../../utils/events'
 import { mixins, isElement, isArray, isPlainObject, isFunction, isString, isPrimitive, escapeRegExp, throwError } from '../../utils/utils'
 import { template } from '../../utils/template'
@@ -23,56 +36,56 @@ const ATTRIBUTE_INDEX = 'data-index'
 // selectors
 const Selectors = {
   input: '.nv-select__value',
-  btn: '.nv-select__btn',
+  clean: '.nv-select__clean',
   search: '.select-picker__search',
   optionsWrap: '.select-options__wrap',
   option: '.nv-select__option',
   openClass: 'nv-select--open'
 }
 
-// 默认配置项
+// default config
 const defaults = {
-  // [ String | Number | Boolean | Array ] 初始值
+  // [ string | number | boolean | array ] 初始值
   value: null,
-  // [ String ] 显示在输入框中的取值key 
+  // [ string ] 显示在输入框中的取值key 
   valueKey: 'label', // option.label
-  // [ Boolean ] 多选
+  // [ boolean ] 多选
   multiple: false,
-  // [ String ] 多选时，选中值在输入框中的展现模板
+  // [ string ] 多选时，选中值在输入框中的展现模板
   multipleValueTpl: '{label}等{count}项',
-  // [ Array ] 选项
+  // [ array ] 选项
   options: [],
-  // [ String ] 输入框占位符
+  // [ string ] 输入框占位符
   placeholder: '请选择',
-  // [ Boolean ] 分组
+  // [ boolean ] 分组
   groupable: false,
-  // [ Boolean ] 是否禁用
+  // [ boolean ] 是否禁用
   disabled: false,
-  // [ Boolean ] 是否可以清除
+  // [ boolean ] 是否可以清除
   clearable: false,
-  // [ Boolean ] 是否可搜索
+  // [ boolean ] 是否可搜索
   searchable: false,
-  // [ Function ] 过滤器
+  // [ function ] 过滤器
   filter: null,
-  // [ Boolean ] 异步获取数据
+  // [ boolean ] 异步获取数据
   loadByAsync: false,
-  // [ Boolean ] 异步搜索数据
+  // [ boolean ] 异步搜索数据
   searchByAsync: false,
-  // [ String ] select name属性,
+  // [ string ] select name属性,
   name: null,
-  // [ String ] // 输入框尺寸 [ 可选值 ] [ small | default | large ]
+  // [ string ] // 输入框尺寸 [ 可选值 ] [ small | default | large ]
   inputSize: 'default',
-  // [ String ] select自定义样式
+  // [ string ] select自定义样式
   selectClass: null,
-  // [ String ] picker自定义样式
+  // [ string ] picker自定义样式
   pickerClass: null,
-  // [ String ] 加载中文案
+  // [ string ] 加载中文案
   loadingText: '加载中...',
-  // [ String ] 无选项文案
+  // [ string ] 无选项文案
   noDataText: '无数据',
-  // [ String ] 无匹配数据
+  // [ string ] 无匹配数据
   noMatchDataText: '无匹配数据',
-  // [ Function ] option渲染器
+  // [ function ] option渲染器
   render: null,
 }
 
@@ -112,7 +125,7 @@ function render() {
   
   states.$select = $select
   states.$input = qsa(Selectors.input, $select)[0]
-  states.$btn = qsa(Selectors.btn, $select)[0]
+  states.$clean = qsa(Selectors.clean, $select)[0]
   const $selectPicker = document.createElement('div')
   $selectPicker.className = UI_PICKER_NAME
   addClass($selectPicker, props.pickerClass)
@@ -440,7 +453,7 @@ function toggleSelectedOptionByEnter() {
     return
   }
   if (!props.multiple) {
-    this.setValue(option.value)
+    this.setValue(option.value, true)
     states.pickerInstance.close()
   } else {
     let findIndex = value.indexOf(option.value)
@@ -449,7 +462,7 @@ function toggleSelectedOptionByEnter() {
     } else {
       value.push(option.value)
     }
-    this.setValue(value)
+    this.setValue(value, true)
   }
 }
 
@@ -525,7 +538,7 @@ function bindEvents() {
   bind(states.$input, 'focusin', handles.selectFocus)
   bind(states.$input, 'focusout', handles.selectBlur)
   bind(states.$select, 'click', handles.selectClick)
-  // bind(states.$btn, 'click', handles.cleanClick)
+  states.$clean && bind(states.$clean, 'click', handles.cleanClick)
   bind(states.$input, 'keyup', handles.searchOption)
   bind(states.$input, 'keydown', handles.inputKeydown)
 }
@@ -542,7 +555,7 @@ function unbindEvents() {
   unbind(states.$input, 'focusin', handles.selectFocus)
   unbind(states.$input, 'focusout', handles.selectBlur)
   unbind(states.$select, 'click', handles.selectClick)
-  // unbind(states.$btn, 'click', handles.cleanClick)
+  states.$clean && unbind(states.$clean, 'click', handles.cleanClick)
   unbind(states.$input, 'keyup', handles.searchOption)
   unbind(states.$input, 'keydown', handles.inputKeydown)
 }
@@ -615,6 +628,7 @@ function filterOptions() {
 
 /**
  * 通过value查找option
+ * @private
  * @param {*} value 
  * @returns {object | void 0}
  */
@@ -647,9 +661,10 @@ function findOptionByValue(value) {
 }
 
 
+
 /**
- *
- * Select 选择器
+ * Select Component
+ * @date 2018-11-15
  * @export
  * @class Select
  * @extends {Events}
@@ -659,17 +674,18 @@ export class Select extends Events {
 
   /**
    * Creates an instance of Select.
-   * @param {Element} target
-   * @param {Object} options
+   * @date 2018-11-15
+   * @param {*} target
+   * @param {*} options
    * @memberof Select
    */
   constructor(target, options) {
     super()
-    if (!target || !isElement(target)) {
-      throwError('\'target\' 必须是一个DOM容器', 'type')
-    }
     if (!(this instanceof Select)) {
       return new Select(target, options)
+    }
+    if (!isElement(target)) {
+      throwError('\'target\' 必须是一个DOM容器', 'type')
     }
     let isInput = target.nodeName === 'INPUT'
     if (isInput) {
@@ -708,7 +724,7 @@ export class Select extends Events {
 
   /**
    * set options
-   * @public
+   * @date 2018-11-15
    * @param {*} options
    * @memberof Select
    */
@@ -754,9 +770,9 @@ export class Select extends Events {
 
   /**
    * set value
-   * @public
+   * @date 2018-11-15
    * @param {*} value
-   * @param {boolean} isChange
+   * @param {*} isChange
    * @memberof Select
    */
   setValue(value, isChange) {
@@ -828,7 +844,7 @@ export class Select extends Events {
 
   /**
    * get value
-   * @public
+   * @date 2018-11-15
    * @returns
    * @memberof Select
    */
@@ -839,7 +855,7 @@ export class Select extends Events {
 
   /**
    * clean value
-   * @public
+   * @date 2018-11-15
    * @memberof Select
    */
   clean() {
@@ -851,8 +867,8 @@ export class Select extends Events {
 
 
   /**
-   * 禁用
-   * @public
+   * disable the component
+   * @date 2018-11-15
    * @memberof Select
    */
   disable() {
@@ -869,8 +885,8 @@ export class Select extends Events {
 
 
   /**
-   * 启用
-   * @public
+   * enable the component
+   * @date 2018-11-15
    * @memberof Select
    */
   enable() {
@@ -886,7 +902,7 @@ export class Select extends Events {
 
   /**
    * destroy
-   * @public
+   * @date 2018-11-15
    * @memberof Select
    */
   destroy() {
