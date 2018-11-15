@@ -29,7 +29,7 @@ const PaginationVue = require('../docs/components/vue/pagination.md')
 // 每次icon图标改变的时候需要同时维护该数组
 const ICON_LIST = [
   'caret-top', 'caret-bottom', 'plus', 'minus', 'help', 'warning', 'info', 'count', 'info-square', 'cart', 'yuan', 'refresh', 'eye', 'filter', 'menu', 'list', 'download', 'fullscreen', 'upload', 'gear', 'export', 'move', 'copy',
-  'delete', 'edit', 'list-add', 'add', 'search', 'zoom-out', 'zoom-in', 'check', 'close', 'arrow-left', 'arrow-right'
+  'delete', 'edit', 'list-add', 'add', 'search', 'zoom-out', 'zoom-in', 'check', 'close', 'arrow-left', 'arrow-right', 'user', 'mall-en', 'mall-cn', 'doc-help', 'global', 'email', 'menu-set', 'bell'
 ]
 
 function genIconsTpl () {
