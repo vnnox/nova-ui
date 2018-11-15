@@ -52,7 +52,7 @@
     top: 1px;
 
     &::after {
-      content: '\e900';
+      content: '\e90e';
     }
   }
 
@@ -60,7 +60,7 @@
     bottom: 1px;
 
     &::after {
-      content: '\e901';
+      content: '\e90f';
     }
   }
 
@@ -81,10 +81,7 @@
       width: 32px;
       padding: 0;
       line-height: 1;
-
-      &::after {
-        font-weight: bold;
-      }
+      font-size: 16px;
 
       &.nv-disabled {
         background-color: $color-bg-disabled;
@@ -99,7 +96,7 @@
       border-bottom-left-radius: $input-radius;
 
       &::after {
-        content: '\e903';
+        content: '\e900';
       }
     }
 
@@ -111,7 +108,7 @@
       border-bottom-right-radius: $input-radius;
 
       &::after {
-        content: '\e902';
+        content: '\e901';
       }
     }
   }
