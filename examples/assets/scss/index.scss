@@ -120,19 +120,26 @@ $container-width: 100% !default;
         display: block;
         line-height: 20px;
         padding: 10px 0;
-        color: #464c5b;
+        color: #9ea8b4;
         text-decoration: none;
+        // text-decoration: line-through;
+        cursor: default;
 
         small {
           margin-left: 10px;
-          color: #657180;
         }
 
-        &:hover {
-          color: #43a3fb;
-
+        &[href] {
+          cursor: pointer;
+          color: #464c5b;
           small {
-            color: inherit;
+            color: #657180;
+          }
+          &:hover {
+            color: #43a3fb;
+            small {
+              color: inherit;
+            }
           }
         }
       }
