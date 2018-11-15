@@ -29,7 +29,6 @@
     cursor: pointer;
     user-select: none;
     margin-top: 12px;
-    padding-right: 5px;
   }
 
   > .nv-tree__node:first-child > .tree-node__inner {
@@ -44,9 +43,10 @@
     border-bottom: 1.6px solid rgb(180, 190, 216);
     transform: rotate(-135deg);
     transition: transform .2s;
-    margin-left: 8px;
     position: relative;
     top: 1px;
+    margin-left: 3px;
+    margin-right: 8px;
   }
 
   .tree-node__check {

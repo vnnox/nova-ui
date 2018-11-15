@@ -7,7 +7,7 @@ import InputNumber from './input-number'
 import Tree from './tree'
 import Select from './select'
 import Option from './option'
-
+import Pagination from './pagination'
 
 
 
@@ -28,6 +28,7 @@ const components = [
   Tree,
   Option,
   Select,
+  Pagination,
 ]
 
 const Vue = window.Vue
@@ -49,4 +50,5 @@ export default {
   Tree,
   Option,
   Select,
+  Pagination,
 }
