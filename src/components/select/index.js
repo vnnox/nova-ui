@@ -139,9 +139,7 @@ function render() {
 
   states.$selectPicker = $selectPicker
   states.$optionsWrap = qsa(Selectors.optionsWrap, $selectPicker)[0]
-  // 设置picker的最小宽度为input的宽度
-  $selectPicker.style.minWidth = states.$input.offsetWidth + 'px'
-
+  
   // 实例化picker
   initPicker.call(this)
   // 绑定dom事件
@@ -168,6 +166,8 @@ function initPicker() {
 
   // picker open
   states.pickerInstance.on('open', () => {
+    // 设置picker的最小宽度为input的宽度
+    $selectPicker.style.minWidth = states.$input.offsetWidth + 'px'
     // 如果是可搜索，则在picker打开时设置输入框可输入
     states.pickerOpened = true
     if (props.searchable) {

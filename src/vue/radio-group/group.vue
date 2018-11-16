@@ -38,6 +38,11 @@
         return className
       }
     },
+    methods: {
+      change (value) {
+        this.$emit('change', value)
+      }
+    },
     watch: {
       value () {
         // todo
