@@ -2,16 +2,18 @@
 const path = require('path')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin')
+const webpack = require('webpack')
+const pkg = require('../package.json')
 
 module.exports = {
   entry: {
-    native: path.resolve(__dirname, '../src/index.js')
+    nova: path.resolve(__dirname, '../src/index.js')
   },
   output: {
     publicPath: '',
-    path: path.resolve(__dirname, '../dist/'),
-    filename:  'nova.[name].js',
-    chunkFilename: 'nova.[name].js',
+    path: path.resolve(__dirname, '../libs/'),
+    filename:  '[name].js',
+    chunkFilename: '[name].js',
     library: 'Nova',
     libraryExport: 'default',
     libraryTarget: 'umd',
@@ -49,5 +51,6 @@ module.exports = {
       chunkFilename: 'nova.css'
     }),
     new OptimizeCSSPlugin({ safe: true, map: false, discardComments: { removeAll: true } }),
+    new webpack.BannerPlugin(`nova.vue.js v${pkg.version}\nAuthor: smohan (mengxw@novastar.tech)\nCopyright 2018, NovaStar Tech Co., Ltd`)
   ]
 }

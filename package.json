@@ -2,7 +2,7 @@
   "name": "@vnnox/novaui",
   "version": "1.0.1",
   "description": "nova ui components",
-  "main": ".eslintrc.js",
+  "main": "libs/nova.js",
   "directories": {
     "doc": "docs"
   },
