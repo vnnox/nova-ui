@@ -8,7 +8,7 @@ import Tree from './tree'
 import Select from './select'
 import Option from './option'
 import Pagination from './pagination'
-
+import Slider from './slider'
 
 
 const RadioGroup = RadioGroups.NvRadioGroup
@@ -29,6 +29,7 @@ const components = [
   Option,
   Select,
   Pagination,
+  Slider,
 ]
 
 const Vue = window.Vue
@@ -51,4 +52,5 @@ export default {
   Option,
   Select,
   Pagination,
+  Slider,
 }

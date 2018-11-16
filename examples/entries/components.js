@@ -9,6 +9,9 @@ import Tree from '../../src/components/tree'
 import Picker from '../../src/components/picker'
 import Select from '../../src/components/select'
 import Pagination from '../../src/components/pagination'
+import Slider from '../../src/components/slider'
+
+
 
 const Nova = Object.create(null)
 Nova.Dom = Dom 
@@ -17,5 +20,6 @@ Nova.Tree = Tree
 Nova.Picker = Picker
 Nova.Select = Select
 Nova.Pagination = Pagination
+Nova.Slider = Slider
 
 window.Nova = Nova

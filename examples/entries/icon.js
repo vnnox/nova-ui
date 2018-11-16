@@ -1,0 +1,3 @@
+export default `
+caret-top, caret-bottom, plus, minus, help, warning, info, count, info-square, cart, yuan, refresh, eye, filter, menu, list, download, fullscreen, upload, gear, export, move, copy,delete, edit, list-add, add, search, zoom-out, zoom-in,check, close, arrow-left, arrow-right, user, mall-en, mall-cn, doc-help, global,email, menu-set, bell, screen-close, screen-open, warning2, flow, square-help, square-danger, play,pause, circle-close, circle-remove, circle-warning, circle-info, circle-check, time,
+`
