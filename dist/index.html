@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <link rel="stylesheet" href="./nova.css">
+</head>
+<body>
+  <div id="app">
+    {{ message }}
+    <nv-input-number></nv-input-number>
+  </div>
+  <script src="https://cdn.bootcss.com/vue/2.5.17/vue.min.js"></script>
+  <script src="./nova.vue.js"></script>
+  <script src="./nova.native.js"></script>
+
+  <script>
+  var app = new Vue({
+    el: '#app',
+    data: {
+      message: 'Hello Vue!'
+    }
+  })
+  </script>
+</body>
+</html>

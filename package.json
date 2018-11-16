@@ -1,6 +1,6 @@
 {
   "name": "@vnnox/novaui",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "nova ui components",
   "main": ".eslintrc.js",
   "directories": {
@@ -10,6 +10,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "rm -rf docs/assets/* && webpack --env=development  --mode=development  --config scripts/dev.webpack.js --watch",
     "doc": "rm -rf docs/assets/* && webpack --env=production --mode=production --config scripts/dev.webpack.js",
+    "build": "webpack --env=production --mode=production --config scripts/build.webpack.js",
+    "vue": "webpack --env=production --mode=production --config scripts/vue.webpack.js",
     "stylelint": "stylelint src/**/*.scss examples/**/*.scss",
     "stylelint-fix": "stylelint --fix src/**/*.scss examples/**/*.scss"
   },
@@ -37,6 +39,7 @@
     "cheerio": "^1.0.0-rc.2",
     "cross-env": "^5.2.0",
     "css-loader": "^1.0.0",
+    "file-loader": "^2.0.0",
     "html-loader": "^0.5.5",
     "html-webpack-plugin": "^3.2.0",
     "markdown-it-container": "^2.0.0",

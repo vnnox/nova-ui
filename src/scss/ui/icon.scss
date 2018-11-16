@@ -1,3 +1,4 @@
+/* stylelint-disable */
 @font-face {
   font-family: 'Nova';
   src:
@@ -26,11 +27,47 @@
   @extend .icon-font;
 }
 
-.nv-icon-minus:before {
-  content: "\e900";
+.nv-icon-screen-close:before {
+  content: "\e92a";
 }
-.nv-icon-plus:before {
-  content: "\e901";
+.nv-icon-screen-open:before {
+  content: "\e92b";
+}
+.nv-icon-warning2:before {
+  content: "\e92c";
+}
+.nv-icon-flow:before {
+  content: "\e92d";
+}
+.nv-icon-square-help:before {
+  content: "\e92e";
+}
+.nv-icon-square-danger:before {
+  content: "\e92f";
+}
+.nv-icon-pause:before {
+  content: "\e930";
+}
+.nv-icon-play:before {
+  content: "\e931";
+}
+.nv-icon-circle-close:before {
+  content: "\e932";
+}
+.nv-icon-time:before {
+  content: "\e933";
+}
+.nv-icon-circle-remove:before {
+  content: "\e934";
+}
+.nv-icon-circle-warning:before {
+  content: "\e935";
+}
+.nv-icon-circle-info:before {
+  content: "\e937";
+}
+.nv-icon-circle-check:before {
+  content: "\e936";
 }
 .nv-icon-user:before {
   content: "\e902";
@@ -140,7 +177,7 @@
 .nv-icon-list-add:before {
   content: "\e925";
 }
-.nv-icon-add1:before {
+.nv-icon-add:before {
   content: "\e926";
 }
 .nv-icon-search:before {
@@ -151,4 +188,10 @@
 }
 .nv-icon-zoom-in:before {
   content: "\e929";
+}
+.nv-icon-minus:before {
+  content: "\e900";
+}
+.nv-icon-plus:before {
+  content: "\e901";
 }

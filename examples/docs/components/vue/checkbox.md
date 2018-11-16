@@ -1,7 +1,8 @@
 # Checkbox 复选框
 
-### 基础用法
+## 使用和示例
 
+### 基础用法
 :::vue-demo
 ```html
 <template>
@@ -25,8 +26,8 @@
 ```
 :::
 
-### 多选框组
 
+### 多选框组
 :::vue-demo
 ```html
 <template>
@@ -49,7 +50,6 @@
 
 
 ### 复选按钮组
-
 :::vue-demo
 ```html
 <template>
@@ -109,3 +109,39 @@
 </script>  
 ```
 :::
+
+
+## API
+
+### Checkbox Attributes
+
+| 参数  |  描述  | 类型 | 默认值 |
+|---|---|---|---|
+| `value`  |  绑定值 | boolean/array | --  |
+| `label`  | Checkbox 的 value值  | string / number / boolean  |  -- |
+| `name`  | 原生 name 属性  | string  | -- |
+| `disabled`  |  是否禁用 |  boolean | false  |
+
+
+### Checkbox Events
+
+| 参数  |  描述  | 回调参数 |
+|---|---|---|
+| `change`  |  绑定值变化时触发的事件 | 更新后的值(boolean / array) |
+
+
+### Checkbox Group Attributes
+
+| 参数  |  描述  | 类型 | 默认值 |
+|---|---|---|---|
+| `value`  |  绑定值 | boolean/array | --  |
+| `name`  | 原生 name 属性, 将覆盖Checkbox的name属性  | string  | -- |
+| `size`  |  尺寸 |  string[`default/small`] | default  |
+| `type`  |  类型 |  string[`default/primary`] | default  |
+
+
+### Checkbox-group Events
+
+| 参数  |  描述  | 回调参数 |
+|---|---|---|
+| `change`  |  绑定值变化时触发的事件 | 更新后的值(boolean / array) |

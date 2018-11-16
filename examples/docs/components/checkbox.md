@@ -1,10 +1,11 @@
 # Checkbox 复选框
 
+## 使用和示例
+
 ### 基础用法
 :::demo
 ```html
 <div class="doc-row">
- 
   <p class="doc-row__describe"></p>
   <div class="doc-row__body">
     <label class="nv-checkbox" role="checkbox" tabindex="0">
@@ -181,3 +182,19 @@
 </div>
 ```
 :::
+
+## API
+
+### 复选框类
+
+| 类名  |  描述  |
+|---|---|
+| `nv-checkbox`  | 基础类名  |
+
+### 复选框组类
+
+| 类名  |  描述  |
+|---|---|
+| `nv-check-group`  | 复选框组类名，用于包裹多个复选框  |
+| `nv-check-item`  | 复选框类名  | 
+| `nv-check__btn`  | 复选框按钮类名  | 

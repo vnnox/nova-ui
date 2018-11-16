@@ -74,6 +74,10 @@
   > :last-child {
     margin-right: 0;
   }
+
+  &.nv-fluid {
+    width: 100%;
+  }
 }
 
 a.nv-btn:hover {

@@ -36,6 +36,7 @@
         },
         set (value) {
           this._radioGroup.$emit('input', value)
+          this._radioGroup.change(value)
         }
       }
     }

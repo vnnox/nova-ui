@@ -36,6 +36,7 @@
         },
         set (value) {
           this._checkboxGroup.$emit('input', value)
+          this._checkboxGroup.change(value)
         }
       }
     }

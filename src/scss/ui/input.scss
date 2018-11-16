@@ -84,10 +84,11 @@
 
 textarea.nv-input {
   height: auto;
+  min-height: 32px;
 }
 
 .nv-input-group {
-  display: inline-flex;
+  display: flex;
   align-items: center;
 
   > * {
@@ -127,5 +128,70 @@ textarea.nv-input {
   > :last-child:not(:first-child) {
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
+  }
+}
+
+// row
+.nv-input-row {
+  display: flex;
+  align-items: center;
+
+  > .nv-input-cell {
+    margin-left: 10px;
+
+    &:first-child {
+      margin-left: 0;
+    }
+
+    &.nv-fluid {
+      min-width: 1%;
+      width: auto;
+      flex: 1 1 auto;
+    }
+  }
+}
+
+.nv-input-suffix,
+.nv-input-prefix {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+
+  .nv-input {
+    width: 100%;
+  }
+
+  .nv-input__icon {
+    position: absolute;
+    height: 100%;
+    top: 0;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: $color-placeholder;
+    padding: 0 6px;
+  }
+}
+
+.nv-input-suffix {
+  .nv-input {
+    padding-right: 32px;
+  }
+
+  .nv-input__icon {
+    right: 6px;
+  }
+}
+
+.nv-input-prefix {
+  .nv-input {
+    padding-left: 32px;
+  }
+
+  .nv-input__icon {
+    left: 6px;
   }
 }

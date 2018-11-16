@@ -1,5 +1,7 @@
 import Router from '../assets/router'
+import ICONS from './icon'
 
+// Native
 const Button = require('../docs/components/button.md')
 const Icon = require('../docs/components/icon.md')
 const Input = require('../docs/components/input.md')
@@ -14,6 +16,7 @@ const Table = require('../docs/components/table.md')
 const Tree = require('../docs/components/tree.md')
 const Select = require('../docs/components/select.md')
 const Pagination = require('../docs/components/pagination.md')
+const Slider = require('../docs/components/slider.md')
 
 
 // VUE
@@ -24,17 +27,15 @@ const InputNumberVue = require('../docs/components/vue/input-number.md')
 const TreeVue = require('../docs/components/vue/tree.md')
 const SelectVue = require('../docs/components/vue/select.md')
 const PaginationVue = require('../docs/components/vue/pagination.md')
+const SliderVue = require('../docs/components/vue/slider.md')
 
 
-// 每次icon图标改变的时候需要同时维护该数组
-const ICON_LIST = [
-  'caret-top', 'caret-bottom', 'plus', 'minus', 'help', 'warning', 'info', 'count', 'info-square', 'cart', 'yuan', 'refresh', 'eye', 'filter', 'menu', 'list', 'download', 'fullscreen', 'upload', 'gear', 'export', 'move', 'copy',
-  'delete', 'edit', 'list-add', 'add', 'search', 'zoom-out', 'zoom-in', 'check', 'close', 'arrow-left', 'arrow-right', 'user', 'mall-en', 'mall-cn', 'doc-help', 'global', 'email', 'menu-set', 'bell'
-]
+
 
 function genIconsTpl () {
   let li = ''
-  ICON_LIST.forEach(icon => {
+  ICONS.split(',').forEach(icon => {
+    icon = icon.trim()
     li += `<li><i class="nv-icon-${icon}"></i><span class="label">${icon}</span></li>`
   })
   const $iconWrap =  document.getElementById('icon-list')
@@ -138,7 +139,7 @@ router
   }, 'Button'))
   .set('/input', setPage({
     native: Input
-  }, 'Input'))
+  }, 'Input', runScript))
   .set('/checkbox', setPage({
     native: Checkbox,
     vue: CheckboxVue
@@ -180,6 +181,10 @@ router
     native: Pagination,
     vue: PaginationVue
   }, 'Pagination', runScript))
+  .set('/slider', setPage({
+    native: Slider,
+    vue: SliderVue
+  }, 'Slider', runScript))
   .init()
 
 
