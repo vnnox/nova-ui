@@ -32,12 +32,11 @@ const components = [
   Slider,
 ]
 
-const Vue = window.Vue
-
-components.forEach(component => {
-  console.log(component.name)
-  Vue.component(component.name, component)
-})
+if (typeof window !== 'undefined' && window.Vue) {
+  components.forEach(component => {
+    window.Vue.component(component.name, component)
+  })
+}
 
 export default {
   Radio,
