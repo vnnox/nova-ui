@@ -438,7 +438,7 @@
     }
   })
  
-  Nova.Dom.bind($container, 'click', Nova.Dom.proxy($container, '.js-action', function(e) {
+  Nova.$Dom.bind($container, 'click', Nova.$Dom.proxy($container, '.js-action', function(e) {
     var action = this.getAttribute('data-action')
     var id = this.getAttribute('data-node-id')
     if (action === 'append') {

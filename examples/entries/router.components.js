@@ -17,6 +17,8 @@ const Tree = require('../docs/components/tree.md')
 const Select = require('../docs/components/select.md')
 const Pagination = require('../docs/components/pagination.md')
 const Slider = require('../docs/components/slider.md')
+const Alert = require('../docs/components/alert.md')
+
 
 
 // VUE
@@ -28,7 +30,8 @@ const TreeVue = require('../docs/components/vue/tree.md')
 const SelectVue = require('../docs/components/vue/select.md')
 const PaginationVue = require('../docs/components/vue/pagination.md')
 const SliderVue = require('../docs/components/vue/slider.md')
-
+const ModalVue = require('../docs/components/vue/modal.md')
+const AlertVue = require('../docs/components/vue/alert.md')
 
 
 
@@ -160,8 +163,13 @@ router
     native: Badge
   }, 'Badge'))
   .set('/modal', setPage({
-    native: Modal
+    native: Modal,
+    vue: ModalVue
   }, 'Modal', runScript))
+  .set('/alert', setPage({
+    native: Alert,
+    vue: AlertVue
+  }, 'Alert', runScript))
   .set('/input-number', setPage({
     native: InputNumber,
     vue: InputNumberVue

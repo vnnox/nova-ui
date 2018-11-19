@@ -190,16 +190,22 @@ export const addClass = (el, className) => {
  * @returns {Number} 
  */
 export const getScrollbarWidth = () => {
-  if (getScrollbarWidth.value !== void 0) {
+  let hasScroll = document.body.scrollHeight > window.innerHeight
+  if (getScrollbarWidth.value !== void 0 && getScrollbarWidth.value !== 0) {
     return getScrollbarWidth.value
   }
-  const scrollDiv = document.createElement('div')
-  scrollDiv.style.cssText += 'width:100px;position:absolute;top:-9999rem;z-index:-1;visibility:hidden;'
-  document.body.appendChild(scrollDiv)
-  scrollDiv.style.overflow = 'scroll'
-  const width = scrollDiv.getBoundingClientRect().width - scrollDiv.clientWidth
-  scrollDiv.parentNode.removeChild(scrollDiv)
-  getScrollbarWidth.value = width
+  // 当页面有滚动条的时候才计算
+  if (hasScroll) {
+    const scrollDiv = document.createElement('div')
+    scrollDiv.style.cssText += 'width:100px;position:absolute;top:-9999rem;z-index:-1;visibility:hidden;'
+    document.body.appendChild(scrollDiv)
+    scrollDiv.style.overflow = 'scroll'
+    const width = scrollDiv.getBoundingClientRect().width - scrollDiv.clientWidth
+    scrollDiv.parentNode.removeChild(scrollDiv)
+    getScrollbarWidth.value = width
+  } else {
+    getScrollbarWidth.value = 0
+  }
   return getScrollbarWidth.value
 }
 
@@ -220,9 +226,8 @@ export const removeNode = el => el && el.parentNode && el.parentNode.removeChild
 export const scrollTo = (element, to, duration) => {
   const requestAnimationFrame = window.requestAnimationFrame ||
     function requestAnimationFrameTimeout() {
-      return setTimeout(arguments[0], 10);
+      return setTimeout(arguments[0], 10)
     }
-  // jump to target if duration zero
   if (duration <= 0) {
     element.scrollTop = to
     return
@@ -303,5 +308,5 @@ export default {
   removeNode,
   scrollTo,
   getOffsetByParent,
-  getScrollParent
+  getScrollParent,
 }
