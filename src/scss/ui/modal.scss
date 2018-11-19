@@ -1,0 +1,105 @@
+.nv-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  text-align: center;
+  overflow: auto;
+
+  .nv-modal-dialog {
+    position: relative;
+    display: inline-block;
+    text-align: left;
+    margin: 30px auto;
+    top: 10%;
+    background-color: white;
+    max-width: 80%;
+    box-shadow: 0 5px 15px 0 rgba(38, 38, 38, .5);
+    font-size: $font-size-base;
+    min-width: 450px;
+  }
+
+  .nv-modal__head {
+    position: relative;
+    padding: 15px 20px 14px 20px;
+    line-height: 20px;
+    border-bottom: 1px solid $color-line;
+
+    .nv-modal__title {
+      font-size: 15px;
+      margin: 0;
+      padding: 0;
+      line-height: inherit;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      color: $color-text;
+      font-weight: bold;
+    }
+
+    .nv-modal__close {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      line-height: 1;
+      text-align: center;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      top: 16px;
+      right: 14px;
+      border: none;
+      background-color: transparent;
+      -webkit-appearance: none;
+      user-select: none;
+      z-index: 1;
+      outline: none;
+      cursor: pointer;
+      font-weight: bold;
+      color: $color-spin;
+
+      &:hover {
+        color: $color-primary;
+      }
+    }
+
+    &.has-close {
+      padding-right: 50px;
+    }
+  }
+
+  .nv-modal__body {
+    padding: 25px 20px 30px 20px;
+    line-height: 1.5;
+    overflow: auto;
+  }
+
+  .nv-modal__foot {
+    height: 60px;
+    padding: 9px 20px 10px 20px;
+    display: flex;
+    align-items: center;
+    flex-flow: row nowrap;
+    border-top: 1px solid $color-line;
+
+    .nv-modal__foot_slot,
+    .nv-modal__foot_btns {
+      width: 1%;
+      flex: 1 1 auto;
+    }
+
+    .nv-modal__foot_btns {
+      text-align: right;
+      min-width: 30%;
+      font-size: 0;
+
+      .nv-btn {
+        margin-left: 10px;
+      }
+    }
+  }
+}
