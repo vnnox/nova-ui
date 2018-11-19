@@ -56,7 +56,7 @@
 | `type` | 类型 | string [`info/success/error/warning`] |  info |
 | `content` | 内容 | string | -- |
 | `closable`|  是否显示关闭按钮 | boolean | true |
-| `close-label`| 自定义关闭文本 | boolean | true |
+| `close-label`| 自定义关闭文本 | string | -- |
 | `show-icon`|  是否显示图标 | boolean | true |
 | `custom-icon`|  自定义图标 | string | -- |
 

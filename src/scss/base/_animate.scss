@@ -6,6 +6,14 @@
   animation: .2s ease-in 0s 1 both fadeOut;
 }
 
+.nv-animated--alert-in {
+  animation: alertFadeIn .2s ease-in forwards;
+}
+
+.nv-animated--alert-out {
+  animation: alertFadeOut .2s ease-in forwards;
+}
+
 @keyframes fadeIn {
   0% {
     opacity: 0;
@@ -33,4 +41,23 @@
 
 .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
   opacity: 0;
+}
+
+@keyframes alertFadeIn {
+  0% {
+    opacity: 0;
+    transform: translate(0, -100%);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate(0, 0);
+  }
+}
+
+@keyframes alertFadeOut {
+  to {
+    opacity: 0;
+    transform: translate(0, -100%);
+  }
 }
