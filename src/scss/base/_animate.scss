@@ -1,0 +1,36 @@
+.nv-animated--fade-in {
+  animation: .2s ease-in 0s 1 both fadeIn;
+}
+
+.nv-animated--fade-out {
+  animation: .2s ease-in 0s 1 both fadeOut;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+  }
+}
+
+// vue
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .2s;
+}
+
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  opacity: 0;
+}

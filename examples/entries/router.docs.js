@@ -58,7 +58,7 @@ router
 
 // events 
 document.addEventListener('click', function (e) {
-  var target = e.target;
+  var target = e.target
   var nodes = Array.prototype.slice.call(document.querySelectorAll('.code-view__ctrl'))
   var matched
   for (let i = 0, len = nodes.length; i < len; i++) {

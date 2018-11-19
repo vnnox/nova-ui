@@ -9,6 +9,8 @@ import Select from './select'
 import Option from './option'
 import Pagination from './pagination'
 import Slider from './slider'
+import Modal from './modal'
+import Alert from './alert'
 
 
 const RadioGroup = RadioGroups.NvRadioGroup
@@ -30,6 +32,8 @@ const components = [
   Select,
   Pagination,
   Slider,
+  Modal,
+  Alert,
 ]
 
 if (typeof window !== 'undefined' && window.Vue) {
@@ -52,4 +56,6 @@ export default {
   Select,
   Pagination,
   Slider,
+  Modal,
+  Alert
 }
