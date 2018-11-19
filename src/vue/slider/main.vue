@@ -1,5 +1,5 @@
 <template>
-  <div class="nv-slider--wrap" :class="{'nv-slider--vertical-wrap': vertical, 'show-input': showInput}">
+  <div class="nv-slider--wrap" :class="{'nv-slider--vertical-wrap': vertical}">
     <div class="nv-slider__bar" ref="slider"></div>
     <slot />
   </div>
