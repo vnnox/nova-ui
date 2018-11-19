@@ -99,7 +99,12 @@ export class Popup {
    * @memberof Popup
    */
   static nextZIndex() {
-    return ++zIndex
+    if (zIndex < Number.MAX_SAFE_INTEGER) {
+      ++zIndex
+    } else {
+      zIndex = 19900206
+    }
+    return zIndex
   }
 
   

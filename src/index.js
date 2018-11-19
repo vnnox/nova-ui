@@ -10,7 +10,7 @@ import Select from './components/select'
 import Slider from './components/slider'
 import Tree from './components/tree'
 import Modal from './components/modal'
-
+import Message from './components/message'
 
 const Nova = Object.create(null)
 
@@ -24,6 +24,7 @@ Nova.Select = Select
 Nova.Slider = Slider
 Nova.Tree = Tree 
 Nova.Modal = Modal
+Nova.Message = Message
 
 Object.freeze(Nova)
 

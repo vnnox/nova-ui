@@ -15,6 +15,7 @@ import { Events } from '../../utils/events'
 import { mixins, isElement, throwError } from '../../utils/utils'
 import { bind, unbind, qsa, addClass, removeNode, getScrollParent } from '../../utils/dom'
 import { template } from '../../utils/template'
+import { Popup } from '../../utils/popup'
 import { getPlacement } from './placements'
 import { skeletonTpl } from './template'
 
@@ -266,6 +267,7 @@ export class Picker extends Events {
       return
     }
 
+    $picker.style.zIndex = Popup.nextZIndex()
     $picker.style.visibility = 'hidden'
     $picker.style.display = 'block'
     states.visible = true

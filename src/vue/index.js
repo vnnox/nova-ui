@@ -11,7 +11,7 @@ import Pagination from './pagination'
 import Slider from './slider'
 import Modal from './modal'
 import Alert from './alert'
-
+import Message from './message'
 
 const RadioGroup = RadioGroups.NvRadioGroup
 const RadioItem = RadioGroups.NvRadioItem
@@ -40,6 +40,8 @@ if (typeof window !== 'undefined' && window.Vue) {
   components.forEach(component => {
     window.Vue.component(component.name, component)
   })
+  const VP = window.Vue.prototype
+  VP.$message = Message
 }
 
 export default {

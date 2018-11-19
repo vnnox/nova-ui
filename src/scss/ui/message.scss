@@ -1,0 +1,29 @@
+.nv-message-wrap {
+  position: fixed;
+  width: 100%;
+  top: 16px;
+  left: auto;
+  right: auto;
+  margin: 0 auto;
+  padding: 0;
+  pointer-events: none;
+  text-align: center;
+
+  .nv-message {
+    text-align: center;
+    padding: 8px;
+    // 如果需要在同一位置显示的话，开启以下样式
+    position: absolute;
+    width: 100%;
+    top: 0;
+    left: 0;
+  }
+
+  .nv-alert {
+    min-width: 400px;
+    max-width: 80%;
+    display: inline-block;
+    text-align: left;
+    pointer-events: all;
+  }
+}

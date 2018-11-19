@@ -5,6 +5,8 @@
   background-color: $color-alert-info-bg;
   color: $color-alert-info-color;
   line-height: 18px;
+  min-width: 400px;
+  max-width: 100%;
 
   + .nv-alert {
     margin-top: 20px;
@@ -78,7 +80,7 @@
 
   &.has-close {
     .nv-alert__content {
-      padding-right: 8px;
+      padding-right: 12px;
     }
   }
 }
