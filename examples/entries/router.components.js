@@ -19,6 +19,7 @@ const Pagination = require('../docs/components/pagination.md')
 const Slider = require('../docs/components/slider.md')
 const Alert = require('../docs/components/alert.md')
 const Message = require('../docs/components/message.md')
+const MessageBox = require('../docs/components/message-box.md')
 
 
 // VUE
@@ -33,6 +34,7 @@ const SliderVue = require('../docs/components/vue/slider.md')
 const ModalVue = require('../docs/components/vue/modal.md')
 const AlertVue = require('../docs/components/vue/alert.md')
 const MessageVue = require('../docs/components/vue/message.md')
+const MessageBoxVue = require('../docs/components/vue/message-box.md')
 
 
 
@@ -175,6 +177,10 @@ router
     native: Message,
     vue: MessageVue
   }, 'Message', runScript))
+  .set('/message-box', setPage({
+    native: MessageBox,
+    vue: MessageBoxVue
+  }, 'MessageBox', runScript))
   .set('/input-number', setPage({
     native: InputNumber,
     vue: InputNumberVue

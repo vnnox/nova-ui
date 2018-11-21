@@ -1,0 +1,58 @@
+.nv-message-box {
+  display: flex;
+  flex-flow: row nowrap;
+  line-height: 20px;
+  margin-top: 5px;
+  min-height: 55px;
+
+  .nv-message-box__icon {
+    min-width: 32px;
+    font-size: 32px;
+    margin-right: 20px;
+  }
+
+  .nv-icon-circle-info {
+    color: rgb(67, 163, 251);
+  }
+
+  .nv-icon-circle-check {
+    color: rgb(19, 206, 102);
+  }
+
+  .nv-icon-circle-close {
+    color: rgb(255, 108, 86);
+  }
+
+  .nv-icon-circle-warning {
+    color: rgb(247, 186, 42);
+  }
+
+  .nv-message-box__content {
+    font-size: 14px;
+    padding-top: 6px;
+    flex: 1 1 auto;
+  }
+
+  .nv-message-box__message {
+    color: $color-text;
+  }
+
+  .nv-message-box__describe {
+    color: $color-placeholder;
+    margin-top: 20px;
+  }
+}
+
+.dialog-message-box {
+  .nv-modal-dialog {
+    width: 450px;
+  }
+
+  // .nv-modal__head .nv-modal__close {
+  //   right: 8px;
+  // }
+
+  // .nv-modal__foot {
+  //   padding-right: 12px;
+  // }
+}

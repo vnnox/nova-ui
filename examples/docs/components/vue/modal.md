@@ -13,8 +13,8 @@
       <nv-modal title="Modal" v-model="visible">
         这里是模态框内容
         <template slot="btns">
-          <button type="button" class="nv-btn" @click="visible=false">Cancel</button>
           <button type="button" class="nv-btn nv-btn--primary" @click="confirm">Confirm</button>
+          <button type="button" class="nv-btn" @click="visible=false">Cancel</button>
         </template>  
       </nv-modal>  
       <nv-modal title="Modal" v-model="visible2">
@@ -23,8 +23,8 @@
           <nv-checkbox style="vertical-align: top;">不在提醒</nv-checkbox>
         </template>  
         <template slot="btns">
-          <button type="button" class="nv-btn" @click="visible2=false">Cancel</button>
           <button type="button" class="nv-btn nv-btn--primary"  @click="visible2=false">Confirm</button>
+          <button type="button" class="nv-btn" @click="visible2=false">Cancel</button>
         </template>  
       </nv-modal>  
     </div>
