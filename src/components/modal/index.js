@@ -86,7 +86,11 @@ function createBtn(btn) {
   const $el = document.createElement('button')
   $el.type = 'button'
   $el.textContent = btn.text
-  $el.__handle = btn.handle
+  let handle = btn.handle
+  if (!isFunction(handle)) {
+    handle = this.close
+  }
+  $el.__handle = handle.bind(this)
   $el.className = 'nv-btn nv-dialog__btn'
   addClass($el, btn.css)
   return $el
@@ -177,7 +181,7 @@ function render() {
     if (btns && btns.length) {
       states.$btns = []
       btns.forEach(btn => {
-        const $btn = createBtn(btn)
+        const $btn = createBtn.call(this, btn)
         states.$btnsWrap.appendChild($btn)
         states.$btns.push($btn)
       })
@@ -325,7 +329,7 @@ export class Modal extends Events {
    */
   close(type) {
     const { states } = this
-    if (!states.visible) {
+    if (!states || !states.visible) {
       return
     }
     Popup.close(states.id)
