@@ -35,15 +35,15 @@
     content: '这是一个默认形态的模态框',
     btns: [
       {
-        text: '取消'
-      },
-      {
         text: '确定',
         css: 'nv-btn--primary',
         handle() {
           alert('自定义事件')
         }
-      }  
+      },
+      {
+        text: '取消'
+      },  
     ]
   })
    $ins2.onclick = function() {

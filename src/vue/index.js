@@ -12,6 +12,8 @@ import Slider from './slider'
 import Modal from './modal'
 import Alert from './alert'
 import Message from './message'
+import MessageBox from './message-box'
+import { bind } from '../utils/dom'
 
 const RadioGroup = RadioGroups.NvRadioGroup
 const RadioItem = RadioGroups.NvRadioItem
@@ -42,7 +44,20 @@ if (typeof window !== 'undefined' && window.Vue) {
   })
   const VP = window.Vue.prototype
   VP.$message = Message
+  VP.$alert = MessageBox.alert
+  VP.$confirm = MessageBox.confirm
 }
+
+
+function routeChangeDestory () {
+  MessageBox.destroy()
+  Message.destroy()
+}
+
+// 当路由改变时，销毁已存在的实例
+bind(window, 'hashchange', routeChangeDestory)
+bind(window, 'popstate', routeChangeDestory)
+
 
 export default {
   Radio,
