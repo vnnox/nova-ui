@@ -5,13 +5,13 @@ import Dom from './utils/dom'
 import Events from './utils/events'
 import InputNumber from './components/input-number'
 import Pagination from './components/pagination'
-import Picker from './components/picker'
 import Select from './components/select'
 import Slider from './components/slider'
 import Tree from './components/tree'
 import Modal from './components/modal'
 import Message from './components/message'
 import MessageBox from './components/message-box'
+import Popover from './components/popover'
 
 
 const Nova = Object.create(null)
@@ -21,7 +21,7 @@ Nova.$Events = Events
 Nova.$Dom = Dom 
 Nova.InputNumber = InputNumber
 Nova.Pagination = Pagination
-Nova.Picker = Picker
+Nova.Popover = Popover
 Nova.Select = Select
 Nova.Slider = Slider
 Nova.Tree = Tree 

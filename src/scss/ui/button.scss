@@ -78,6 +78,22 @@
   &.nv-fluid {
     width: 100%;
   }
+
+  &.nv-btn--link,
+  &.nv-btn--text {
+    border: none;
+    background-color: transparent;
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  &.nv-btn--link {
+    color: $color-primary !important;
+  }
+
+  &.nv-btn--text {
+    color: $color-text !important;
+  }
 }
 
 a.nv-btn:hover {

@@ -20,6 +20,8 @@ const Slider = require('../docs/components/slider.md')
 const Alert = require('../docs/components/alert.md')
 const Message = require('../docs/components/message.md')
 const MessageBox = require('../docs/components/message-box.md')
+const Popover = require('../docs/components/popover.md')
+const Tag = require('../docs/components/tag.md')
 
 
 // VUE
@@ -35,7 +37,8 @@ const ModalVue = require('../docs/components/vue/modal.md')
 const AlertVue = require('../docs/components/vue/alert.md')
 const MessageVue = require('../docs/components/vue/message.md')
 const MessageBoxVue = require('../docs/components/vue/message-box.md')
-
+const PopoverVue = require('../docs/components/vue/popover.md')
+const TagVue = require('../docs/components/vue/tag.md')
 
 
 function genIconsTpl () {
@@ -181,6 +184,10 @@ router
     native: MessageBox,
     vue: MessageBoxVue
   }, 'MessageBox', runScript))
+  .set('/popover', setPage({
+    native: Popover,
+    vue: PopoverVue
+  }, 'Popover', runScript))
   .set('/input-number', setPage({
     native: InputNumber,
     vue: InputNumberVue
@@ -204,6 +211,10 @@ router
     native: Slider,
     vue: SliderVue
   }, 'Slider', runScript))
+  .set('/tag', setPage({
+    native: Tag,
+    vue: TagVue
+  }, 'Tag', runScript))
   .init()
 
 

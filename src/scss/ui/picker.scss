@@ -2,7 +2,8 @@
   position: absolute;
   line-height: 1.4;
   text-align: justify;
-  z-index: 19900206;
+  z-index: 2000;
+  font-size: $font-size-base;
 
   .nv-picker__body {
     background-color: white;
@@ -29,7 +30,7 @@
   &[x-placement="top"],
   &[x-placement="top-end"] {
     .nv-picker__arrow {
-      bottom: -4.5px;
+      bottom: -4px;
       box-shadow: 3px 3px 7px rgba(24, 91, 193, .07);
     }
   }
@@ -39,7 +40,7 @@
   &[x-placement="bottom-end"] {
     .nv-picker__arrow {
       box-shadow: -2px -2px 5px rgba(24, 91, 193, .06);
-      top: -4.5px;
+      top: -4px;
     }
   }
 
@@ -47,7 +48,7 @@
   &[x-placement="left"],
   &[x-placement="left-end"] {
     .nv-picker__arrow {
-      right: -4.5px;
+      right: -4px;
       box-shadow: 3px -3px 7px rgba(24, 91, 193, .07);
     }
   }
@@ -56,7 +57,7 @@
   &[x-placement="right"],
   &[x-placement="right-end"] {
     .nv-picker__arrow {
-      left: -4.5px;
+      left: -4px;
       box-shadow: -3px 3px 7px rgba(24, 91, 193, .07);
     }
   }

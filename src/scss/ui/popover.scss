@@ -1,0 +1,69 @@
+// 覆盖picker的部分样式
+.nv-picker--popover {
+  .nv-picker__body {
+    min-height: 32px;
+    box-shadow: none !important;
+    border: 1px solid $color-line;
+    background-color: white;
+  }
+
+  .nv-picker__arrow {
+    box-shadow: none !important;
+    border: 1px solid $color-line;
+    z-index: 1;
+  }
+
+  .nv-popover {
+    position: relative;
+    min-height: 30px;
+    z-index: 5;
+    background-color: white;
+    padding: 6px 10px;
+    line-height: 18px;
+
+    p {
+      margin: 0;
+    }
+
+    .nv-popover__title {
+      line-height: 1;
+      font-size: 14px;
+      padding: 6px 0 8px 0;
+      margin: 0;
+    }
+
+    .nv-popover__btns {
+      padding: 8px 0 6px 0;
+      text-align: right;
+      font-size: 0;
+
+      .nv-btn {
+        margin-left: 10px;
+      }
+    }
+  }
+
+  // primary
+  &.nv-popover--primary {
+    .nv-picker__body,
+    .nv-picker__arrow {
+      border-color: $color-primary;
+    }
+  }
+
+  // success
+  &.nv-popover--success {
+    .nv-picker__body,
+    .nv-picker__arrow {
+      border-color: $color-success;
+    }
+  }
+
+  // error
+  &.nv-popover--error {
+    .nv-picker__body,
+    .nv-picker__arrow {
+      border-color: $color-danger;
+    }
+  }
+}
