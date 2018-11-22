@@ -303,7 +303,6 @@ export const throwError = (message,  type) => {
   throw new method(message)
 }
 
-
 export default {
   isString,
   isObject,
@@ -326,6 +325,6 @@ export default {
   escapeRegExp,
   getObjectValue,
   uuid,
-  throwError
+  throwError,
 }
 

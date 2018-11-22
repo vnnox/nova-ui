@@ -29,9 +29,9 @@ const Selectors = {
 }
 
 // 默认配置
-const defaults = {
+export const defaults = {
   // 触发方式 click|focus|hover
-  trigger: 'focus',
+  trigger: 'click',
   // 内容，string | HTMLElement
   content: null,
   // 相对target位置
@@ -103,6 +103,38 @@ const setPosition = function () {
 
 
 /**
+ * mouseenter event
+ * @private
+ */
+function handleMouseenter () {
+  this.states.hoverTimer && clearTimeout(this.states.hoverTimer)
+  this.open()
+}
+
+
+/**
+ * mouseleave event
+ * @private
+ */
+function handleMouseleave () {
+  this.states.hoverTimer = setTimeout(() => {
+    this.close()
+    this.states.hoverTimer = null
+  }, 200)
+}
+
+
+/**
+ * picker mouseenter event
+ * 200ms 内如果鼠标重新划过target或者picker，则清除定时器
+ * @private
+ */
+function handlePickerMouseenter () {
+  this.states.hoverTimer && clearTimeout(this.states.hoverTimer)
+}
+
+
+/**
  * 绑定事件
  * @private
  */
@@ -114,22 +146,27 @@ const bindEvents = function () {
   handles.open = this.open.bind(this)
   handles.close = this.close.bind(this)
   handles.resize = setPosition.bind(this)
-  
+  handles.targetMouseenter = handleMouseenter.bind(this)
+  handles.mouseleave = handleMouseleave.bind(this)
+  handles.pickerMouseenter = handlePickerMouseenter.bind(this)
+
+
   switch (props.trigger) {
     case 'focus':
       bind($target, 'focusin', handles.targetClick)
+      bind($target, 'focusout', handles.close)
       break
     case 'hover':
-      bind($target, 'mouseenter', handles.open)
-      bind($target, 'mouseleave', handles.close)
+      bind($target, 'mouseenter', handles.targetMouseenter)
+      bind($target, 'mouseleave', handles.mouseleave)
       break
     case 'click':
     default:
       bind($target, 'click', handles.targetClick)
+      bind(document, 'click', handles.documentClick)
       break
   }
 
-  bind(document, 'click', handles.documentClick)
   window.addEventListener('resize', handles.resize)
   window.addEventListener('scroll', handles.resize)
   states.$scrollParent.addEventListener('scroll', handles.resize)
@@ -146,6 +183,7 @@ const unbindEvents = function () {
   switch (props.trigger) {
     case 'focus':
       unbind($target, 'focusin', handles.open)
+      unbind($target, 'focusout', handles.close)
       break
     case 'hover':
       unbind($target, 'mouseenter', handles.open)
@@ -154,10 +192,10 @@ const unbindEvents = function () {
     case 'click':
     default:
       unbind($target, 'click', handles.targetClick)
+      unbind(document, 'click', handles.documentClick)
       break
   }
 
-  unbind(document, 'click', handles.documentClick)
   states.$picker && unbind(states.$picker, 'click', handles.pickerClick)
   window.removeEventListener('resize', handles.resize)
   window.removeEventListener('scroll', handles.resize)
@@ -173,7 +211,7 @@ const render = function () {
   const { states, props } = this
   const $picker = document.createElement('div')
   $picker.className = UI_NAME
-  addClass(props.customClass)
+  addClass($picker, props.customClass)
   // render
   $picker.innerHTML = template(skeletonTpl, {
     showArrow: props.showArrow
@@ -201,6 +239,13 @@ const render = function () {
 
   unbind($picker, 'click', states.handles.pickerClick)
   bind($picker, 'click', states.handles.pickerClick)
+
+  if (props.trigger === 'hover') {
+    unbind($picker, 'mouseenter', states.handles.pickerMouseenter)
+    bind($picker, 'mouseenter', states.handles.pickerMouseenter)
+    unbind($picker, 'mouseleave', states.handles.mouseleave)
+    bind($picker, 'mouseleave', states.handles.mouseleave)
+  }
 }
 
 
@@ -241,6 +286,7 @@ export class Picker extends Events {
     states.visible = false
     states.handles = Object.create(null)
     states.$scrollParent = getScrollParent(target)
+    states.hoverTimer = null
     // events bind
     bindEvents.call(this)
   }

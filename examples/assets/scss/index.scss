@@ -66,24 +66,17 @@ $container-width: 100% !default;
   }
 }
 
-.app-main {
-  width: $container-width;
-  padding: 0;
-  margin: 0 auto;
-  height: 100vh;
-  position: relative;
-  display: flex;
-  flex-flow: row nowrap;
+.app-aside {
+  width: 280px;
+  height: 100%;
   overflow: hidden;
-
-  > .app-aside {
-    width: 280px;
-    height: 100%;
-    overflow: hidden;
-    padding-left: 2rem;
-    border-right: 1px solid #f0f1f2;
-    padding-top: 60px;
-  }
+  padding-left: 2rem;
+  border-right: 1px solid #f0f1f2;
+  padding-top: 60px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
 
   .app-aside__nav {
     margin-right: -20px;
@@ -146,19 +139,45 @@ $container-width: 100% !default;
       }
     }
   }
-
-  > .app-container {
-    width: 1px;
-    flex: 1 1 auto;
-    height: 100%;
-    overflow-x: hidden;
-    overflow-y: auto;
-    padding-top: 60px;
-  }
 }
 
+.app-container {
+  margin: 60px 0 0 280px;
+}
+
+// .app-main {
+//   // width: $container-width;
+//   // padding: 0;
+//   // margin: 0 auto;
+//   // height: 100vh;
+//   // position: relative;
+//   // display: flex;
+//   // flex-flow: row nowrap;
+//   // overflow: hidden;
+
+//   > .app-aside {
+//     width: 280px;
+//     height: 100%;
+//     overflow: hidden;
+//     padding-left: 2rem;
+//     border-right: 1px solid #f0f1f2;
+//     padding-top: 60px;
+//   }
+
+  
+
+//   > .app-container {
+//     width: 1px;
+//     flex: 1 1 auto;
+//     height: 100%;
+//     overflow-x: hidden;
+//     overflow-y: auto;
+//     padding-top: 60px;
+//   }
+// }
+
 .app-container .app-viewport {
-  padding: 20px 0;
+  padding: 20px 2rem;
 
   section {
     
@@ -241,6 +260,10 @@ $container-width: 100% !default;
   .code-view__source {
     > :last-child {
       margin-bottom: 0;
+    }
+
+    pre {
+      margin: 0;
     }
   }
 }
@@ -336,11 +359,11 @@ $container-width: 100% !default;
 .doc-tabs {
   display: inline-block;
   list-style: none;
-  margin: -20px 0 1rem 0;
+  margin: -20px auto 1rem -2rem;
   padding: 0;
   user-select: none;
   position: sticky;
-  top: -60px;
+  top: 0;
   z-index: 101;
 
   .doc-tabs__item {
@@ -373,7 +396,7 @@ $container-width: 100% !default;
 }
 
 .doc-panel {
-  padding: 20px 2rem;
+  padding: 20px 0;
   display: none;
 
   &.doc-panel--actived {
@@ -462,4 +485,18 @@ $container-width: 100% !default;
       }
     }
   }
+}
+
+
+pre {
+  margin: 1rem 0;
+  line-height: 1.8;
+  font-family: Menlo,Monaco,Consolas,Courier,monospace, PingFang SC,Hiragino Sans GB,Microsoft YaHei,Arial,Helvetica Neue,Helvetica;
+  font-size: 12px;
+  padding: 16px 20px;
+  background-color: #fafafa;
+  border: 1px solid #eaeefb;
+  margin-bottom: 25px;
+  border-radius: 4px;
+  -webkit-font-smoothing: auto;
 }

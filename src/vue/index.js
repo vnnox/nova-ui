@@ -1,6 +1,7 @@
+import { bind } from '../utils/dom'
 import Radio from './radio'
-import RadioGroups from './radio-group'
 import Checkbox from './checkbox'
+import RadioGroups from './radio-group'
 import CheckboxGroups from './checkbox-group'
 import Switch from './switch'
 import InputNumber from './input-number'
@@ -13,7 +14,8 @@ import Modal from './modal'
 import Alert from './alert'
 import Message from './message'
 import MessageBox from './message-box'
-import { bind } from '../utils/dom'
+import Popover from './popover'
+import Tag from './tag'
 
 const RadioGroup = RadioGroups.NvRadioGroup
 const RadioItem = RadioGroups.NvRadioItem
@@ -36,6 +38,7 @@ const components = [
   Slider,
   Modal,
   Alert,
+  Tag,
 ]
 
 if (typeof window !== 'undefined' && window.Vue) {
@@ -46,10 +49,13 @@ if (typeof window !== 'undefined' && window.Vue) {
   VP.$message = Message
   VP.$alert = MessageBox.alert
   VP.$confirm = MessageBox.confirm
+
+  // directive
+  window.Vue.directive('popover', Popover)
 }
 
 
-function routeChangeDestory () {
+function routeChangeDestory() {
   MessageBox.destroy()
   Message.destroy()
 }
@@ -74,5 +80,6 @@ export default {
   Pagination,
   Slider,
   Modal,
-  Alert
+  Alert,
+  Tag
 }
