@@ -11,7 +11,7 @@
  * Copyright 2018, NovaStar Tech Co., Ltd
  */
 
-import { isString, toArray, isArray } from './utils'
+import { isString, toArray, isArray, isNumberString } from './utils'
 
 
 // selector
@@ -287,11 +287,23 @@ export const getScrollParent = element => {
   if (/(auto|scroll|overlay)/.test(overflow + overflowY + overflowX)) {
     return element
   }
-
   return getScrollParent(element.parentNode)
 }
 
 
+/**
+ * 获取一个有效的尺寸值
+ * @param {*} size 
+ */
+export const getSize = size => {
+  if (isNumberString(size)) {
+    size += 'px'
+  }
+  if (size && !isNaN(parseFloat(size, 10))) {
+    return size 
+  }
+  return 0
+}
 
 
 export default {
@@ -309,4 +321,5 @@ export default {
   scrollTo,
   getOffsetByParent,
   getScrollParent,
+  getSize
 }
