@@ -15,5 +15,9 @@ export default {
     close: '关闭',
     confirm: '确定',
     cancel: '取消'
+  },
+  colorPicker: {
+    confirm: '确定',
+    clear: '清空'
   }
 }

@@ -131,7 +131,29 @@ export const getPlacement = (target, picker, placement, margin, auto) => {
 }
 
 
+/**
+ * 通过align获取placement
+ * @param {*} align 
+ */
+export const getPlacementByAlign = align => {
+  let placement
+  switch (align) {
+    case 'center':
+      placement = 'bottom'
+      break
+    case 'right':
+      placement = 'bottom-end'
+      break
+    case 'left':
+    default:
+      placement = 'bottom-start'
+      break
+  }
+  return placement
+}
+
 export default {
   PLACEMENTS,
-  getPlacement
+  getPlacement,
+  getPlacementByAlign
 }
