@@ -12,6 +12,7 @@
     box-sizing: border-box;
     padding: 10px;
     position: relative;
+    border: none;
 
     &::after {
       content: '';

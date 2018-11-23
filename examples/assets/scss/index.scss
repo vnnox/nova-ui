@@ -457,41 +457,40 @@ $container-width: 100% !default;
   background-color: rgb(183, 180, 204);
 }
 
-.app-container {
-  table {
-    background-color: transparent;
-    border-collapse: collapse;
-    border-spacing: 0;
-    margin-bottom: 40px;
-    max-width: 100%;
-    width: 100%;
+table {
+  background-color: transparent;
+  border-collapse: collapse;
+  border-spacing: 0;
+  margin-bottom: 40px;
+  max-width: 100%;
+  width: 100%;
 
-    td, th {
-      border-bottom: 1px solid #ebeef5;
-      padding: 10px;
+  td, th {
+    border-bottom: 1px solid #ebeef5;
+    padding: 10px;
+  }
+
+  > thead {
+    th, td {
+      font-weight: 700;
+      overflow: hidden;
+      white-space: nowrap;
     }
+  }
 
-    > thead {
-      th, td {
-        font-weight: 700;
-        overflow: hidden;
-        white-space: nowrap;
-      }
-    }
-
-    > tbody {
-      tr:hover {
-        background-color: #f6faff;
-      }
+  > tbody {
+    tr:hover {
+      background-color: #f6faff;
     }
   }
 }
 
-
+pre, code {
+  font-family: SFMono-Regular,Consolas,Liberation Mono,Menlo,Courier,monospace;
+}
 pre {
   margin: 1rem 0;
   line-height: 1.8;
-  font-family: Menlo,Monaco,Consolas,Courier,monospace, PingFang SC,Hiragino Sans GB,Microsoft YaHei,Arial,Helvetica Neue,Helvetica;
   font-size: 12px;
   padding: 16px 20px;
   background-color: #fafafa;
