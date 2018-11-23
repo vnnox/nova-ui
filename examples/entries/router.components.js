@@ -40,6 +40,7 @@ const MessageVue = require('../docs/components/vue/message.md')
 const MessageBoxVue = require('../docs/components/vue/message-box.md')
 const PopoverVue = require('../docs/components/vue/popover.md')
 const TagVue = require('../docs/components/vue/tag.md')
+const ColorPickerVue = require('../docs/components/vue/color-picker.md')
 
 
 function genIconsTpl () {
@@ -170,7 +171,7 @@ router
   }, 'Badge'))
   .set('/color-picker', setPage({
     native: ColorPicker,
-    // vue: ColorPicker
+    vue: ColorPickerVue
   }, 'ColorPicker', runScript))
   
 

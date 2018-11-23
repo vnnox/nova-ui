@@ -16,6 +16,7 @@ import Message from './message'
 import MessageBox from './message-box'
 import Popover from './popover'
 import Tag from './tag'
+import ColorPicker from './color-picker'
 
 const RadioGroup = RadioGroups.NvRadioGroup
 const RadioItem = RadioGroups.NvRadioItem
@@ -39,6 +40,8 @@ const components = [
   Modal,
   Alert,
   Tag,
+  ColorPicker,
+
 ]
 
 if (typeof window !== 'undefined' && window.Vue) {
@@ -81,5 +84,6 @@ export default {
   Slider,
   Modal,
   Alert,
-  Tag
+  Tag,
+  ColorPicker
 }
