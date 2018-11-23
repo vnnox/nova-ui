@@ -22,6 +22,7 @@ const Message = require('../docs/components/message.md')
 const MessageBox = require('../docs/components/message-box.md')
 const Popover = require('../docs/components/popover.md')
 const Tag = require('../docs/components/tag.md')
+const ColorPicker = require('../docs/components/color-picker.md')
 
 
 // VUE
@@ -163,11 +164,18 @@ router
   }, 'Switch', runScript))
   .set('/breadcrumb', setPage({
     native: Breadcrumb,
-   
   }, 'Breadcrumb', runScript))
   .set('/badge', setPage({
     native: Badge
   }, 'Badge'))
+  .set('/color-picker', setPage({
+    native: ColorPicker,
+    // vue: ColorPicker
+  }, 'ColorPicker', runScript))
+  
+
+
+
   .set('/modal', setPage({
     native: Modal,
     vue: ModalVue

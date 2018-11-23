@@ -1,0 +1,169 @@
+.nv-color-picker {
+  width: 240px;
+
+  .nv-color-picker__panel {
+    position: relative;
+    margin: 10px 0 15px 0;
+  }
+
+  .nv-color-picker__lumps {
+    display: flex;
+    flex-flow: row wrap;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    border-top: 1px solid black;
+    border-left: 1px solid black;
+    margin-left: -1px;
+
+    .color-lump {
+      width: 15px;
+      height: 15px;
+      display: inline-flex;
+      border: 1px solid black;
+      border-top: none;
+      border-left: none;
+
+      span {
+        display: block;
+        width: 100%;
+        height: 100%;
+        transition: all .2s;
+        cursor: pointer;
+      }
+
+      &:hover {
+        span {
+          transform: scale(1.4);
+          transform-origin: center;
+          border: 1px solid $color-line;
+        }
+      }
+    }
+  }
+
+  .nv-color-picker__current {
+    width: 120px;
+    position: relative;
+
+    .nv-input {
+      width: 100%;
+      padding-left: 40px;
+    }
+
+    .current-lump {
+      width: 20px;
+      height: 20px;
+      position: absolute;
+      left: 12px;
+      top: 6px;
+      border: 1px solid $color-line;
+    }
+  }
+}
+
+/* stylelint-disable */
+
+.colorPicker,
+.colorPicker * {
+  box-sizing: content-box;
+}
+
+.colorPicker {
+  display: block;
+  border-radius: 0;
+  background-color: white;
+  display: flex;
+  width: 100%;
+}
+
+.colorPicker .twod {
+  margin-right: 10px;
+  @extend .nv-alpha-bg;
+}
+
+/* main dimensions */
+.colorPicker .twod,
+.colorPicker .twod .bg {
+  width: 210px;
+  height: 210px;
+}
+
+.colorPicker .oned,
+.colorPicker .oned .bg {
+  height: 210px;
+}
+
+.colorPicker .oned,
+.colorPicker .oned .bg,
+.colorPicker .oned .pointer .shape {
+  width: 20px;
+}
+
+.colorPicker .twod .bg {
+  position: absolute;
+}
+
+.colorPicker .twod .pointer {
+  position: relative;
+  z-index: 2;
+  width: 8px;
+}
+
+.colorPicker .twod .pointer .shape {
+  position: absolute;
+}
+
+.colorPicker .twod .pointer .shape1 {
+  transform: translate(-50%, -50%);
+  width: 10px;
+  height: 10px;
+  border: 2px solid #888;
+  border-radius: 50%;
+}
+
+.colorPicker .twod .pointer .shape2 {
+  transform: translate(-50%, -50%);
+  width: 8px;
+  height: 8px;
+  border: 2px solid white;
+  border-radius: 50%;
+}
+
+.colorPicker .oned {
+  float: left;
+}
+
+.colorPicker .oned .bg {}
+
+.colorPicker .oned .pointer {
+  position: relative;
+  z-index: 2;
+}
+
+.colorPicker .oned .pointer .shape {
+  position: absolute;
+  margin-left: -2px;
+  margin-top: -4px;
+  height: 5px;
+  border: 2px solid $color-spin;
+  border-radius: 5px;
+  background-color: rgba(white, .5);
+}
+
+/* gradients, tweak as needed based on which browsers you want to support */
+
+.colorPicker .oned .bg {
+  background: linear-gradient(to bottom, #ff0000 0%, #ffff00 17%, #00ff00 33%, #00ffff 50%, #0000ff 66%, #ff00ff 83%, #ff0000 100%);
+}
+
+.colorPicker .twod .bg1 {
+  z-index: 0;
+  background: linear-gradient(to right, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0) 100%);
+}
+
+.colorPicker .twod .bg2 {
+  z-index: 1;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 1) 100%);
+}
+
