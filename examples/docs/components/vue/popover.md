@@ -1,7 +1,7 @@
 # Popover 弹出框
 
 ## 使用和示例
-> `popover`是已挂在在Vue指令集上的一个自定义指令。使用时可以直接通过指令的方式来调用`v-popover="options" / v-popover.[trigger modifier]="options"`。
+> `popover`是已挂载在Vue指令集上的一个自定义指令。使用时可以直接通过指令的方式来调用`v-popover="options" / v-popover.[trigger modifier]="options"`。
 
 ### 基础用法
 

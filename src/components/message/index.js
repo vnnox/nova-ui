@@ -1,3 +1,16 @@
+/*
+ * File: index.js
+ * Project: @vnnox/novaui
+ * Description: 主动操作后的反馈提示，如操作成功等
+ * Created: 2018-11-19 05:01
+ * Author: smohan (mengxw@novastar.tech)
+ * -----
+ * Last Modified: 2018-11-26 02:04
+ * Modified By: smohan (mengxw@novastar.tech>)
+ * -----
+ * Copyright 2018, NovaStar Tech Co., Ltd
+ */
+
 import { mixins, isPlainObject, isFunction, uuid } from '../../utils/utils'
 import { qsa, addClass, bind, unbind } from '../../utils/dom'
 import { template } from '../../utils/template'
