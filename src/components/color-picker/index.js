@@ -181,6 +181,15 @@ function handleInputChange(e) {
 
 
 /**
+ * 面板上的输入框点击时阻止其事件传播
+ * @param {*} e 
+ */
+function handleInputClick (e) {
+  e.stopPropagation()
+}
+
+
+/**
  * clear value
  * @private
  * @date 2018-11-23
@@ -213,6 +222,12 @@ function handleConfirm() {
 }
 
 
+
+/**
+ * 点击picker面板
+ * @private
+ * @param {*} e 
+ */
 function handlePickerClick (e) {
   this.emit('picker-click', e)
 }
@@ -232,12 +247,14 @@ function bindEvents() {
     self.setValue(this.getAttribute('data-value'))
   })
   handles.inputChange = handleInputChange.bind(this)
+  handles.inputClick = handleInputClick.bind(this)
   handles.clear = handleClear.bind(this)
   handles.confirm = handleConfirm.bind(this)
   handles.pickerClick = handlePickerClick.bind(this)
 
   states.$lumps && bind(states.$el, 'click', handles.lumpClick)
   states.$input && bind(states.$input, 'change', handles.inputChange)
+  states.$input && bind(states.$input, 'click', handles.inputClick)
   states.$clear && bind(states.$clear, 'click', handles.clear)
   states.$confirm && bind(states.$confirm, 'click', handles.confirm)
   bind(states.$el, 'click', handles.pickerClick)
@@ -254,6 +271,7 @@ function unbindEvents() {
   const handles = states.handles
   states.$lumps && unbind(states.$el, 'click', handles.lumpClick)
   states.$input && unbind(states.$input, 'change', handles.inputChange)
+  states.$input && unbind(states.$input, 'click', handles.inputClick)
   states.$clear && unbind(states.$clear, 'click', handles.clear)
   states.$confirm && unbind(states.$confirm, 'click', handles.confirm)
   unbind(states.$el, 'click', handles.pickerClick)

@@ -1,5 +1,4 @@
 import Router from '../assets/router'
-import ICONS from './icon'
 
 // Native
 const Button = require('../docs/components/button.md')
@@ -23,7 +22,7 @@ const MessageBox = require('../docs/components/message-box.md')
 const Popover = require('../docs/components/popover.md')
 const Tag = require('../docs/components/tag.md')
 const ColorPicker = require('../docs/components/color-picker.md')
-
+const Loader = require('../docs/components/loader.md')
 
 // VUE
 const RadioVue = require('../docs/components/vue/radio.md')
@@ -41,32 +40,25 @@ const MessageBoxVue = require('../docs/components/vue/message-box.md')
 const PopoverVue = require('../docs/components/vue/popover.md')
 const TagVue = require('../docs/components/vue/tag.md')
 const ColorPickerVue = require('../docs/components/vue/color-picker.md')
-
-
-function genIconsTpl () {
-  let li = ''
-  ICONS.split(',').forEach(icon => {
-    icon = icon.trim()
-    li += `<li><i class="nv-icon-${icon}"></i><span class="label">${icon}</span></li>`
-  })
-  const $iconWrap =  document.getElementById('icon-list')
-  $iconWrap.innerHTML = li 
-  const $currentValue = document.getElementById('current-font-value')
-  document.getElementById('font-adjust').onchange = function () {
-    $iconWrap.style.fontSize = this.value + 'px'
-    $currentValue.textContent = this.value + 'PX'
-  }
-}
-
+const LoaderVue = require('../docs/components/vue/loader.md')
 
 const $contianerNative = document.getElementById('container-native')
 const $contianerVue = document.getElementById('container-vue')
+const $tabWrap = document.getElementById('doc-tabs')
+
 
 function setPage(pages, title, cb) {
   return function () {
+    let len = Object.keys(pages).length
+    if (len === 1) {
+      $tabWrap.style.display = 'none'
+    } else {
+      $tabWrap.style.display = null
+    }
     $contianerNative.innerHTML = pages.native
     $contianerVue.innerHTML = pages.vue || '同原生用法'
     document.title = `${title} | Nova UI Components`
+    window.scrollTo(0, 0)
     setTimeout(() => {
       cb && typeof cb === 'function' && cb()
     })
@@ -144,7 +136,7 @@ router
   .set('/')
   .set('/icon', setPage({
     native: Icon
-  }, 'Icon', genIconsTpl))
+  }, 'Icon', runScript))
   .set('/button', setPage({
     native: Button
   }, 'Button'))
@@ -197,6 +189,10 @@ router
     native: Popover,
     vue: PopoverVue
   }, 'Popover', runScript))
+  .set('/loader', setPage({
+    native: Loader,
+    vue: LoaderVue
+  }, 'Loader', runScript))
   .set('/input-number', setPage({
     native: InputNumber,
     vue: InputNumberVue

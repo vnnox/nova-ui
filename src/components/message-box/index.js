@@ -2,7 +2,7 @@
 /*
  * File: index.js
  * Project: @vnnox/novaui
- * Description: Used for ...
+ * Description: alert / confirm
  * Created: 2018-11-20 02:39
  * Author: smohan (mengxw@novastar.tech)
  * -----

@@ -17,6 +17,7 @@ import MessageBox from './message-box'
 import Popover from './popover'
 import Tag from './tag'
 import ColorPicker from './color-picker'
+import Loader from './loader'
 
 const RadioGroup = RadioGroups.NvRadioGroup
 const RadioItem = RadioGroups.NvRadioItem
@@ -52,9 +53,11 @@ if (typeof window !== 'undefined' && window.Vue) {
   VP.$message = Message
   VP.$alert = MessageBox.alert
   VP.$confirm = MessageBox.confirm
+  VP.$loader = Loader.Loader
 
   // directive
   window.Vue.directive('popover', Popover)
+  window.Vue.directive('loader', Loader.directive)
 }
 
 

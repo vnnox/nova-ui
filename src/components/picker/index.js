@@ -1,7 +1,7 @@
 /*
  * File: index.js
  * Project: @vnnox/novaui
- * Description: Popover/Select/DatePicker/TimePicker...
+ * Description: 底层： Popover/Select/DatePicker/TimePicker...
  * Created: 2018-11-13 02:14
  * Author: smohan (mengxw@novastar.tech)
  * -----
