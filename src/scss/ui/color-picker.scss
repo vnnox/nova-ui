@@ -31,12 +31,12 @@
         display: block;
         width: 100%;
         height: 100%;
-        transition: all .2s;
         cursor: pointer;
       }
 
       &:hover {
         span {
+          transition: all .2s;
           transform: scale(1.4);
           transform-origin: center;
           border: 1px solid $color-line;
@@ -81,7 +81,6 @@
 }
 
 /* stylelint-disable */
-
 .colorPicker,
 .colorPicker * {
   box-sizing: content-box;
@@ -186,21 +185,90 @@
 }
 
 // for vue
-.nv-color-picker--wrap {
-  margin: 0;
-  padding: 0;
-  position: relative;
-  .nv-input {
-    padding-left: 38px;
-    width: 100%;
+.nv-color-picker__target {
+  display: inline-block;
+  vertical-align: middle;
+  + .nv-color-picker__target {
+    margin-left: 20px;
   }
-  .nv-color-lump{
-    width: 20px;
-    height: 20px;
-    position: absolute;
-    left: 10px;
-    top: 6px;
-    border: 1px solid $color-line;
-    cursor: default;
+  &.target-select {
+    margin: 0;
+    padding: 0;
+    position: relative;
+    .nv-input {
+      padding-left: 38px;
+      width: 100%;
+    }
+    .nv-color-lump{
+      width: 20px;
+      height: 20px;
+      position: absolute;
+      left: 10px;
+      top: 6px;
+      border: 1px solid $color-line;
+      cursor: default;
+    }
+  }
+  
+  &.target-lump {
+    user-select: none;
+    cursor: pointer;
+    
+    .target-lump__outer {
+      cursor: inherit;
+      outline: none;  
+    }
+
+    .target-lump__outer,
+    .target-lump__inner {
+      display: inline-block;
+      vertical-align: middle;
+      width: $btn-target-width;
+      height: $btn-target-height;
+      background-color: white;
+      border: 1px solid $color-line;
+      border-radius: $btn-radius;
+      position: relative;
+      margin: 0;
+      padding: 0;
+    }
+    
+    .target-lump__outer::before,
+    .target-lump__inner {
+      position: absolute;
+      width: 80%;
+      height: 80%;
+      top: 10%;
+      left: 10%;
+      border-radius: 0;
+      background-color: transparent;
+      z-index: 1;
+      border-color: transparent;
+    }
+    
+    .target-lump__outer::before {
+      content: '';
+      z-index: 0;
+      @extend .nv-alpha-bg;
+    }
+    
+    .target-lump__inner {
+      border-color: $color-placeholder;
+      z-index: 1;
+    }
+
+    &.nv-disabled {
+      opacity: .5;
+      cursor: not-allowed;
+    }
+
+    &:not(.nv-disabled) {
+      .target-lump__outer {
+        &:hover,
+        &:focus {
+          border-color: $color-primary;
+        }
+      }
+    }
   }
 }

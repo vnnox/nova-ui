@@ -1,7 +1,7 @@
 /*
  * File: index.js
  * Project: @vnnox/novaui
- * Description: Used for ...
+ * Description: 轻量级模态框
  * Created: 2018-11-22 09:14
  * Author: smohan (mengxw@novastar.tech)
  * -----

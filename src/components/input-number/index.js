@@ -1,7 +1,7 @@
 /*
  * File: index.js
  * Project: @vnnox/novaui
- * Description: Used for ...
+ * Description: 标准数字输入器
  * Created: 2018-10-29 11:32
  * Author: smohan (mengxw@novastar.tech)
  * -----
