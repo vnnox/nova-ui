@@ -18,6 +18,8 @@ import Popover from './popover'
 import Tag from './tag'
 import ColorPicker from './color-picker'
 import Loader from './loader'
+import DatePicker from './date-picker'
+
 
 const RadioGroup = RadioGroups.NvRadioGroup
 const RadioItem = RadioGroups.NvRadioItem
@@ -42,7 +44,7 @@ const components = [
   Alert,
   Tag,
   ColorPicker,
-
+  DatePicker,
 ]
 
 if (typeof window !== 'undefined' && window.Vue) {
@@ -88,5 +90,6 @@ export default {
   Modal,
   Alert,
   Tag,
-  ColorPicker
+  ColorPicker,
+  DatePicker
 }

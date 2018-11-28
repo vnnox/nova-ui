@@ -77,8 +77,9 @@
     },
     methods: {
       change (val) {
+        let oldValue = this.value
         this.$emit('input', val)
-        this.$emit('done', val, this.value)
+        this.$emit('done', val, oldValue)
       }
     },
     mounted () {
@@ -89,7 +90,6 @@
       })
       .on('done', (value, oldValue) => {
         this.change(value)
-        this.value = value
       })
       .on('open', () => this.$emit('open'))
       .on('close', () => this.$emit('close'))

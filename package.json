@@ -1,6 +1,6 @@
 {
   "name": "@vnnox/novaui",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "nova ui components",
   "main": "libs/nova.js",
   "directories": {

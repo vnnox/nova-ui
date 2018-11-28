@@ -11,7 +11,7 @@
  * Copyright 2018, NovaStar Tech Co., Ltd
  */
 
-import { isString, toArray, isArray, isNumberString } from './utils'
+import { isString, toArray, isArray, isNumberString, isElement } from './utils'
 
 
 // selector
@@ -306,6 +306,34 @@ export const getSize = size => {
 }
 
 
+/**
+ * 获取DOM元素的Index
+ * @param {*} el 
+ * @param {*} els 
+ */
+export const getIndex = (el, els) => {
+  if (!els) {
+    let parentNode = el.parentNode
+    if (isElement(el)) {
+      els = parentNode.children()
+    } else if (isString(el)) {
+      els = qsa(el, parentNode)
+    } else {
+      return -1
+    }
+  }
+
+  let i = -1
+  let len = els.length 
+  while (++i < len) {
+    if (els[i] === el) {
+      return i 
+    }
+  }
+  return -1
+}
+
+
 export default {
   bind,
   unbind,
@@ -321,5 +349,6 @@ export default {
   scrollTo,
   getOffsetByParent,
   getScrollParent,
-  getSize
+  getSize,
+  getIndex
 }

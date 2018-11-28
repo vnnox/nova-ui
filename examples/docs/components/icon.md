@@ -50,7 +50,7 @@
         return val + 'px'
       },
       copy (value) {
-        let icon = '.nv-icon-' + value
+        let icon = 'nv-icon-' + value
         let $el = this.$refs.clipboard
         $el.value = icon
         $el.select()

@@ -19,11 +19,19 @@
 }
 
 .nv-locked {
-  overflow: hidden;
+  overflow: hidden !important;
 }
 
 .nv-hidden {
-  visibility: hidden;
+  visibility: hidden !important;
+}
+
+.nv-show {
+  display: block !important;
+}
+
+.nv-hide {
+  display: none !important;
 }
 
 .nv-alpha-bg {
@@ -36,9 +44,9 @@
 }
 
 .nv-left {
-  float: left;
+  float: left !important;
 }
 
 .nv-right {
-  float: right;
+  float: right !important;
 }
