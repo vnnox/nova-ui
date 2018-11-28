@@ -23,7 +23,7 @@ const defaults = {
 }
 
 // start zIndex
-let zIndex = 19900206
+let zIndex = 1990
 
 // 当前实例列表
 let instances = []
