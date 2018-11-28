@@ -1,0 +1,231 @@
+.nv-date-picker {
+  display: inline-flex;
+  margin: 0;
+  padding: 0;
+  font-size: 0;
+  overflow: hidden;
+  width: 280px;
+
+  &.nv-date-picker--inline {
+    border: 1px solid $color-line;
+  }
+
+  .nv-date-picker__panel {
+    display: inline-block;
+    vertical-align: top;
+  }
+
+  .panel-wrap {
+    @extend .nv-hide;
+  }
+
+  &[data-view="date"] {
+    .panel-wrap--date {
+      @extend .nv-show;
+    }
+  }
+
+  &[data-view="year"] {
+    .panel-wrap--year {
+      @extend .nv-show;
+    }
+  }
+
+  &[data-view="month"] {
+    .panel-wrap--month {
+      @extend .nv-show;
+    }
+  }
+}
+
+.nv-date-panel {
+  position: relative;
+  display: block;
+  width: 100%;
+  font-size: $font-size-base;
+  user-select: none;
+
+  .nv-date__head {
+    white-space: nowrap;
+    text-align: center;
+    padding: 10px 65px;
+    height: 48px;
+    line-height: 28px;
+    position: relative;
+    font-size: 13px;
+
+    &::after {
+      content: '';
+      position: absolute;
+      height: 1px;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: $color-line;
+    }
+
+    .year-prev,
+    .year-next,
+    .month-prev,
+    .month-next {
+      position: absolute;
+      top: 9px;
+      width: 20px;
+      height: 30px;
+      display: flex;
+      align-items: center;
+      padding: 0;
+      font-size: 12px;
+      border: none;
+      background: none;
+      outline: none;
+    }
+
+    .year-prev {
+      left: 12px;
+      justify-content: flex-start;
+    }
+
+    .month-prev {
+      left: 37px; // 12 + 20 + 5
+      justify-content: flex-start;
+    }
+
+    .month-next {
+      right: 37px;
+      justify-content: flex-end;
+    }
+
+    .year-next {
+      right: 12px;
+      justify-content: flex-end;
+    }
+
+    .year-prev,
+    .year-next,
+    .month-prev,
+    .month-next,
+    .year-current,
+    .month-current {
+      color: $color-text;
+      text-decoration: none;
+      cursor: pointer;
+
+      &:not(.nv-disabled):hover {
+        color: $color-primary;
+      }
+
+      &.nv-disabled {
+        color: $color-text-disabled;
+        cursor: not-allowed;
+      }
+    }
+  }
+
+  .nv-date__body {
+    padding: 12px;
+    overflow: hidden;
+  }
+
+  .nv-date__rows {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    font-size: 12px;
+
+    .nv-date__cell {
+      display: inline-flex;
+      width: 1/7 * 100%;
+      height: 38px;
+      align-items: center;
+      justify-content: center;
+      white-space: nowrap;
+      position: relative;
+      cursor: pointer;
+
+      span {
+        display: block;
+        position: relative;
+        z-index: 1;
+        height: 24px;
+        text-align: center;
+        line-height: 24px;
+      }
+
+      &.nv-placeholder {
+        color: $color-placeholder;
+      }
+
+      &.nv-actived {
+        span {
+          color: white;
+          background-color: $color-primary;
+        }
+      }
+
+      &.nv-disabled {
+        color: $color-text-disabled;
+        cursor: not-allowed;
+      }
+    }
+
+    &.week-rows .nv-date__cell {
+      height: 24px;
+      cursor: default;
+    }
+
+    &.date-rows .nv-date__cell {
+      span {
+        width: 24px;
+      }
+
+      &:not(.nv-placeholder):not(.nv-actived):not(.nv-disabled):not(.is-today) {
+        &:hover {
+          color: $color-primary;
+        }
+      }
+
+      &.is-today:not(.nv-placeholder):not(.nv-disabled) {
+        color: $color-success;
+      }
+
+      &.nv-actived span {
+        border-radius: 50%;
+      }
+    }
+
+    &.year-rows,
+    &.month-rows {
+      flex-wrap: wrap;
+
+      .nv-date__cell {
+        width: 33.33%;
+        height: 54px;
+
+        span {
+          padding: 0 8px;
+        }
+
+        &.nv-actived span {
+          color: $color-primary;
+          background-color: transparent;
+        }
+      }
+    }
+  }
+}
+
+.nv-date__foot {
+  padding: 12px;
+  display: flex;
+  align-items: center;
+  border-top: 1px solid $color-line;
+  justify-content: flex-end;
+
+  .nv-btn + .nv-btn {
+    margin-left: 10px;
+  }
+}

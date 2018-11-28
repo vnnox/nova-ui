@@ -23,6 +23,8 @@ const Popover = require('../docs/components/popover.md')
 const Tag = require('../docs/components/tag.md')
 const ColorPicker = require('../docs/components/color-picker.md')
 const Loader = require('../docs/components/loader.md')
+const DatePicker = require('../docs/components/date-picker.md')
+
 
 // VUE
 const RadioVue = require('../docs/components/vue/radio.md')
@@ -41,6 +43,9 @@ const PopoverVue = require('../docs/components/vue/popover.md')
 const TagVue = require('../docs/components/vue/tag.md')
 const ColorPickerVue = require('../docs/components/vue/color-picker.md')
 const LoaderVue = require('../docs/components/vue/loader.md')
+const DatePickerVue = require('../docs/components/vue/date-picker.md')
+
+
 
 const $contianerNative = document.getElementById('container-native')
 const $contianerVue = document.getElementById('container-vue')
@@ -165,6 +170,10 @@ router
     native: ColorPicker,
     vue: ColorPickerVue
   }, 'ColorPicker', runScript))
+  .set('/date-picker', setPage({
+    native: DatePicker,
+    vue: DatePickerVue 
+  }, 'DatePicker', runScript))
   
 
 
