@@ -15,29 +15,29 @@ import Popover from './components/popover'
 import ColorPicker from './components/color-picker'
 import Loader from './components/loader'
 import DatePicker from './components/date-picker'
-
+import Picker from './components/picker'
 
 
 const Nova = Object.create(null)
 
 Nova.$Utils = Utils
 Nova.$Events = Events
-Nova.$Dom = Dom 
+Nova.$Dom = Dom
 Nova.InputNumber = InputNumber
 Nova.Pagination = Pagination
 Nova.Popover = Popover
 Nova.Select = Select
 Nova.Slider = Slider
-Nova.Tree = Tree 
+Nova.Tree = Tree
 Nova.Modal = Modal
 Nova.Message = Message
 Nova.MessageBox = MessageBox
 Nova.ColorPicker = ColorPicker
 Nova.Loader = Loader
 Nova.DatePicker = DatePicker
+Nova.Picker = Picker
 
-
-function routeChangeDestory () {
+function routeChangeDestory() {
   MessageBox.destroy()
   Message.destroy()
   Loader.destroy()

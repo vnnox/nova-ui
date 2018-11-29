@@ -20,6 +20,8 @@ export default {
   },
   colorPicker: {
     confirm: '确定',
-    clear: '清空'
+    clear: '清空',
+    recently: '最近使用的颜色',
+    more: '更多'
   }
 }
