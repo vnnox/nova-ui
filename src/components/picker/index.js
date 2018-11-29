@@ -150,7 +150,6 @@ const bindEvents = function () {
   handles.mouseleave = handleMouseleave.bind(this)
   handles.pickerMouseenter = handlePickerMouseenter.bind(this)
 
-
   switch (props.trigger) {
     case 'focus':
       bind($target, 'focusin', handles.targetClick)

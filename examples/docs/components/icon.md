@@ -11,7 +11,7 @@
     <div class="font-set">
       <span class="set-cell">颜色：</span>
       <div class="set-cell">
-        <nv-color-picker v-model="color" mode="lump"></nv-color-picker>
+        <nv-color-picker v-model="color" mode="lump" :recently-colors="['#464c5b']" @palette-change="paletteChange" ref="colorPicker"></nv-color-picker>
       </div>  
       <span class="set-cell" style="margin-left:40px;">字号：</span>
       <div class="set-cell set-cell--slider">
@@ -48,6 +48,10 @@
     methods: {
       formatter (val) {
         return val + 'px'
+      },
+      paletteChange (color) {
+        // todo 存储到本地
+        this.$refs.colorPicker.addRecentlyColor(color)
       },
       copy (value) {
         let icon = 'nv-icon-' + value
