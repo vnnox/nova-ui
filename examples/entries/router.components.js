@@ -26,6 +26,8 @@ const Loader = require('../docs/components/loader.md')
 const DatePicker = require('../docs/components/date-picker.md')
 
 
+
+
 // VUE
 const RadioVue = require('../docs/components/vue/radio.md')
 const CheckboxVue = require('../docs/components/vue/checkbox.md')
@@ -174,7 +176,7 @@ router
     native: DatePicker,
     vue: DatePickerVue 
   }, 'DatePicker', runScript))
-  
+
 
 
 

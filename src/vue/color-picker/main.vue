@@ -20,7 +20,15 @@
       value: String,
       disabled: Boolean,
       lumps: Array,
-      clearable: Boolean,
+      recentlyColors: Array,
+      maxRecentlyCount: {
+        type: Number,
+        default: 6
+      },
+      palette: {
+        type: Boolean,
+        default: true
+      },
       mode: {
         type: String,
         default: 'select',
@@ -68,7 +76,7 @@
     watch: {
       value (val, oldVal) {
         if (val !== oldVal) {
-          this.instance.setInitValue(val)
+          this.instance.setValue(val)
         }
       },
       disabled (val) {
@@ -79,7 +87,10 @@
       change (val) {
         let oldValue = this.value
         this.$emit('input', val)
-        this.$emit('done', val, oldValue)
+        this.$emit('change', val, oldValue)
+      },
+      addRecentlyColor (color) {
+        this.instance.addRecentlyColor(color)
       }
     },
     mounted () {
@@ -88,12 +99,14 @@
       .on('picker-click', () => {
         this.$refs.input && this.$refs.input.focus()
       })
-      .on('done', (value, oldValue) => {
+      .on('change', (value, oldValue) => {
         this.change(value)
+      })
+      .on('paletteChange', (color, event) => {
+        this.$emit('palette-change', color, event)
       })
       .on('open', () => this.$emit('open'))
       .on('close', () => this.$emit('close'))
-      .on('change', (value, oldValue, initValue) => this.$emit('change', value, oldValue, initValue))
     },
     beforeDestroy() {
       this.instance && this.instance.destroy()
