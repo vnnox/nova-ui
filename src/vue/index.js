@@ -47,22 +47,28 @@ const components = [
   DatePicker,
 ]
 
-if (typeof window !== 'undefined' && window.Vue) {
+// Vue.use
+function install(Vue) {
   components.forEach(component => {
-    window.Vue.component(component.name, component)
+    Vue.component(component.name, component)
   })
-  const VP = window.Vue.prototype
+  const VP = Vue.prototype
   VP.$message = Message
   VP.$alert = MessageBox.alert
   VP.$confirm = MessageBox.confirm
   VP.$loader = Loader.Loader
 
   // directive
-  window.Vue.directive('popover', Popover)
-  window.Vue.directive('loader', Loader.directive)
+  Vue.directive('popover', Popover)
+  Vue.directive('loader', Loader.directive)
 }
 
+// 自动安装
+if (typeof window !== 'undefined' && window.Vue) {
+  install(window.Vue)
+}
 
+// 自动销毁的组件
 function routeChangeDestory() {
   MessageBox.destroy()
   Message.destroy()
@@ -73,8 +79,9 @@ bind(window, 'hashchange', routeChangeDestory)
 bind(window, 'popstate', routeChangeDestory)
 
 
-module.exports = {
-  version: '1.0.6',
+export default {
+  version: '1.0.7',
+  install,
   Radio,
   RadioGroup,
   RadioItem,
@@ -94,5 +101,3 @@ module.exports = {
   ColorPicker,
   DatePicker
 }
-
-module.exports.default = module.exports
