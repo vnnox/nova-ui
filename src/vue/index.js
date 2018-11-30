@@ -73,7 +73,8 @@ bind(window, 'hashchange', routeChangeDestory)
 bind(window, 'popstate', routeChangeDestory)
 
 
-export default {
+module.exports = {
+  version: '1.0.6',
   Radio,
   RadioGroup,
   RadioItem,
@@ -93,3 +94,5 @@ export default {
   ColorPicker,
   DatePicker
 }
+
+module.exports.default = module.exports
