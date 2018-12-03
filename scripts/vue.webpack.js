@@ -7,13 +7,24 @@ const pkg = require('../package.json')
 
 module.exports = {
   entry: {
-    vue: path.resolve(__dirname, '../src/vue/index.js')
+    'nova': path.resolve(__dirname, '../src/vue/index.js')
   },
   output: {
     publicPath: '',
     path: path.resolve(__dirname, '../libs/'),
-    filename:  'nova.vue.js',
-    chunkFilename: 'nova.vue.js',
+    filename:  'nova-vue.js',
+    chunkFilename: 'nova-vue.js', // 不能直接用.vue, 如果webpack中设置了alias: vue$, 将会获取不到
+    library: 'Nova',
+    libraryExport: 'default',
+    libraryTarget: 'umd',
+  },
+  externals: {
+    vue: {
+      root: 'Vue',
+      commonjs: 'vue',
+      commonjs2: 'vue',
+      amd: 'vue'
+    }
   },
   devtool: false,
   resolve: {
