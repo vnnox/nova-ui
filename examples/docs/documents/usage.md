@@ -17,7 +17,7 @@ import Vue from 'vue'
 // 加载样式
 import '@vnnox/novaui/libs/nova.css'
 // 加载ui组件库
-import NovaUI from ' @vnnox/novaui/libs/nova.vue.js'
+import NovaUI from ' @vnnox/novaui/libs/nova-vue.js'
 
 Vue.use(NovaUI)
 

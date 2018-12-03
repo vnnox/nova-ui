@@ -1,4 +1,8 @@
-import { bind } from '../utils/dom'
+
+import Dom, { bind } from '../utils/dom'
+import Utils from '../utils/utils'
+import Events from '../utils/events'
+
 import Radio from './radio'
 import Checkbox from './checkbox'
 import RadioGroups from './radio-group'
@@ -79,8 +83,11 @@ bind(window, 'hashchange', routeChangeDestory)
 bind(window, 'popstate', routeChangeDestory)
 
 
-export default {
+const output = {
   version: '1.0.7',
+  $Dom: Dom,
+  $Events: Events,
+  $Utils: Utils,
   install,
   Radio,
   RadioGroup,
@@ -99,5 +106,7 @@ export default {
   Alert,
   Tag,
   ColorPicker,
-  DatePicker
+  DatePicker,
 }
+
+export default output
