@@ -186,6 +186,21 @@ export const addClass = (el, className) => {
 
 
 /**
+ * 通过创建元素的方式获取滚动条宽度
+ * @returns {Number}
+ */
+export const getElScrollbarWidth = () => {
+  const scrollDiv = document.createElement('div')
+  scrollDiv.style.cssText += 'width:100px;position:absolute;top:-9999rem;z-index:-1;visibility:hidden;'
+  document.body.appendChild(scrollDiv)
+  scrollDiv.style.overflow = 'scroll'
+  const width = scrollDiv.getBoundingClientRect().width - scrollDiv.clientWidth
+  scrollDiv.parentNode.removeChild(scrollDiv)
+  return width
+}
+
+
+/**
  * 获取滚动条的宽度
  * @returns {Number} 
  */
@@ -196,13 +211,7 @@ export const getScrollbarWidth = () => {
   }
   // 当页面有滚动条的时候才计算
   if (hasScroll) {
-    const scrollDiv = document.createElement('div')
-    scrollDiv.style.cssText += 'width:100px;position:absolute;top:-9999rem;z-index:-1;visibility:hidden;'
-    document.body.appendChild(scrollDiv)
-    scrollDiv.style.overflow = 'scroll'
-    const width = scrollDiv.getBoundingClientRect().width - scrollDiv.clientWidth
-    scrollDiv.parentNode.removeChild(scrollDiv)
-    getScrollbarWidth.value = width
+    getScrollbarWidth.value = getElScrollbarWidth()
   } else {
     getScrollbarWidth.value = 0
   }
@@ -345,6 +354,7 @@ export default {
   proxy,
   addClass,
   getScrollbarWidth,
+  getElScrollbarWidth,
   removeNode,
   scrollTo,
   getOffsetByParent,

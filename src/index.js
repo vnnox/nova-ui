@@ -12,10 +12,11 @@ import Modal from './components/modal'
 import Message from './components/message'
 import MessageBox from './components/message-box'
 import Popover from './components/popover'
-import ColorPicker from './components/color-picker'
 import Loader from './components/loader'
-import DatePicker from './components/date-picker'
 import Picker from './components/picker'
+import ColorPicker from './components/color-picker'
+import DatePicker from './components/date-picker'
+import TimePicker from './components/time-picker'
 
 
 const Nova = Object.create(null)
@@ -32,10 +33,11 @@ Nova.Tree = Tree
 Nova.Modal = Modal
 Nova.Message = Message
 Nova.MessageBox = MessageBox
-Nova.ColorPicker = ColorPicker
 Nova.Loader = Loader
-Nova.DatePicker = DatePicker
 Nova.Picker = Picker
+Nova.ColorPicker = ColorPicker
+Nova.DatePicker = DatePicker
+Nova.TimePicker = TimePicker
 
 function routeChangeDestory() {
   MessageBox.destroy()

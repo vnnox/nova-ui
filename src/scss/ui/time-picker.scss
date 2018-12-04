@@ -1,0 +1,125 @@
+.nv-time-picker {
+  position: relative;
+  user-select: none;
+  padding: 10px;
+  overflow: hidden;
+
+  .nv-time-picker__body {
+    display: flex;
+    flex-flow: row nowrap;
+    position: relative;
+    border: 1px solid $color-line;
+    // box-shadow: inset 0 -5px 10px $color-line, inset 0 5px 10px $color-line;
+
+    &::before,
+    &::after {
+      content: '';
+      height: 1px;
+      position: absolute;
+      top: 50%;
+      left: 0;
+      right: 0;
+      z-index: 2;
+      background-color: $color-line;
+      margin-top: -16px;
+
+      // height: 32px;
+      // // background-color: $color-primary;
+      // content: '';
+      // position: absolute;
+      // top: 50%;
+      // margin-top: -16px;
+      // left: 0;
+      // right: 0;
+      // z-index: 0;
+      // border-top: 1px solid $color-line;
+      // border-bottom: 1px solid $color-line;
+    }
+
+    &::after {
+      margin-top: 16px;
+    }
+  }
+
+  .nv-time-picker__wrap,
+  .nv-time-picker__separator {
+    width: 35px;
+    height: 192px;
+    flex-shrink: 0;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+  }
+
+  // .nv-time-picker__wrap {
+  //   &::before,
+  //   &::after {
+  //     content: '';
+  //     height: 8px;
+  //     position: absolute;
+  //     left: 0;
+  //     right: 0;
+  //   }
+  //   &::before{
+  //     top: 0;
+  //     background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(rgba(white, 1)), to(rgba(white, 0)));
+  //   }
+  //   &::after {
+  //     bottom: 0;
+  //     background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(rgba(white, 0)), to(rgba(white, 1)));
+  //   }
+  // }
+
+  .nv-time-picker__separator {
+    width: 16px;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    color: $color-primary;
+  }
+
+  .nv-scroller {
+    overflow: hidden;
+    overflow-y: auto;
+    height: 100%;
+    margin: 0;
+  }
+
+  .nv-time-picker__select {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+
+    &::before,
+    &::after {
+      content: '';
+      display: block;
+      width: 100%;
+      height: 80px;
+    }
+  }
+
+  .nv-time-picker__option {
+    height: 32px;
+    line-height: 22px;
+    padding: 5px 0;
+    text-align: center;
+    white-space: nowrap;
+    cursor: pointer;
+
+    &:not(.nv-disabled):not(.nv-actived):hover,
+    &.nv-hover {
+      color: $color-primary;
+    }
+
+    &.nv-actived {
+      color: $color-primary;
+      font-weight: bold;
+      font-size: 13px;
+    }
+  }
+}
