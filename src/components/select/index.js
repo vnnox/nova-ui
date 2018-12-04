@@ -18,6 +18,7 @@ import { insertAfter, qsa, proxy, bind, unbind, addClass, scrollTo, getOffsetByP
 import { debounce } from '../../utils/debounce'
 import { CLASS_STATES_ACTIVED, CLASS_STATUS_DISABLED, CLASS_STATES_HOVER, CLASS_STATES_FOCUS } from '../../utils/constant'
 import { Picker } from '../picker'
+import { getPlacementByAlign } from '../picker/placements'
 import { skeletonTpl, optionGroupsTpl, optionsTpl, pickerSkeletonTpl } from './template'
 
 
@@ -87,6 +88,8 @@ const defaults = {
   noMatchDataText: '无匹配数据',
   // [ function ] option渲染器
   render: null,
+  // [ string ] 与target的对齐方式
+  align: 'left',
 }
 
 
@@ -157,7 +160,7 @@ function initPicker() {
   // 实例化picker
   states.pickerInstance = new Picker($select, {
     content: $selectPicker,
-    placement: 'bottom-start',
+    placement: getPlacementByAlign(props.align),
     trigger: 'click',
     disabled: props.disabled,
     showArrow: false,

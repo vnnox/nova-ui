@@ -16,10 +16,10 @@ import { isElement, mixins, isEmpty, isArray, hasKey, throwError } from '../../u
 import { template } from '../../utils/template'
 import { addClass, qsa, proxy, bind, unbind, removeNode } from '../../utils/dom'
 import { i18n } from '../../utils/i18n'
-import Locales from '../../locale'
+import { getLocales } from '../../utils/locale'
 import Select from '../select'
-import { totalTpl, prevTpl, pagerTpl, nextTpl, sizesTpl, jumperTpl, pagerItemsTpl } from './template'
 import { CLASS_STATUS_DISABLED } from '../../utils/constant'
+import { totalTpl, prevTpl, pagerTpl, nextTpl, sizesTpl, jumperTpl, pagerItemsTpl } from './template'
 
 // ui className
 const UI_NAME = 'nv-pagination'
@@ -58,7 +58,7 @@ const Selectors = {
 // default config
 const defaults = {
   // [ string ] 当前语言
-  lang: 'zh-CN',
+  lang: '',
   // [ number ] 总条目数
   total: null,
   // [ number ] 每页显示条数
@@ -113,7 +113,8 @@ const defaults = {
  * @private
  */
 function render() {
-  const { props, states, $container } = this
+  const { props, states } = this
+  const { $container } = states
   let layouts = []
   // fixed layout list
   if (!isEmpty(props.layout)) {
@@ -144,7 +145,7 @@ function render() {
           '<i class="nv-icon-arrow-right"></i>' : props.nextText,
         jumper: states.jumper,
       })
-      html += i18n(tpl, states.locale, {})
+      html += i18n(tpl, states.locales, {})
     }
   })
 
@@ -166,7 +167,8 @@ function render() {
     let limitSelectIns = new Select(qsa('input', states.$sizes)[0], {
       options,
       value: states.limit,
-      selectClass: 'pagination-sizes-select'
+      selectClass: 'pagination-sizes-select',
+      align: 'center'
     })
     states.limitSelectIns = limitSelectIns
     limitSelectIns.on('change', value => {
@@ -178,7 +180,6 @@ function render() {
   }
 
   $container.appendChild($el)
-
   updateDom.call(this)
   bindEvents.call(this)
 }
@@ -207,7 +208,7 @@ function bindEvents() {
   const { handles } = states
   if (states.$pagers) {
     // 页码点击事件
-    handles.pagerClick = proxy(states.$pagers, Selectors.pager, function () {
+    handles.pagerClick = proxy(states.$pagers, Selectors.pager, function() {
       let classList = this.classList
       if (classList.contains('nv-actived') || classList.contains('nv-pager--ellipsis')) {
         return
@@ -222,21 +223,21 @@ function bindEvents() {
   }
 
   // prevBtn 点击事件
-  handles.prevClick = function () {
+  handles.prevClick = function() {
     if (states.index > 1) {
       self.setIndex(states.index - 1)
     }
   }
 
   // nextBtn 点击事件
-  handles.nextClick = function () {
+  handles.nextClick = function() {
     if (states.index < states.pages) {
       self.setIndex(states.index + 1)
     }
   }
 
   // jumperInput Change事件
-  handles.jumperChange = function (e) {
+  handles.jumperChange = function(e) {
     let value = e.target.value.trim()
     value = value === '' ? void 0 : +value
     if (isNaN(value)) {
@@ -362,7 +363,7 @@ function getPagers() {
   let nextEllipsis = (offset.end < pages)
 
   if (prevEllipsis) {
-    data.push(genPager(1, index, pages))  // 1
+    data.push(genPager(1, index, pages)) // 1
     data.push(genPager(-1, index, pages)) // ...
   }
   for (let i = offset.start; i <= offset.end; i++) {
@@ -370,7 +371,7 @@ function getPagers() {
   }
   if (nextEllipsis) {
     data.push(genPager(-1, index, pages)) // ...
-    data.push(genPager(pages, index, pages))  // pages
+    data.push(genPager(pages, index, pages)) // pages
   }
 
   return data
@@ -472,7 +473,7 @@ function updateDom() {
 
   // 更新总记录数
   if (states.$total) {
-    states.$total.innerHTML = i18n._(states.locale.total, {
+    states.$total.innerHTML = i18n._(states.locales.total, {
       total,
       index,
       limit,
@@ -532,18 +533,18 @@ export class Pagination extends Events {
     if (!isElement(container)) {
       throwError('\'container\' 必须是一个DOM容器', 'type')
     }
-    this.$container = container
-    this.props = mixins({}, defaults, options || {})
-    this.states = Object.create(null)
-    this.states.handles = Object.create(null)
-    this.states.pages = 0
+
+    const props = this.props = mixins({}, defaults, options || {})
+    const states = this.states = Object.create(null)
+    states.handles = Object.create(null)
+    states.pages = 0
+    states.$container = container
 
     // 初始化语言包
-    let locales = Locales[this.props.lang] || Locales['en']
-    this.states.locale = locales['pagination'] || Object.create(null)
+    states.locales = getLocales(props.lang).pagination
 
     // 处理visible num
-    let { visible } = this.props
+    let { visible } = props
     visible = +visible
     if (!isNaN(visible)) {
       // 必须是奇数
@@ -555,10 +556,10 @@ export class Pagination extends Events {
     } else {
       visible = VISIBLE_MIN
     }
-    this.props.visible = visible
+    props.visible = visible
 
     // 处理 total, index, limit
-    updateStates.call(this, this.props)
+    updateStates.call(this, props)
     updateSizes.call(this)
     render.call(this)
   }
@@ -653,13 +654,11 @@ export class Pagination extends Events {
     removeNode(states.$el)
     // 销毁limit选择器组件
     states.limitSelectIns && states.limitSelectIns.destroy()
-    this.$container = null
     this.states = null
     this.props = null
     this._events = null
   }
 
 }
-
 
 export default Pagination

@@ -22,11 +22,16 @@ import { isElement, throwError, mixins } from '../../utils/utils'
 import { skeletonTpl, optionsTpl } from './template'
 import { pad, parseDate, compareTwoTime, formatDate } from '../date-picker/utils'
 import { CLASS_STATES_ACTIVED, CLASS_STATUS_DISABLED } from '../../utils/constant'
-import { getPlacementByAlign } from '../picker/placements';
+import { getPlacementByAlign } from '../picker/placements'
+import { getLocales } from '../../utils/locale'
+
 
 const UI_NAME = 'nv-time-picker'
 
 const defaults = {
+  // [ string ] 国际化
+  lang: '',
+  // [ string | date ] 绑定值
   value: '',
   // [ string ] 格式化
   format: 'HH:mm:ss',
@@ -40,6 +45,10 @@ const defaults = {
   maxTime: null,
   // [ boolean ] 是否禁用
   disabled: false,
+  // 
+  cancel: true,
+  // 
+  confirm: true
 }
 
 const Selectors = {
@@ -51,8 +60,7 @@ const Selectors = {
 }
 
 // config of every part of time
-const TIME_MAP = [
-  {
+const TIME_MAP = [{
     name: 'hour',
     key: 'H',
     size: 24,
@@ -118,9 +126,10 @@ function render() {
   const $el = document.createElement('div')
   $el.className = UI_NAME
   addClass($el, props.customClass)
-  let scrollWidth = getElScrollbarWidth()
+
   $el.innerHTML = template(skeletonTpl, {
-    scrollWidth
+    cancel: props.cancel ? states.locales.cancel : false,
+    confirm: props.confirm ? states.locales.confirm : false
   })
 
   states.$hour = qsa(Selectors.hour, $el)[0]
@@ -141,7 +150,7 @@ function render() {
     }
   })
 
-  
+
 
   states.$el = $el
   bindEvents.call(this)
@@ -150,7 +159,7 @@ function render() {
 }
 
 
-function initPickerInstance () {
+function initPickerInstance() {
   const { props, states } = this
   states.pickerInstance = new Picker(states.$target, {
     content: states.$el,
@@ -209,7 +218,7 @@ function handleMouseenter(type) {
 function bindEvents() {
   const { props, states } = this
   const handles = states.handles = Object.create(null)
-  const self = this 
+  const self = this
   handles.hourWrapScroll = handleWrapScroll.bind(this, 'hour')
   handles.minuteWrapScroll = handleWrapScroll.bind(this, 'minute')
   handles.secondWrapScroll = handleWrapScroll.bind(this, 'second')
@@ -221,7 +230,7 @@ function bindEvents() {
   handles.minuteMouseenter = handleMouseenter.bind(this, 'minute')
   handles.secondMouseenter = handleMouseenter.bind(this, 'second')
 
-  handles.optionClick = proxy(states.$el, Selectors.option, function (e) {
+  handles.optionClick = proxy(states.$el, Selectors.option, function(e) {
     let $parent = this.parentNode.parentNode
     let type = $parent === states.$hour ? 'hour' : ($parent === states.$minute ? 'minute' : 'second')
     let index = getIndex(this, states[`$${type}Options`])
@@ -229,7 +238,7 @@ function bindEvents() {
       return
     }
     states.map[type] = index
-    self.setValue(getValueByMap.call(self)) 
+    self.setValue(getValueByMap.call(self))
   })
 
 
@@ -471,6 +480,8 @@ export class TimePicker extends Events {
     const states = this.states = Object.create(null)
     states.$target = target
     states.isInput = target.nodeName === 'INPUT'
+    states.locales = getLocales(props.lang).datePicker
+    console.log(states.locales)
 
     // 校验格式
     checkFormat.call(this)

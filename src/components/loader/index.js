@@ -14,8 +14,8 @@
 import { isElement, throwError, mixins, uuid } from '../../utils/utils'
 import { template } from '../../utils/template'
 import { addClass, getStyle, removeNode } from '../../utils/dom'
-import { skeletonTpl } from './template'
 import Popup from '../../utils/popup'
+import { skeletonTpl } from './template'
 
 // ui class name
 const UI_NAME = 'nv-loader'

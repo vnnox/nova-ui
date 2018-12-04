@@ -1,6 +1,7 @@
 require('./scss/index.scss')
+import locales from './locale/'
 
-import Utils from './utils/utils'
+import Utils, { mixins } from './utils/utils'
 import Dom from './utils/dom'
 import Events from './utils/events'
 import InputNumber from './components/input-number'
@@ -19,7 +20,17 @@ import DatePicker from './components/date-picker'
 import TimePicker from './components/time-picker'
 
 
+
 const Nova = Object.create(null)
+
+Nova.config = {
+  lang: 'zh-CN',
+  locales
+}
+
+// 设置全局配置项
+Nova.setConfig = config => Nova.config = mixins({}, Nova.config, config || {})
+
 
 Nova.$Utils = Utils
 Nova.$Events = Events
@@ -38,6 +49,7 @@ Nova.Picker = Picker
 Nova.ColorPicker = ColorPicker
 Nova.DatePicker = DatePicker
 Nova.TimePicker = TimePicker
+
 
 function routeChangeDestory() {
   MessageBox.destroy()

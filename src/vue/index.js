@@ -1,7 +1,8 @@
 
 import Dom, { bind } from '../utils/dom'
-import Utils from '../utils/utils'
+import Utils, { mixins } from '../utils/utils'
 import Events from '../utils/events'
+import locales from '../locale'
 
 import Radio from './radio'
 import Checkbox from './checkbox'
@@ -51,8 +52,14 @@ const components = [
   DatePicker,
 ]
 
+
+const defaultsConfig = {
+  lang: 'zh-CN',
+  locales
+}
+
 // Vue.use
-function install(Vue) {
+function install(Vue, options) {
   components.forEach(component => {
     Vue.component(component.name, component)
   })
@@ -69,7 +76,7 @@ function install(Vue) {
 
 // 自动安装
 if (typeof window !== 'undefined' && window.Vue) {
-  install(window.Vue)
+  install(window.Vue, mixins({}, defaultsConfig, window.NovaConfig || {}))
 }
 
 // 自动销毁的组件
