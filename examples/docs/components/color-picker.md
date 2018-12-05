@@ -24,7 +24,7 @@
 ### Options
 | Attribute   | Description | Type |  Default Values |
 | ----------- | ----------- | ----------- | ----------- |
-| lang | 当前语言 | string | `zh-CN`|
+| lang | 当前语言 | string | -- |
 | value | 当前绑定值 | string | -- |
 | lumps | 快捷色块 | array<color>  | ['#d81e06',...,'#d6204b'] |
 | recentlyColors | 最近使用的颜色组 | array<color> | [] |

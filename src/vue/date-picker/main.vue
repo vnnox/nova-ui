@@ -61,7 +61,7 @@
             this.instance.setValue(value, true)
           }
           this.$refs.input.value = this.instance.getValue(true)
-          this.change(this.instance.getValue())
+          this.change(this.instance.getValue(true), this.instance.getValue())
         },
         get () {
           let value = parseDate(this.value, this.format)
@@ -73,10 +73,9 @@
       }
     },
     methods: {
-      change (val) {
-        let oldValue = this.value
-        this.$emit('input', val)
-        this.$emit('done', val, oldValue)
+      change (formatValue, value) {
+        this.$emit('input', formatValue)
+        this.$emit('done', formatValue, value)
       },
       clear () {
         this.instance.setValue(null, true)
@@ -88,9 +87,7 @@
       .on('picker-click', () => {
         this.$refs.input && this.$refs.input.focus()
       })
-      .on('done', (formatValue, value) => {
-        this.change(value)
-      })
+      .on('done', (formatValue, value) => this.change((formatValue, value)))
       .on('open', () => this.$emit('open'))
       .on('close', () => this.$emit('close'))
       .on('change', (formatValue, value) => this.$emit('change', formatValue, value))

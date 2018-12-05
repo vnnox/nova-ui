@@ -13,7 +13,7 @@
       <div class="doc-cells">
         <div class="doc-cell">
           <h5>以 [日] 为单位</h5>
-          <nv-date-picker v-model="value1" placeholder="请选择日期"></nv-date-picker>
+          <nv-time-picker v-model="value1" placeholder="请选择时间"></nv-time-picker>
         </div>
         <div class="doc-cell">
           <h5>以 [年] 为单位</h5>

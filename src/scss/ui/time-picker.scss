@@ -23,18 +23,6 @@
       z-index: 2;
       background-color: $color-line;
       margin-top: -16px;
-
-      // height: 32px;
-      // // background-color: $color-primary;
-      // content: '';
-      // position: absolute;
-      // top: 50%;
-      // margin-top: -16px;
-      // left: 0;
-      // right: 0;
-      // z-index: 0;
-      // border-top: 1px solid $color-line;
-      // border-bottom: 1px solid $color-line;
     }
 
     &::after {
@@ -77,11 +65,11 @@
   }
 
   .nv-scroller {
-    overflow: scroll;
+    overflow: hidden;
+    overflow-y: auto;
     height: 100%;
     margin: 0;
     margin-right: -20px;
-    padding-right: 20px;
   }
 
   .nv-time-picker__select {
@@ -115,6 +103,11 @@
       color: $color-primary;
       font-weight: bold;
       font-size: 14px;
+    }
+
+    &.nv-disabled {
+      color: $color-text-disabled;
+      cursor: not-allowed;
     }
   }
 

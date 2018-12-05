@@ -1,24 +1,32 @@
 export const skeletonTpl = `
 <div class="nv-time-picker__body">
+  <% if(useHour) { %>
   <div class="nv-time-picker__wrap">
-    <div class="nv-scroller hour-select">
+    <div class="nv-scroller hour-select"<% if (padding) { %> style="padding-right:<%=padding%>px;"<% }%>>
       <ul class="nv-time-picker__select"></ul>
     </div>
   </div>
+  <% } if(useMinute) { %>
   <div class="nv-time-picker__wrap">
-    <div class="nv-scroller minute-select" >
+    <div class="nv-scroller minute-select"<% if (padding) { %> style="padding-right:<%=padding%>px;"<% }%>>
       <ul class="nv-time-picker__select"></ul>
     </div>
   </div>
+  <% } if(useSecond) { %>
   <div class="nv-time-picker__wrap">
-    <div class="nv-scroller second-select" >
+    <div class="nv-scroller second-select"<% if (padding) { %> style="padding-right:<%=padding%>px;"<% }%>>
       <ul class="nv-time-picker__select"></ul>
     </div>
   </div>
+  <% } %>
   <div class="nv-time-picker__separator">
+    <% if(useHour) { %>
     <span>:</span>
+    <% } if(useMinute) { %>
     <span>:</span>
+    <% } if(useSecond) { %>
     <span>:</span>
+    <% } %>
   </div>
 </div>
 <% if (cancel || confirm) { %>

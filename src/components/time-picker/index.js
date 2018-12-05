@@ -1,7 +1,7 @@
 /*
  * File: index.js
  * Project: @vnnox/novaui
- * Description: Used for ...
+ * Description: Choose Time
  * Created: 2018-12-04 10:18
  * Author: smohan (mengxw@novastar.tech)
  * -----
@@ -11,28 +11,28 @@
  * Copyright 2018, NovaStar Tech Co., Ltd
  */
 
-
 import { Events } from '../../utils/events'
-
 import template from '../../utils/template'
-
-import { addClass, insertAfter, qsa, bind, scrollTo, removeNode, getElScrollbarWidth, proxy, getIndex } from '../../utils/dom'
+import { addClass, qsa, bind, scrollTo, getElScrollbarWidth, proxy, getIndex, reqAnimationFrame, unbind } from '../../utils/dom'
 import Picker from '../picker'
 import { isElement, throwError, mixins } from '../../utils/utils'
-import { skeletonTpl, optionsTpl } from './template'
 import { pad, parseDate, compareTwoTime, formatDate } from '../date-picker/utils'
 import { CLASS_STATES_ACTIVED, CLASS_STATUS_DISABLED } from '../../utils/constant'
 import { getPlacementByAlign } from '../picker/placements'
 import { getLocales } from '../../utils/locale'
+import { skeletonTpl, optionsTpl } from './template'
 
-
+// ui class name
 const UI_NAME = 'nv-time-picker'
 
+// default config
 const defaults = {
   // [ string ] 国际化
   lang: '',
   // [ string | date ] 绑定值
   value: '',
+  // [ string | date ] 默认值
+  defaultValue: null,
   // [ string ] 格式化
   format: 'HH:mm:ss',
   // [ string ] 自定义样式
@@ -45,39 +45,42 @@ const defaults = {
   maxTime: null,
   // [ boolean ] 是否禁用
   disabled: false,
-  // 
-  cancel: true,
-  // 
-  confirm: true
+  // [ boolean ] 显示取消按钮
+  cancel: false,
+  // [ boolean ] 显示确定按钮
+  confirm: false
 }
 
+// selectors
 const Selectors = {
   hour: '.hour-select',
   minute: '.minute-select',
   second: '.second-select',
   select: '.nv-time-picker__select',
-  option: '.nv-time-picker__option'
+  option: '.nv-time-picker__option',
+  cancel: '.nv-btn__cancel',
+  confirm: '.nv-btn__confirm'
 }
 
 // config of every part of time
 const TIME_MAP = [{
-    name: 'hour',
-    key: 'H',
-    size: 24,
-    useKey: 'useHour'
-  },
-  {
-    name: 'minute',
-    key: 'm',
-    size: 60,
-    useKey: 'useMinute'
-  },
-  {
-    name: 'second',
-    key: 's',
-    size: 60,
-    useKey: 'useSecond'
-  }
+  name: 'hour',
+  key: 'H',
+  size: 24,
+  useKey: 'useHour'
+},
+{
+  name: 'minute',
+  key: 'm',
+  size: 60,
+  useKey: 'useMinute'
+},
+{
+  name: 'second',
+  key: 's',
+  size: 60,
+  useKey: 'useSecond'
+}
 ]
 
 
@@ -108,6 +111,10 @@ function getPartFormatIndexRange(type, format) {
 }
 
 
+/**
+ * 获取下拉列表
+ * @param {*} max 
+ */
 function genOptions(max) {
   let i = -1
   let options = []
@@ -121,15 +128,27 @@ function genOptions(max) {
 }
 
 
+/**
+ * render
+ * @private
+ */
 function render() {
   const { props, states } = this
   const $el = document.createElement('div')
   $el.className = UI_NAME
   addClass($el, props.customClass)
 
+  // 为了隐藏滚动条, scroll中有个 -20px的margin值
+  let scrollBarWidth = getElScrollbarWidth()
+  let padding = scrollBarWidth ? 0 : 20
+
   $el.innerHTML = template(skeletonTpl, {
     cancel: props.cancel ? states.locales.cancel : false,
-    confirm: props.confirm ? states.locales.confirm : false
+    confirm: props.confirm ? states.locales.confirm : false,
+    padding,
+    useHour: states.useHour,
+    useMinute: states.useMinute,
+    useSecond: states.useSecond
   })
 
   states.$hour = qsa(Selectors.hour, $el)[0]
@@ -145,20 +164,26 @@ function render() {
       // 缓存DOM
       states[`$${item.name}Options`] = qsa(Selectors.option, $wrap)
     } else {
-      removeNode(states[`$${item.name}`])
       delete states[`$${item.name}`]
     }
   })
 
-
-
   states.$el = $el
+  states.$confirm = qsa(Selectors.confirm, $el)[0]
+  states.$cancel = qsa(Selectors.cancel, $el)[0]
   bindEvents.call(this)
-  setTimeMap.call(this)
   initPickerInstance.call(this)
+
+  if (states.isInput) {
+    states.$target.value = this.getValue(true)
+  }
 }
 
 
+/**
+ * 初始化Picker
+ * @private
+ */
 function initPickerInstance() {
   const { props, states } = this
   states.pickerInstance = new Picker(states.$target, {
@@ -172,42 +197,67 @@ function initPickerInstance() {
   states.pickerInstance
     .on('open', () => {
       states.pickeOpened = true
-      this.setValue(states.bindValue)
+      // 打开时重新设定当前值
+      states.value = states.bindValue
+      setTimeMap.call(this)
+      autoScroll.call(this)
+      // 在scroll之后绑定Scroll事件，防止Scroll事件触发setValue
+      setTimeout(() => bindScrollEvents.call(this), 0)
       this.emit('open', states.pickerInstance)
     })
     .on('close', () => {
       states.pickeOpened = false
+      unbindScrollEvents.call(this)
       this.emit('close', states.pickerInstance)
     })
 }
 
 
-
+/**
+ * 容器滚动事件
+ * @event
+ * @param {*} type 
+ */
 function handleWrapScroll(type) {
   const $scroller = this.states[`$${type}`]
-  const scrollTop = $scroller.scrollTop
-  let value = Math.min(Math.floor(scrollTop / 32), type === 'hour' ? 23 : 59)
-  if (isDisabledItem.call(this, type, value)) {
-    return
+  let ticking = $scroller.ticking
+  const self = this
+  if (!ticking) {
+    reqAnimationFrame(function () {
+      $scroller.ticking = false
+      const scrollTop = $scroller.scrollTop
+      let value = Math.min(Math.floor(scrollTop / 32), type === 'hour' ? 23 : 59)
+      if (isDisabledItem.call(self, type, value)) {
+        return
+      }
+      self.states.map[type] = value
+      setPanelValue.call(self, '', false)
+    })
+    $scroller.ticking = true
   }
-  this.states.map[type] = value
-  this.setValue(getValueByMap.call(this), false)
 }
 
 
+/**
+ * 滚动后自动调整滚动条位置事件
+ * @event
+ * @param {*} type 
+ */
 function handleAdjustScroll(type) {
   const $scroller = this.states[`$${type}`]
   const scrollTop = $scroller.scrollTop
   let value = Math.min(Math.floor(scrollTop / 32), type === 'hour' ? 23 : 59)
-  if (isDisabledItem.call(this, type, value)) {
-    return
-  }
   scrollTo($scroller, value * 32, 60)
 }
 
 
+/**
+ * 鼠标进入事件
+ * @event
+ * @param {*} type 
+ */
 function handleMouseenter(type) {
-  const { props, states } = this
+  const { states } = this
   states.focusPanelType = type
   if (states.isInput) {
     setSelectionRange.call(this, type)
@@ -215,22 +265,159 @@ function handleMouseenter(type) {
 }
 
 
+/**
+ * 确定按钮事件
+ * @event
+ */
+function handleConfirm() {
+  const { states } = this
+  let oldValue = states.oldValue
+  let value = states.value || getValueByMap.call(this)
+  states.bindValue = states.value = value
+  this.emit('confirm', this.getValue(true), value, oldValue)
+  this.close()
+}
+
+
+/**
+ * 取消按钮被点击事件
+ * @private
+ */
+function handleCancel() {
+  const { states } = this
+  // 关闭时重新设定值，取消事件不会更新bindValue
+  states.value = states.bindValue
+  setTimeMap.call(this)
+  if (states.isInput) {
+    states.$target.value = this.getValue(true)
+  }
+  this.close()
+}
+
+
+/**
+ * 绑定滚动事件
+ * @private
+ */
+function bindScrollEvents() {
+  const { states } = this
+  const handles = states.handles
+
+  // 先解绑
+  unbindScrollEvents.call(this)
+
+  states.useHour && bind(states.$hour, 'scroll', handles.hourWrapScroll)
+  states.useMinute && bind(states.$minute, 'scroll', handles.minuteWrapScroll)
+  states.useSecond && bind(states.$second, 'scroll', handles.secondWrapScroll)
+}
+
+
+/**
+ * 解绑滚动事件
+ * @private
+ */
+function unbindScrollEvents() {
+  const { states } = this
+  const handles = states.handles
+  states.useHour && unbind(states.$hour, 'scroll', handles.hourWrapScroll)
+  states.useMinute && unbind(states.$minute, 'scroll', handles.minuteWrapScroll)
+  states.useSecond && unbind(states.$second, 'scroll', handles.secondWrapScroll)
+}
+
+
+/**
+ * target value change event
+ * @event
+ * @param {*} event 
+ */
+function handleInputChange(event) {
+  // console.log(event)
+  let value = event.target.value
+  // if (value) {
+  //   value = getEffectiveValue.call(this, value)
+  // }
+  // console.log(value)
+
+  this.setValue(value)
+  this.states.bindValue = this.getValue()
+}
+
+
+/**
+ * target keydown event
+ * @event
+ * @param {*} event 
+ */
+function handleKeydown(event) {
+  const { states, props } = this
+  if (props.disabled || !states.pickeOpened) {
+    return
+  }
+  let code = event.keyCode
+  if (code === 27) {
+    event.preventDefault()
+    states.pickerInstance.close()
+    return
+  }
+
+  if (code === 38 || code === 40 && states.focusPanelType) {
+    event.preventDefault()
+    setMapByKeydownEvent.call(this, code === 38 ? 'prev' : 'next')
+    return
+  }
+}
+
+
+/**
+ * 快捷键选择值
+ * @private
+ * @param {*} type 
+ * @param {*} value 
+ */
+function setMapByKeydownEvent(type, value) {
+  const { states } = this
+  let part = states.focusPanelType
+  let map = states.map
+  value = value === void 0 ? map[part] : value
+  let max = part === 'hour' ? 23 : 59
+  value = type === 'prev' ? --value : ++value
+  if (value < 0) {
+    value = max
+  }
+  if (value > max) {
+    value = 0
+  }
+  if (isDisabledItem.call(this, part, value)) {
+    return setMapByKeydownEvent.call(this, type, value)
+  }
+  map[part] = value
+
+  scrollTo(states[`$${part}`], value * 32, 0)
+}
+
+
+/**
+ * bind dom events
+ * @private
+ */
 function bindEvents() {
-  const { props, states } = this
+  const { states } = this
   const handles = states.handles = Object.create(null)
   const self = this
+
   handles.hourWrapScroll = handleWrapScroll.bind(this, 'hour')
   handles.minuteWrapScroll = handleWrapScroll.bind(this, 'minute')
   handles.secondWrapScroll = handleWrapScroll.bind(this, 'second')
   handles.hourAdjustScroll = handleAdjustScroll.bind(this, 'hour')
   handles.minuteAdjustScroll = handleAdjustScroll.bind(this, 'minute')
   handles.secondAdjustScroll = handleAdjustScroll.bind(this, 'second')
-
   handles.hourMouseenter = handleMouseenter.bind(this, 'hour')
   handles.minuteMouseenter = handleMouseenter.bind(this, 'minute')
   handles.secondMouseenter = handleMouseenter.bind(this, 'second')
+  handles.inputChange = handleInputChange.bind(this)
+  handles.keydown = handleKeydown.bind(this)
 
-  handles.optionClick = proxy(states.$el, Selectors.option, function(e) {
+  handles.optionClick = proxy(states.$el, Selectors.option, function () {
     let $parent = this.parentNode.parentNode
     let type = $parent === states.$hour ? 'hour' : ($parent === states.$minute ? 'minute' : 'second')
     let index = getIndex(this, states[`$${type}Options`])
@@ -238,33 +425,78 @@ function bindEvents() {
       return
     }
     states.map[type] = index
-    self.setValue(getValueByMap.call(self))
+    setPanelValue.call(self)
   })
 
+  handles.confirm = handleConfirm.bind(this)
+  handles.cancel = handleCancel.bind(this)
 
+  if (states.useHour) {
+    bind(states.$hour, 'mouseleave', handles.hourAdjustScroll)
+    bind(states.$hour, 'mouseenter', handles.hourMouseenter)
+  }
 
-  bind(states.$hour, 'scroll', handles.hourWrapScroll)
-  bind(states.$hour, 'mouseenter', handles.hourAdjustScroll)
-  bind(states.$hour, 'mouseleave', handles.hourAdjustScroll)
-  bind(states.$hour, 'mouseenter', handles.hourMouseenter)
+  if (states.useMinute) {
+    bind(states.$minute, 'mouseleave', handles.minuteAdjustScroll)
+    bind(states.$minute, 'mouseenter', handles.minuteMouseenter)
+  }
 
-  bind(states.$minute, 'scroll', handles.minuteWrapScroll)
-  bind(states.$minute, 'mouseenter', handles.minuteAdjustScroll)
-  bind(states.$minute, 'mouseleave', handles.minuteAdjustScroll)
-  bind(states.$minute, 'mouseenter', handles.minuteMouseenter)
-
-  bind(states.$second, 'scroll', handles.secondWrapScroll)
-  bind(states.$second, 'mouseenter', handles.secondAdjustScroll)
-  bind(states.$second, 'mouseleave', handles.secondAdjustScroll)
-  bind(states.$second, 'mouseenter', handles.secondMouseenter)
+  if (states.useSecond) {
+    bind(states.$second, 'mouseleave', handles.secondAdjustScroll)
+    bind(states.$second, 'mouseenter', handles.secondMouseenter)
+  }
 
   bind(states.$el, 'click', handles.optionClick)
+  states.$confirm && bind(states.$confirm, 'click', handles.confirm)
+  states.$cancel && bind(states.$cancel, 'click', handles.cancel)
 
-
+  if (states.isInput) {
+    bind(states.$target, 'change', handles.inputChange)
+    bind(states.$target, 'keydown', handles.keydown)
+  }
 }
 
 
+/**
+ * unbind dom events
+ * @private
+ */
+function unbindEvents() {
+  const { states } = this
+  const handles = states.handles
+  unbindScrollEvents.call(this)
 
+  if (states.useHour) {
+    unbind(states.$hour, 'mouseleave', handles.hourAdjustScroll)
+    unbind(states.$hour, 'mouseenter', handles.hourMouseenter)
+  }
+
+  if (states.useMinute) {
+    unbind(states.$minute, 'mouseleave', handles.minuteAdjustScroll)
+    unbind(states.$minute, 'mouseenter', handles.minuteMouseenter)
+  }
+
+  if (states.useSecond) {
+    unbind(states.$second, 'mouseleave', handles.secondAdjustScroll)
+    unbind(states.$second, 'mouseenter', handles.secondMouseenter)
+  }
+
+  unbind(states.$el, 'click', handles.optionClick)
+
+  states.$confirm && unbind(states.$confirm, 'click', handles.confirm)
+  states.$cancel && unbind(states.$cancel, 'click', handles.cancel)
+
+  if (states.isInput) {
+    unbind(states.$target, 'change', handles.inputChange)
+    unbind(states.$target, 'keydown', handles.keydown)
+  }
+}
+
+
+/**
+ * 校验格式
+ * @private
+ */
 function checkFormat() {
   const { props, states } = this
   let count = 0
@@ -281,6 +513,10 @@ function checkFormat() {
 }
 
 
+/**
+ * 设置最小最大值Map
+ * @private
+ */
 function setRangeMap() {
   const { props, states } = this
   let minHour = -1
@@ -304,12 +540,16 @@ function setRangeMap() {
 }
 
 
+/**
+ * 设置target选取
+ * @private
+ * @param {*} type 
+ */
 function setSelectionRange(type) {
   const { states } = this
   let range = states[`${type}Indexs`]
   states.$target.setSelectionRange(range[0], range[1])
 }
-
 
 
 /**
@@ -326,20 +566,28 @@ function setSelectionRange(type) {
  * @private
  */
 function setTimeMap() {
-  const { states } = this
+  const { props, states } = this
   const map = Object.create(null)
   let value = states.value
   if (!value) {
-    value = getEffectiveValue.call(this, new Date())
+    value = getEffectiveValue.call(this, props.defaultValue || props.minTime)
   }
-  map.hour = value.getHours()
-  map.minute = value.getMinutes()
-  map.second = value.getSeconds()
+  if (value) {
+    map.hour = value.getHours()
+    map.minute = value.getMinutes()
+    map.second = value.getSeconds()
+  } else {
+    map.hour = map.minute = map.second = 0
+  }
   states.map = map
   setItemsStatus.call(this)
 }
 
 
+/**
+ * 通过map获取value
+ * @private
+ */
 function getValueByMap() {
   const { states } = this
   const map = states.map
@@ -381,16 +629,16 @@ function toggleItemsStatus(type) {
 }
 
 
-
-
+/**
+ * 自动滚动
+ * @private
+ */
 function autoScroll() {
   const { states } = this
   states.useHour && scrollTo(states.$hour, states.map.hour * 32, 0)
   states.useMinute && scrollTo(states.$minute, states.map.minute * 32, 0)
   states.useSecond && scrollTo(states.$second, states.map.second * 32, 0)
 }
-
-
 
 
 /**
@@ -465,7 +713,77 @@ function isDisabledItem(type, value) {
 }
 
 
+/**
+ * set value
+ * 设置的不是bindValue
+ * @param {*} value 
+ * @param {*} scroll 
+ */
+function setPanelValue(value, scroll = true) {
+  const { states, props } = this
+  if (props.disabled) {
+    return
+  }
+  value = value || getValueByMap.call(this)
+  let oldValue = states.value
+  let newValue
+  if (value === '' || value === null) {
+    newValue = ''
+  } else {
+    value = getEffectiveValue.call(this, value)
+    if (!value) {
+      value = oldValue
+    }
+    newValue = value
+  }
+
+  newValue = parseDate(newValue, props.format)
+  states.value = newValue
+
+  let formatValue = this.getValue(true)
+
+  console.log(formatValue)
+
+  // 设置target的value
+  if (states.isInput) {
+    states.$target.value = formatValue
+    states.$target.focus()
+  }
+
+  if (+newValue !== +oldValue) {
+    this.emit('change', formatValue, newValue, oldValue)
+  }
+
+  if (!states.$confirm) {
+    let bindValue = states.bindValue
+    if (+bindValue !== +newValue) {
+      states.bindValue = newValue
+      this.emit('done', formatValue, newValue, bindValue)
+    }
+  }
+
+  setTimeMap.call(this)
+  scroll && autoScroll.call(this)
+}
+
+
+
+/**
+ * TimePicker Component
+ * @date 2018-12-05
+ * @export
+ * @class TimePicker
+ * @extends {Events}
+ */
 export class TimePicker extends Events {
+
+  /**
+   * Creates an instance of TimePicker.
+   * @date 2018-12-05
+   * @param {*} target
+   * @param {*} options
+   * @memberof TimePicker
+   */
   constructor(target, options) {
     super()
     if (!(this instanceof TimePicker)) {
@@ -481,64 +799,150 @@ export class TimePicker extends Events {
     states.$target = target
     states.isInput = target.nodeName === 'INPUT'
     states.locales = getLocales(props.lang).datePicker
-    console.log(states.locales)
 
     // 校验格式
     checkFormat.call(this)
 
+    // 最小最大值
     props.minTime = parseDate(props.minTime, props.format)
     props.maxTime = parseDate(props.maxTime, props.format)
-
     setRangeMap.call(this)
 
-    let value = getEffectiveValue.call(this, props.value)
+    // get value
+    let value = props.value
+    if (!value && states.isInput) {
+      value = target.value
+    }
+    value = getEffectiveValue.call(this, value)
     states.bindValue = states.value = value
+
     // 当前激活的Panel
     states.focusPanelType = null
-
-
 
     render.call(this)
   }
 
-  setValue(value, scroll = true) {
-    const { states, props } = this
-    if (props.disabled) {
-      return
+
+  /**
+   * set value
+   * 会同时设定value和bindValue
+   * @date 2018-12-05
+   * @param {*} value
+   * @memberof TimePicker
+   */
+  setValue(value) {
+    setPanelValue.call(this, value)
+    let bindValue = this.states.bindValue
+    if (+bindValue !== +this.states.value) {
+      this.states.bindValue = this.states.value
+      this.emit('done', this.getValue(true), this.states.value, bindValue)
     }
-    let oldValue = states.value
-    let newValue
-    if (value === null) {
-      newValue = ''
-    } else {
-      value = getEffectiveValue.call(this, value)
-      if (!value) {
-        value = oldValue
-      }
-      newValue = value
-    }
-
-    newValue = parseDate(newValue, props.format)
-    states.value = newValue
-
-    let formatValue = this.getValue(true)
-
-    // 设置target的value
-    if (states.isInput) {
-      states.$target.value = formatValue
-      states.$target.focus()
-    }
-
-    if (+newValue !== +oldValue) {
-      this.emit('change', formatValue, newValue, oldValue)
-    }
-
-    setTimeMap.call(this)
-    scroll && autoScroll.call(this)
   }
 
+
+  /**
+   * get current value
+   * @date 2018-12-05
+   * @param {*} isFormat
+   * @returns
+   * @memberof TimePicker
+   */
   getValue(isFormat) {
     return isFormat ? formatDate(this.states.value, this.props.format) : this.states.value
+  }
+
+
+  /**
+   * 设置最小时间
+   * @public
+   * @param {*} value
+   * @memberof TimePicker
+   */
+  setMinTime(value) {
+    this.props.minTime = value
+    setRangeMap.call(this)
+    this.states.pickeOpened && setTimeMap.call(this)
+  }
+
+
+  /**
+   * 设置最大时间
+   * @public
+   * @param {*} value
+   * @memberof TimePicker
+   */
+  setMaxTime(value) {
+    this.props.maxTime = value
+    setRangeMap.call(this)
+    this.states.pickeOpened && setTimeMap.call(this)
+  }
+
+
+  /**
+  * open picker
+  * @date 2018-11-28
+  * @memberof ColorPicker
+  */
+  open() {
+    if (this.states.pickerInstance && !this.states.pickeOpened) {
+      this.states.pickerInstance.open()
+    }
+  }
+
+
+  /**
+   * close picker
+   * @date 2018-11-28
+   * @memberof ColorPicker
+   */
+  close() {
+    if (this.states.pickerInstance && this.states.pickeOpened) {
+      this.states.pickerInstance.close()
+    }
+  }
+
+
+  /**
+   * disable the component
+   * @date 2018-11-28
+   * @memberof Select
+   */
+  disable() {
+    const { props, states } = this
+    props.disabled = true
+    if (states.pickerInstance) {
+      states.pickerInstance.close()
+      states.pickerInstance.disable()
+    }
+  }
+
+
+  /**
+   * enable the component
+   * @date 2018-11-28
+   * @memberof Select
+   */
+  enable() {
+    const { props, states } = this
+    props.disabled = false
+    if (states.pickerInstance) {
+      states.pickerInstance && states.pickerInstance.enable()
+    }
+  }
+
+
+  /**
+   * destroy
+   * @date 2018-12-05
+   * @memberof TimePicker
+   */
+  destroy() {
+    unbindEvents.call(this)
+    const { states } = this
+    states.pickerInstance && states.pickerInstance.destroy()
+    this.states = null
+    this.props = null
+    this._events = null
   }
 }
 

@@ -1,7 +1,7 @@
 /*
  * File: index.js
  * Project: @vnnox/novaui
- * Description: 日期选择器
+ * Description: Choose Date
  * Created: 2018-11-27 09:12
  * Author: smohan (mengxw@novastar.tech)
  * -----

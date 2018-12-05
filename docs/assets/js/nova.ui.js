@@ -943,7 +943,7 @@ function _assertThisInitialized(self) { if (self === void 0) { throw new Referen
 /*
  * File: index.js
  * Project: @vnnox/novaui
- * Description: 日期选择器
+ * Description: Choose Date
  * Created: 2018-11-27 09:12
  * Author: smohan (mengxw@novastar.tech)
  * -----
@@ -7926,11 +7926,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _utils_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../utils/dom */ "./src/utils/dom.js");
 /* harmony import */ var _picker__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../picker */ "./src/components/picker/index.js");
 /* harmony import */ var _utils_utils__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../utils/utils */ "./src/utils/utils.js");
-/* harmony import */ var _template__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./template */ "./src/components/time-picker/template.js");
-/* harmony import */ var _date_picker_utils__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../date-picker/utils */ "./src/components/date-picker/utils.js");
-/* harmony import */ var _utils_constant__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../utils/constant */ "./src/utils/constant.js");
-/* harmony import */ var _picker_placements__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../picker/placements */ "./src/components/picker/placements.js");
-/* harmony import */ var _utils_locale__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../../utils/locale */ "./src/utils/locale.js");
+/* harmony import */ var _date_picker_utils__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../date-picker/utils */ "./src/components/date-picker/utils.js");
+/* harmony import */ var _utils_constant__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../utils/constant */ "./src/utils/constant.js");
+/* harmony import */ var _picker_placements__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../picker/placements */ "./src/components/picker/placements.js");
+/* harmony import */ var _utils_locale__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../utils/locale */ "./src/utils/locale.js");
+/* harmony import */ var _template__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./template */ "./src/components/time-picker/template.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -7960,7 +7960,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 /*
  * File: index.js
  * Project: @vnnox/novaui
- * Description: Used for ...
+ * Description: Choose Time
  * Created: 2018-12-04 10:18
  * Author: smohan (mengxw@novastar.tech)
  * -----
@@ -7978,13 +7978,17 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
+ // ui class name
 
-var UI_NAME = 'nv-time-picker';
+var UI_NAME = 'nv-time-picker'; // default config
+
 var defaults = {
   // [ string ] 国际化
   lang: '',
   // [ string | date ] 绑定值
   value: '',
+  // [ string | date ] 默认值
+  defaultValue: null,
   // [ string ] 格式化
   format: 'HH:mm:ss',
   // [ string ] 自定义样式
@@ -7997,17 +8001,20 @@ var defaults = {
   maxTime: null,
   // [ boolean ] 是否禁用
   disabled: false,
-  // 
-  cancel: true,
-  // 
-  confirm: true
+  // [ boolean ] 显示取消按钮
+  cancel: false,
+  // [ boolean ] 显示确定按钮
+  confirm: false // selectors
+
 };
 var Selectors = {
   hour: '.hour-select',
   minute: '.minute-select',
   second: '.second-select',
   select: '.nv-time-picker__select',
-  option: '.nv-time-picker__option' // config of every part of time
+  option: '.nv-time-picker__option',
+  cancel: '.nv-btn__cancel',
+  confirm: '.nv-btn__confirm' // config of every part of time
 
 };
 var TIME_MAP = [{
@@ -8056,6 +8063,11 @@ function getPartFormatIndexRange(type, format) {
 
   return [start, start + len];
 }
+/**
+ * 获取下拉列表
+ * @param {*} max 
+ */
+
 
 function genOptions(max) {
   var i = -1;
@@ -8064,22 +8076,34 @@ function genOptions(max) {
   while (++i < max) {
     options.push({
       value: i,
-      label: Object(_date_picker_utils__WEBPACK_IMPORTED_MODULE_6__["pad"])(i)
+      label: Object(_date_picker_utils__WEBPACK_IMPORTED_MODULE_5__["pad"])(i)
     });
   }
 
   return options;
 }
+/**
+ * render
+ * @private
+ */
+
 
 function render() {
   var props = this.props,
       states = this.states;
   var $el = document.createElement('div');
   $el.className = UI_NAME;
-  Object(_utils_dom__WEBPACK_IMPORTED_MODULE_2__["addClass"])($el, props.customClass);
-  $el.innerHTML = Object(_utils_template__WEBPACK_IMPORTED_MODULE_1__["default"])(_template__WEBPACK_IMPORTED_MODULE_5__["skeletonTpl"], {
+  Object(_utils_dom__WEBPACK_IMPORTED_MODULE_2__["addClass"])($el, props.customClass); // 为了隐藏滚动条, scroll中有个 -20px的margin值
+
+  var scrollBarWidth = Object(_utils_dom__WEBPACK_IMPORTED_MODULE_2__["getElScrollbarWidth"])();
+  var padding = scrollBarWidth ? 0 : 20;
+  $el.innerHTML = Object(_utils_template__WEBPACK_IMPORTED_MODULE_1__["default"])(_template__WEBPACK_IMPORTED_MODULE_9__["skeletonTpl"], {
     cancel: props.cancel ? states.locales.cancel : false,
-    confirm: props.confirm ? states.locales.confirm : false
+    confirm: props.confirm ? states.locales.confirm : false,
+    padding: padding,
+    useHour: states.useHour,
+    useMinute: states.useMinute,
+    useSecond: states.useSecond
   });
   states.$hour = Object(_utils_dom__WEBPACK_IMPORTED_MODULE_2__["qsa"])(Selectors.hour, $el)[0];
   states.$minute = Object(_utils_dom__WEBPACK_IMPORTED_MODULE_2__["qsa"])(Selectors.minute, $el)[0];
@@ -8087,21 +8111,30 @@ function render() {
   TIME_MAP.forEach(function (item) {
     if (states[item.useKey]) {
       var $wrap = states["$".concat(item.name)];
-      Object(_utils_dom__WEBPACK_IMPORTED_MODULE_2__["qsa"])(Selectors.select, $wrap)[0].innerHTML = Object(_utils_template__WEBPACK_IMPORTED_MODULE_1__["default"])(_template__WEBPACK_IMPORTED_MODULE_5__["optionsTpl"], {
+      Object(_utils_dom__WEBPACK_IMPORTED_MODULE_2__["qsa"])(Selectors.select, $wrap)[0].innerHTML = Object(_utils_template__WEBPACK_IMPORTED_MODULE_1__["default"])(_template__WEBPACK_IMPORTED_MODULE_9__["optionsTpl"], {
         options: genOptions(item.size)
       }); // 缓存DOM
 
       states["$".concat(item.name, "Options")] = Object(_utils_dom__WEBPACK_IMPORTED_MODULE_2__["qsa"])(Selectors.option, $wrap);
     } else {
-      Object(_utils_dom__WEBPACK_IMPORTED_MODULE_2__["removeNode"])(states["$".concat(item.name)]);
       delete states["$".concat(item.name)];
     }
   });
   states.$el = $el;
+  states.$confirm = Object(_utils_dom__WEBPACK_IMPORTED_MODULE_2__["qsa"])(Selectors.confirm, $el)[0];
+  states.$cancel = Object(_utils_dom__WEBPACK_IMPORTED_MODULE_2__["qsa"])(Selectors.cancel, $el)[0];
   bindEvents.call(this);
-  setTimeMap.call(this);
   initPickerInstance.call(this);
+
+  if (states.isInput) {
+    states.$target.value = this.getValue(true);
+  }
 }
+/**
+ * 初始化Picker
+ * @private
+ */
+
 
 function initPickerInstance() {
   var _this = this;
@@ -8111,62 +8144,231 @@ function initPickerInstance() {
   states.pickerInstance = new _picker__WEBPACK_IMPORTED_MODULE_3__["default"](states.$target, {
     content: states.$el,
     trigger: 'click',
-    placement: Object(_picker_placements__WEBPACK_IMPORTED_MODULE_8__["getPlacementByAlign"])(props.align),
+    placement: Object(_picker_placements__WEBPACK_IMPORTED_MODULE_7__["getPlacementByAlign"])(props.align),
     showArrow: false,
     margin: 2,
     disabled: props.disabled
   });
   states.pickerInstance.on('open', function () {
-    states.pickeOpened = true;
+    states.pickeOpened = true; // 打开时重新设定当前值
 
-    _this.setValue(states.bindValue);
+    states.value = states.bindValue;
+    setTimeMap.call(_this);
+    autoScroll.call(_this); // 在scroll之后绑定Scroll事件，防止Scroll事件触发setValue
+
+    setTimeout(function () {
+      return bindScrollEvents.call(_this);
+    }, 0);
 
     _this.emit('open', states.pickerInstance);
   }).on('close', function () {
     states.pickeOpened = false;
+    unbindScrollEvents.call(_this);
 
     _this.emit('close', states.pickerInstance);
   });
 }
+/**
+ * 容器滚动事件
+ * @event
+ * @param {*} type 
+ */
+
 
 function handleWrapScroll(type) {
   var $scroller = this.states["$".concat(type)];
-  var scrollTop = $scroller.scrollTop;
-  var value = Math.min(Math.floor(scrollTop / 32), type === 'hour' ? 23 : 59);
+  var ticking = $scroller.ticking;
+  var self = this;
 
-  if (isDisabledItem.call(this, type, value)) {
-    return;
+  if (!ticking) {
+    Object(_utils_dom__WEBPACK_IMPORTED_MODULE_2__["reqAnimationFrame"])(function () {
+      $scroller.ticking = false;
+      var scrollTop = $scroller.scrollTop;
+      var value = Math.min(Math.floor(scrollTop / 32), type === 'hour' ? 23 : 59);
+
+      if (isDisabledItem.call(self, type, value)) {
+        return;
+      }
+
+      self.states.map[type] = value;
+      setPanelValue.call(self, '', false);
+    });
+    $scroller.ticking = true;
   }
-
-  this.states.map[type] = value;
-  this.setValue(getValueByMap.call(this), false);
 }
+/**
+ * 滚动后自动调整滚动条位置事件
+ * @event
+ * @param {*} type 
+ */
+
 
 function handleAdjustScroll(type) {
   var $scroller = this.states["$".concat(type)];
   var scrollTop = $scroller.scrollTop;
   var value = Math.min(Math.floor(scrollTop / 32), type === 'hour' ? 23 : 59);
-
-  if (isDisabledItem.call(this, type, value)) {
-    return;
-  }
-
   Object(_utils_dom__WEBPACK_IMPORTED_MODULE_2__["scrollTo"])($scroller, value * 32, 60);
 }
+/**
+ * 鼠标进入事件
+ * @event
+ * @param {*} type 
+ */
+
 
 function handleMouseenter(type) {
-  var props = this.props,
-      states = this.states;
+  var states = this.states;
   states.focusPanelType = type;
 
   if (states.isInput) {
     setSelectionRange.call(this, type);
   }
 }
+/**
+ * 确定按钮事件
+ * @event
+ */
+
+
+function handleConfirm() {
+  var states = this.states;
+  var oldValue = states.oldValue;
+  var value = states.value || getValueByMap.call(this);
+  states.bindValue = states.value = value;
+  this.emit('confirm', this.getValue(true), value, oldValue);
+  this.close();
+}
+/**
+ * 取消按钮被点击事件
+ * @private
+ */
+
+
+function handleCancel() {
+  var states = this.states; // 关闭时重新设定值，取消事件不会更新bindValue
+
+  states.value = states.bindValue;
+  setTimeMap.call(this);
+
+  if (states.isInput) {
+    states.$target.value = this.getValue(true);
+  }
+
+  this.close();
+}
+/**
+ * 绑定滚动事件
+ * @private
+ */
+
+
+function bindScrollEvents() {
+  var states = this.states;
+  var handles = states.handles; // 先解绑
+
+  unbindScrollEvents.call(this);
+  states.useHour && Object(_utils_dom__WEBPACK_IMPORTED_MODULE_2__["bind"])(states.$hour, 'scroll', handles.hourWrapScroll);
+  states.useMinute && Object(_utils_dom__WEBPACK_IMPORTED_MODULE_2__["bind"])(states.$minute, 'scroll', handles.minuteWrapScroll);
+  states.useSecond && Object(_utils_dom__WEBPACK_IMPORTED_MODULE_2__["bind"])(states.$second, 'scroll', handles.secondWrapScroll);
+}
+/**
+ * 解绑滚动事件
+ * @private
+ */
+
+
+function unbindScrollEvents() {
+  var states = this.states;
+  var handles = states.handles;
+  states.useHour && Object(_utils_dom__WEBPACK_IMPORTED_MODULE_2__["unbind"])(states.$hour, 'scroll', handles.hourWrapScroll);
+  states.useMinute && Object(_utils_dom__WEBPACK_IMPORTED_MODULE_2__["unbind"])(states.$minute, 'scroll', handles.minuteWrapScroll);
+  states.useSecond && Object(_utils_dom__WEBPACK_IMPORTED_MODULE_2__["unbind"])(states.$second, 'scroll', handles.secondWrapScroll);
+}
+/**
+ * target value change event
+ * @event
+ * @param {*} event 
+ */
+
+
+function handleInputChange(event) {
+  // console.log(event)
+  var value = event.target.value; // if (value) {
+  //   value = getEffectiveValue.call(this, value)
+  // }
+  // console.log(value)
+
+  this.setValue(value);
+  this.states.bindValue = this.getValue();
+}
+/**
+ * target keydown event
+ * @event
+ * @param {*} event 
+ */
+
+
+function handleKeydown(event) {
+  var states = this.states,
+      props = this.props;
+
+  if (props.disabled || !states.pickeOpened) {
+    return;
+  }
+
+  var code = event.keyCode;
+
+  if (code === 27) {
+    event.preventDefault();
+    states.pickerInstance.close();
+    return;
+  }
+
+  if (code === 38 || code === 40 && states.focusPanelType) {
+    event.preventDefault();
+    setMapByKeydownEvent.call(this, code === 38 ? 'prev' : 'next');
+    return;
+  }
+}
+/**
+ * 快捷键选择值
+ * @private
+ * @param {*} type 
+ * @param {*} value 
+ */
+
+
+function setMapByKeydownEvent(type, value) {
+  var states = this.states;
+  var part = states.focusPanelType;
+  var map = states.map;
+  value = value === void 0 ? map[part] : value;
+  var max = part === 'hour' ? 23 : 59;
+  value = type === 'prev' ? --value : ++value;
+
+  if (value < 0) {
+    value = max;
+  }
+
+  if (value > max) {
+    value = 0;
+  }
+
+  if (isDisabledItem.call(this, part, value)) {
+    return setMapByKeydownEvent.call(this, type, value);
+  }
+
+  map[part] = value;
+  Object(_utils_dom__WEBPACK_IMPORTED_MODULE_2__["scrollTo"])(states["$".concat(part)], value * 32, 0);
+}
+/**
+ * bind dom events
+ * @private
+ */
+
 
 function bindEvents() {
-  var props = this.props,
-      states = this.states;
+  var states = this.states;
   var handles = states.handles = Object.create(null);
   var self = this;
   handles.hourWrapScroll = handleWrapScroll.bind(this, 'hour');
@@ -8178,7 +8380,9 @@ function bindEvents() {
   handles.hourMouseenter = handleMouseenter.bind(this, 'hour');
   handles.minuteMouseenter = handleMouseenter.bind(this, 'minute');
   handles.secondMouseenter = handleMouseenter.bind(this, 'second');
-  handles.optionClick = Object(_utils_dom__WEBPACK_IMPORTED_MODULE_2__["proxy"])(states.$el, Selectors.option, function (e) {
+  handles.inputChange = handleInputChange.bind(this);
+  handles.keydown = handleKeydown.bind(this);
+  handles.optionClick = Object(_utils_dom__WEBPACK_IMPORTED_MODULE_2__["proxy"])(states.$el, Selectors.option, function () {
     var $parent = this.parentNode.parentNode;
     var type = $parent === states.$hour ? 'hour' : $parent === states.$minute ? 'minute' : 'second';
     var index = Object(_utils_dom__WEBPACK_IMPORTED_MODULE_2__["getIndex"])(this, states["$".concat(type, "Options")]);
@@ -8188,22 +8392,75 @@ function bindEvents() {
     }
 
     states.map[type] = index;
-    self.setValue(getValueByMap.call(self));
+    setPanelValue.call(self);
   });
-  Object(_utils_dom__WEBPACK_IMPORTED_MODULE_2__["bind"])(states.$hour, 'scroll', handles.hourWrapScroll);
-  Object(_utils_dom__WEBPACK_IMPORTED_MODULE_2__["bind"])(states.$hour, 'mouseenter', handles.hourAdjustScroll);
-  Object(_utils_dom__WEBPACK_IMPORTED_MODULE_2__["bind"])(states.$hour, 'mouseleave', handles.hourAdjustScroll);
-  Object(_utils_dom__WEBPACK_IMPORTED_MODULE_2__["bind"])(states.$hour, 'mouseenter', handles.hourMouseenter);
-  Object(_utils_dom__WEBPACK_IMPORTED_MODULE_2__["bind"])(states.$minute, 'scroll', handles.minuteWrapScroll);
-  Object(_utils_dom__WEBPACK_IMPORTED_MODULE_2__["bind"])(states.$minute, 'mouseenter', handles.minuteAdjustScroll);
-  Object(_utils_dom__WEBPACK_IMPORTED_MODULE_2__["bind"])(states.$minute, 'mouseleave', handles.minuteAdjustScroll);
-  Object(_utils_dom__WEBPACK_IMPORTED_MODULE_2__["bind"])(states.$minute, 'mouseenter', handles.minuteMouseenter);
-  Object(_utils_dom__WEBPACK_IMPORTED_MODULE_2__["bind"])(states.$second, 'scroll', handles.secondWrapScroll);
-  Object(_utils_dom__WEBPACK_IMPORTED_MODULE_2__["bind"])(states.$second, 'mouseenter', handles.secondAdjustScroll);
-  Object(_utils_dom__WEBPACK_IMPORTED_MODULE_2__["bind"])(states.$second, 'mouseleave', handles.secondAdjustScroll);
-  Object(_utils_dom__WEBPACK_IMPORTED_MODULE_2__["bind"])(states.$second, 'mouseenter', handles.secondMouseenter);
+  handles.confirm = handleConfirm.bind(this);
+  handles.cancel = handleCancel.bind(this);
+
+  if (states.useHour) {
+    Object(_utils_dom__WEBPACK_IMPORTED_MODULE_2__["bind"])(states.$hour, 'mouseleave', handles.hourAdjustScroll);
+    Object(_utils_dom__WEBPACK_IMPORTED_MODULE_2__["bind"])(states.$hour, 'mouseenter', handles.hourMouseenter);
+  }
+
+  if (states.useMinute) {
+    Object(_utils_dom__WEBPACK_IMPORTED_MODULE_2__["bind"])(states.$minute, 'mouseleave', handles.minuteAdjustScroll);
+    Object(_utils_dom__WEBPACK_IMPORTED_MODULE_2__["bind"])(states.$minute, 'mouseenter', handles.minuteMouseenter);
+  }
+
+  if (states.useSecond) {
+    Object(_utils_dom__WEBPACK_IMPORTED_MODULE_2__["bind"])(states.$second, 'mouseleave', handles.secondAdjustScroll);
+    Object(_utils_dom__WEBPACK_IMPORTED_MODULE_2__["bind"])(states.$second, 'mouseenter', handles.secondMouseenter);
+  }
+
   Object(_utils_dom__WEBPACK_IMPORTED_MODULE_2__["bind"])(states.$el, 'click', handles.optionClick);
+  states.$confirm && Object(_utils_dom__WEBPACK_IMPORTED_MODULE_2__["bind"])(states.$confirm, 'click', handles.confirm);
+  states.$cancel && Object(_utils_dom__WEBPACK_IMPORTED_MODULE_2__["bind"])(states.$cancel, 'click', handles.cancel);
+
+  if (states.isInput) {
+    Object(_utils_dom__WEBPACK_IMPORTED_MODULE_2__["bind"])(states.$target, 'change', handles.inputChange);
+    Object(_utils_dom__WEBPACK_IMPORTED_MODULE_2__["bind"])(states.$target, 'keydown', handles.keydown);
+  }
 }
+/**
+ * unbind dom events
+ * @private
+ */
+
+
+function unbindEvents() {
+  var states = this.states;
+  var handles = states.handles;
+  unbindScrollEvents.call(this);
+
+  if (states.useHour) {
+    Object(_utils_dom__WEBPACK_IMPORTED_MODULE_2__["unbind"])(states.$hour, 'mouseleave', handles.hourAdjustScroll);
+    Object(_utils_dom__WEBPACK_IMPORTED_MODULE_2__["unbind"])(states.$hour, 'mouseenter', handles.hourMouseenter);
+  }
+
+  if (states.useMinute) {
+    Object(_utils_dom__WEBPACK_IMPORTED_MODULE_2__["unbind"])(states.$minute, 'mouseleave', handles.minuteAdjustScroll);
+    Object(_utils_dom__WEBPACK_IMPORTED_MODULE_2__["unbind"])(states.$minute, 'mouseenter', handles.minuteMouseenter);
+  }
+
+  if (states.useSecond) {
+    Object(_utils_dom__WEBPACK_IMPORTED_MODULE_2__["unbind"])(states.$second, 'mouseleave', handles.secondAdjustScroll);
+    Object(_utils_dom__WEBPACK_IMPORTED_MODULE_2__["unbind"])(states.$second, 'mouseenter', handles.secondMouseenter);
+  }
+
+  Object(_utils_dom__WEBPACK_IMPORTED_MODULE_2__["unbind"])(states.$el, 'click', handles.optionClick);
+  states.$confirm && Object(_utils_dom__WEBPACK_IMPORTED_MODULE_2__["unbind"])(states.$confirm, 'click', handles.confirm);
+  states.$cancel && Object(_utils_dom__WEBPACK_IMPORTED_MODULE_2__["unbind"])(states.$cancel, 'click', handles.cancel);
+
+  if (states.isInput) {
+    Object(_utils_dom__WEBPACK_IMPORTED_MODULE_2__["unbind"])(states.$target, 'change', handles.inputChange);
+    Object(_utils_dom__WEBPACK_IMPORTED_MODULE_2__["unbind"])(states.$target, 'keydown', handles.keydown);
+  }
+}
+/**
+ * 校验格式
+ * @private
+ */
+
 
 function checkFormat() {
   var props = this.props,
@@ -8222,6 +8479,11 @@ function checkFormat() {
   states.minuteIndexs = getPartFormatIndexRange('minute', props.format);
   states.secondIndexs = getPartFormatIndexRange('second', props.format);
 }
+/**
+ * 设置最小最大值Map
+ * @private
+ */
+
 
 function setRangeMap() {
   var props = this.props,
@@ -8248,6 +8510,12 @@ function setRangeMap() {
   states.minMap = [minHour, minMinute, minSecond];
   states.maxMap = [maxHour, maxMinute, maxSecond];
 }
+/**
+ * 设置target选取
+ * @private
+ * @param {*} type 
+ */
+
 
 function setSelectionRange(type) {
   var states = this.states;
@@ -8270,20 +8538,31 @@ function setSelectionRange(type) {
 
 
 function setTimeMap() {
-  var states = this.states;
+  var props = this.props,
+      states = this.states;
   var map = Object.create(null);
   var value = states.value;
 
   if (!value) {
-    value = getEffectiveValue.call(this, new Date());
+    value = getEffectiveValue.call(this, props.defaultValue || props.minTime);
   }
 
-  map.hour = value.getHours();
-  map.minute = value.getMinutes();
-  map.second = value.getSeconds();
+  if (value) {
+    map.hour = value.getHours();
+    map.minute = value.getMinutes();
+    map.second = value.getSeconds();
+  } else {
+    map.hour = map.minute = map.second = 0;
+  }
+
   states.map = map;
   setItemsStatus.call(this);
 }
+/**
+ * 通过map获取value
+ * @private
+ */
+
 
 function getValueByMap() {
   var states = this.states;
@@ -8322,10 +8601,15 @@ function toggleItemsStatus(type) {
   $options.forEach(function ($item, index) {
     var isDisabled = isDisabledItem.call(_this2, type, index);
     var isActived = index === value;
-    $item.classList[isActived ? 'add' : 'remove'](_utils_constant__WEBPACK_IMPORTED_MODULE_7__["CLASS_STATES_ACTIVED"]);
-    $item.classList[isDisabled ? 'add' : 'remove'](_utils_constant__WEBPACK_IMPORTED_MODULE_7__["CLASS_STATUS_DISABLED"]);
+    $item.classList[isActived ? 'add' : 'remove'](_utils_constant__WEBPACK_IMPORTED_MODULE_6__["CLASS_STATES_ACTIVED"]);
+    $item.classList[isDisabled ? 'add' : 'remove'](_utils_constant__WEBPACK_IMPORTED_MODULE_6__["CLASS_STATUS_DISABLED"]);
   });
 }
+/**
+ * 自动滚动
+ * @private
+ */
+
 
 function autoScroll() {
   var states = this.states;
@@ -8343,7 +8627,7 @@ function autoScroll() {
 
 function getEffectiveValue(value) {
   var props = this.props;
-  value = Object(_date_picker_utils__WEBPACK_IMPORTED_MODULE_6__["parseDate"])(value, props.format);
+  value = Object(_date_picker_utils__WEBPACK_IMPORTED_MODULE_5__["parseDate"])(value, props.format);
   var minTime = props.minTime,
       maxTime = props.maxTime;
 
@@ -8352,11 +8636,11 @@ function getEffectiveValue(value) {
   }
 
   if (minTime || maxTime) {
-    if (minTime && Object(_date_picker_utils__WEBPACK_IMPORTED_MODULE_6__["compareTwoTime"])(value, minTime) === -1) {
+    if (minTime && Object(_date_picker_utils__WEBPACK_IMPORTED_MODULE_5__["compareTwoTime"])(value, minTime) === -1) {
       value = minTime;
     }
 
-    if (maxTime && Object(_date_picker_utils__WEBPACK_IMPORTED_MODULE_6__["compareTwoTime"])(value, maxTime) === 1) {
+    if (maxTime && Object(_date_picker_utils__WEBPACK_IMPORTED_MODULE_5__["compareTwoTime"])(value, maxTime) === 1) {
       value = maxTime;
     }
   }
@@ -8405,12 +8689,12 @@ function isDisabledItem(type, value) {
 
     if (props.minTime) {
       // time < minTime
-      res = Object(_date_picker_utils__WEBPACK_IMPORTED_MODULE_6__["compareTwoTime"])(props.minTime, time) === 1;
+      res = Object(_date_picker_utils__WEBPACK_IMPORTED_MODULE_5__["compareTwoTime"])(props.minTime, time) === 1;
     }
 
     if (!res && props.maxTime) {
       // time > maxTime
-      res = Object(_date_picker_utils__WEBPACK_IMPORTED_MODULE_6__["compareTwoTime"])(props.maxTime, time) === -1;
+      res = Object(_date_picker_utils__WEBPACK_IMPORTED_MODULE_5__["compareTwoTime"])(props.maxTime, time) === -1;
     }
 
     return res;
@@ -8418,12 +8702,86 @@ function isDisabledItem(type, value) {
 
   return false;
 }
+/**
+ * set value
+ * 设置的不是bindValue
+ * @param {*} value 
+ * @param {*} scroll 
+ */
+
+
+function setPanelValue(value) {
+  var scroll = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
+  var states = this.states,
+      props = this.props;
+
+  if (props.disabled) {
+    return;
+  }
+
+  value = value || getValueByMap.call(this);
+  var oldValue = states.value;
+  var newValue;
+
+  if (value === '' || value === null) {
+    newValue = '';
+  } else {
+    value = getEffectiveValue.call(this, value);
+
+    if (!value) {
+      value = oldValue;
+    }
+
+    newValue = value;
+  }
+
+  newValue = Object(_date_picker_utils__WEBPACK_IMPORTED_MODULE_5__["parseDate"])(newValue, props.format);
+  states.value = newValue;
+  var formatValue = this.getValue(true);
+  console.log(formatValue); // 设置target的value
+
+  if (states.isInput) {
+    states.$target.value = formatValue;
+    states.$target.focus();
+  }
+
+  if (+newValue !== +oldValue) {
+    this.emit('change', formatValue, newValue, oldValue);
+  }
+
+  if (!states.$confirm) {
+    var bindValue = states.bindValue;
+
+    if (+bindValue !== +newValue) {
+      states.bindValue = newValue;
+      this.emit('done', formatValue, newValue, bindValue);
+    }
+  }
+
+  setTimeMap.call(this);
+  scroll && autoScroll.call(this);
+}
+/**
+ * TimePicker Component
+ * @date 2018-12-05
+ * @export
+ * @class TimePicker
+ * @extends {Events}
+ */
+
 
 var TimePicker =
 /*#__PURE__*/
 function (_Events) {
   _inherits(TimePicker, _Events);
 
+  /**
+   * Creates an instance of TimePicker.
+   * @date 2018-12-05
+   * @param {*} target
+   * @param {*} options
+   * @memberof TimePicker
+   */
   function TimePicker(target, options) {
     var _this3;
 
@@ -8443,67 +8801,164 @@ function (_Events) {
     var states = _this3.states = Object.create(null);
     states.$target = target;
     states.isInput = target.nodeName === 'INPUT';
-    states.locales = Object(_utils_locale__WEBPACK_IMPORTED_MODULE_9__["getLocales"])(props.lang).datePicker;
-    console.log(states.locales); // 校验格式
+    states.locales = Object(_utils_locale__WEBPACK_IMPORTED_MODULE_8__["getLocales"])(props.lang).datePicker; // 校验格式
 
-    checkFormat.call(_assertThisInitialized(_assertThisInitialized(_this3)));
-    props.minTime = Object(_date_picker_utils__WEBPACK_IMPORTED_MODULE_6__["parseDate"])(props.minTime, props.format);
-    props.maxTime = Object(_date_picker_utils__WEBPACK_IMPORTED_MODULE_6__["parseDate"])(props.maxTime, props.format);
-    setRangeMap.call(_assertThisInitialized(_assertThisInitialized(_this3)));
-    var value = getEffectiveValue.call(_assertThisInitialized(_assertThisInitialized(_this3)), props.value);
+    checkFormat.call(_assertThisInitialized(_assertThisInitialized(_this3))); // 最小最大值
+
+    props.minTime = Object(_date_picker_utils__WEBPACK_IMPORTED_MODULE_5__["parseDate"])(props.minTime, props.format);
+    props.maxTime = Object(_date_picker_utils__WEBPACK_IMPORTED_MODULE_5__["parseDate"])(props.maxTime, props.format);
+    setRangeMap.call(_assertThisInitialized(_assertThisInitialized(_this3))); // get value
+
+    var value = props.value;
+
+    if (!value && states.isInput) {
+      value = target.value;
+    }
+
+    value = getEffectiveValue.call(_assertThisInitialized(_assertThisInitialized(_this3)), value);
     states.bindValue = states.value = value; // 当前激活的Panel
 
     states.focusPanelType = null;
     render.call(_assertThisInitialized(_assertThisInitialized(_this3)));
     return _this3;
   }
+  /**
+   * set value
+   * 会同时设定value和bindValue
+   * @date 2018-12-05
+   * @param {*} value
+   * @memberof TimePicker
+   */
+
 
   _createClass(TimePicker, [{
     key: "setValue",
     value: function setValue(value) {
-      var scroll = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
-      var states = this.states,
-          props = this.props;
+      setPanelValue.call(this, value);
+      var bindValue = this.states.bindValue;
 
-      if (props.disabled) {
-        return;
+      if (+bindValue !== +this.states.value) {
+        this.states.bindValue = this.states.value;
+        this.emit('done', this.getValue(true), this.states.value, bindValue);
       }
-
-      var oldValue = states.value;
-      var newValue;
-
-      if (value === null) {
-        newValue = '';
-      } else {
-        value = getEffectiveValue.call(this, value);
-
-        if (!value) {
-          value = oldValue;
-        }
-
-        newValue = value;
-      }
-
-      newValue = Object(_date_picker_utils__WEBPACK_IMPORTED_MODULE_6__["parseDate"])(newValue, props.format);
-      states.value = newValue;
-      var formatValue = this.getValue(true); // 设置target的value
-
-      if (states.isInput) {
-        states.$target.value = formatValue;
-        states.$target.focus();
-      }
-
-      if (+newValue !== +oldValue) {
-        this.emit('change', formatValue, newValue, oldValue);
-      }
-
-      setTimeMap.call(this);
-      scroll && autoScroll.call(this);
     }
+    /**
+     * get current value
+     * @date 2018-12-05
+     * @param {*} isFormat
+     * @returns
+     * @memberof TimePicker
+     */
+
   }, {
     key: "getValue",
     value: function getValue(isFormat) {
-      return isFormat ? Object(_date_picker_utils__WEBPACK_IMPORTED_MODULE_6__["formatDate"])(this.states.value, this.props.format) : this.states.value;
+      return isFormat ? Object(_date_picker_utils__WEBPACK_IMPORTED_MODULE_5__["formatDate"])(this.states.value, this.props.format) : this.states.value;
+    }
+    /**
+     * 设置最小时间
+     * @public
+     * @param {*} value
+     * @memberof TimePicker
+     */
+
+  }, {
+    key: "setMinTime",
+    value: function setMinTime(value) {
+      this.props.minTime = value;
+      setRangeMap.call(this);
+      this.states.pickeOpened && setTimeMap.call(this);
+    }
+    /**
+     * 设置最大时间
+     * @public
+     * @param {*} value
+     * @memberof TimePicker
+     */
+
+  }, {
+    key: "setMaxTime",
+    value: function setMaxTime(value) {
+      this.props.maxTime = value;
+      setRangeMap.call(this);
+      this.states.pickeOpened && setTimeMap.call(this);
+    }
+    /**
+    * open picker
+    * @date 2018-11-28
+    * @memberof ColorPicker
+    */
+
+  }, {
+    key: "open",
+    value: function open() {
+      if (this.states.pickerInstance && !this.states.pickeOpened) {
+        this.states.pickerInstance.open();
+      }
+    }
+    /**
+     * close picker
+     * @date 2018-11-28
+     * @memberof ColorPicker
+     */
+
+  }, {
+    key: "close",
+    value: function close() {
+      if (this.states.pickerInstance && this.states.pickeOpened) {
+        this.states.pickerInstance.close();
+      }
+    }
+    /**
+     * disable the component
+     * @date 2018-11-28
+     * @memberof Select
+     */
+
+  }, {
+    key: "disable",
+    value: function disable() {
+      var props = this.props,
+          states = this.states;
+      props.disabled = true;
+
+      if (states.pickerInstance) {
+        states.pickerInstance.close();
+        states.pickerInstance.disable();
+      }
+    }
+    /**
+     * enable the component
+     * @date 2018-11-28
+     * @memberof Select
+     */
+
+  }, {
+    key: "enable",
+    value: function enable() {
+      var props = this.props,
+          states = this.states;
+      props.disabled = false;
+
+      if (states.pickerInstance) {
+        states.pickerInstance && states.pickerInstance.enable();
+      }
+    }
+    /**
+     * destroy
+     * @date 2018-12-05
+     * @memberof TimePicker
+     */
+
+  }, {
+    key: "destroy",
+    value: function destroy() {
+      unbindEvents.call(this);
+      var states = this.states;
+      states.pickerInstance && states.pickerInstance.destroy();
+      this.states = null;
+      this.props = null;
+      this._events = null;
     }
   }]);
 
@@ -8524,7 +8979,7 @@ function (_Events) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "skeletonTpl", function() { return skeletonTpl; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "optionsTpl", function() { return optionsTpl; });
-var skeletonTpl = "\n<div class=\"nv-time-picker__body\">\n  <div class=\"nv-time-picker__wrap\">\n    <div class=\"nv-scroller hour-select\">\n      <ul class=\"nv-time-picker__select\"></ul>\n    </div>\n  </div>\n  <div class=\"nv-time-picker__wrap\">\n    <div class=\"nv-scroller minute-select\" >\n      <ul class=\"nv-time-picker__select\"></ul>\n    </div>\n  </div>\n  <div class=\"nv-time-picker__wrap\">\n    <div class=\"nv-scroller second-select\" >\n      <ul class=\"nv-time-picker__select\"></ul>\n    </div>\n  </div>\n  <div class=\"nv-time-picker__separator\">\n    <span>:</span>\n    <span>:</span>\n    <span>:</span>\n  </div>\n</div>\n<% if (cancel || confirm) { %>\n<div class=\"nv-time-picker__foot\">\n<% if(cancel) {%>\n  <button type=\"button\" class=\"nv-btn nv-btn--small nv-btn--text nv-btn__cancel\"><%= cancel%></button>\n<% } %>\n<% if(confirm) {%>\n  <button type=\"button\" class=\"nv-btn nv-btn--small nv-btn--link nv-btn__confirm\"><%= confirm%></button>\n<% } %>\n</div>\n<% } %>\n";
+var skeletonTpl = "\n<div class=\"nv-time-picker__body\">\n  <% if(useHour) { %>\n  <div class=\"nv-time-picker__wrap\">\n    <div class=\"nv-scroller hour-select\"<% if (padding) { %> style=\"padding-right:<%=padding%>px;\"<% }%>>\n      <ul class=\"nv-time-picker__select\"></ul>\n    </div>\n  </div>\n  <% } if(useMinute) { %>\n  <div class=\"nv-time-picker__wrap\">\n    <div class=\"nv-scroller minute-select\"<% if (padding) { %> style=\"padding-right:<%=padding%>px;\"<% }%>>\n      <ul class=\"nv-time-picker__select\"></ul>\n    </div>\n  </div>\n  <% } if(useSecond) { %>\n  <div class=\"nv-time-picker__wrap\">\n    <div class=\"nv-scroller second-select\"<% if (padding) { %> style=\"padding-right:<%=padding%>px;\"<% }%>>\n      <ul class=\"nv-time-picker__select\"></ul>\n    </div>\n  </div>\n  <% } %>\n  <div class=\"nv-time-picker__separator\">\n    <% if(useHour) { %>\n    <span>:</span>\n    <% } if(useMinute) { %>\n    <span>:</span>\n    <% } if(useSecond) { %>\n    <span>:</span>\n    <% } %>\n  </div>\n</div>\n<% if (cancel || confirm) { %>\n<div class=\"nv-time-picker__foot\">\n<% if(cancel) {%>\n  <button type=\"button\" class=\"nv-btn nv-btn--small nv-btn--text nv-btn__cancel\"><%= cancel%></button>\n<% } %>\n<% if(confirm) {%>\n  <button type=\"button\" class=\"nv-btn nv-btn--small nv-btn--link nv-btn__confirm\"><%= confirm%></button>\n<% } %>\n</div>\n<% } %>\n";
 var optionsTpl = "\n<% for(var i = 0, len = options.length; i < len; i++) {\n  var option = options[i];\n%>\n<li class=\"nv-time-picker__option\"><%=option.label%></li>\n<% }%>\n";
 /* harmony default export */ __webpack_exports__["default"] = ({
   skeletonTpl: skeletonTpl,
@@ -9937,7 +10392,7 @@ var debounce = function debounce(func, wait, immediate) {
 /*!**************************!*\
   !*** ./src/utils/dom.js ***!
   \**************************/
-/*! exports provided: bind, unbind, once, qsa, proxy, getOffset, getStyle, insertAfter, addClass, getElScrollbarWidth, getScrollbarWidth, removeNode, scrollTo, getOffsetByParent, getScrollParent, getSize, getIndex, default */
+/*! exports provided: bind, unbind, once, qsa, proxy, getOffset, getStyle, insertAfter, addClass, getElScrollbarWidth, getScrollbarWidth, removeNode, reqAnimationFrame, scrollTo, getOffsetByParent, getScrollParent, getSize, getIndex, default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -9954,6 +10409,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getElScrollbarWidth", function() { return getElScrollbarWidth; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getScrollbarWidth", function() { return getScrollbarWidth; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "removeNode", function() { return removeNode; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "reqAnimationFrame", function() { return reqAnimationFrame; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "scrollTo", function() { return scrollTo; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getOffsetByParent", function() { return getOffsetByParent; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getScrollParent", function() { return getScrollParent; });
@@ -10195,6 +10651,14 @@ var removeNode = function removeNode(el) {
   return el && el.parentNode && el.parentNode.removeChild(el);
 };
 /**
+ * 兼容性的requestAnimationFrame
+ * @returns {Function}
+ */
+
+var reqAnimationFrame = window.requestAnimationFrame || function (callback) {
+  return setTimeout(callback, 60);
+};
+/**
  * 将元素滚动到指定位置
  * @param {*} element 
  * @param {*} to 
@@ -10202,10 +10666,6 @@ var removeNode = function removeNode(el) {
  */
 
 var scrollTo = function scrollTo(element, to, duration) {
-  var requestAnimationFrame = window.requestAnimationFrame || function requestAnimationFrameTimeout() {
-    return setTimeout(arguments[0], 10);
-  };
-
   if (duration <= 0) {
     element.scrollTop = to;
     return;
@@ -10213,7 +10673,7 @@ var scrollTo = function scrollTo(element, to, duration) {
 
   var difference = to - element.scrollTop;
   var perTick = difference / duration * 10;
-  requestAnimationFrame(function () {
+  reqAnimationFrame(function () {
     element.scrollTop = element.scrollTop + perTick;
     if (element.scrollTop === to) return;
     scrollTo(element, to, duration - 10);
@@ -10338,7 +10798,8 @@ var getIndex = function getIndex(el, els) {
   getOffsetByParent: getOffsetByParent,
   getScrollParent: getScrollParent,
   getSize: getSize,
-  getIndex: getIndex
+  getIndex: getIndex,
+  reqAnimationFrame: reqAnimationFrame
 });
 
 /***/ }),
@@ -10617,24 +11078,56 @@ i18n._ = function (string, data) {
 /*!*****************************!*\
   !*** ./src/utils/locale.js ***!
   \*****************************/
-/*! exports provided: getLocales, default */
+/*! exports provided: setLocales, setLang, getLocales, default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setLocales", function() { return setLocales; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setLang", function() { return setLang; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getLocales", function() { return getLocales; });
 /* harmony import */ var _locale__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../locale */ "./src/locale/index.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
+/* global Nova */
+
+var localesObject = _locale__WEBPACK_IMPORTED_MODULE_0__["default"];
+var langKey = 'zh-CN';
+
+if ((typeof Nova === "undefined" ? "undefined" : _typeof(Nova)) === 'object' && _typeof(Nova.config) === 'object') {
+  localesObject = Nova.config.locales;
+  langKey = Nova.config.lang;
+}
+/**
+ * 设置多语言
+ * @param {*} lang 
+ */
+
+
+var setLocales = function setLocales(locales) {
+  return localesObject = locales;
+};
+/**
+ * 设置当前语言
+ * @param {*} lang 
+ */
+
+var setLang = function setLang(lang) {
+  return langKey = lang;
+};
+/**
+ * 获取多语言
+ * @param {*} lang 
+ */
 
 var getLocales = function getLocales(lang) {
-  if ((typeof Nova === "undefined" ? "undefined" : _typeof(Nova)) === 'object' && _typeof(Nova.config) === 'object') {
-    return Nova.config.locales[lang || Nova.config.lang];
-  }
-
-  return _locale__WEBPACK_IMPORTED_MODULE_0__["default"][lang];
+  return localesObject[lang || langKey] || localesObject;
 };
-/* harmony default export */ __webpack_exports__["default"] = (getLocales);
+/* harmony default export */ __webpack_exports__["default"] = ({
+  getLocales: getLocales,
+  setLocales: setLocales,
+  setLang: setLang
+});
 
 /***/ }),
 

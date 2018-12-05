@@ -227,16 +227,21 @@ export const removeNode = el => el && el.parentNode && el.parentNode.removeChild
 
 
 /**
+ * 兼容性的requestAnimationFrame
+ * @returns {Function}
+ */
+export const reqAnimationFrame = window.requestAnimationFrame || function (callback) {
+  return setTimeout(callback, 60)
+}
+
+
+/**
  * 将元素滚动到指定位置
  * @param {*} element 
  * @param {*} to 
  * @param {*} duration 
  */
 export const scrollTo = (element, to, duration) => {
-  const requestAnimationFrame = window.requestAnimationFrame ||
-    function requestAnimationFrameTimeout() {
-      return setTimeout(arguments[0], 10)
-    }
   if (duration <= 0) {
     element.scrollTop = to
     return
@@ -244,7 +249,7 @@ export const scrollTo = (element, to, duration) => {
   const difference = to - element.scrollTop
   const perTick = difference / duration * 10
 
-  requestAnimationFrame(() => {
+  reqAnimationFrame(() => {
     element.scrollTop = element.scrollTop + perTick
     if (element.scrollTop === to) return
     scrollTo(element, to, duration - 10)
@@ -360,5 +365,6 @@ export default {
   getOffsetByParent,
   getScrollParent,
   getSize,
-  getIndex
+  getIndex,
+  reqAnimationFrame
 }

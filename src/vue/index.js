@@ -2,7 +2,7 @@
 import Dom, { bind } from '../utils/dom'
 import Utils, { mixins } from '../utils/utils'
 import Events from '../utils/events'
-import locales from '../locale'
+import locale from '../utils/locale'
 
 import Radio from './radio'
 import Checkbox from './checkbox'
@@ -21,10 +21,10 @@ import Message from './message'
 import MessageBox from './message-box'
 import Popover from './popover'
 import Tag from './tag'
-import ColorPicker from './color-picker'
 import Loader from './loader'
+import ColorPicker from './color-picker'
 import DatePicker from './date-picker'
-
+import TimePicker from './time-picker'
 
 const RadioGroup = RadioGroups.NvRadioGroup
 const RadioItem = RadioGroups.NvRadioItem
@@ -50,19 +50,24 @@ const components = [
   Tag,
   ColorPicker,
   DatePicker,
+  TimePicker,
 ]
 
 
-const defaultsConfig = {
-  lang: 'zh-CN',
-  locales
-}
-
 // Vue.use
 function install(Vue, options) {
-  components.forEach(component => {
-    Vue.component(component.name, component)
-  })
+  components.forEach(component => Vue.component(component.name, component))
+
+  // 设置多语言
+  if(options) {
+    if (options.lang) {
+      locale.setLang(options.lang)
+    }
+    if (options.locales) {
+      locale.setLocales(options.locales)
+    }
+  }
+
   const VP = Vue.prototype
   VP.$message = Message
   VP.$alert = MessageBox.alert
@@ -76,7 +81,7 @@ function install(Vue, options) {
 
 // 自动安装
 if (typeof window !== 'undefined' && window.Vue) {
-  install(window.Vue, mixins({}, defaultsConfig, window.NovaConfig || {}))
+  install(window.Vue, mixins({}, window.NovaConfig || {}))
 }
 
 // 自动销毁的组件
@@ -114,6 +119,7 @@ const output = {
   Tag,
   ColorPicker,
   DatePicker,
+  TimePicker
 }
 
 export default output
