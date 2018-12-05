@@ -122,37 +122,37 @@
 ```
 :::
 
+
 ## API
 
-### Radio Attributes
+### Radio Props
 
-| 参数  |  描述  | 类型 | 默认值 |
+| Prop  |  Description  | Type | Default Values |
 |---|---|---|---|
-| `value`  |  绑定值 | string / number / boolean | --  |
-| `label`  | Radio 的 value值  | string / number / boolean  |  -- |
+| `value`  |  绑定值 | <string/number/boolean> | --  |
+| `label`  | Radio 的 value值  | <string/number/boolean>  |  -- |
 | `name`  | 原生 name 属性  | string  | -- |
 | `disabled`  |  是否禁用 |  boolean | false  |
 
 
 ### Radio Events
 
-| 参数  |  描述  | 回调参数 |
+| Event  |  Description  | Arguments |
 |---|---|---|
 | `change`  |  绑定值变化时触发的事件 | 选中的 Radio label 值 |
 
 
+### Radio Group Props
 
-### Radio Group Attributes
-
-| 参数  |  描述  | 类型 | 默认值 |
+| Prop  |  Description  | Type | Default Values |
 |---|---|---|---|
-| `value`  |  绑定值 | string / number / boolean | --  |
+| `value`  |  绑定值 | <string/number/boolean> | --  |
 | `name`  | 原生name属性，将覆盖Checkbox的name属性  | string  | -- |
-| `size`  |  尺寸 |  string[`default/small`] | default  |
-| `type`  |  类型 |  string[`default/primary`] | default  |
+| `size`  |  尺寸 |  string <`default/small`> | default  |
+| `type`  |  类型 |  string <`default/primary`> | default  |
 
 ### Radio-group Events
 
-| 参数  |  描述  | 回调参数 |
+| Event  |  Description  | Arguments |
 |---|---|---|
 | `change`  |  绑定值变化时触发的事件 | 选中的 Radio label 值 |

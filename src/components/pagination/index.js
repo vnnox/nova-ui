@@ -81,7 +81,7 @@ const defaults = {
    * 可选元件：'total', 'prev', 'pager', 'next', 'sizes', 'jumper'
    * total: 共 {total} 条
    * prev: 上一页
-   * pager: 数字分页，包括上/下页按钮
+   * pager: 数字分页，不包括上/下页按钮
    * next: 下一页
    * sizes: limit选择器
    * jumper: 跳转到page页

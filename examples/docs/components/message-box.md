@@ -1,4 +1,5 @@
 # MessageBox 弹框
+
 ## 使用和示例
 
 > `Nova.MessageBox`是一个静态类，使用时无需使用`new`关键字。
@@ -32,7 +33,7 @@
 
 ### Options
 
-| 属性名  |  描述  | 类型 | 默认值 |
+| Attribute   | Description | Type |  Default Values |
 |---|---|---|---|
 | `message`|  消息文本 | string | -- |
 | `title`|  标题 | string | -- |
@@ -58,7 +59,7 @@
 
 ### Methods
 
-| 方法名  |  描述  | 参数 |
+| Method  | Description | Parameters |
 |---|---|---|
 | `alert` | 提示型消息模态框 | (`message:string, title:string, options:Options`) |
 | `confirm` | 确认型消息模态框 | (`message:string, title:string, options:Options`) |

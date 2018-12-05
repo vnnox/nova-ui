@@ -52,7 +52,7 @@
 
 ### Options
 
-| 属性名  |  描述  | 类型 | 默认值 |
+| Attribute   | Description | Type |  Default Values |
 |---|---|---|---|
 | `background`|  背景色 | string | `rgba(255,255,255,.8)` |
 | `lock`|  是否锁屏,禁止父容器滚动 | boolean | true |
@@ -63,13 +63,13 @@
 
 ### Instance Methods
 
-| 方法名  |  描述  | 参数 |
+| Method  | Description | Parameters |
 |---|---|---|
 | `close` | 关闭并销毁当前实例 | -- |
 
 ### Static Methods 
 
-| 方法名  |  描述  | 参数 |
+| Method  | Description | Parameters |
 |---|---|---|
 | `destroy` | 销毁页面上所有的实例 | -- |
 

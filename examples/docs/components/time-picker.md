@@ -96,6 +96,7 @@
 | Method  | Description | Parameters |
 | ----------- | ----------- | ----------- |
 | setValue | 设定当前值 | (value:Date) |
+| clear | 清空当前值，只有该方法才会清空绑定值 | -- |
 | getValue | 获取当前值 | (format:boolean) |
 | setMinTime | 设置最小时间 | (value:string`<date>`) |
 | setMaxTime | 设置最大时间 | (value:string`<date>`) |
@@ -108,12 +109,13 @@
 
 ### Events
 
-> 没有设置`confirm`按钮时，`change和done`方法返回值一致。
+> 没有设置`confirm`按钮时，`change和done`方法返回值一致。当设置`confirm`按钮时，只有点击确定按钮才会改变绑定值，否则当Picker关闭时`value`值会复位. 
+总结为一句话： **当设置`confirm`按钮时，请使用`done`事件，否则请使用`change`事件**
 
 | Event Name  | Description | Parameters |
 | ----------- | ----------- | ----------- |
 | open | 打开弹框时触发 | (PickerInstance) |
 | close | 关闭弹框时触发 | (PickerInstance) |
-| change | 当面板上的值改变时触发，此时绑定值不会改变 | (formatValue, newValue, oldValue) |
-| done | 点击确定按钮时触发，此时绑定值会改变 | (formatValue, newValue, oldValue) |
+| change | 当面板上的值改变时触发，此时绑定值不会改变 | (formatValue, newValue) |
+| done | 点击确定按钮时触发，此时绑定值会改变 | (formatValue, newValue) |
 

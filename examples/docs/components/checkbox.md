@@ -187,13 +187,13 @@
 
 ### 复选框类
 
-| 类名  |  描述  |
+| Class  |  Description  |
 |---|---|
 | `nv-checkbox`  | 基础类名  |
 
 ### 复选框组类
 
-| 类名  |  描述  |
+| Class  |  Description  |
 |---|---|
 | `nv-check-group`  | 复选框组类名，用于包裹多个复选框  |
 | `nv-check-item`  | 复选框类名  | 

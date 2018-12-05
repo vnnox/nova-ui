@@ -1,7 +1,6 @@
 <template>
-  <div class="nv-date-picker--wrap nv-select" :class="{'show-clean': value}" role="combobox">
-    <input type="text" class="nv-input" :disabled="disabled" :readonly="readonly" :placeholder="placeholder" :name="name"
-      ref="input"/>
+  <div class="nv-time-picker--wrap nv-select" :class="{'show-clean': value && !disabled, 'nv-disabled': disabled}" role="combobox">
+    <input type="text" class="nv-input" :disabled="disabled" :readonly="readonly" :placeholder="placeholder" :name="name" ref="input" />
     <a class="nv-select__clean" v-if="clearable" @click.stop="clear">
       <i class="nv-icon-close"></i>
     </a>
@@ -9,7 +8,10 @@
 </template>
 <script>
   import TimePicker from '../../components/time-picker'
-  import { parseDate, formatDate } from '../../components/date-picker/utils'
+  import {
+    parseDate,
+    formatDate
+  } from '../../components/date-picker/utils'
   export default {
     name: 'nv-time-picker',
     props: {
@@ -43,7 +45,12 @@
         instance: null
       }
     },
-    computed: {
+    watch: {
+      disabled(val) {
+        if (this.instance) {
+          val ? this.instance.disable() : this.instance.enable()
+        }
+      }
     },
     methods: {
       change(formatValue, value) {
@@ -51,7 +58,7 @@
         this.$emit('done', formatValue, value)
       },
       clear() {
-        this.instance.setValue(null, true)
+        this.instance.clear()
       }
     },
     mounted() {
@@ -63,7 +70,7 @@
         .on('done', (formatValue, value) => this.change(formatValue, value))
         .on('open', () => this.$emit('open'))
         .on('close', () => this.$emit('close'))
-        .on('change', (formatValue, value) => this.$emit('change', formatValue, value))
+        .on('change', (formatValue, value) => this.$emit('change', formatValue, value || ''))
     },
     beforeDestroy() {
       this.instance && this.instance.destroy()

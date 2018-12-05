@@ -257,7 +257,6 @@ function bindEvents() {
   handles.today = handleTodayClick.bind(this)
   handles.confirm = handleConfirmClick.bind(this)
 
-
   bind(states.$currentYear, 'click', handles.currentYearClick)
   bind(states.$currentMonth, 'click', handles.currentMonthClick)
   bind(states.$body, 'click', handles.dateClick)
@@ -689,7 +688,7 @@ function isDisabledNextMonth() {
   let value = new Date(year, month + 1, 0, 0)
   let disabled = value * 1 >= maxDate * 1
   if (disabled) {
-    states.$monthNext.setAttribute('disabled', 'disabled')
+    states.$monthNext.setAttribute('disabled', '')
     states.$monthNext.classList.add(CLASS_STATUS_DISABLED)
   } else {
     states.$monthNext.removeAttribute('disabled')

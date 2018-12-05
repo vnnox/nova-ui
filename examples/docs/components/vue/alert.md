@@ -19,9 +19,7 @@
   </div>
 </template>
 <script>
-  export default {
-
-  }
+  export default {}
 </script> 
 ```
 :::
@@ -40,18 +38,16 @@
   </div>
 </template>
 <script>
-  export default {
-
-  }
+  export default {}
 </script> 
 ```
 :::
 
 ## API
 
-### Attributes
+### Props
 
-| 属性名  |  描述  | 类型 | 默认值 |
+| Prop  |  Description  | Type | Default Values |
 |---|---|---|---|
 | `type` | 类型 | string [`info/success/error/warning`] |  info |
 | `content` | 内容 | string | -- |
@@ -63,13 +59,13 @@
 
 ### Slots
 
-| 插槽名  |  描述  | 示例 |
+| Slot  |  Description  | Example |
 |---|---|---|---|
 | `default` | 内容插槽 | -- |
 
 
 ### Events
 
-| 事件名  |  描述  | 参数 |
+| Event  |  Description  | Arguments |
 |---|---|---|
 | `close` | 模态框关闭时回调 | -- |

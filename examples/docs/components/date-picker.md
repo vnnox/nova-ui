@@ -167,6 +167,7 @@
 ### Events
 
 > 在非`inline`模式并且没有设置`confirm`按钮时，`change和done`方法返回值一致。
+总结为一句话： **当设置`confirm`按钮时，请使用`done`事件，否则请使用`change`事件**
 
 | Event Name  | Description | Parameters |
 | ----------- | ----------- | ----------- |

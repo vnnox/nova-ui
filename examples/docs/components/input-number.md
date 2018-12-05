@@ -1,5 +1,7 @@
 # InputNumber 计数器
 
+## 使用和示例
+
 ### 基础用法
 :::demo
 ```html
@@ -118,7 +120,6 @@
 ```
 :::
 
-
 ### 自定义样式
 :::demo
 ```html
@@ -170,3 +171,41 @@
 </script>  
 ```
 :::
+
+## API
+
+### Options
+| Attribute   | Description | Type |  Default Values |
+| ----------- | ----------- | ----------- | ----------- |
+| value | 当前绑定值 | number | -- |
+| min | 最小值 | number | `-Infinity` |
+| max | 最大值 | number | `Infinity` |
+| step | 步进 | number | 1 |
+| precision | 精度 | number | -- |
+| editable | 输入框是否可输入，只允许控制按钮 | boolean | true |
+| placeholder | 输入框占位符 | string | -- |
+| name | 输入框名称 | string | -- |
+| width | 输入框宽度 | <string/number> | `130px` |
+| size | 输入框宽度 | string<`default|small|large`> | `default` |
+| disabled | 是否禁用组件 | boolean | false |
+| customClass | 自定义样式名称，多样式以逗号`,`分隔 | string | -- |
+| formatter | 格式化 | function | null |
+
+
+### Methods
+| Method  | Description | Parameters |
+| ----------- | ----------- | ----------- |
+| setValue | 设定当前值 | (value:number) |
+| getValue | 获取当前值 | -- |
+| increase | 递增 | -- |
+| decrease | 递减 | -- |
+| disable | 禁用Picker | -- |
+| enable | 启用Picker | -- |
+| destroy | 销毁实例`销毁后，实例将完全不可用` | -- |
+
+
+### Events
+
+| Event  | Description | Parameters |
+| ----------- | ----------- | ----------- |
+| change | 当值改变时触发 | (value, oldValue) |

@@ -82,7 +82,6 @@
 ```
 :::
 
-
 ### 按钮组
 :::demo
 ```html
@@ -122,7 +121,7 @@
 
 ### 按钮类
 
-| 类名  |  描述  |
+| Class  |  Description  |
 |---|---|
 | `nv-btn`  | 按钮基础类名  |
 | `nv-btn--primary`  | 强调型按钮  | 
@@ -132,7 +131,7 @@
 
 ### 按钮组类
 
-| 类名  |  描述  |
+| Class  |  Description  |
 |---|---|
 | `nv-btns`  | 按钮组基础类名，用于包裹多个按钮  |
 | `nv-btns--primary`  | 强调型按钮组类  | 
@@ -140,7 +139,7 @@
 
 ### 状态类
 
-| 类名  |  描述  |
+| Class  |  Description  |
 |---|---|
 | `nv-actived`  | 使按钮选中  |
 | `nv-disabled`  | 使按钮禁用  | 

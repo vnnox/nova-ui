@@ -64,23 +64,23 @@ const Selectors = {
 
 // config of every part of time
 const TIME_MAP = [{
-  name: 'hour',
-  key: 'H',
-  size: 24,
-  useKey: 'useHour'
-},
-{
-  name: 'minute',
-  key: 'm',
-  size: 60,
-  useKey: 'useMinute'
-},
-{
-  name: 'second',
-  key: 's',
-  size: 60,
-  useKey: 'useSecond'
-}
+    name: 'hour',
+    key: 'H',
+    size: 24,
+    useKey: 'useHour'
+  },
+  {
+    name: 'minute',
+    key: 'm',
+    size: 60,
+    useKey: 'useMinute'
+  },
+  {
+    name: 'second',
+    key: 's',
+    size: 60,
+    useKey: 'useSecond'
+  }
 ]
 
 
@@ -208,6 +208,9 @@ function initPickerInstance() {
     .on('close', () => {
       states.pickeOpened = false
       unbindScrollEvents.call(this)
+      if (states.$confirm && +states.value !== +states.bindValue) {
+        this.setValue(states.bindValue)
+      }
       this.emit('close', states.pickerInstance)
     })
 }
@@ -223,7 +226,7 @@ function handleWrapScroll(type) {
   let ticking = $scroller.ticking
   const self = this
   if (!ticking) {
-    reqAnimationFrame(function () {
+    reqAnimationFrame(function() {
       $scroller.ticking = false
       const scrollTop = $scroller.scrollTop
       let value = Math.min(Math.floor(scrollTop / 32), type === 'hour' ? 23 : 59)
@@ -274,7 +277,7 @@ function handleConfirm() {
   let oldValue = states.oldValue
   let value = states.value || getValueByMap.call(this)
   states.bindValue = states.value = value
-  this.emit('confirm', this.getValue(true), value, oldValue)
+  this.emit('done', this.getValue(true), value, oldValue)
   this.close()
 }
 
@@ -286,11 +289,11 @@ function handleConfirm() {
 function handleCancel() {
   const { states } = this
   // 关闭时重新设定值，取消事件不会更新bindValue
-  states.value = states.bindValue
-  setTimeMap.call(this)
-  if (states.isInput) {
-    states.$target.value = this.getValue(true)
-  }
+  // states.value = states.bindValue
+  // setTimeMap.call(this)
+  // if (states.isInput) {
+  //   states.$target.value = this.getValue(true)
+  // }
   this.close()
 }
 
@@ -331,13 +334,7 @@ function unbindScrollEvents() {
  * @param {*} event 
  */
 function handleInputChange(event) {
-  // console.log(event)
   let value = event.target.value
-  // if (value) {
-  //   value = getEffectiveValue.call(this, value)
-  // }
-  // console.log(value)
-
   this.setValue(value)
   this.states.bindValue = this.getValue()
 }
@@ -417,7 +414,7 @@ function bindEvents() {
   handles.inputChange = handleInputChange.bind(this)
   handles.keydown = handleKeydown.bind(this)
 
-  handles.optionClick = proxy(states.$el, Selectors.option, function () {
+  handles.optionClick = proxy(states.$el, Selectors.option, function() {
     let $parent = this.parentNode.parentNode
     let type = $parent === states.$hour ? 'hour' : ($parent === states.$minute ? 'minute' : 'second')
     let index = getIndex(this, states[`$${type}Options`])
@@ -724,36 +721,22 @@ function setPanelValue(value, scroll = true) {
   if (props.disabled) {
     return
   }
-  value = value || getValueByMap.call(this)
   let oldValue = states.value
-  let newValue
-  if (value === '' || value === null) {
-    newValue = ''
-  } else {
-    value = getEffectiveValue.call(this, value)
-    if (!value) {
-      value = oldValue
-    }
-    newValue = value
+  value = getEffectiveValue.call(this, value || getValueByMap.call(this))
+  if (!value) {
+    value = oldValue
   }
-
-  newValue = parseDate(newValue, props.format)
+  let newValue = value
   states.value = newValue
-
   let formatValue = this.getValue(true)
-
-  console.log(formatValue)
-
   // 设置target的value
   if (states.isInput) {
     states.$target.value = formatValue
     states.$target.focus()
   }
-
   if (+newValue !== +oldValue) {
     this.emit('change', formatValue, newValue, oldValue)
   }
-
   if (!states.$confirm) {
     let bindValue = states.bindValue
     if (+bindValue !== +newValue) {
@@ -841,6 +824,30 @@ export class TimePicker extends Events {
 
 
   /**
+   * clear value
+   * @public
+   * @memberof TimePicker
+   */
+  clear() {
+    const { states } = this
+    let oldValue = states.value
+    let oldBindValue = states.bindValue
+    states.value = states.bindValue = null
+    this.close()
+    if (states.isInput) {
+      states.$target.value = ''
+      states.$target.focus()
+    }
+    if (+oldValue !== 0) {
+      this.emit('change', '', null, oldValue)
+    }
+    if (+oldBindValue !== 0) {
+      this.emit('done', '', null, oldBindValue)
+    }
+  }
+
+
+  /**
    * get current value
    * @date 2018-12-05
    * @param {*} isFormat
@@ -879,10 +886,10 @@ export class TimePicker extends Events {
 
 
   /**
-  * open picker
-  * @date 2018-11-28
-  * @memberof ColorPicker
-  */
+   * open picker
+   * @date 2018-11-28
+   * @memberof ColorPicker
+   */
   open() {
     if (this.states.pickerInstance && !this.states.pickeOpened) {
       this.states.pickerInstance.open()

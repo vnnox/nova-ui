@@ -1,5 +1,5 @@
 <template>
-  <label class="nv-switch" role="checkbox" :tabindex="disabled ? -1 : 0">
+  <label class="nv-switch" role="switch" :tabindex="disabled ? -1 : 0">
     <input type="checkbox" :name="name" :value="label" v-model="val" :disabled="disabled">
     <span class="nv-switch__label" v-if="$slots.before">
       <slot name="before"></slot>
@@ -15,17 +15,14 @@
     name: 'nv-switch',
     props: {
       value: {},
-      label: {
-        type: [String, Number, Boolean],
-        required: true
-      },
+      label: [String, Number, Boolean],
       name: String,
       disabled: Boolean
     },
     computed: {
       val: {
         get() {
-          return this.value === this.label
+          return this.value
         },
         set(val) {
           this.$emit('input', val)

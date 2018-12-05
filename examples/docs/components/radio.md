@@ -152,13 +152,13 @@
 
 ### 单选框类
 
-| 类名  |  描述  |
+| Class  |  Description  |
 |---|---|
 | `nv-radio`  | 基础类名  |
 
 ### 单选框组类
 
-| 类名  |  描述  |
+| Class  |  Description  |
 |---|---|
 | `nv-check-group`  | 单选框组类名，用于包裹多个单选框  |
 | `nv-check-item`  | 单选框类名  | 

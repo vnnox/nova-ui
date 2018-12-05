@@ -1,5 +1,7 @@
 # Breadcrumb 面包屑
 
+## 使用和示例
+
 ### 基础用法
 :::demo
 ```html
@@ -21,3 +23,13 @@
 </div>
 ```
 :::
+
+
+## API
+### 类名
+
+| Class  |  Description  |
+|---|---|
+| `nv-breadcrumb`  | 基础类名  |
+| `nv-breadcrumb__item`  | 导航项  |
+| `nv-breadcrumb__separator`  | 分隔符  |

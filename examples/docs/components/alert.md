@@ -118,3 +118,17 @@
 </div> 
 ```
 :::
+
+
+## API
+
+### 类名
+
+| Class  |  Description  |
+|---|---|
+| `nv-alert`  | 基础类名  |
+| `nv-alert--success`  | 成功样式  |
+| `nv-alert--error`  | 错误样式  |
+| `nv-alert--warning`  | 警告样式  |
+| `has-close`  | 显示关闭按钮时使用  |
+

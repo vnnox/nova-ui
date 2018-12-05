@@ -20,7 +20,6 @@ import DatePicker from './components/date-picker'
 import TimePicker from './components/time-picker'
 
 
-
 const Nova = Object.create(null)
 
 Nova.config = {
