@@ -54,6 +54,22 @@ const $contianerVue = document.getElementById('container-vue')
 const $tabWrap = document.getElementById('doc-tabs')
 
 
+const $navItems = document.querySelectorAll('.app-aside__nav .nav-group__item > a')
+
+// 高亮选中菜单
+function toggleNavClass () {
+  var hash = window.location.hash.slice(1)
+  $navItems.forEach(function($nav) {
+    var href = $nav.href 
+    var actived = false
+    if (href.indexOf(hash) > -1) {
+      actived = true
+    }
+    $nav.parentNode.classList[actived ? 'add' : 'remove']('actived')
+  })
+}
+
+
 /**
  * set page
  * @param {*} pages 
@@ -72,6 +88,7 @@ function setPage(pages, title, cb) {
     $contianerVue.innerHTML = pages.vue || '同原生用法'
     document.title = `${title} | Nova UI Components`
     window.scrollTo(0, 0)
+    toggleNavClass()
     setTimeout(() => {
       cb && typeof cb === 'function' && cb()
     })

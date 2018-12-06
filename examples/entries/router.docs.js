@@ -8,17 +8,33 @@ const JsRule = require('../docs/documents/js-rules.md')
 
 const $contianer = document.getElementById('container')
 
+
+const $navItems = document.querySelectorAll('.app-aside__nav .nav-group__item > a')
+
+// 高亮选中菜单
+function toggleNavClass () {
+  var hash = window.location.hash.slice(1)
+  $navItems.forEach(function($nav) {
+    var href = $nav.href 
+    var actived = false
+    if (href.indexOf(hash) > -1) {
+      actived = true
+    }
+    $nav.parentNode.classList[actived ? 'add' : 'remove']('actived')
+  })
+}
+
+
 function setPage (page, title, cb) {
   return function () {
     $contianer.innerHTML = page
     document.title = `${title} | Nova UI Documents`
+    toggleNavClass()
     setTimeout(() => {
       cb && typeof cb === 'function' && cb()
     })
   }
 }
-
-
 
 
 function routerChange (newPath, oldPath) {

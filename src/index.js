@@ -30,7 +30,6 @@ Nova.config = {
 // 设置全局配置项
 Nova.setConfig = config => Nova.config = mixins({}, Nova.config, config || {})
 
-
 Nova.$Utils = Utils
 Nova.$Events = Events
 Nova.$Dom = Dom

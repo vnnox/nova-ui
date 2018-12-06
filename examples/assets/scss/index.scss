@@ -137,6 +137,12 @@ $container-width: 100% !default;
           }
         }
       }
+
+      &.actived {
+        a, a > small{
+          color: #43a3fb;
+        }
+      }
     }
   }
 }

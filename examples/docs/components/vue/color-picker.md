@@ -118,7 +118,7 @@
 
 | 方法名  |  描述  | 参数 |
 |---|---|---|
-| `addRecentlyColor` | 增加最近使用色 | (color`<string/array`>) |
+| `addRecentlyColor` | 增加最近使用色 | (color`<string/array>`) |
 
 
 
