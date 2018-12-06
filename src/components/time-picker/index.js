@@ -64,23 +64,23 @@ const Selectors = {
 
 // config of every part of time
 const TIME_MAP = [{
-    name: 'hour',
-    key: 'H',
-    size: 24,
-    useKey: 'useHour'
-  },
-  {
-    name: 'minute',
-    key: 'm',
-    size: 60,
-    useKey: 'useMinute'
-  },
-  {
-    name: 'second',
-    key: 's',
-    size: 60,
-    useKey: 'useSecond'
-  }
+  name: 'hour',
+  key: 'H',
+  size: 24,
+  useKey: 'useHour'
+},
+{
+  name: 'minute',
+  key: 'm',
+  size: 60,
+  useKey: 'useMinute'
+},
+{
+  name: 'second',
+  key: 's',
+  size: 60,
+  useKey: 'useSecond'
+}
 ]
 
 
@@ -226,7 +226,7 @@ function handleWrapScroll(type) {
   let ticking = $scroller.ticking
   const self = this
   if (!ticking) {
-    reqAnimationFrame(function() {
+    reqAnimationFrame(function () {
       $scroller.ticking = false
       const scrollTop = $scroller.scrollTop
       let value = Math.min(Math.floor(scrollTop / 32), type === 'hour' ? 23 : 59)
@@ -287,7 +287,7 @@ function handleConfirm() {
  * @private
  */
 function handleCancel() {
-  const { states } = this
+  // const { states } = this
   // 关闭时重新设定值，取消事件不会更新bindValue
   // states.value = states.bindValue
   // setTimeMap.call(this)
@@ -414,7 +414,7 @@ function bindEvents() {
   handles.inputChange = handleInputChange.bind(this)
   handles.keydown = handleKeydown.bind(this)
 
-  handles.optionClick = proxy(states.$el, Selectors.option, function() {
+  handles.optionClick = proxy(states.$el, Selectors.option, function () {
     let $parent = this.parentNode.parentNode
     let type = $parent === states.$hour ? 'hour' : ($parent === states.$minute ? 'minute' : 'second')
     let index = getIndex(this, states[`$${type}Options`])

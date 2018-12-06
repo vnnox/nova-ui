@@ -34,7 +34,7 @@ const REG_RGB = /^rgb?\((\d+\,)(\d+\,)(\d+)\)$/i
 // default confirg
 const defaults = {
   // [ string ] 多语言
-  lang: 'zh-CN',
+  lang: '',
   // [ string ] 绑定值
   value: '',
   // [ array ] 色块
