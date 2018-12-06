@@ -112,8 +112,6 @@
 ```
 :::
 
-
-
 ### Placement
 :::demo
 ```html
@@ -213,7 +211,6 @@
 | onCancel | 取消按钮点击时回调，如果返回`false`，模态框将不会关闭 | function | null |
 
 
-
 ### Methods
 | Method  | Description | Parameters |
 | ----------- | ----------- | ----------- |
@@ -224,7 +221,7 @@
 
 ### Events
 
-| Event Name  | Description | Parameters |
+| Event  | Description | Parameters |
 | ----------- | ----------- | ----------- |
 | open | 打开弹框时触发 | (PickerInstance) |
 | close | 关闭弹框时触发 | (PickerInstance) |

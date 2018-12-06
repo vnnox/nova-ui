@@ -54,13 +54,13 @@
 ## API
 
 ### Modifiers
-| Modifiers | Description |
+| Modifier | Description |
 | ----------- | ----------- | 
 | click | 以`click`事件触发 | 
 | focus | 以`focus`事件触发 |  
 | hover | 以`hover`事件触发 | 
  
 
-### Options 
+### Props 
 
-同 native
+同 `Native Options`

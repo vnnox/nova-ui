@@ -60,11 +60,11 @@
 
 ### Attributes
 
-| 属性名  |  描述  | 类型 | 默认值 |
+| Attribute   | Description | Type |  Default Values |
 |---|---|---|---|
 | `visible` | 默认是否打开 | boolean |  false |
-| `title` | 标题 | string/boolean | -- |
-| `content` | 内容 | string/HTMLElement | -- |
+| `title` | 标题 | <string/boolean> | -- |
+| `content` | 内容 | <string/HTMLElement> | -- |
 | `appendTo`|  插入到的父级元素 | HTMLElement | `document.body` |
 | `backdrop`|  显示遮罩层 | boolean | true |
 | `backdropBackground`|  遮罩层背景色 | string | `rgba(0,0,0,.5)` |
@@ -74,17 +74,18 @@
 | `top`|  距离顶部高度 | number/string | `10%` |
 | `customClass`|  自定义样式，多个样式使用`,`隔开 | string | -- |
 | `btns`|  按钮组，元素见`Btn` | array | -- |
-| `footSlot`|  btns同级插槽 | string/HTMLElement | -- |
+| `footSlot`|  btns同级插槽 | <string/HTMLElement> | -- |
 | `scrollLock`|  是否锁屏 | boolean | true |
 
 
 ### Btn
 
-| 属性名  |  描述  | 类型 | 默认值 |
+| Attribute   | Description | Type |  Default Values |
 |---|---|---|---|
 | `text` | 按钮文本 | boolean |  -- |
 | `css` | 按钮样式名称 | 多个样式使用` `隔开 | -- |
 | `hanlde` | 按钮点击事件 | function | ins.close |
+
 
 #### Btns 示例
 ```javascript
@@ -105,11 +106,9 @@
 }
 ```
 
-
-
 ### Methods
 
-| 方法名  |  描述  | 参数 |
+| Method  | Description | Parameters |
 |---|---|---|
 | `open` | 打开模态框 | -- |
 | `close` | 关闭模态框 | (type?:string) |
@@ -118,7 +117,7 @@
 
 ### Events
 
-| 事件名  |  描述  | 参数 |
+| Event  | Description | Parameters |
 |---|---|---|
 | `open` | 模态框打开时回调 | ($el:HTMLElement) |
 | `close` | 模态框关闭时回调 | (type:string, $el:HTMLElement) |

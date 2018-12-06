@@ -21,14 +21,13 @@ const Message = require('../docs/components/message.md')
 const MessageBox = require('../docs/components/message-box.md')
 const Popover = require('../docs/components/popover.md')
 const Tag = require('../docs/components/tag.md')
-const ColorPicker = require('../docs/components/color-picker.md')
 const Loader = require('../docs/components/loader.md')
+const ColorPicker = require('../docs/components/color-picker.md')
 const DatePicker = require('../docs/components/date-picker.md')
+const TimePicker = require('../docs/components/time-picker.md')
 
 
-
-
-// VUE
+// Vue
 const RadioVue = require('../docs/components/vue/radio.md')
 const CheckboxVue = require('../docs/components/vue/checkbox.md')
 const SwitchVue = require('../docs/components/vue/switch.md')
@@ -43,9 +42,10 @@ const MessageVue = require('../docs/components/vue/message.md')
 const MessageBoxVue = require('../docs/components/vue/message-box.md')
 const PopoverVue = require('../docs/components/vue/popover.md')
 const TagVue = require('../docs/components/vue/tag.md')
-const ColorPickerVue = require('../docs/components/vue/color-picker.md')
 const LoaderVue = require('../docs/components/vue/loader.md')
+const ColorPickerVue = require('../docs/components/vue/color-picker.md')
 const DatePickerVue = require('../docs/components/vue/date-picker.md')
+const TimePickerVue = require('../docs/components/vue/time-picker.md')
 
 
 
@@ -54,6 +54,12 @@ const $contianerVue = document.getElementById('container-vue')
 const $tabWrap = document.getElementById('doc-tabs')
 
 
+/**
+ * set page
+ * @param {*} pages 
+ * @param {*} title 
+ * @param {*} cb 
+ */
 function setPage(pages, title, cb) {
   return function () {
     let len = Object.keys(pages).length
@@ -73,6 +79,7 @@ function setPage(pages, title, cb) {
 }
 
 
+// run code
 function runScript() {
   let $code = document.querySelectorAll('.code-view')
   Array.prototype.slice.call($code).forEach(el => {
@@ -112,9 +119,16 @@ function runScript() {
   })
 }
 
+
 const $tabs = document.querySelectorAll('.doc-tabs__item')
 const $tabPanels = document.querySelectorAll('.doc-panel')
 
+
+/**
+ * after router change
+ * @param {*} newPath 
+ * @param {*} oldPath 
+ */
 function routerChange(newPath, oldPath) {
   if (oldPath === newPath) {
     return
@@ -174,12 +188,12 @@ router
   }, 'ColorPicker', runScript))
   .set('/date-picker', setPage({
     native: DatePicker,
-    vue: DatePickerVue 
+    vue: DatePickerVue
   }, 'DatePicker', runScript))
-
-
-
-
+  .set('/time-picker', setPage({
+    native: TimePicker,
+    vue: TimePickerVue
+  }, 'TimePicker', runScript))
   .set('/modal', setPage({
     native: Modal,
     vue: ModalVue

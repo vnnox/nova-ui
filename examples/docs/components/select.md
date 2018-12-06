@@ -1,5 +1,7 @@
 # Select 选择器
 
+## 使用和示例
+
 ### 基础用法
 :::demo
 ```html
@@ -263,3 +265,61 @@ var options = [{
 </script>
 ```
 :::
+
+## API
+
+### Options
+| Attribute   | Description | Type |  Default Values |
+| ----------- | ----------- | ----------- | ----------- |
+| value | 当前绑定值 | <string/number/array> | -- |
+| valueKey | 显示在输入框中的取值key | string  | label |
+| multiple | 允许多选 | boolean | false |
+| multipleValueTpl | 多选时，选中值在输入框中的展现模板 | string | {label}等{count}项 |
+| precision | 数值精度 | number | 0 |
+| options | 选项列表 | array | [] |
+| placeholder | 输入框占位符 | string | 请选择 |
+| name | 输入框原生name属性 | string  | -- |
+| groupable | 是否分组展示 | boolean | false |
+| disabled | 是否禁用选择器 | boolean | false |
+| clearable | 是否可清除 | boolean | false |
+| selectClass | 输入框自定义样式名称，多样式以逗号`,`分隔 | string | -- |
+| pickerClass | 下拉框自定义样式名称，多样式以逗号`,`分隔 | string | -- |
+| inputSize | 输入框尺寸 | string | default |
+| noDataText | 无数据时的提示文案 | string | 无数据 | -- |
+| render | 自定义选项模板渲染器，用来自定义渲染选项的展现形式 | function(option, optionIndex, groupIndex): string  | null |
+
+### Option Attributes
+| Attribute  | Description | Type | Default Values |
+| ----------- | ----------- | ----------- | ----------- | 
+| label | 选项的标签，若不设置，将取value | string | -- |
+| value | 选项的值 | <string,number> | -- |
+| disabled | 是否禁用选项 | boolean | false |
+
+### Option Group Attributes
+| Attribute  | Description | Type | Default Values |
+| ----------- | ----------- | ----------- | ----------- |
+| label | 分组的组名 | string | -- |
+| options | 选项列表 | array  | [] |
+| disabled | 是否将该分组下所有选项置为禁用 | boolean | false |
+
+### Methods
+| Method  | Description | Parameters |
+| ----------- | ----------- | ----------- |
+| setValue | 设置当前值 | `newValue`:any[] |
+| getValue | 获取当前值 | -- |
+| clean | 清空当前值 | -- | 
+| setOptions | 设置选项列表 | `options`:[] |
+| disable | 禁用组件 | -- |
+| enable | 启用组件 | -- |
+| destroy | 销毁实例`销毁后，实例将完全不可用` | -- |
+
+
+### Events
+
+| Event  | Description | Parameters |
+| ----------- | ----------- | ----------- |
+| change | 值改变时触发 | (`value`, `selectedOptions`:[]) |
+| open | 下拉面板展开时触发 | -- |
+| close | 下拉面板关闭时触发 | -- |
+| focus | 当输入框获取焦点的时候触发 | (`event`: Event) |
+| blur | 当输入框失去焦点的时候触发 | (`event`: Event) |

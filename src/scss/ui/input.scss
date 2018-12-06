@@ -58,8 +58,12 @@
     }
   }
 
-  &.nv-input--danger {
+  &.nv-input--error {
     border-color: $color-danger;
+  }
+
+  &.nv-input--success {
+    border-color: $color-success;
   }
 
   // 小尺寸

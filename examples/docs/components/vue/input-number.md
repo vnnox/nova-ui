@@ -1,5 +1,7 @@
 # InputNumber 计数器
 
+## 使用和示例
+
 ### 基础用法
 :::vue-demo
 ```html
@@ -60,3 +62,15 @@
 </script>  
 ```
 :::
+
+## API
+
+### Props
+
+同 `Native Options`
+
+### Events
+
+| Event  | Description | Parameters |
+| ----------- | ----------- | ----------- |
+| change | 当值改变时触发 | (value, oldValue) |

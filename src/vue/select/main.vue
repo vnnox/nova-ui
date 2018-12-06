@@ -40,7 +40,8 @@
       loadingText: String,
       noDataText: String,
       noMatchDataText: String,
-      render: Function
+      render: Function,
+      align: String
     },
     data () {
       return {

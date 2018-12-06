@@ -2,7 +2,6 @@
 
 ## 使用和示例
 
-
 ### 基础用法
 
 :::vue-demo
@@ -64,8 +63,6 @@
 ```
 :::
 
-
-
 ### 禁用
 
 :::vue-demo
@@ -102,30 +99,32 @@
 ## API
 
 ### Slots
-| Slot Name | Description |
+| Slot | Description |
 | ----------- | ----------- | 
 | default | 默认插槽，仅对mode为`lump`的模式有效 | 
 
  
-### Options 
+### Props 
 
 > 与原生属性相比，Vue ColorPicker组件<mark>增加了mode配置项</mark>，`mode`提供两个选项，一个是select模式（表现为选择器，可输入），一个是lump模式（表现为色块）。
 
-| Attribute   | Description | Type |  Default Values |
+| Prop   | Description | Type |  Default Values |
 | ----------- | ----------- | ----------- | ----------- |
 | `mode` | 选择器模式 | string`<select:选择器模式/lump:色块模式>` | `select` |
+
+其他同 `Native Options`
 
 ### Methods
 
 | 方法名  |  描述  | 参数 |
 |---|---|---|
-| `addRecentlyColor` | 增加最近使用色 | (colro<string/array>) |
+| `addRecentlyColor` | 增加最近使用色 | (color`<string/array`>) |
 
 
 
 ### Events
 
-| Event Name  | Description | Parameters |
+| Event  | Description | Parameters |
 | ----------- | ----------- | ----------- |
 | open | 打开弹框时触发 | (PickerInstance) |
 | close | 关闭弹框时触发 | (PickerInstance) |

@@ -1,6 +1,7 @@
 require('./scss/index.scss')
+import locales from './locale/'
 
-import Utils from './utils/utils'
+import Utils, { mixins } from './utils/utils'
 import Dom from './utils/dom'
 import Events from './utils/events'
 import InputNumber from './components/input-number'
@@ -12,13 +13,23 @@ import Modal from './components/modal'
 import Message from './components/message'
 import MessageBox from './components/message-box'
 import Popover from './components/popover'
-import ColorPicker from './components/color-picker'
 import Loader from './components/loader'
-import DatePicker from './components/date-picker'
 import Picker from './components/picker'
+import ColorPicker from './components/color-picker'
+import DatePicker from './components/date-picker'
+import TimePicker from './components/time-picker'
 
 
 const Nova = Object.create(null)
+
+Nova.config = {
+  lang: 'zh-CN',
+  locales
+}
+
+// 设置全局配置项
+Nova.setConfig = config => Nova.config = mixins({}, Nova.config, config || {})
+
 
 Nova.$Utils = Utils
 Nova.$Events = Events
@@ -32,10 +43,12 @@ Nova.Tree = Tree
 Nova.Modal = Modal
 Nova.Message = Message
 Nova.MessageBox = MessageBox
-Nova.ColorPicker = ColorPicker
 Nova.Loader = Loader
-Nova.DatePicker = DatePicker
 Nova.Picker = Picker
+Nova.ColorPicker = ColorPicker
+Nova.DatePicker = DatePicker
+Nova.TimePicker = TimePicker
+
 
 function routeChangeDestory() {
   MessageBox.destroy()

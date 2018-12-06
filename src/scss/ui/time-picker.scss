@@ -1,0 +1,123 @@
+.nv-time-picker {
+  position: relative;
+  user-select: none;
+  overflow: hidden;
+  width: 172px;
+
+  .nv-time-picker__body {
+    display: flex;
+    flex-flow: row nowrap;
+    position: relative;
+    height: 192px;
+    margin: 10px;
+    border: 1px solid $color-line;
+
+    &::before,
+    &::after {
+      content: '';
+      height: 1px;
+      position: absolute;
+      top: 50%;
+      left: 0;
+      right: 0;
+      z-index: 2;
+      background-color: $color-line;
+      margin-top: -16px;
+    }
+
+    &::after {
+      margin-top: 16px;
+    }
+  }
+
+  .nv-time-picker__wrap {
+    min-width: 50px;
+    flex: 1 1 auto;
+    height: 100%;
+    flex-shrink: 0;
+    position: relative;
+    z-index: 1;
+    overflow: hidden;
+  }
+
+  .nv-time-picker__separator {
+    position: absolute;
+    width: 100%;
+    top: 50%;
+    height: 0;
+    display: flex;
+
+    span {
+      flex: 1 1 auto;
+      font-size: 16px;
+      font-weight: bold;
+      margin-top: -9px;
+      margin-left: -1px;
+      z-index: 0;
+      color: $color-spin;
+      line-height: 1;
+
+      &:first-child {
+        opacity: 0;
+        z-index: -1;
+      }
+    }
+  }
+
+  .nv-scroller {
+    overflow: hidden;
+    overflow-y: auto;
+    height: 100%;
+    margin: 0;
+    margin-right: -20px;
+  }
+
+  .nv-time-picker__select {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+
+    &::before,
+    &::after {
+      content: '';
+      display: block;
+      width: 100%;
+      height: 80px;
+    }
+  }
+
+  .nv-time-picker__option {
+    height: 32px;
+    line-height: 22px;
+    padding: 5px 0;
+    text-align: center;
+    white-space: nowrap;
+    cursor: pointer;
+
+    &:not(.nv-disabled):not(.nv-actived):hover,
+    &.nv-hover {
+      color: $color-primary;
+    }
+
+    &.nv-actived {
+      color: $color-primary;
+      font-weight: bold;
+      font-size: 14px;
+    }
+
+    &.nv-disabled {
+      color: $color-text-disabled;
+      cursor: not-allowed;
+    }
+  }
+
+  .nv-time-picker__foot {
+    margin-top: -2px;
+    padding: 0 10px 8px 10px;
+    text-align: right;
+
+    .nv-btn {
+      margin-left: 10px;
+    }
+  }
+}

@@ -13,15 +13,14 @@
  */
 
 import Events from '../../utils/events'
-import { isElement, throwError, mixins } from '../../utils/utils'
-import Locales from '../../locale'
+import { isElement, throwError, mixins,isArray } from '../../utils/utils'
+import { getLocales } from '../../utils/locale'
 import template from '../../utils/template'
 import { addClass, qsa, proxy, bind, unbind, removeNode } from '../../utils/dom'
 import Picker from '../picker'
 import { getPlacementByAlign } from '../picker/placements'
-import { skeletonTpl, lumpTpl, moreBtnTpl } from './template'
-import { isArray } from 'util'
 import { CLASS_STATES_ACTIVED, CLASS_STATES_HIDE } from '../../utils/constant'
+import { skeletonTpl, lumpTpl, moreBtnTpl } from './template'
 
 // ui class name
 const UI_NAME = 'nv-color-picker'
@@ -284,7 +283,7 @@ export class ColorPicker extends Events {
 
     const props = this.props = mixins({}, defaults, options || {})
     const states = this.states = Object.create(null)
-    states.locales = (Locales[props.lang] || Locales['en']).colorPicker
+    states.locales = getLocales(props.lang).colorPicker
     states.$target = target
     states.isInput = target.nodeName === 'INPUT'
     let targetValue = states.isInput ? target.value : ''

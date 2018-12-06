@@ -1,7 +1,7 @@
 /*
  * File: index.js
  * Project: @vnnox/novaui
- * Description: 日期选择器
+ * Description: Choose Date
  * Created: 2018-11-27 09:12
  * Author: smohan (mengxw@novastar.tech)
  * -----
@@ -13,7 +13,7 @@
 
 import { Events } from '../../utils/events'
 import { mixins, isElement, isFunction, throwError } from '../../utils/utils'
-import Locales from '../../locale'
+import { getLocales } from '../../utils/locale'
 import template from '../../utils/template'
 import { parseDate, formatDate, isSameDay, toDate, isSameDate, pad, getDaysInMonth, getFirstDayInMonth } from './utils'
 import { insertAfter, addClass, qsa, bind, unbind, getIndex, proxy, removeNode } from '../../utils/dom'
@@ -38,7 +38,7 @@ const MAX_DATE = new Date(9999, 11, 31, 0, 0, 0)
 // default config
 const defaults = {
   // [ string ] 国际化
-  lang: 'zh-CN',
+  lang: '',
   // [ string, Date ] 绑定值
   value: '',
   // [ string ] 模式
@@ -256,7 +256,6 @@ function bindEvents() {
   handles.nextMonth = this.nextMonth.bind(this)
   handles.today = handleTodayClick.bind(this)
   handles.confirm = handleConfirmClick.bind(this)
-
 
   bind(states.$currentYear, 'click', handles.currentYearClick)
   bind(states.$currentMonth, 'click', handles.currentMonthClick)
@@ -689,7 +688,7 @@ function isDisabledNextMonth() {
   let value = new Date(year, month + 1, 0, 0)
   let disabled = value * 1 >= maxDate * 1
   if (disabled) {
-    states.$monthNext.setAttribute('disabled', 'disabled')
+    states.$monthNext.setAttribute('disabled', '')
     states.$monthNext.classList.add(CLASS_STATUS_DISABLED)
   } else {
     states.$monthNext.removeAttribute('disabled')
@@ -774,7 +773,7 @@ export class DatePicker extends Events {
     const isInput = target.nodeName === 'INPUT'
     states.isInput = isInput
     states.$target = target
-    states.locales = (Locales[props.lang] || Locales.en).datePicker
+    states.locales = getLocales(props.lang).datePicker
     if (MODES.indexOf(props.mode) === -1) {
       props.mode === 'date'
     }

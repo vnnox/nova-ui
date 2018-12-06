@@ -4,7 +4,6 @@
 
 > `Nova.Message`是一个静态类，使用时无需使用`new`关键字。
 
-
 ### 基础用法
 :::demo
 ```html
@@ -49,7 +48,7 @@
 
 ### Options
 
-| 属性名  |  描述  | 类型 | 默认值 |
+| Attribute   | Description | Type |  Default Values |
 |---|---|---|---|
 | `icon` | 图标类名 | string |  缺省值为当前类型的图标 |
 | `duration` | 自动关闭时间，单位毫秒，为0时不自动关闭 | number | 3000 |
@@ -61,7 +60,7 @@
 
 ### Methods
 
-| 方法名  |  描述  | 参数 |
+| Method  | Description | Parameters |
 |---|---|---|
 | `success` | 打开成功类型的提示框 | (content:string, options?: Options) |
 | `error` | 打开错误类型的提示框 | (content:string, options?: Options) |

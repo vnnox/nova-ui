@@ -134,7 +134,7 @@
 ### Options
 | Attribute   | Description | Type |  Default Values |
 | ----------- | ----------- | ----------- | ----------- |
-| lang | 当前语言 | string | `zh-CN`|
+| lang | 当前语言 | string | -- |
 | inline | 非`Picker`，直接插入到指定容器 | boolean  | false |
 | value | 当前绑定值 | string/Date | -- |
 | mode | 模式 | string`<date/year/month>`  | `date` |
@@ -167,11 +167,12 @@
 ### Events
 
 > 在非`inline`模式并且没有设置`confirm`按钮时，`change和done`方法返回值一致。
+总结为一句话： **当设置`confirm`按钮时，请使用`done`事件，否则请使用`change`事件**
 
 | Event Name  | Description | Parameters |
 | ----------- | ----------- | ----------- |
 | open | 打开弹框时触发 | (PickerInstance) |
 | close | 关闭弹框时触发 | (PickerInstance) |
-| change | 当面板上的值改变时触发，此时绑定至不会改变。用于在`inline`模式中监听变化 | (formatValue, value) |
+| change | 当面板上的值改变时触发，此时绑定值不会改变。用于在`inline`模式中监听变化 | (formatValue, value) |
 | done | 点击确定按钮时触发，此时绑定值会改变。用于在`picker`模式中改变绑定值，在`inline`模式中不会触发 | (value, oldValue) |
 

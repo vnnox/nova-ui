@@ -1,5 +1,7 @@
 # Input 输入框
 
+## 使用和示例
+
 ### 基础用法
 :::demo
 ```html
@@ -13,7 +15,7 @@
   <h5 class="doc-row__title">错误状态</h5>
   <p class="doc-row__describe">用于校验失败后的提示</p>
   <div class="doc-row__body">
-    <input type="text" class="nv-input nv-input--danger" placeholder="请输入关键字...">
+    <input type="text" class="nv-input nv-input--error" placeholder="请输入关键字...">
   </div>
 </div> 
 ```
@@ -129,3 +131,41 @@
 </div>
 ```
 :::
+
+
+## API
+
+### 基础类名
+
+| Class  |  Description  |
+|---|---|
+| `nv-input`  | 基础类名  |
+| `nv-input--success`  | 成功  | 
+| `nv-input--error`  | 错误  | 
+| `nv-btn--small`  | 小型尺寸  | 
+
+
+### 组合类名
+
+| Class  |  Description  |
+|---|---|
+| `nv-input-group`  | 基础类名  |
+| `nv-input-group__addon`  | 输入框一侧额外元素  | 
+| `nv-input-row`  |  组合二基础类名  |
+| `nv-input-cell`  | 组合二子元素  | 
+
+### 带图标
+
+| Class  |  Description  |
+|---|---|
+| `nv-input-prefix`  | 带前置图标基础类名  |
+| `nv-input-suffix`  | 带后置图标基础类名  | 
+| `nv-input__icon`  |  图标子元素类名  |
+
+
+### 状态类
+
+| Class  |  Description  |
+|---|---|
+| `nv-disabled`  | 禁用  | 
+| `nv-fluid`  | 输入框自适应宽度  | 

@@ -2,6 +2,9 @@ import Router from '../assets/router'
 
 const Install = require('../docs/documents/install.md')
 const Usage = require('../docs/documents/usage.md')
+const I18n = require('../docs/documents/i18n.md')
+const CssRule = require('../docs/documents/css-rules.md')
+const JsRule = require('../docs/documents/js-rules.md')
 
 const $contianer = document.getElementById('container')
 
@@ -32,6 +35,9 @@ router
   .set('/')
   .set('/install', setPage(Install, 'Install'))
   .set('/usage', setPage(Usage, 'Usage'))
+  .set('/i18n', setPage(I18n, 'I18n'))
+  .set('/css-rules', setPage(CssRule, 'Css Rules'))
+  .set('/js-rules', setPage(JsRule, 'Javascript Rules'))
  
   .init()
 

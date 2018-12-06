@@ -1,14 +1,17 @@
 <template>
-  <div class="nv-date-picker--wrap nv-select" :class="{'show-clean': inputValue}" role="combobox">
-    <input type="text" class="nv-input" :disabled="disabled" :readonly="readonly" :placeholder="placeholder" :name="name" ref="input" v-model.lazy="inputValue"/>
+  <div class="nv-date-picker--wrap nv-select" :class="{'show-clean': inputValue && !disabled, 'nv-disabled': disabled}" role="combobox">
+    <input type="text" class="nv-input" :disabled="disabled" :readonly="readonly" :placeholder="placeholder" :name="name" ref="input" v-model.lazy="inputValue" />
     <a class="nv-select__clean" v-if="clearable" @click.stop="clear">
       <i class="nv-icon-close"></i>
-    </a>  
-  </div>  
+    </a>
+  </div>
 </template>
 <script>
   import DatePicker from '../../components/date-picker'
-  import {parseDate, formatDate} from '../../components/date-picker/utils'
+  import {
+    parseDate,
+    formatDate
+  } from '../../components/date-picker/utils'
   export default {
     name: 'nv-date-picker',
     props: {
@@ -48,22 +51,22 @@
       today: Boolean,
       confirm: Boolean
     },
-    data () {
+    data() {
       return {
         instance: null
       }
     },
     computed: {
-      inputValue :{
-        set (val) {
+      inputValue: {
+        set(val) {
           let value = parseDate(val, this.format)
           if (value) {
             this.instance.setValue(value, true)
           }
           this.$refs.input.value = this.instance.getValue(true)
-          this.change(this.instance.getValue())
+          this.change(this.instance.getValue(true), this.instance.getValue())
         },
-        get () {
+        get() {
           let value = parseDate(this.value, this.format)
           if (value) {
             return formatDate(value, this.format)
@@ -73,27 +76,31 @@
       }
     },
     methods: {
-      change (val) {
-        let oldValue = this.value
-        this.$emit('input', val)
-        this.$emit('done', val, oldValue)
+      change(formatValue, value) {
+        this.$emit('input', formatValue)
+        this.$emit('done', formatValue, value)
       },
-      clear () {
+      clear() {
         this.instance.setValue(null, true)
       }
     },
-    mounted () {
+    watch: {
+      disabled(val) {
+        if (this.instance) {
+          val ? this.instance.disable() : this.instance.enable()
+        }
+      }
+    },
+    mounted() {
       this.instance = new DatePicker(this.$el, this.$props)
       this.instance
-      .on('picker-click', () => {
-        this.$refs.input && this.$refs.input.focus()
-      })
-      .on('done', (formatValue, value) => {
-        this.change(value)
-      })
-      .on('open', () => this.$emit('open'))
-      .on('close', () => this.$emit('close'))
-      .on('change', (formatValue, value) => this.$emit('change', formatValue, value))
+        .on('picker-click', () => {
+          this.$refs.input && this.$refs.input.focus()
+        })
+        .on('done', (formatValue, value) => this.change(formatValue, value))
+        .on('open', () => this.$emit('open'))
+        .on('close', () => this.$emit('close'))
+        .on('change', (formatValue, value) => this.$emit('change', formatValue, value))
     },
     beforeDestroy() {
       this.instance && this.instance.destroy()

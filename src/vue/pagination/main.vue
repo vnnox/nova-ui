@@ -9,10 +9,7 @@
     props: {
       lang: String,
       total: Number,
-      limit:  {
-        type: Number,
-        default: 20
-      },
+      limit:  Number,
       index: {
         type: Number,
         default: 1
