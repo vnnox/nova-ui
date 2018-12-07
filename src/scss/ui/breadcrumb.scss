@@ -28,11 +28,29 @@
     transform: rotate(20deg);
   }
 
-  .nv-breadcrumb__item,
-  .nv-breadcrumb__separator {
+  .nv-breadcrumb__item {
     display: inline-block;
     vertical-align: middle;
     font-size: $font-size-base;
     color: $color-hint;
+    position: relative;
+
+    + .nv-breadcrumb__item {
+      margin-left: 6px;
+      padding-left: 10px;
+
+      &::before {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 0;
+        line-height: 1;
+        width: 1px;
+        height: 10px;
+        background-color: $color-placeholder;
+        font-size: 0;
+        transform: rotate(20deg) translateY(-50%);
+      }
+    }
   }
 }

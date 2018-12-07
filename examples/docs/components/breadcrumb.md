@@ -12,11 +12,9 @@
       <li class="nv-breadcrumb__item">
         <a>一级菜单</a>
       </li>
-      <li class="nv-breadcrumb__separator"></li>
       <li class="nv-breadcrumb__item">
         <a>二级菜单</a>
       </li>
-      <li class="nv-breadcrumb__separator"></li>
       <li class="nv-breadcrumb__item">三级菜单</li>  
     </ul>  
   </div>
@@ -32,4 +30,3 @@
 |---|---|
 | `nv-breadcrumb`  | 基础类名  |
 | `nv-breadcrumb__item`  | 导航项  |
-| `nv-breadcrumb__separator`  | 分隔符  |
