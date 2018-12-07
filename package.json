@@ -1,6 +1,6 @@
 {
   "name": "@vnnox/novaui",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "nova ui components",
   "main": "libs/nova.js",
   "directories": {
@@ -52,6 +52,7 @@
     "style-loader": "^0.23.0",
     "stylelint": "^9.6.0",
     "stylelint-scss": "^3.3.2",
+    "uglifyjs-webpack-plugin": "^2.0.1",
     "url-loader": "^1.1.2",
     "vue": "^2.5.17",
     "vue-loader": "^15.4.2",

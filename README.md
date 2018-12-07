@@ -16,16 +16,16 @@ npm i @vnnox/novaui
 #### 用于普通页面
 ```html
 <!-- 引入样式 -->
-<link rel="stylesheet" href="/lib/nova.css">
+<link rel="stylesheet" href="/libs/nova.css">
 <!-- 引入组件库 -->
 <!-- 支持umd -->
-<script src="/lib/nova.js"></script>
+<script src="/libs/nova.js"></script>
 ```
 
 #### 用于VUE页面
 ```javascript
 import Vue from 'vue';
-import NovaUI from ' @vnnox/novaui/libs/nova.vue.js'
+import NovaUI from '@vnnox/novaui/libs/nova.vue.js'
 import '@vnnox/novaui/libs/nova.css'
 
 Vue.use(NovaUI)
