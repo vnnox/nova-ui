@@ -49,6 +49,6 @@ module.exports = {
   },
   plugins: [
     new VueLoaderPlugin(),
-    new webpack.BannerPlugin(`nova.vue.js v${pkg.version}\nAuthor: smohan (mengxw@novastar.tech)\nCopyright 2018, NovaStar Tech Co., Ltd`)
+    new webpack.BannerPlugin(`nova-vue.js v${pkg.version}\nAuthor: smohan (mengxw@novastar.tech)\nCopyright 2018, NovaStar Tech Co., Ltd`)
   ]
 }

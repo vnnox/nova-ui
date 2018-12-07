@@ -1,5 +1,7 @@
 # Select 选择器
 
+## 使用和示例
+
 ### 基础用法
 :::vue-demo
 ```html
@@ -8,7 +10,8 @@
     <h5 class="doc-row__title">默认</h5>
     <p class="doc-row__describe"></p>
     <div class="doc-row__body">
-      <nv-select v-model="value">
+      <nv-select v-model="value" :options="options"></nv-select>
+      <nv-select v-model="value2" clearable>
         <nv-option v-for="option in options" :key="option.value" :value="option.value">{{option.label}}</nv-option>
       </nv-select>  
     </div>
@@ -36,10 +39,19 @@
     data () {
       return {
         options,
-        value: '001'
+        value: '001',
+        value2: '00853'
       }
     }
   }
 </script>  
 ```
 :::
+
+> Select组件可以有Select组件通过传递Options选项单独使用，也可以配合Option组件一起使用。Option组件不能单独使用
+
+## Api
+
+### Props
+
+同`Native Options`

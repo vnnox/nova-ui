@@ -4,10 +4,10 @@
 
 ```html
 <!-- 引入样式 -->
-<link rel="stylesheet" href="/lib/nova.css">
+<link rel="stylesheet" href="/libs/nova.css">
 <!-- 引入组件库 -->
 <!-- 支持umd -->
-<script src="/lib/nova.js"></script>
+<script src="/libs/nova.js"></script>
 ```
 
 ### 在VUE框架中使用

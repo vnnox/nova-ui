@@ -43,12 +43,14 @@
       render: Function,
       align: String
     },
+
     data () {
       return {
         data: this.options,
         instance: null
       }
     },
+    
     methods: {
       addOption (option) {
         this.data.push(option)
@@ -74,8 +76,8 @@
     },
 
     watch: {
-      disabled() {
-        this.disabled ? this.instance.disable() : this.instance.enable()
+      disabled(val) {
+        val ? this.instance.disable() : this.instance.enable()
       },
       value () {
         this.instance.setValue(this.value)
