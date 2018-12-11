@@ -1,9 +1,9 @@
 @font-face {
   font-family: 'Nova';
   src:
-    url('fonts/Nova.ttf?30q5vj') format('truetype'),
-    url('fonts/Nova.woff?30q5vj') format('woff'),
-    url('fonts/Nova.svg?30q5vj#Nova') format('svg');
+    url('fonts/Nova.ttf?2s5xzz') format('truetype'),
+    url('fonts/Nova.woff?2s5xzz') format('woff'),
+    url('fonts/Nova.svg?2s5xzz#Nova') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -31,6 +31,12 @@
 }
 .nv-icon-arrow-left:before {
   content: "\e90b";
+}
+.nv-icon-arrow-down:before {
+  content: "\e959";
+}
+.nv-icon-arrow-up:before {
+  content: "\e95a";
 }
 .nv-icon-arrow-right:before {
   content: "\e90c";
@@ -146,7 +152,7 @@
 .nv-icon-screen-power:before {
   content: "\e949";
 }
-.nv-icon-play1:before {
+.nv-icon-play-circle:before {
   content: "\e94a";
 }
 .nv-icon-video-switch:before {
