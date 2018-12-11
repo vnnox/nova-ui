@@ -635,8 +635,8 @@ export class Pagination extends Events {
         states.sizes = sizes
         // 更新limitSelect组件
         states.limitSelectIns.setOptions(getLimitOptions.call(this))
-        states.limitSelectIns.setValue(limit)
       }
+      states.limitSelectIns.setValue(limit)
     }
     this.emit('change', this.states.index, this.states.limit, this.states.pages)
   }
