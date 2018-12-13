@@ -47,9 +47,7 @@ function render() {
   let $el = document.createElement('div')
   $el.className = UI_NAME
   addClass($el, props.customClass)
-  if (props.vertical) {
-    addClass($el, UI_NAME + '--vertical')
-  }
+  props.vertical && addClass($el, UI_NAME + '--vertical')
   $el.innerHTML = template(skeletonTpl, {
     background: (props.background || 'transparent').toString(),
     label: props.label
@@ -68,14 +66,14 @@ function render() {
         escClose: false
       }
     )
-    $el.style.zIndex = Popup.nextZIndex()
   } else {
     if (props.lock) {
       states.$container.classList.add('nv-locked')
     }
   }
-}
 
+  $el.style.zIndex = Popup.nextZIndex()
+}
 
 
 /**

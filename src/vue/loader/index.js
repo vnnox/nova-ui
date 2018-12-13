@@ -1,11 +1,18 @@
 import Loader from '../../components/loader'
 import { isElement } from '../../utils/utils'
 
+/**
+ * Creates an instance of Loader.
+ * @param {*} el 
+ * @param {*} modifiers 
+ * @param {*} value 
+ */
 function createLoader (el, modifiers, value) {
   let $container = el 
   if (modifiers.fullscreen) {
     $container = document.body
   }
+  el.$nv__loader && el.$nv__loader.close()
   if (value) {
     let options = {}
     if (modifiers.lock) {
@@ -20,11 +27,8 @@ function createLoader (el, modifiers, value) {
     label && (options.label = label)
     css && (options.customClass = css)
     background && (options.background = background)
-    
     el.$nv__loader = new Loader($container, options)
-  } else {
-    el.$nv__loader && el.$nv__loader.close()
-  } 
+  }
 }
 
 
@@ -45,6 +49,7 @@ export const directive = {
     }
   }
 }
+
 
 export default {
   directive,

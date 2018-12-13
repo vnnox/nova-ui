@@ -89,6 +89,11 @@
         if (this.instance) {
           val ? this.instance.disable() : this.instance.enable()
         }
+      },
+      value (val, old) {
+        if (val !== old && this.instance) {
+          this.instance.setValue(val, true)
+        }
       }
     },
     mounted() {

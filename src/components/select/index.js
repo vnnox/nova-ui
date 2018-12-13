@@ -125,7 +125,7 @@ function render() {
 
   // 插入元素
   isInput ? insertAfter($target, $select) : $target.appendChild($select)
-  
+
   states.$select = $select
   states.$input = qsa(Selectors.input, $select)[0]
   states.$clean = qsa(Selectors.clean, $select)[0]
@@ -142,7 +142,7 @@ function render() {
 
   states.$selectPicker = $selectPicker
   states.$optionsWrap = qsa(Selectors.optionsWrap, $selectPicker)[0]
-  
+
   // 实例化picker
   initPicker.call(this)
   // 绑定dom事件
@@ -361,7 +361,7 @@ function handleInputKeydown(event) {
   if (!this.states.pickerOpened) {
     return
   }
- 
+
   let code = event.keyCode
   if (code === 13 || code === 27 || code === 38 || code === 40) {
     event.preventDefault()
