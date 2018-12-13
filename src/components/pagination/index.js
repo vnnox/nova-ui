@@ -168,7 +168,7 @@ function render() {
       options,
       value: states.limit,
       selectClass: 'pagination-sizes-select',
-      align: 'center'
+      align: 'left'
     })
     states.limitSelectIns = limitSelectIns
     limitSelectIns.on('change', value => {
@@ -208,7 +208,7 @@ function bindEvents() {
   const { handles } = states
   if (states.$pagers) {
     // 页码点击事件
-    handles.pagerClick = proxy(states.$pagers, Selectors.pager, function() {
+    handles.pagerClick = proxy(states.$pagers, Selectors.pager, function () {
       let classList = this.classList
       if (classList.contains('nv-actived') || classList.contains('nv-pager--ellipsis')) {
         return
@@ -223,21 +223,21 @@ function bindEvents() {
   }
 
   // prevBtn 点击事件
-  handles.prevClick = function() {
+  handles.prevClick = function () {
     if (states.index > 1) {
       self.setIndex(states.index - 1)
     }
   }
 
   // nextBtn 点击事件
-  handles.nextClick = function() {
+  handles.nextClick = function () {
     if (states.index < states.pages) {
       self.setIndex(states.index + 1)
     }
   }
 
   // jumperInput Change事件
-  handles.jumperChange = function(e) {
+  handles.jumperChange = function (e) {
     let value = e.target.value.trim()
     value = value === '' ? void 0 : +value
     if (isNaN(value)) {
