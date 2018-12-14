@@ -50,3 +50,29 @@
 .nv-right {
   float: right !important;
 }
+
+.nv-text-ellipsis {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.nv-color-link {
+  color: $color-primary;
+}
+
+.nv-color-success {
+  color: $color-success;
+}
+
+.nv-color-danger {
+  color: $color-danger;
+}
+
+.nv-color-describe {
+  color: $color-hint;
+}
+
+.nv-color-placeholder {
+  color: $color-placeholder;
+}

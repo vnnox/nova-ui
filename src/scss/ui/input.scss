@@ -47,7 +47,7 @@
     color: $color-placeholder;
   }
 
-  &:not([disabled]):not(.nv-disabled):not(.nv-input--danger) {
+  &:not([disabled]):not(.nv-disabled):not(.nv-input--error) {
     transition: border-color .2s $transition-timing-function;
 
     &:hover,
