@@ -25,6 +25,7 @@ const Loader = require('../docs/components/loader.md')
 const ColorPicker = require('../docs/components/color-picker.md')
 const DatePicker = require('../docs/components/date-picker.md')
 const TimePicker = require('../docs/components/time-picker.md')
+const ScrollLoad = require('../docs/components/scroll-load.md')
 
 
 // Vue
@@ -46,7 +47,7 @@ const LoaderVue = require('../docs/components/vue/loader.md')
 const ColorPickerVue = require('../docs/components/vue/color-picker.md')
 const DatePickerVue = require('../docs/components/vue/date-picker.md')
 const TimePickerVue = require('../docs/components/vue/time-picker.md')
-
+const ScrollLoadVue = require('../docs/components/vue/scroll-load.md')
 
 
 const $contianerNative = document.getElementById('container-native')
@@ -254,6 +255,10 @@ router
     native: Pagination,
     vue: PaginationVue
   }, 'Pagination', runScript))
+  .set('/scroll-load', setPage({
+    native: ScrollLoad,
+    vue: ScrollLoadVue
+  }, 'ScrollLoadVue', runScript))
   .set('/slider', setPage({
     native: Slider,
     vue: SliderVue

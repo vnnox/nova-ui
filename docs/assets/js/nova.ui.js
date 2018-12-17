@@ -10159,6 +10159,341 @@ var noMatchDataTpl = "\n<li class=\"nv-tree__empty no-match\"><%=noMatchDataText
 
 /***/ }),
 
+<<<<<<< HEAD
+=======
+/***/ "./src/components/virtual-scroll-list/index.js":
+/*!*****************************************************!*\
+  !*** ./src/components/virtual-scroll-list/index.js ***!
+  \*****************************************************/
+/*! exports provided: VirtualScrollList, default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "VirtualScrollList", function() { return VirtualScrollList; });
+/* harmony import */ var _utils_events__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../utils/events */ "./src/utils/events.js");
+/* harmony import */ var _utils_utils__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../utils/utils */ "./src/utils/utils.js");
+/* harmony import */ var _utils_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../utils/dom */ "./src/utils/dom.js");
+/* harmony import */ var _utils_debounce__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../utils/debounce */ "./src/utils/debounce.js");
+/* harmony import */ var _utils_constant__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../utils/constant */ "./src/utils/constant.js");
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+
+
+
+
+
+var UI_NAME = 'nv-virtual-scroll';
+var defaults = {
+  // [ string | HTMLElement ] rows容器
+  content: '.content',
+  // [ number ] 每行对的高度，必须固定高度，包括内外边距
+  rowHeight: 40,
+  // [ number ] 偏移数，默认实际可见个数，实际渲染数 = visibleNum + offset
+  offset: 'auto',
+  // [ string ] 每行数据的唯一标识字段, 用于删除数据或者更新数据时查找
+  key: 'id',
+  // [ number ] 滚动到顶或者滚动到底的阈值
+  threshold: 100
+};
+
+function updateTranslateValue(el, value) {
+  el.style.webkitTransform = "translate3d(0, ".concat(value, "px, 0)");
+  el.style.transform = "translate3d(0, ".concat(value, "px, 0)");
+}
+
+function updateVisibleStates() {
+  var props = this.props,
+      states = this.states; // 缓存原始margin
+
+  var contentStyles = Object(_utils_dom__WEBPACK_IMPORTED_MODULE_2__["getStyle"])(states.$content);
+  states.originMarginTop = parseFloat(contentStyles.marginTop, 10);
+  states.originMarginBottom = parseFloat(contentStyles.marginBottom, 10);
+
+  if (Object(_utils_dom__WEBPACK_IMPORTED_MODULE_2__["getScrollParent"])(states.$content) !== states.$scroller) {
+    states.$content.style.overflow = 'auto';
+  }
+
+  var scrollHeight;
+
+  if (states.$scroller === document.body) {
+    var offsetTop = Object(_utils_dom__WEBPACK_IMPORTED_MODULE_2__["getOffsetByParent"])(states.$wrap, document.body).top;
+    scrollHeight = window.innerHeight - offsetTop;
+  } else {
+    scrollHeight = parseFloat(Object(_utils_dom__WEBPACK_IMPORTED_MODULE_2__["getStyle"])(states.$scroller, 'maxHeight'), 10) || states.$scroller.clientHeight;
+  }
+
+  states.scrollHeight = scrollHeight; // 可见元素个数
+
+  var visibleNum = Math.ceil((scrollHeight - states.originMarginTop - states.originMarginBottom) / props.rowHeight);
+  var offset = props.offset;
+
+  if (offset === 'auto' || isNaN(+offset)) {
+    offset = visibleNum;
+  } // visible + offset = 实际渲染的DOM元素
+
+
+  states.visibleNum = visibleNum;
+}
+
+function setScrollStates() {
+  var states = this.states;
+  updateVisibleStates.call(this);
+  var visibleNum = states.visibleNum,
+      offset = states.offset;
+  states.offset = 0;
+  states.start = 0;
+  states.end = visibleNum + offset - 1;
+  states.rolling = false;
+  states.scrollTimer = null;
+  states.resizeTimer = null;
+}
+
+function bindEvents() {
+  var props = this.props,
+      states = this.states;
+  var handles = states.handles = Object.create(null);
+  var self = this;
+
+  handles.scroll = function (event) {
+    Object(_utils_dom__WEBPACK_IMPORTED_MODULE_2__["reqAnimationFrame"])(function () {
+      if (!states.rolling) {
+        states.rolling = true;
+        states.$content.style.pointerEvents = 'none';
+        clearTimeout(states.scrollTimer);
+        states.scrollTimer = setTimeout(function () {
+          states.rolling = false;
+          states.$content.style.pointerEvents = null;
+        }, 60);
+      }
+
+      var scrollTop = states.$scroller.scrollTop;
+      var scrollHeight = states.$scroller.scrollHeight;
+      render.call(self);
+
+      if (scrollTop + props.threshold + states.scrollHeight >= scrollHeight) {
+        // 触底，加载新数据等
+        self.emit('onBottom', screenTop);
+      } else if (scrollTop - props.threshold <= 0) {
+        // 触顶
+        self.emit('onTop', screenTop);
+      }
+    }.bind(self, event));
+  };
+
+  handles.resize = function () {
+    clearTimeout(states.resizeTimer);
+    states.resizeTimer = setTimeout(function () {
+      updateVisibleStates.call(self);
+      self.refresh();
+    }, 60);
+  };
+
+  Object(_utils_dom__WEBPACK_IMPORTED_MODULE_2__["bind"])(states.$scroller, 'scroll', handles.scroll);
+  Object(_utils_dom__WEBPACK_IMPORTED_MODULE_2__["bind"])(window, 'resize', handles.resize);
+}
+
+function render(force) {
+  var states = this.states,
+      props = this.props;
+  var lastStart = states.start,
+      lastEnd = states.end,
+      size = states.size,
+      virtualList = states.virtualList,
+      visibleNum = states.visibleNum,
+      offset = states.offset;
+  var scrollTop = states.$scroller.scrollTop;
+  var start = Math.max(0, Math.floor(scrollTop / props.rowHeight) - offset);
+  var end = Math.min(start + visibleNum + offset, size);
+
+  if (force || lastStart !== start || lastEnd !== end) {
+    states.start = start;
+    states.end = end;
+    var rows = virtualList.slice(start, end);
+    props.render && props.render.call(this, rows);
+    updateTranslateValue(states.$content, start * props.rowHeight);
+  }
+}
+
+var VirtualScrollList =
+/*#__PURE__*/
+function (_Events) {
+  _inherits(VirtualScrollList, _Events);
+
+  function VirtualScrollList(scroller, options) {
+    var _this;
+
+    _classCallCheck(this, VirtualScrollList);
+
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(VirtualScrollList).call(this));
+
+    if (!(_assertThisInitialized(_assertThisInitialized(_this)) instanceof VirtualScrollList)) {
+      return _possibleConstructorReturn(_this, new VirtualScrollList(scroller, options));
+    }
+
+    if (!Object(_utils_utils__WEBPACK_IMPORTED_MODULE_1__["isElement"])(scroller)) {
+      Object(_utils_utils__WEBPACK_IMPORTED_MODULE_1__["throwError"])('\'scroller\' 必须是一个DOM元素');
+    }
+
+    var props = _this.props = Object(_utils_utils__WEBPACK_IMPORTED_MODULE_1__["mixins"])({}, defaults, options || {});
+    var states = _this.states = Object.create(null);
+    states.$scroller = scroller;
+    Object(_utils_dom__WEBPACK_IMPORTED_MODULE_2__["addClass"])(scroller, UI_NAME);
+    var $content = props.content;
+
+    if (Object(_utils_utils__WEBPACK_IMPORTED_MODULE_1__["isString"])(props.content)) {
+      $content = Object(_utils_dom__WEBPACK_IMPORTED_MODULE_2__["qsa"])(props.content, scroller)[0];
+    }
+
+    if (!Object(_utils_utils__WEBPACK_IMPORTED_MODULE_1__["isElement"])($content)) {
+      Object(_utils_utils__WEBPACK_IMPORTED_MODULE_1__["throwError"])('\'props.content\' 必须是一个DOM元素或者DOM选择器');
+    }
+
+    states.$content = $content; // 在content外面在包裹一层元素
+
+    var $wrap = document.createElement('div');
+    $wrap.className = UI_NAME + '__wrap';
+    $content.parentNode.insertBefore($wrap, $content);
+    $wrap.appendChild($content);
+    states.$wrap = $wrap;
+    setScrollStates.call(_assertThisInitialized(_assertThisInitialized(_this))); // 虚拟列表
+
+    _this.reset([]);
+
+    bindEvents.call(_assertThisInitialized(_assertThisInitialized(_this)));
+    return _this;
+  }
+
+  _createClass(VirtualScrollList, [{
+    key: "reset",
+    value: function reset(newList) {
+      var states = this.states,
+          props = this.props;
+
+      if (newList && !Object(_utils_utils__WEBPACK_IMPORTED_MODULE_1__["isArray"])(newList)) {
+        newList = [newList];
+      }
+
+      states.virtualList = [];
+      states.size = 0;
+      states.virtualMap = Object.create(null); // 
+
+      states.$scroller.scrollTop = 0;
+      this.push(newList);
+      updateTranslateValue(states.$content, 0);
+      this.refresh();
+    }
+  }, {
+    key: "refresh",
+    value: function refresh(force) {
+      var _this2 = this;
+
+      var states = this.states,
+          props = this.props;
+      states.$wrap.style.height = states.size * props.rowHeight + 'px';
+      setTimeout(function () {
+        return render.call(_this2, force);
+      });
+    }
+  }, {
+    key: "push",
+    value: function push(list) {
+      var props = this.props,
+          states = this.states;
+      var size = states.size,
+          virtualList = states.virtualList,
+          virtualMap = states.virtualMap;
+      var count = size;
+
+      if (list !== void 0 && !Object(_utils_utils__WEBPACK_IMPORTED_MODULE_1__["isArray"])(list)) {
+        list = [list];
+      }
+
+      if (Object(_utils_utils__WEBPACK_IMPORTED_MODULE_1__["isArray"])(list)) {
+        var i = -1;
+        var len = list.length;
+
+        while (++i < len) {
+          var index = size + i;
+          var item = list[i];
+          virtualList[index] = item;
+          count++;
+
+          if (Object(_utils_utils__WEBPACK_IMPORTED_MODULE_1__["isPlainObject"])(item) && item[props.key]) {
+            // 记录这条数据在虚拟列表中的位置
+            virtualMap[item[props.key]] = index;
+          }
+        }
+      }
+
+      this.states.size = count;
+    }
+  }, {
+    key: "remove",
+    value: function remove(key) {
+      if (!key) {
+        return;
+      }
+
+      var states = this.states;
+      var size = states.size,
+          virtualList = states.virtualList,
+          virtualMap = states.virtualMap;
+      var index = virtualMap[key];
+      delete virtualMap[key];
+
+      if (index > -1 && index < size) {
+        virtualList.splice(index, 1);
+      }
+
+      states.size = size - 1; // todo update visibileList
+    }
+  }, {
+    key: "update",
+    value: function update(key, data) {
+      if (!key) {
+        return;
+      }
+
+      var states = this.states;
+      var size = states.size,
+          virtualList = states.virtualList,
+          virtualMap = states.virtualMap;
+      var index = virtualMap[key];
+
+      if (index > -1 && index < size) {
+        virtualList.splice(index, 1, data);
+      } // todo update visibileList
+
+    }
+  }, {
+    key: "destroy",
+    value: function destroy() {}
+  }]);
+
+  return VirtualScrollList;
+}(_utils_events__WEBPACK_IMPORTED_MODULE_0__["default"]);
+/* harmony default export */ __webpack_exports__["default"] = (VirtualScrollList);
+
+/***/ }),
+
+>>>>>>> 084085f4a60362c717d3e812e65d2ec59bfa1cef
 /***/ "./src/index.js":
 /*!**********************!*\
   !*** ./src/index.js ***!
@@ -10186,6 +10521,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_color_picker__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./components/color-picker */ "./src/components/color-picker/index.js");
 /* harmony import */ var _components_date_picker__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./components/date-picker */ "./src/components/date-picker/index.js");
 /* harmony import */ var _components_time_picker__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./components/time-picker */ "./src/components/time-picker/index.js");
+<<<<<<< HEAD
+=======
+/* harmony import */ var _components_virtual_scroll_list__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./components/virtual-scroll-list */ "./src/components/virtual-scroll-list/index.js");
+>>>>>>> 084085f4a60362c717d3e812e65d2ec59bfa1cef
 __webpack_require__(/*! ./scss/index.scss */ "./src/scss/index.scss");
 
 
@@ -10206,6 +10545,10 @@ __webpack_require__(/*! ./scss/index.scss */ "./src/scss/index.scss");
 
 
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 084085f4a60362c717d3e812e65d2ec59bfa1cef
 var Nova = Object.create(null);
 Nova.config = {
   lang: 'zh-CN',
@@ -10234,6 +10577,10 @@ Nova.Picker = _components_picker__WEBPACK_IMPORTED_MODULE_14__["default"];
 Nova.ColorPicker = _components_color_picker__WEBPACK_IMPORTED_MODULE_15__["default"];
 Nova.DatePicker = _components_date_picker__WEBPACK_IMPORTED_MODULE_16__["default"];
 Nova.TimePicker = _components_time_picker__WEBPACK_IMPORTED_MODULE_17__["default"];
+<<<<<<< HEAD
+=======
+Nova.VirtualScrollList = _components_virtual_scroll_list__WEBPACK_IMPORTED_MODULE_18__["default"];
+>>>>>>> 084085f4a60362c717d3e812e65d2ec59bfa1cef
 
 function routeChangeDestory() {
   _components_message_box__WEBPACK_IMPORTED_MODULE_11__["default"].destroy();
@@ -10362,7 +10709,11 @@ __webpack_require__.r(__webpack_exports__);
 /*!*******************************!*\
   !*** ./src/utils/constant.js ***!
   \*******************************/
+<<<<<<< HEAD
 /*! exports provided: CLASS_STATES_ACTIVED, CLASS_STATUS_DISABLED, CLASS_STATES_HOVER, CLASS_STATES_FOCUS, CLASS_STATES_HIDE */
+=======
+/*! exports provided: CLASS_STATES_ACTIVED, CLASS_STATUS_DISABLED, CLASS_STATES_HOVER, CLASS_STATES_FOCUS, CLASS_STATES_HIDE, CLASS_STATES_ROLLING */
+>>>>>>> 084085f4a60362c717d3e812e65d2ec59bfa1cef
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -10372,11 +10723,19 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CLASS_STATES_HOVER", function() { return CLASS_STATES_HOVER; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CLASS_STATES_FOCUS", function() { return CLASS_STATES_FOCUS; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CLASS_STATES_HIDE", function() { return CLASS_STATES_HIDE; });
+<<<<<<< HEAD
+=======
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CLASS_STATES_ROLLING", function() { return CLASS_STATES_ROLLING; });
+>>>>>>> 084085f4a60362c717d3e812e65d2ec59bfa1cef
 var CLASS_STATES_ACTIVED = 'nv-actived';
 var CLASS_STATUS_DISABLED = 'nv-disabled';
 var CLASS_STATES_HOVER = 'nv-hover';
 var CLASS_STATES_FOCUS = 'nv-focusin';
 var CLASS_STATES_HIDE = 'nv-hide';
+<<<<<<< HEAD
+=======
+var CLASS_STATES_ROLLING = 'nv-rolling';
+>>>>>>> 084085f4a60362c717d3e812e65d2ec59bfa1cef
 
 /***/ }),
 
