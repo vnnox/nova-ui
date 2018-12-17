@@ -1,11 +1,26 @@
-import Events from '../../utils/events'
-import { isElement, throwError, mixins, isString, isEmpty, isArray, isPlainObject, isNumber } from '../../utils/utils'
-import { qsa, getStyle, bind, reqAnimationFrame, addClass, insertAfter, getScrollParent, getOffsetByParent } from '../../utils/dom'
-import debounce from '../../utils/debounce'
-import { CLASS_STATES_ROLLING } from '../../utils/constant';
+/*
+ * File: index.js
+ * Project: @vnnox/novaui
+ * Description: 虚拟滚动列表，用于长列表滚动，提升滚动性能
+ * Created: 2018-12-17 11:44
+ * Author: smohan (mengxw@novastar.tech)
+ * -----
+ * Last Modified: 2018-12-17 02:31
+ * Modified By: smohan (mengxw@novastar.tech>)
+ * -----
+ * Copyright 2018, NovaStar Tech Co., Ltd
+ */
 
+import Events from '../../utils/events'
+import {
+  isElement, throwError, mixins, isString, isArray, isPlainObject
+} from '../../utils/utils'
+import { qsa, getStyle, bind, reqAnimationFrame, addClass, getScrollParent, getOffsetByParent, unbind, removeNode } from '../../utils/dom'
+
+// ui class name
 const UI_NAME = 'nv-virtual-scroll'
 
+// default config
 const defaults = {
   // [ string | HTMLElement ] rows容器
   content: '.content',
@@ -20,12 +35,21 @@ const defaults = {
 }
 
 
+/**
+ * 更新content的位移
+ * @param {*} el 
+ * @param {*} value 
+ */
 function updateTranslateValue(el, value) {
   el.style.webkitTransform = `translate3d(0, ${value}px, 0)`
   el.style.transform = `translate3d(0, ${value}px, 0)`
 }
 
 
+/**
+ * 更新visible状态
+ * @private
+ */
 function updateVisibleStates() {
   const { props, states } = this
   // 缓存原始margin
@@ -57,6 +81,10 @@ function updateVisibleStates() {
 }
 
 
+/**
+ * 更新Scroll状态
+ * @private
+ */
 function setScrollStates() {
   const { states } = this
   updateVisibleStates.call(this)
@@ -70,12 +98,16 @@ function setScrollStates() {
 }
 
 
+/**
+ * bind dom events
+ * @private
+ */
 function bindEvents() {
   const { props, states } = this
   const handles = states.handles = Object.create(null)
   const self = this
-  handles.scroll = function(event) {
-    reqAnimationFrame(function() {
+  handles.scroll = function (event) {
+    reqAnimationFrame(function () {
       if (!states.rolling) {
         states.rolling = true
         states.$content.style.pointerEvents = 'none'
@@ -90,15 +122,15 @@ function bindEvents() {
       render.call(self)
       if (scrollTop + props.threshold + states.scrollHeight >= scrollHeight) {
         // 触底，加载新数据等
-        self.emit('onBottom', screenTop)
+        self.emit('onBottom', event)
       } else if (scrollTop - props.threshold <= 0) {
         // 触顶
-        self.emit('onTop', screenTop)
+        self.emit('onTop', event)
       }
     }.bind(self, event))
   }
 
-  handles.resize = function() {
+  handles.resize = function () {
     clearTimeout(states.resizeTimer)
     states.resizeTimer = setTimeout(() => {
       updateVisibleStates.call(self)
@@ -111,6 +143,23 @@ function bindEvents() {
 }
 
 
+/**
+ * unbind dom events
+ * @private
+ */
+function unbindEvents() {
+  const { states } = this
+  const handles = states.handles
+  unbind(states.$scroller, 'scroll', handles.scroll)
+  unbind(window, 'resize', handles.resize)
+}
+
+
+/**
+ * render
+ * @param {*} force 
+ * @private
+ */
 function render(force) {
   const { states, props } = this
   const { start: lastStart, end: lastEnd, size, virtualList, visibleNum, offset } = states
@@ -128,7 +177,23 @@ function render(force) {
 }
 
 
+/**
+ * 虚拟滚动列表
+ * @date 2018-12-17
+ * @export
+ * @class VirtualScrollList
+ * @extends {Events}
+ */
 export class VirtualScrollList extends Events {
+
+
+  /**
+   * Creates an instance of VirtualScrollList.
+   * @date 2018-12-17
+   * @param {*} scroller
+   * @param {*} options
+   * @memberof VirtualScrollList
+   */
   constructor(scroller, options) {
     super()
     if (!(this instanceof VirtualScrollList)) {
@@ -162,8 +227,15 @@ export class VirtualScrollList extends Events {
     bindEvents.call(this)
   }
 
+
+  /**
+   * reset list
+   * @date 2018-12-17
+   * @param {*} newList
+   * @memberof VirtualScrollList
+   */
   reset(newList) {
-    const { states, props } = this
+    const { states } = this
     if (newList && !isArray(newList)) {
       newList = [newList]
     }
@@ -177,12 +249,26 @@ export class VirtualScrollList extends Events {
     this.refresh()
   }
 
+
+  /**
+   * refresh dom list
+   * @date 2018-12-17
+   * @param {*} force
+   * @memberof VirtualScrollList
+   */
   refresh(force) {
     const { states, props } = this
     states.$wrap.style.height = states.size * props.rowHeight + 'px'
     setTimeout(() => render.call(this, force))
   }
 
+
+  /**
+   * push list to caches
+   * @date 2018-12-17
+   * @param {*} list
+   * @memberof VirtualScrollList
+   */
   push(list) {
     const { props, states } = this
     const { size, virtualList, virtualMap } = states
@@ -197,6 +283,7 @@ export class VirtualScrollList extends Events {
         let index = size + i
         let item = list[i]
         virtualList[index] = item
+        props.getRowHeight && props.getRowHeight(item)
         count++
         if (isPlainObject(item) && item[props.key]) {
           // 记录这条数据在虚拟列表中的位置
@@ -207,6 +294,13 @@ export class VirtualScrollList extends Events {
     this.states.size = count
   }
 
+
+  /**
+   * remove item from caches
+   * @date 2018-12-17
+   * @param {*} key
+   * @memberof VirtualScrollList
+   */
   remove(key) {
     if (!key) {
       return
@@ -222,6 +316,14 @@ export class VirtualScrollList extends Events {
     // todo update visibileList
   }
 
+
+  /**
+   * update item
+   * @date 2018-12-17
+   * @param {*} key
+   * @param {*} data
+   * @memberof VirtualScrollList
+   */
   update(key, data) {
     if (!key) {
       return
@@ -236,8 +338,22 @@ export class VirtualScrollList extends Events {
   }
 
 
+  /**
+   * destroy
+   * @date 2018-12-17
+   * @memberof VirtualScrollList
+   */
   destroy() {
-
+    const { states } = this
+    unbindEvents.call(this)
+    clearTimeout(states.resizeTimer)
+    clearTimeout(states.scrollTimer)
+    states.$wrap.parentNode.appendChild(states.$content)
+    states.$scroller.classList.remove(UI_NAME)
+    removeNode(states.$wrap)
+    this.states = null
+    this.props = null
+    this._events = null
   }
 
 }

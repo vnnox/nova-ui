@@ -1,5 +1,9 @@
 # VirtualScrollList 虚拟滚动列表
 
+> 在滚动列表中，只渲染视图中可见的数据。
+
+![示例](https://exp-team.github.io/bimg/s3.gif)
+
 ## 使用和示例
 
 ### 基础用法
@@ -42,25 +46,27 @@
     }
   })
 
-  
+  function renderItem (item) {
+    return `
+        <img src="${item.image}">
+        <div class="scroll-demo-item__info">
+          <h3>${item.title}</h3>
+          <p>${item.cparagraph}</p>
+          <p>${item.url}</p>
+        </div>
+      `
+  }
+
   function render (list) {
     var html = ''
     for (var i = 0, len = list.length; i < len; i++) {
       var item = list[i]
-      html += `
-        <div class="scroll-demo-item">
-          <img src="${item.image}">
-          <div class="scroll-demo-item__info">
-            <h3>${item.title}</h3>
-            <p>${item.cparagraph}</p>
-            <p>${item.url}</p>
-          </div>
-        </div>
-      `
+      html += '<div class="scroll-demo-item">'
+      html += renderItem(item)
+      html += '</div>'
     }
     $content.innerHTML = html
   }
-
 
   function getList (page) {
     loading = true
@@ -87,8 +93,6 @@
   }
 
   getList()
-
-
   window.instances.push(ins1)
 </script>  
 ```
@@ -98,47 +102,32 @@
 
 ## API
 
-### Layouts
-
-> 多个元件使用数组或者逗号分隔，元件顺序就是布局顺序
-
-| Name |  Description |
-| ----------- | ----------- | 
-| total |  共 {total} 条, 第{index}/{pages}页 |
-| prev |  上一页按钮 |
-| pager |  数字分页器 |
-| next |  下一页按钮 |
-| sizes |  limit选择器 |
-| jumper |  跳转到page页 |
-
 
 ### Options
 | Attribute   | Description | Type |  Default Values |
 | ----------- | ----------- | ----------- | ----------- |
-| lang | 多语言 | string | -- |
-| total | 总条目数 | number | -- |
-| limit | 每页显示条数 | number | 10 |
-| index | 当前页码 | number | 1 |
-| visible | 可见页码数量。当总页数超过该值时其他页码会隐藏，必须是奇数 | number< 5 - 21> | 5 |
-| ellipsis | 是否显示截断点，当总页码超过visible数时，其他页码会被显示为... | boolean | true |
-| layout | 元件布局,按照原件顺序自动布局 | string<`'total', 'prev', 'pager', 'next', 'sizes', 'jumper'`> | `prev, pager, next` |
-| prevText | 上一页按钮显示文本,默认为箭头 | string | `default` |
-| nextText | 下一页按钮显示文本,默认为箭头 | string | `default` |
-| sizes | limit数选择器，可选的每页显示条目数 | array | `[10, 20, 50, 100]` |
-| customClass | 自定义样式名称，多样式以逗号`,`分隔 | string | -- |
+| content | rows容器 | `<string / HTMLElement>` | `.content` |
+| rowHeight | 每行对的高度，必须固定高度，包括内外边距 | number | 40 |
+| offset | 偏移数，默认实际可见个数，实际渲染数 = visibleNum + offset | number | `auto` |
+| key | 每行数据的唯一标识字段, 用于删除数据或者更新数据时查找 | number | `id` |
+| threshold | 滚动到顶或者滚动到底的阈值 | number | 100 |
+
 
 
 ### Methods
 | Method  | Description | Parameters |
 | ----------- | ----------- | ----------- |
-| setTotal | 设置总记录数 | (total:number) |
-| setIndex | 设置当前页码 | (index:number) |
-| setLimit | 设置每页显示条数 | (limit:number) |
-| destroy | 销毁实例`销毁后，实例将完全不可用` | -- |
+| reset | 重置列表，如搜索列表后导致列表数据完全变化后 | (newList:array) |
+| refresh | 重新渲染当前可视区域，可传入`force:true`强制渲染 | (force:boolean)  |
+| push | 向列表中追加数据 | (data:array / object) |
+| remove | 从列表中移除数据 | (key:string) |
+| update | 更新列表中的数据 | (key:string, data: object) |
+| remove | 销毁实例`销毁后，实例将完全不可用` | -- |
 
 
 ### Events
 
 | Event  | Description | Parameters |
 | ----------- | ----------- | ----------- |
-| change | 当值改变时触发 | (index, limit, pages) |
+| onTop | 当滚动到顶部阈值处时触发 | (event: ScrollEvent) |
+| onBottom | 当滚动到底部阈值处时触发，此时可以做加载新数据的操作 | (event: ScrollEvent) |

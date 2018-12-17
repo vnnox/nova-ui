@@ -10159,8 +10159,6 @@ var noMatchDataTpl = "\n<li class=\"nv-tree__empty no-match\"><%=noMatchDataText
 
 /***/ }),
 
-<<<<<<< HEAD
-=======
 /***/ "./src/components/virtual-scroll-list/index.js":
 /*!*****************************************************!*\
   !*** ./src/components/virtual-scroll-list/index.js ***!
@@ -10174,8 +10172,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _utils_events__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../utils/events */ "./src/utils/events.js");
 /* harmony import */ var _utils_utils__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../utils/utils */ "./src/utils/utils.js");
 /* harmony import */ var _utils_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../utils/dom */ "./src/utils/dom.js");
-/* harmony import */ var _utils_debounce__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../utils/debounce */ "./src/utils/debounce.js");
-/* harmony import */ var _utils_constant__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../utils/constant */ "./src/utils/constant.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -10194,12 +10190,24 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
+/*
+ * File: index.js
+ * Project: @vnnox/novaui
+ * Description: 虚拟滚动列表，用于长列表滚动，提升滚动性能
+ * Created: 2018-12-17 11:44
+ * Author: smohan (mengxw@novastar.tech)
+ * -----
+ * Last Modified: 2018-12-17 02:31
+ * Modified By: smohan (mengxw@novastar.tech>)
+ * -----
+ * Copyright 2018, NovaStar Tech Co., Ltd
+ */
 
 
+ // ui class name
 
+var UI_NAME = 'nv-virtual-scroll'; // default config
 
-
-var UI_NAME = 'nv-virtual-scroll';
 var defaults = {
   // [ string | HTMLElement ] rows容器
   content: '.content',
@@ -10211,12 +10219,23 @@ var defaults = {
   key: 'id',
   // [ number ] 滚动到顶或者滚动到底的阈值
   threshold: 100
+  /**
+   * 更新content的位移
+   * @param {*} el 
+   * @param {*} value 
+   */
+
 };
 
 function updateTranslateValue(el, value) {
   el.style.webkitTransform = "translate3d(0, ".concat(value, "px, 0)");
   el.style.transform = "translate3d(0, ".concat(value, "px, 0)");
 }
+/**
+ * 更新visible状态
+ * @private
+ */
+
 
 function updateVisibleStates() {
   var props = this.props,
@@ -10251,6 +10270,11 @@ function updateVisibleStates() {
 
   states.visibleNum = visibleNum;
 }
+/**
+ * 更新Scroll状态
+ * @private
+ */
+
 
 function setScrollStates() {
   var states = this.states;
@@ -10264,6 +10288,11 @@ function setScrollStates() {
   states.scrollTimer = null;
   states.resizeTimer = null;
 }
+/**
+ * bind dom events
+ * @private
+ */
+
 
 function bindEvents() {
   var props = this.props,
@@ -10289,10 +10318,10 @@ function bindEvents() {
 
       if (scrollTop + props.threshold + states.scrollHeight >= scrollHeight) {
         // 触底，加载新数据等
-        self.emit('onBottom', screenTop);
+        self.emit('onBottom', event);
       } else if (scrollTop - props.threshold <= 0) {
         // 触顶
-        self.emit('onTop', screenTop);
+        self.emit('onTop', event);
       }
     }.bind(self, event));
   };
@@ -10308,6 +10337,24 @@ function bindEvents() {
   Object(_utils_dom__WEBPACK_IMPORTED_MODULE_2__["bind"])(states.$scroller, 'scroll', handles.scroll);
   Object(_utils_dom__WEBPACK_IMPORTED_MODULE_2__["bind"])(window, 'resize', handles.resize);
 }
+/**
+ * unbind dom events
+ * @private
+ */
+
+
+function unbindEvents() {
+  var states = this.states;
+  var handles = states.handles;
+  Object(_utils_dom__WEBPACK_IMPORTED_MODULE_2__["unbind"])(states.$scroller, 'scroll', handles.scroll);
+  Object(_utils_dom__WEBPACK_IMPORTED_MODULE_2__["unbind"])(window, 'resize', handles.resize);
+}
+/**
+ * render
+ * @param {*} force 
+ * @private
+ */
+
 
 function render(force) {
   var states = this.states,
@@ -10330,12 +10377,27 @@ function render(force) {
     updateTranslateValue(states.$content, start * props.rowHeight);
   }
 }
+/**
+ * 虚拟滚动列表
+ * @date 2018-12-17
+ * @export
+ * @class VirtualScrollList
+ * @extends {Events}
+ */
+
 
 var VirtualScrollList =
 /*#__PURE__*/
 function (_Events) {
   _inherits(VirtualScrollList, _Events);
 
+  /**
+   * Creates an instance of VirtualScrollList.
+   * @date 2018-12-17
+   * @param {*} scroller
+   * @param {*} options
+   * @memberof VirtualScrollList
+   */
   function VirtualScrollList(scroller, options) {
     var _this;
 
@@ -10379,12 +10441,18 @@ function (_Events) {
     bindEvents.call(_assertThisInitialized(_assertThisInitialized(_this)));
     return _this;
   }
+  /**
+   * reset list
+   * @date 2018-12-17
+   * @param {*} newList
+   * @memberof VirtualScrollList
+   */
+
 
   _createClass(VirtualScrollList, [{
     key: "reset",
     value: function reset(newList) {
-      var states = this.states,
-          props = this.props;
+      var states = this.states;
 
       if (newList && !Object(_utils_utils__WEBPACK_IMPORTED_MODULE_1__["isArray"])(newList)) {
         newList = [newList];
@@ -10399,6 +10467,13 @@ function (_Events) {
       updateTranslateValue(states.$content, 0);
       this.refresh();
     }
+    /**
+     * refresh dom list
+     * @date 2018-12-17
+     * @param {*} force
+     * @memberof VirtualScrollList
+     */
+
   }, {
     key: "refresh",
     value: function refresh(force) {
@@ -10411,6 +10486,13 @@ function (_Events) {
         return render.call(_this2, force);
       });
     }
+    /**
+     * push list to caches
+     * @date 2018-12-17
+     * @param {*} list
+     * @memberof VirtualScrollList
+     */
+
   }, {
     key: "push",
     value: function push(list) {
@@ -10433,6 +10515,7 @@ function (_Events) {
           var index = size + i;
           var item = list[i];
           virtualList[index] = item;
+          props.getRowHeight && props.getRowHeight(item);
           count++;
 
           if (Object(_utils_utils__WEBPACK_IMPORTED_MODULE_1__["isPlainObject"])(item) && item[props.key]) {
@@ -10444,6 +10527,13 @@ function (_Events) {
 
       this.states.size = count;
     }
+    /**
+     * remove item from caches
+     * @date 2018-12-17
+     * @param {*} key
+     * @memberof VirtualScrollList
+     */
+
   }, {
     key: "remove",
     value: function remove(key) {
@@ -10464,6 +10554,14 @@ function (_Events) {
 
       states.size = size - 1; // todo update visibileList
     }
+    /**
+     * update item
+     * @date 2018-12-17
+     * @param {*} key
+     * @param {*} data
+     * @memberof VirtualScrollList
+     */
+
   }, {
     key: "update",
     value: function update(key, data) {
@@ -10482,9 +10580,26 @@ function (_Events) {
       } // todo update visibileList
 
     }
+    /**
+     * destroy
+     * @date 2018-12-17
+     * @memberof VirtualScrollList
+     */
+
   }, {
     key: "destroy",
-    value: function destroy() {}
+    value: function destroy() {
+      var states = this.states;
+      unbindEvents.call(this);
+      clearTimeout(states.resizeTimer);
+      clearTimeout(states.scrollTimer);
+      states.$wrap.parentNode.appendChild(states.$content);
+      states.$scroller.classList.remove(UI_NAME);
+      Object(_utils_dom__WEBPACK_IMPORTED_MODULE_2__["removeNode"])(states.$wrap);
+      this.states = null;
+      this.props = null;
+      this._events = null;
+    }
   }]);
 
   return VirtualScrollList;
@@ -10493,7 +10608,6 @@ function (_Events) {
 
 /***/ }),
 
->>>>>>> 084085f4a60362c717d3e812e65d2ec59bfa1cef
 /***/ "./src/index.js":
 /*!**********************!*\
   !*** ./src/index.js ***!
@@ -10521,10 +10635,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_color_picker__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./components/color-picker */ "./src/components/color-picker/index.js");
 /* harmony import */ var _components_date_picker__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./components/date-picker */ "./src/components/date-picker/index.js");
 /* harmony import */ var _components_time_picker__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./components/time-picker */ "./src/components/time-picker/index.js");
-<<<<<<< HEAD
-=======
 /* harmony import */ var _components_virtual_scroll_list__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./components/virtual-scroll-list */ "./src/components/virtual-scroll-list/index.js");
->>>>>>> 084085f4a60362c717d3e812e65d2ec59bfa1cef
 __webpack_require__(/*! ./scss/index.scss */ "./src/scss/index.scss");
 
 
@@ -10545,10 +10656,7 @@ __webpack_require__(/*! ./scss/index.scss */ "./src/scss/index.scss");
 
 
 
-<<<<<<< HEAD
-=======
 
->>>>>>> 084085f4a60362c717d3e812e65d2ec59bfa1cef
 var Nova = Object.create(null);
 Nova.config = {
   lang: 'zh-CN',
@@ -10577,10 +10685,7 @@ Nova.Picker = _components_picker__WEBPACK_IMPORTED_MODULE_14__["default"];
 Nova.ColorPicker = _components_color_picker__WEBPACK_IMPORTED_MODULE_15__["default"];
 Nova.DatePicker = _components_date_picker__WEBPACK_IMPORTED_MODULE_16__["default"];
 Nova.TimePicker = _components_time_picker__WEBPACK_IMPORTED_MODULE_17__["default"];
-<<<<<<< HEAD
-=======
 Nova.VirtualScrollList = _components_virtual_scroll_list__WEBPACK_IMPORTED_MODULE_18__["default"];
->>>>>>> 084085f4a60362c717d3e812e65d2ec59bfa1cef
 
 function routeChangeDestory() {
   _components_message_box__WEBPACK_IMPORTED_MODULE_11__["default"].destroy();
@@ -10709,11 +10814,7 @@ __webpack_require__.r(__webpack_exports__);
 /*!*******************************!*\
   !*** ./src/utils/constant.js ***!
   \*******************************/
-<<<<<<< HEAD
-/*! exports provided: CLASS_STATES_ACTIVED, CLASS_STATUS_DISABLED, CLASS_STATES_HOVER, CLASS_STATES_FOCUS, CLASS_STATES_HIDE */
-=======
 /*! exports provided: CLASS_STATES_ACTIVED, CLASS_STATUS_DISABLED, CLASS_STATES_HOVER, CLASS_STATES_FOCUS, CLASS_STATES_HIDE, CLASS_STATES_ROLLING */
->>>>>>> 084085f4a60362c717d3e812e65d2ec59bfa1cef
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -10723,19 +10824,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CLASS_STATES_HOVER", function() { return CLASS_STATES_HOVER; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CLASS_STATES_FOCUS", function() { return CLASS_STATES_FOCUS; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CLASS_STATES_HIDE", function() { return CLASS_STATES_HIDE; });
-<<<<<<< HEAD
-=======
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CLASS_STATES_ROLLING", function() { return CLASS_STATES_ROLLING; });
->>>>>>> 084085f4a60362c717d3e812e65d2ec59bfa1cef
 var CLASS_STATES_ACTIVED = 'nv-actived';
 var CLASS_STATUS_DISABLED = 'nv-disabled';
 var CLASS_STATES_HOVER = 'nv-hover';
 var CLASS_STATES_FOCUS = 'nv-focusin';
 var CLASS_STATES_HIDE = 'nv-hide';
-<<<<<<< HEAD
-=======
 var CLASS_STATES_ROLLING = 'nv-rolling';
->>>>>>> 084085f4a60362c717d3e812e65d2ec59bfa1cef
 
 /***/ }),
 

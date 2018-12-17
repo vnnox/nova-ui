@@ -323,13 +323,9 @@ var ColorPicker = __webpack_require__(/*! ../docs/components/color-picker.md */ 
 
 var DatePicker = __webpack_require__(/*! ../docs/components/date-picker.md */ "./examples/docs/components/date-picker.md");
 
-<<<<<<< HEAD
-var TimePicker = __webpack_require__(/*! ../docs/components/time-picker.md */ "./examples/docs/components/time-picker.md"); // Vue
-=======
 var TimePicker = __webpack_require__(/*! ../docs/components/time-picker.md */ "./examples/docs/components/time-picker.md");
 
-var ScrollLoad = __webpack_require__(/*! ../docs/components/scroll-load.md */ "./examples/docs/components/scroll-load.md"); // Vue
->>>>>>> 084085f4a60362c717d3e812e65d2ec59bfa1cef
+var VirtualScrollList = __webpack_require__(/*! ../docs/components/virtual-scroll-list.md */ "./examples/docs/components/virtual-scroll-list.md"); // Vue
 
 
 var RadioVue = __webpack_require__(/*! ../docs/components/vue/radio.md */ "./examples/docs/components/vue/radio.md");
@@ -368,11 +364,6 @@ var DatePickerVue = __webpack_require__(/*! ../docs/components/vue/date-picker.m
 
 var TimePickerVue = __webpack_require__(/*! ../docs/components/vue/time-picker.md */ "./examples/docs/components/vue/time-picker.md");
 
-<<<<<<< HEAD
-=======
-var ScrollLoadVue = __webpack_require__(/*! ../docs/components/vue/scroll-load.md */ "./examples/docs/components/vue/scroll-load.md");
-
->>>>>>> 084085f4a60362c717d3e812e65d2ec59bfa1cef
 var $contianerNative = document.getElementById('container-native');
 var $contianerVue = document.getElementById('container-vue');
 var $tabWrap = document.getElementById('doc-tabs');
@@ -553,14 +544,9 @@ router.set('/').set('/icon', setPage({
 }, 'Select', runScript)).set('/pagination', setPage({
   native: Pagination,
   vue: PaginationVue
-<<<<<<< HEAD
-}, 'Pagination', runScript)).set('/slider', setPage({
-=======
-}, 'Pagination', runScript)).set('/scroll-load', setPage({
-  native: ScrollLoad,
-  vue: ScrollLoadVue
-}, 'ScrollLoadVue', runScript)).set('/slider', setPage({
->>>>>>> 084085f4a60362c717d3e812e65d2ec59bfa1cef
+}, 'Pagination', runScript)).set('/virtual-scroll-list', setPage({
+  native: VirtualScrollList
+}, 'VirtualScrollList', runScript)).set('/slider', setPage({
   native: Slider,
   vue: SliderVue
 }, 'Slider', runScript)).set('/tag', setPage({

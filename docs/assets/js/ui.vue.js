@@ -12922,11 +12922,7 @@ __webpack_require__.r(__webpack_exports__);
 /*!*******************************!*\
   !*** ./src/utils/constant.js ***!
   \*******************************/
-<<<<<<< HEAD
-/*! exports provided: CLASS_STATES_ACTIVED, CLASS_STATUS_DISABLED, CLASS_STATES_HOVER, CLASS_STATES_FOCUS, CLASS_STATES_HIDE */
-=======
 /*! exports provided: CLASS_STATES_ACTIVED, CLASS_STATUS_DISABLED, CLASS_STATES_HOVER, CLASS_STATES_FOCUS, CLASS_STATES_HIDE, CLASS_STATES_ROLLING */
->>>>>>> 084085f4a60362c717d3e812e65d2ec59bfa1cef
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -12936,19 +12932,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CLASS_STATES_HOVER", function() { return CLASS_STATES_HOVER; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CLASS_STATES_FOCUS", function() { return CLASS_STATES_FOCUS; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CLASS_STATES_HIDE", function() { return CLASS_STATES_HIDE; });
-<<<<<<< HEAD
-=======
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CLASS_STATES_ROLLING", function() { return CLASS_STATES_ROLLING; });
->>>>>>> 084085f4a60362c717d3e812e65d2ec59bfa1cef
 var CLASS_STATES_ACTIVED = 'nv-actived';
 var CLASS_STATUS_DISABLED = 'nv-disabled';
 var CLASS_STATES_HOVER = 'nv-hover';
 var CLASS_STATES_FOCUS = 'nv-focusin';
 var CLASS_STATES_HIDE = 'nv-hide';
-<<<<<<< HEAD
-=======
 var CLASS_STATES_ROLLING = 'nv-rolling';
->>>>>>> 084085f4a60362c717d3e812e65d2ec59bfa1cef
 
 /***/ }),
 
