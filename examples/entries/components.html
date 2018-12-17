@@ -77,6 +77,9 @@
             <a href="#/pagination">Pagination <small>分页器</small></a>
           </li>
           <li class="nav-group__item">
+            <a href="#/virtual-scroll-list">VirtualScrollList <small>滚动加载器</small></a>
+          </li>
+          <li class="nav-group__item">
             <a href="#/tree">Tree <small>树</small></a>
           </li>
           <li class="nav-group__item">
@@ -134,12 +137,12 @@
   <script>
     var $tabs = document.querySelectorAll('.doc-tabs__item')
     var $panels = document.querySelectorAll('.doc-panel')
-    $tabs.forEach(function (tab) {
-      tab.addEventListener('click', function () {
-        $tabs.forEach(function (_tab) {
+    $tabs.forEach(function(tab) {
+      tab.addEventListener('click', function() {
+        $tabs.forEach(function(_tab) {
           _tab.classList.remove('doc-tabs--actived')
         })
-        $panels.forEach(function (panel) {
+        $panels.forEach(function(panel) {
           panel.classList.remove('doc-panel--actived')
         })
         tab.classList.add('doc-tabs--actived')
