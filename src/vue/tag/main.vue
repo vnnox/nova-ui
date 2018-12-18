@@ -50,6 +50,7 @@
     methods: {
       remove() {
         this.visible = false
+        this.$emit('remove')
       }
     }
   }

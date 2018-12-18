@@ -106,7 +106,15 @@ function render() {
   states.$confirm = qsa(Selectors.confirm, $el)[0]
   states.$cancel = qsa(Selectors.cancel, $el)[0]
 
-  states.$content[props.asHtml ? 'innerHTML' : 'textContent'] = (props.content || '').toString()
+  if (props.asHtml) {
+    if (isElement(props.content)) {
+      states.$content.appendChild(props.content)
+    } else {
+      states.$content.innerHTML = (props.content || '').toString()
+    }
+  } else {
+    states.$content.textContent = (props.content || '').toString()
+  }
 
   initPickerInstance.call(this)
   bindEvents.call(this)

@@ -43,6 +43,11 @@
         alert ('Confirm')
         this.visible = false
       }
+    },
+    watch: {
+      visible(val) {
+        console.log(val)
+      }
     }
   }
 </script>  

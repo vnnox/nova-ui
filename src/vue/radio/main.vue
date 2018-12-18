@@ -28,9 +28,9 @@
       }
     },
     methods: {
-      change() {
+      change(e) {
         this.$emit('input', this.val)
-        this.$emit('change', this.val)
+        this.$emit('change', this.val, e)
       }
     },
     watch: {

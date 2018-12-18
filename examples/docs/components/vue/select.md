@@ -42,6 +42,11 @@
         value: '001',
         value2: '00853'
       }
+    },
+    watch: {
+      value () {
+        console.log(this.value)
+      }
     }
   }
 </script>  

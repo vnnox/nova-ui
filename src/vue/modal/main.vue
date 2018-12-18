@@ -40,11 +40,12 @@
     data() {
       return {
         instance: null,
+        visible: this.value
       }
     },
     mounted() {
       const props = this.$props
-      props.visible = !!props.value
+      props.visible = this.visible
       props.content = this.$refs['content'] || ''
       props.footSlot = this.$refs['foot'] || null
       props.btns = this.$refs['btns'] || null
@@ -52,20 +53,25 @@
       this.instance = new Modal(props)
       this.instance
       .on('open', $el => {
+        this.visible = true
         this.$emit('open', $el)
         this.$emit('input', true)
       })
       .on('close', (type, $el) => {
+        this.visible = false
         this.$emit('close', type, $el)
         this.$emit('input', false)
       })
     },
     watch: {
-      value(val) {
-        if (val && this.instance) {
-          this.instance.open()
-        } else {
-          this.instance.close()
+      value(val, oldVal) {
+        if (val !== oldVal) {
+          this.visible = val
+          if (val && this.instance) {
+            this.instance.open()
+          } else {
+            this.instance.close()
+          }
         }
       }
     },
@@ -78,8 +84,12 @@
       }
     },
     beforeDestroy() {
-      this.instance && this.instance.destroy()
-      this.$nextTick(() => this.instance = null)
+      try {
+        this.instance && this.instance.destroy()
+        this.$nextTick(() => this.instance = null)
+      } catch (error) {
+        
+      }
     }
   }
 </script>
