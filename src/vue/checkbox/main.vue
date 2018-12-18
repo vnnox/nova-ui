@@ -1,5 +1,5 @@
 <template>
-  <label class="nv-checkbox" role="checkbox" :tabindex="disabled ? -1 : 0">
+  <label class="nv-checkbox" :class="{'nv-checkbox--indeterminate': indeterminate && !val}" role="checkbox" :tabindex="disabled ? -1 : 0">
     <input type="checkbox" :name="name" :value="label" v-model="val" :disabled="disabled" @change="change">
     <span class="nv-checkbox__label" v-if="$slots.before"><slot name="before"></slot></span>
     <i class="nv-checkbox__icon"></i>
@@ -16,7 +16,8 @@
         required: true
       },
       name: String,
-      disabled: Boolean
+      disabled: Boolean,
+      indeterminate: Boolean
     },
     data() {
       return {
@@ -24,9 +25,9 @@
       }
     },
     methods: {
-      change() {
+      change(e) {
         this.$emit('input', this.val)
-        this.$emit('change', this.val)
+        this.$emit('change', this.val, e)
       }
     },
     watch: {

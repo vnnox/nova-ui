@@ -67,7 +67,10 @@
       .on('close', () => this.$emit('close'))
       .on('focus', event => this.$emit('focus', event))
       .on('blur', event => this.$emit('blur', event))
-      .on('change', (value, options) => this.$emit('change', value, options))
+      .on('change', (value, options) => {
+        this.$emit('change', value, options)
+        this.$emit('input', value)
+      })
     },
 
     beforeDestroy() {
