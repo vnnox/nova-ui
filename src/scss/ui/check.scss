@@ -107,12 +107,14 @@
 .nv-check-group {
   font-size: 0;
   user-select: none;
+  padding-left: 1px;
 
   .nv-check-item {
     margin: 0;
     display: inline-block;
     outline: 0;
     font-size: $font-size-base;
+    margin-left: -1px;
 
     .nv-check__btn {
       position: relative;
@@ -133,9 +135,9 @@
       border-bottom-left-radius: 0;
     }
 
-    &:not(:first-child) {
-      margin-left: -1px;
-    }
+    // &:not(:first-child) {
+    //   margin-left: -1px;
+    // }
 
     input[type="checkbox"],
     input[type="radio"] {
