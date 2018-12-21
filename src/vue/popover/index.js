@@ -3,7 +3,11 @@ import Popover from '../../components/popover'
 
 function createPopover (el, modifiers, options) {
   options = options || {}
-  el.$__popover && el.$__popover.destroy()
+  if (el.$__popover) {
+    el.$__popover.destroy()
+    el.$__popover = null
+    delete el.$__popover
+  }
   if (!options.trigger) {
     let trigger
     if (modifiers.click) {
@@ -34,7 +38,11 @@ export const PopoverDirective = {
   },
 
   unbind(el) {
-    el.$__popover && el.$__popover.destroy()
+    if (el.$__popover) {
+      el.$__popover.destroy()
+      el.$__popover = null
+      delete el.$__popover
+    }
   },
 
 }

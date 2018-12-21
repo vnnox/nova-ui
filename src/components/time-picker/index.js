@@ -13,7 +13,7 @@
 
 import { Events } from '../../utils/events'
 import template from '../../utils/template'
-import { addClass, qsa, bind, scrollTo, getElScrollbarWidth, proxy, getIndex, reqAnimationFrame, unbind } from '../../utils/dom'
+import { addClass, qsa, bind, scrollTo, getElScrollbarWidth, proxy, getIndex, reqAnimationFrame, unbind, getSize } from '../../utils/dom'
 import Picker from '../picker'
 import { isElement, throwError, mixins } from '../../utils/utils'
 import { pad, parseDate, compareTwoTime, formatDate } from '../date-picker/utils'
@@ -48,7 +48,11 @@ const defaults = {
   // [ boolean ] 显示取消按钮
   cancel: false,
   // [ boolean ] 显示确定按钮
-  confirm: false
+  confirm: false,
+  // Picker宽度
+  width: 160,
+  // 行高
+  itemHeight: 32
 }
 
 // selectors
@@ -196,6 +200,16 @@ function initPickerInstance() {
   })
   states.pickerInstance
     .on('open', () => {
+      let targetWidth = states.$target.offsetWidth
+      let width
+      if (props.width === 'auto') {
+        width = targetWidth
+      } else if (props.width) {
+        width = getSize(props.width)
+      }
+      width = Math.max(150, width)
+      states.$el.style.width = width + 'px'
+
       states.pickeOpened = true
       // 打开时重新设定当前值
       states.value = states.bindValue
@@ -222,6 +236,7 @@ function initPickerInstance() {
  * @param {*} type 
  */
 function handleWrapScroll(type) {
+  const { props } = this
   const $scroller = this.states[`$${type}`]
   let ticking = $scroller.ticking
   const self = this
@@ -229,7 +244,7 @@ function handleWrapScroll(type) {
     reqAnimationFrame(function () {
       $scroller.ticking = false
       const scrollTop = $scroller.scrollTop
-      let value = Math.min(Math.floor(scrollTop / 32), type === 'hour' ? 23 : 59)
+      let value = Math.min(Math.floor(scrollTop / props.itemHeight), type === 'hour' ? 23 : 59)
       if (isDisabledItem.call(self, type, value)) {
         return
       }
@@ -247,10 +262,11 @@ function handleWrapScroll(type) {
  * @param {*} type 
  */
 function handleAdjustScroll(type) {
+  const { props } = this
   const $scroller = this.states[`$${type}`]
   const scrollTop = $scroller.scrollTop
-  let value = Math.min(Math.floor(scrollTop / 32), type === 'hour' ? 23 : 59)
-  scrollTo($scroller, value * 32, 60)
+  let value = Math.min(Math.floor(scrollTop / props.itemHeight), type === 'hour' ? 23 : 59)
+  scrollTo($scroller, value * props.itemHeight, 60)
 }
 
 
@@ -372,7 +388,7 @@ function handleKeydown(event) {
  * @param {*} value 
  */
 function setMapByKeydownEvent(type, value) {
-  const { states } = this
+  const { states, props } = this
   let part = states.focusPanelType
   let map = states.map
   value = value === void 0 ? map[part] : value
@@ -389,7 +405,7 @@ function setMapByKeydownEvent(type, value) {
   }
   map[part] = value
 
-  scrollTo(states[`$${part}`], value * 32, 0)
+  scrollTo(states[`$${part}`], value * props.itemHeight, 0)
 }
 
 
@@ -631,10 +647,10 @@ function toggleItemsStatus(type) {
  * @private
  */
 function autoScroll() {
-  const { states } = this
-  states.useHour && scrollTo(states.$hour, states.map.hour * 32, 0)
-  states.useMinute && scrollTo(states.$minute, states.map.minute * 32, 0)
-  states.useSecond && scrollTo(states.$second, states.map.second * 32, 0)
+  const { states, props } = this
+  states.useHour && scrollTo(states.$hour, states.map.hour * props.itemHeight, 0)
+  states.useMinute && scrollTo(states.$minute, states.map.minute * props.itemHeight, 0)
+  states.useSecond && scrollTo(states.$second, states.map.second * props.itemHeight, 0)
 }
 
 

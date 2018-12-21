@@ -7,12 +7,18 @@ import { isElement } from '../../utils/utils'
  * @param {*} modifiers 
  * @param {*} value 
  */
-function createLoader (el, modifiers, value) {
-  let $container = el 
+function createLoader(el, modifiers, value) {
+  let $container = el
   if (modifiers.fullscreen) {
     $container = document.body
   }
-  el.$nv__loader && el.$nv__loader.close()
+
+  if (el.$nv__loader) {
+    el.$nv__loader.close()
+    el.$nv__loader = null
+    delete el.$nv__loader
+  }
+
   if (value) {
     let options = {}
     if (modifiers.lock) {
@@ -38,7 +44,7 @@ export const directive = {
     createLoader(el, modifiers, value)
   },
 
-  update (el, binding) {
+  update(el, binding) {
     let { modifiers, value } = binding
     createLoader(el, modifiers, value)
   },
@@ -46,6 +52,8 @@ export const directive = {
   unbind(el) {
     if (el.$nv__loader) {
       el.$nv__loader.close()
+      el.$nv__loader = null
+      delete el.$nv__loader
     }
   }
 }
@@ -53,14 +61,13 @@ export const directive = {
 
 export default {
   directive,
-  Loader (options) {
+  Loader(options) {
     options = options || {}
-    let $container = options.target 
+    let $container = options.target
     if (!$container || !isElement($container)) {
       $container = document.body
     }
-    delete options.target 
-
+    delete options.target
     return new Loader($container, options)
   }
 }

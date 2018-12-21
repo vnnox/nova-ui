@@ -38,7 +38,9 @@
         }
       },
       cancel: Boolean,
-      confirm: Boolean
+      confirm: Boolean,
+      width: [String, Number],
+      itemHeight: String
     },
     data() {
       return {
