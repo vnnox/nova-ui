@@ -2,15 +2,16 @@
   position: relative;
   user-select: none;
   overflow: hidden;
-  width: 172px;
+  width: 160px;
 
   .nv-time-picker__body {
     display: flex;
     flex-flow: row nowrap;
     position: relative;
-    height: 192px;
-    margin: 10px;
-    border: 1px solid $color-line;
+    height: 160px;
+    // margin: 10px;
+    // border: 1px solid $color-line;
+    margin: 5px 0;
 
     &::before,
     &::after {
@@ -82,7 +83,7 @@
       content: '';
       display: block;
       width: 100%;
-      height: 80px;
+      height: 64px;
     }
   }
 
@@ -102,7 +103,6 @@
     &.nv-actived {
       color: $color-primary;
       font-weight: bold;
-      font-size: 14px;
     }
 
     &.nv-disabled {
@@ -113,8 +113,9 @@
 
   .nv-time-picker__foot {
     margin-top: -2px;
-    padding: 0 10px 8px 10px;
+    padding: 6px 10px 8px 10px;
     text-align: right;
+    border-top: 1px solid $color-line;
 
     .nv-btn {
       margin-left: 10px;
