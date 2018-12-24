@@ -591,13 +591,13 @@ export class Pagination extends Events {
    * @public
    * @memberof Pagination
    */
-  setIndex(index) {
+  setIndex(index, emit = true) {
     let oldIndex = this.states.index
     updateStates.call(this, {
       index
     })
     updateDom.call(this)
-    if (oldIndex !== this.states.index) {
+    if (emit && oldIndex !== this.states.index) {
       this.emit('change', this.states.index, this.states.limit, this.states.pages)
     }
   }
@@ -611,7 +611,7 @@ export class Pagination extends Events {
    * @public
    * @memberof Pagination
    */
-  setLimit(limit) {
+  setLimit(limit, emit = true) {
     const { states } = this
     let oldLimit = states.limit
     updateStates.call(this, {
@@ -638,7 +638,10 @@ export class Pagination extends Events {
       }
       states.limitSelectIns.setValue(limit)
     }
-    this.emit('change', this.states.index, this.states.limit, this.states.pages)
+    
+    if (emit) {
+      this.emit('change', this.states.index, this.states.limit, this.states.pages)
+    }
   }
 
 
