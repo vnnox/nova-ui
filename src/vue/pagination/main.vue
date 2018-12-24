@@ -38,12 +38,12 @@
       },
       index (val, oldVal) {
         if (val !== oldVal) {
-          this.instance.setIndex(val)
+          this.instance.setIndex(val, false)
         }
       },
       limit (val, oldVal) {
         if (val !== oldVal) {
-          this.instance.setLimit(val)
+          this.instance.setLimit(val, false)
         }
       }
     },
