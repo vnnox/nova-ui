@@ -1,9 +1,9 @@
 @font-face {
   font-family: 'Nova';
   src:
-    url('fonts/Nova.ttf?2s5xzz') format('truetype'),
-    url('fonts/Nova.woff?2s5xzz') format('woff'),
-    url('fonts/Nova.svg?2s5xzz#Nova') format('svg');
+    url('fonts/Nova.ttf?b0y7v8') format('truetype'),
+    url('fonts/Nova.woff?b0y7v8') format('woff'),
+    url('fonts/Nova.svg?b0y7v8#Nova') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -23,6 +23,33 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.nv-icon-care:before {
+  content: "\e902";
+}
+.nv-icon-doc-help:before {
+  content: "\e903";
+}
+.nv-icon-menu:before {
+  content: "\e904";
+}
+.nv-icon-mall:before {
+  content: "\e905";
+}
+.nv-icon-menu-add:before {
+  content: "\e907";
+}
+.nv-icon-email:before {
+  content: "\e909";
+}
+.nv-icon-bell:before {
+  content: "\e95b";
+}
+.nv-icon-language:before {
+  content: "\e95c";
+}
+.nv-icon-user:before {
+  content: "\e95d";
+}
 .nv-icon-check:before {
   content: "\e90a";
 }
@@ -128,12 +155,6 @@
 .nv-icon-release:before {
   content: "\e944";
 }
-.nv-icon-user:before {
-  content: "\e902";
-}
-.nv-icon-bell:before {
-  content: "\e909";
-}
 .nv-icon-server-add:before {
   content: "\e941";
 }
@@ -230,24 +251,6 @@
 .nv-icon-flow:before {
   content: "\e92d";
 }
-.nv-icon-mall-en:before {
-  content: "\e903";
-}
-.nv-icon-mall-cn:before {
-  content: "\e904";
-}
-.nv-icon-doc-help:before {
-  content: "\e905";
-}
-.nv-icon-global:before {
-  content: "\e906";
-}
-.nv-icon-email:before {
-  content: "\e907";
-}
-.nv-icon-menu-set:before {
-  content: "\e908";
-}
 .nv-icon-help:before {
   content: "\e910";
 }
@@ -277,9 +280,6 @@
 }
 .nv-icon-filter:before {
   content: "\e919";
-}
-.nv-icon-menu:before {
-  content: "\e91a";
 }
 .nv-icon-list:before {
   content: "\e91b";
