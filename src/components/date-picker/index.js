@@ -815,7 +815,7 @@ export class DatePicker extends Events {
     let disabled = false
     if (props.disabledDate) {
       // 只有返回true的情况下才认为禁用
-      disabled = props.disabledDate(date) === true
+      disabled = props.disabledDate(date, states.view) === true
     }
     if (disabled) {
       return true
