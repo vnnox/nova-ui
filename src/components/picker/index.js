@@ -314,10 +314,12 @@ export class Picker extends Events {
 
     $picker.style.zIndex = Popup.nextZIndex()
     $picker.style.visibility = 'hidden'
+    $picker.style.position = 'fixed'
     $picker.style.display = 'block'
     states.visible = true
     setPosition.call(this)
     $picker.style.visibility = null
+    $picker.style.position = null
     this.emit('open', $picker)
   }
 
