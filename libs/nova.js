@@ -1,5 +1,5 @@
 /*!
- * nova.vue.js v1.2.0
+ * nova.vue.js v1.2.1
  * Author: smohan (mengxw@novastar.tech)
  * Copyright 2018, NovaStar Tech Co., Ltd
  */
