@@ -27,6 +27,84 @@
   @extend .icon-font;
 }
 
+.nv-icon-zoom-in:before {
+  content: "\e910";
+}
+.nv-icon-zoom-out:before {
+  content: "\e911";
+}
+.nv-icon-search:before {
+  content: "\e912";
+}
+.nv-icon-info:before {
+  content: "\e913";
+}
+.nv-icon-warning:before {
+  content: "\e914";
+}
+.nv-icon-help:before {
+  content: "\e915";
+}
+.nv-icon-copy:before {
+  content: "\e916";
+}
+.nv-icon-menu-set:before {
+  content: "\e917";
+}
+.nv-icon-filter:before {
+  content: "\e918";
+}
+.nv-icon-cart:before {
+  content: "\e919";
+}
+.nv-icon-list:before {
+  content: "\e91a";
+}
+.nv-icon-upload:before {
+  content: "\e91b";
+}
+.nv-icon-export:before {
+  content: "\e91c";
+}
+.nv-icon-move:before {
+  content: "\e91d";
+}
+.nv-icon-download:before {
+  content: "\e91e";
+}
+.nv-icon-gear:before {
+  content: "\e91f";
+}
+.nv-icon-refresh:before {
+  content: "\e920";
+}
+.nv-icon-count:before {
+  content: "\e921";
+}
+.nv-icon-add:before {
+  content: "\e922";
+}
+.nv-icon-info-square:before {
+  content: "\e924";
+}
+.nv-icon-yuan:before {
+  content: "\e926";
+}
+.nv-icon-eye:before {
+  content: "\e927";
+}
+.nv-icon-edit:before {
+  content: "\e928";
+}
+.nv-icon-delete:before {
+  content: "\e923";
+}
+.nv-icon-fullscreen:before {
+  content: "\e929";
+}
+.nv-icon-release-line:before {
+  content: "\e94d";
+}
 .nv-icon-care:before {
   content: "\e902";
 }
@@ -89,6 +167,12 @@
 }
 .nv-icon-arrow-d-right:before {
   content: "\e93e";
+}
+.nv-icon-arrow-d-top:before {
+  content: "\e906";
+}
+.nv-icon-arrow-d-bottom:before {
+  content: "\e908";
 }
 .nv-icon-font-color:before {
   content: "\e942";
@@ -192,12 +276,6 @@
 .nv-icon-player-log:before {
   content: "\e950";
 }
-.nv-icon-pack-up:before {
-  content: "\e94d";
-}
-.nv-icon-spread:before {
-  content: "\e958";
-}
 .nv-icon-vert-center:before {
   content: "\e951";
 }
@@ -221,9 +299,6 @@
 }
 .nv-icon-hori-fill:before {
   content: "\e97c";
-}
-.nv-icon-dustbin:before {
-  content: "\e966";
 }
 .nv-icon-clear:before {
   content: "\e964";
@@ -255,78 +330,6 @@
 .nv-icon-flow:before {
   content: "\e92d";
 }
-.nv-icon-help:before {
-  content: "\e910";
-}
-.nv-icon-warning:before {
-  content: "\e911";
-}
-.nv-icon-info:before {
-  content: "\e912";
-}
-.nv-icon-count:before {
-  content: "\e913";
-}
-.nv-icon-info-square:before {
-  content: "\e914";
-}
-.nv-icon-cart:before {
-  content: "\e915";
-}
-.nv-icon-yuan:before {
-  content: "\e916";
-}
-.nv-icon-refresh:before {
-  content: "\e917";
-}
-.nv-icon-eye:before {
-  content: "\e918";
-}
-.nv-icon-filter:before {
-  content: "\e919";
-}
-.nv-icon-list:before {
-  content: "\e91b";
-}
-.nv-icon-download:before {
-  content: "\e91c";
-}
-.nv-icon-fullscreen:before {
-  content: "\e91d";
-}
-.nv-icon-upload:before {
-  content: "\e91e";
-}
-.nv-icon-gear:before {
-  content: "\e91f";
-}
-.nv-icon-export:before {
-  content: "\e920";
-}
-.nv-icon-move:before {
-  content: "\e921";
-}
-.nv-icon-copy:before {
-  content: "\e922";
-}
-.nv-icon-delete:before {
-  content: "\e923";
-}
-.nv-icon-edit:before {
-  content: "\e924";
-}
 .nv-icon-list-add:before {
   content: "\e925";
-}
-.nv-icon-add:before {
-  content: "\e926";
-}
-.nv-icon-search:before {
-  content: "\e927";
-}
-.nv-icon-zoom-out:before {
-  content: "\e928";
-}
-.nv-icon-zoom-in:before {
-  content: "\e929";
 }
