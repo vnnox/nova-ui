@@ -27,6 +27,7 @@ const DatePicker = require('../docs/components/date-picker.md')
 const TimePicker = require('../docs/components/time-picker.md')
 const VirtualScrollList = require('../docs/components/virtual-scroll-list.md')
 const Dropdown = require('../docs/components/dropdown.md')
+const Progress = require('../docs/components/progress.md')
 
 // Vue
 const RadioVue = require('../docs/components/vue/radio.md')
@@ -48,7 +49,7 @@ const ColorPickerVue = require('../docs/components/vue/color-picker.md')
 const DatePickerVue = require('../docs/components/vue/date-picker.md')
 const TimePickerVue = require('../docs/components/vue/time-picker.md')
 const DropdownVue = require('../docs/components/vue/dropdown.md')
-
+const ProgressVue = require('../docs/components/vue/progress.md')
 
 const $contianerNative = document.getElementById('container-native')
 const $contianerVue = document.getElementById('container-vue')
@@ -255,6 +256,10 @@ router
     native: Pagination,
     vue: PaginationVue
   }, 'Pagination', runScript))
+  .set('/progress', setPage({
+    native: Progress,
+    vue: ProgressVue
+  }, 'Progress', runScript))
   .set('/virtual-scroll-list', setPage({
     native: VirtualScrollList,
   }, 'VirtualScrollList', runScript))

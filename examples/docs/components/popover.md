@@ -95,6 +95,7 @@
     content: '支持1-32位中英文符号',
     placement: 'top',
     title: '提示',
+    zIndex: 10,
   })
   var ins8= new Nova.Popover($ins8, {
     content: '您确定要删除这个播放器吗？此操作不可逆！！',
@@ -195,6 +196,7 @@
 | content | 内容 | string | -- |
 | placement | 相对`target`的位置 | string`见Placement`  | `bottom` |
 | width | 宽度 | number/string | `200px` |
+| zIndex | 层级,未设置将会自动填充 | number | -- |
 | margin | 相对`target`的距离 | number | `12` |
 | asHtml | 内容作为HTML渲染，注意`XSS`注入，默认关闭 | boolean | false |
 | disabled | 是否禁用组件 | boolean | false |

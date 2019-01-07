@@ -1,9 +1,9 @@
 @font-face {
   font-family: 'Nova';
   src:
-    url('fonts/Nova.ttf?4h6kys') format('truetype'),
-    url('fonts/Nova.woff?4h6kys') format('woff'),
-    url('fonts/Nova.svg?4h6kys#Nova') format('svg');
+    url('fonts/Nova.ttf?ryaj8u') format('truetype'),
+    url('fonts/Nova.woff?ryaj8u') format('woff'),
+    url('fonts/Nova.svg?ryaj8u#Nova') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -170,6 +170,48 @@
 .nv-icon-arrow-d-bottom:before {
   content: "\e908";
 }
+.nv-icon-screen-close:before {
+  content: "\e92a";
+}
+.nv-icon-screen-open:before {
+  content: "\e92b";
+}
+.nv-icon-malfunction:before {
+  content: "\e92c";
+}
+.nv-icon-pause:before {
+  content: "\e92d";
+}
+.nv-icon-play:before {
+  content: "\e92e";
+}
+.nv-icon-time:before {
+  content: "\e92f";
+}
+.nv-icon-circle-warning:before {
+  content: "\e930";
+}
+.nv-icon-circle-info:before {
+  content: "\e931";
+}
+.nv-icon-circle-minus:before {
+  content: "\e932";
+}
+.nv-icon-circle-check:before {
+  content: "\e933";
+}
+.nv-icon-circle-close:before {
+  content: "\e934";
+}
+.nv-icon-square-help:before {
+  content: "\e935";
+}
+.nv-icon-triangle-warning:before {
+  content: "\e936";
+}
+.nv-icon-flow:before {
+  content: "\e937";
+}
 .nv-icon-font-color:before {
   content: "\e942";
 }
@@ -197,44 +239,11 @@
 .nv-icon-back:before {
   content: "\e943";
 }
-.nv-icon-circle-check:before {
-  content: "\e936";
-}
-.nv-icon-circle-close:before {
-  content: "\e932";
-}
-.nv-icon-circle-minus:before {
-  content: "\e934";
-}
-.nv-icon-time:before {
-  content: "\e933";
-}
-.nv-icon-circle-warning:before {
-  content: "\e935";
-}
-.nv-icon-circle-info:before {
-  content: "\e937";
-}
 .nv-icon-circle-plus:before {
   content: "\e94f";
 }
 .nv-icon-circle-remove:before {
   content: "\e94e";
-}
-.nv-icon-square-help:before {
-  content: "\e92e";
-}
-.nv-icon-square-danger:before {
-  content: "\e92f";
-}
-.nv-icon-play:before {
-  content: "\e931";
-}
-.nv-icon-pause:before {
-  content: "\e930";
-}
-.nv-icon-warning2:before {
-  content: "\e92c";
 }
 .nv-icon-release:before {
   content: "\e944";
@@ -316,15 +325,6 @@
 }
 .nv-icon-random:before {
   content: "\e956";
-}
-.nv-icon-screen-close:before {
-  content: "\e92a";
-}
-.nv-icon-screen-open:before {
-  content: "\e92b";
-}
-.nv-icon-flow:before {
-  content: "\e92d";
 }
 .nv-icon-list-add:before {
   content: "\e925";

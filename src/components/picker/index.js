@@ -12,7 +12,7 @@
  */
 
 import { Events } from '../../utils/events'
-import { mixins, isElement, throwError } from '../../utils/utils'
+import { mixins, isElement, throwError, isNumber, isNumberString } from '../../utils/utils'
 import { bind, unbind, qsa, addClass, removeNode, getScrollParent } from '../../utils/dom'
 import { template } from '../../utils/template'
 import { Popup } from '../../utils/popup'
@@ -48,6 +48,8 @@ export const defaults = {
   autoCorrect: true,
   // 关闭时是隐藏还是销毁
   closeType: 'hide', // hide | destroy
+  // 层级, 如果是null，会未设置，将自动填充
+  zIndex: null,
 }
 
 
@@ -224,8 +226,15 @@ const render = function () {
     $body.innerHTML = (props.content || '').toString()
   }
 
+  let zIndex = props.zIndex
+  if (isNumber(zIndex) || isNumberString(zIndex)) {
+    zIndex = +zIndex
+  } else {
+    zIndex = Popup.nextZIndex()
+  }
+
   $picker.style.display = 'none'
-  $picker.style.zIndex = Popup.nextZIndex()
+  $picker.style.zIndex = zIndex
   document.body.appendChild($picker)
   states.$picker = $picker
   states.visible = false
