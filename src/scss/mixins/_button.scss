@@ -33,7 +33,8 @@
   @if ($hover) {
     &:not([disabled]):not(.nv-disabled):not(.nv-actived) {
       &:hover,
-      &:active {
+      &:active,
+      &.is-focus {
         @include ButtonSpreadStyle($hover);
       }
     }

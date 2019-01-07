@@ -225,6 +225,7 @@ const render = function () {
   }
 
   $picker.style.display = 'none'
+  $picker.style.zIndex = Popup.nextZIndex()
   document.body.appendChild($picker)
   states.$picker = $picker
   states.visible = false
@@ -312,7 +313,6 @@ export class Picker extends Events {
       return
     }
 
-    $picker.style.zIndex = Popup.nextZIndex()
     $picker.style.visibility = 'hidden'
     $picker.style.position = 'fixed'
     $picker.style.display = 'block'

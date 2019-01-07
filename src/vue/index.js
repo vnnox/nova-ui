@@ -26,10 +26,17 @@ import ColorPicker from './color-picker'
 import DatePicker from './date-picker'
 import TimePicker from './time-picker'
 
+import Dropdown from './dropdown'
+import DropMenus from './dropmenu'
+
+
+
 const RadioGroup = RadioGroups.NvRadioGroup
 const RadioItem = RadioGroups.NvRadioItem
 const CheckboxGroup = CheckboxGroups.NvCheckboxGroup
 const CheckboxItem = CheckboxGroups.NvCheckboxItem
+const DropMenu = DropMenus.NvDropmenu
+const DropMenuItem = DropMenus.NvDropmenuItem
 
 const components = [
   Radio,
@@ -51,6 +58,9 @@ const components = [
   ColorPicker,
   DatePicker,
   TimePicker,
+  Dropdown,
+  DropMenu,
+  DropMenuItem,
 ]
 
 
