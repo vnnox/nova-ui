@@ -10,9 +10,9 @@
 ```html
 <div class="doc-row">
   <div class="doc-row__body">
-    <div x-placement="bottom-start" class="nv-dropdown">
+    <div x-placement="bottom-start" class="nv-dropdown nv-dropdown--show">
       <div class="nv-dropdown__toggle"><button type="button" class="nv-btn">Button</button></div>
-      <div class="nv-dropdown__body nv-dropdown--show">
+      <div class="nv-dropdown__body">
         <ul class="nv-dropmenu">
           <li class="nv-dropmenu__item">
             <div class="item-inner">选项一</div>

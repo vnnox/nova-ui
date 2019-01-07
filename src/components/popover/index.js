@@ -28,6 +28,7 @@ const noop = function () { }
 const popoverDefaults = {
   title: '',
   width: '200px',
+  zIndex: null,
   asHtml: false,
   showConfirm: false,
   showCancel: false,
@@ -155,9 +156,11 @@ function initPickerInstance() {
       delete options[k]
     }
   }
+
   options.content = states.$el
   options.customClass = (props.customClass || '') + ',nv-picker--popover'
   options.closeType = props.closeType || 'destroy'
+  options.zIndex = props.zIndex
   
   states.pickerInstance = new Picker(states.$target, options)
   states.pickerInstance

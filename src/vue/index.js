@@ -28,7 +28,7 @@ import TimePicker from './time-picker'
 
 import Dropdown from './dropdown'
 import DropMenus from './dropmenu'
-
+import Progress from './progress'
 
 
 const RadioGroup = RadioGroups.NvRadioGroup
@@ -61,6 +61,7 @@ const components = [
   Dropdown,
   DropMenu,
   DropMenuItem,
+  Progress,
 ]
 
 

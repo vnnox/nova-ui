@@ -21,12 +21,12 @@
 
     &::before {
       content: '';
-      width: 11px;
-      height: 8px;
-      top: 3px;
-      left: 2px;
+      width: 12px;
+      height: 10px;
+      top: 2px;
+      left: 1px;
       position: absolute;
-      background: $checkbox-icon no-repeat center;
+      background: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2LjUxIDUuNSI+PHBvbHlnb24gcG9pbnRzPSIyLjA0IDUuNSA2LjUxIDAuODEgNS43MiAwIDIuMDYgMy44NiAwLjc4IDIuNTUgMCAzLjM3IDIuMDQgNS41IiBmaWxsPSIjMjU3Y2VmIi8+PC9zdmc+) no-repeat center;
       background-size: cover;
       transform: scale(0);
       transform-origin: center;

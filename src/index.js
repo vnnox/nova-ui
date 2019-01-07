@@ -19,6 +19,9 @@ import ColorPicker from './components/color-picker'
 import DatePicker from './components/date-picker'
 import TimePicker from './components/time-picker'
 import VirtualScrollList from './components/virtual-scroll-list'
+import Progress from './components/progress'
+
+
 
 const Nova = Object.create(null)
 
@@ -48,6 +51,7 @@ Nova.ColorPicker = ColorPicker
 Nova.DatePicker = DatePicker
 Nova.TimePicker = TimePicker
 Nova.VirtualScrollList = VirtualScrollList
+Nova.Progress = Progress
 
 
 function routeChangeDestory() {
