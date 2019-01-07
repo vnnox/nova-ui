@@ -81,8 +81,6 @@
 | Attribute   | Description | Type |  Default Values |
 | ----------- | ----------- | ----------- | ----------- |
 | value | 绑定的进度值 | number`< 0- 100 >` | 0 |
-| type | 总条目数 | number | -- |
-| limit | 类型 | string | `line` |
 | thickness | 线条厚度,单位像素 | number | 8 |
 | status | 状态，不同状态显示不同颜色 | string<`running | success | fail`> | `running` |
 | showLabel | 是否显示文本... | boolean | true |
@@ -94,4 +92,5 @@
 | Method  | Description | Parameters |
 | ----------- | ----------- | ----------- |
 | setValue | 设置进度值 | (value:number) |
+| setStatus | 设置状态值 | (status:string<`running | success | fail`>) |
 | destroy | 销毁实例`销毁后，实例将完全不可用` | -- |
