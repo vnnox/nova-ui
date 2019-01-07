@@ -85,6 +85,9 @@
           <li class="nav-group__item">
             <a href="#/tag">Tag <small>标签</small></a>
           </li>
+          <li class="nav-group__item">
+            <a href="#/dropdown">Dropdown <small>下拉面板</small></a>
+          </li>
         </ul>
       </div>
       <div class="nav-group">
@@ -137,12 +140,12 @@
   <script>
     var $tabs = document.querySelectorAll('.doc-tabs__item')
     var $panels = document.querySelectorAll('.doc-panel')
-    $tabs.forEach(function(tab) {
-      tab.addEventListener('click', function() {
-        $tabs.forEach(function(_tab) {
+    $tabs.forEach(function (tab) {
+      tab.addEventListener('click', function () {
+        $tabs.forEach(function (_tab) {
           _tab.classList.remove('doc-tabs--actived')
         })
-        $panels.forEach(function(panel) {
+        $panels.forEach(function (panel) {
           panel.classList.remove('doc-panel--actived')
         })
         tab.classList.add('doc-tabs--actived')
@@ -154,3 +157,31 @@
 </body>
 
 </html>
+
+<div x-placement="bottom-start" class="nv-dropdown">
+  <div class="nv-dropdown__toggle"><button type="button" class="nv-btn">Button</button></div>
+  <div class="nv-dropdown__body">
+    <ul class="nv-dropmenu">
+      <li class="nv-dropmenu__item">
+        <div class="item-inner">选项一</div>
+      </li>
+      <li class="nv-dropmenu__item is-sub">
+        <div class="item-inner">
+          选项二
+        </div>
+        <ul class="nv-dropmenu">
+          <li class="nv-dropmenu__item">
+            <div class="item-inner">选项一</div>
+          </li>
+          <li class="nv-dropmenu__item">
+            <div class="item-inner">选项一</div>
+          </li>
+        </ul>
+      </li>
+      <li class="nv-dropmenu__item is-divider"></li>
+      <li class="nv-dropmenu__item">
+        <div class="item-inner">选项二</div>
+      </li>
+    </ul>
+  </div>
+</div>

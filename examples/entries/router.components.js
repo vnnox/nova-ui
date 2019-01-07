@@ -26,7 +26,7 @@ const ColorPicker = require('../docs/components/color-picker.md')
 const DatePicker = require('../docs/components/date-picker.md')
 const TimePicker = require('../docs/components/time-picker.md')
 const VirtualScrollList = require('../docs/components/virtual-scroll-list.md')
-
+const Dropdown = require('../docs/components/dropdown.md')
 
 // Vue
 const RadioVue = require('../docs/components/vue/radio.md')
@@ -47,6 +47,7 @@ const LoaderVue = require('../docs/components/vue/loader.md')
 const ColorPickerVue = require('../docs/components/vue/color-picker.md')
 const DatePickerVue = require('../docs/components/vue/date-picker.md')
 const TimePickerVue = require('../docs/components/vue/time-picker.md')
+const DropdownVue = require('../docs/components/vue/dropdown.md')
 
 
 const $contianerNative = document.getElementById('container-native')
@@ -265,6 +266,10 @@ router
     native: Tag,
     vue: TagVue
   }, 'Tag', runScript))
+  .set('/dropdown', setPage({
+    native: Dropdown,
+    vue: DropdownVue
+  }, 'Dropdown', runScript))
   .init()
 
 
