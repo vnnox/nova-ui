@@ -578,7 +578,7 @@ export class Pagination extends Events {
       total
     })
     // total改变的话需要重新设置页码
-    this.states.index = this.states.jumper = 1
+    // this.states.index = this.states.jumper = 1
     updateDom.call(this)
   }
 
@@ -624,7 +624,7 @@ export class Pagination extends Events {
       return
     }
     // 重置当前页码
-    states.index = states.jumper = 1
+    // states.index = states.jumper = 1
     updateDom.call(this)
     if (states.limitSelectIns) {
       let sizes = states.sizes
