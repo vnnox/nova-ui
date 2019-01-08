@@ -1,6 +1,6 @@
 <template>
   <li class="nv-dropmenu__item is-divider" v-if="divider"></li>
-  <li class="nv-dropmenu__item" :class="className" @click="onClick" v-else>
+  <li class="nv-dropmenu__item" :class="className" @click.stop="onClick" v-else>
     <div class="item-inner"><slot></slot></div>
     <slot name="sub"></slot>
   </li>
@@ -10,12 +10,18 @@
     name: 'nv-dropmenu-item',
     props: {
       divider: Boolean, 
+      disabled: Boolean
     },
     computed: {
       className () {
+        const classes = []
         if (this.$slots.sub) {
-          return 'is-sub'
+          classes.push('is-sub')
         }
+        if (this.disabled) {
+          classes.push('nv-disabled')
+        }
+        return classes
       },
       dropdown () {
         let parent = this.$parent
@@ -31,7 +37,11 @@
       },
     },
     methods: {
-      onClick() {
+      onClick(e) {
+        if (this.disabled) {
+          return
+        }
+        this.$emit('click', e)
         this.dropdown && this.dropdown.close()
       }
     },

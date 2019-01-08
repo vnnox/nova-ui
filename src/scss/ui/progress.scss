@@ -3,6 +3,7 @@
 
   .nv-progress__track {
     position: relative;
+    user-select: none;
   }
 
   &.nv-progress--line {

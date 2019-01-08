@@ -60,11 +60,11 @@ const $navItems = document.querySelectorAll('.app-aside__nav .nav-group__item > 
 
 // 高亮选中菜单
 function toggleNavClass () {
-  var hash = window.location.hash.slice(1)
+  var hash = window.location.hash.slice(1).replace(/^\//, '').replace(/\/$/, '')
   $navItems.forEach(function($nav) {
-    var href = $nav.href 
+    var href = $nav.getAttribute('data-path')
     var actived = false
-    if (href.indexOf(hash) > -1) {
+    if (hash === href) {
       actived = true
     }
     $nav.parentNode.classList[actived ? 'add' : 'remove']('actived')

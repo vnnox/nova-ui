@@ -205,7 +205,7 @@ export const getElScrollbarWidth = () => {
  * @returns {Number} 
  */
 export const getScrollbarWidth = () => {
-  let hasScroll = document.body.scrollHeight > window.innerHeight
+  const hasScroll = document.documentElement.scrollHeight > window.innerHeight
   if (getScrollbarWidth.value !== void 0 && getScrollbarWidth.value !== 0) {
     return getScrollbarWidth.value
   }
