@@ -40,8 +40,7 @@
         <button type="button" class="nv-btn" slot="toggle">Hover Toggle</button>
         <nv-dropmenu>
           <nv-dropmenu-item>选项一</nv-dropmenu-item>
-          <nv-dropmenu-item>
-            选项二
+          <nv-dropmenu-item>选项二
             <nv-dropmenu slot="sub">
               <nv-dropmenu-item>选项一</nv-dropmenu-item>
               <nv-dropmenu-item>选项一</nv-dropmenu-item>
@@ -55,11 +54,10 @@
       <nv-dropdown>
         <button type="button" class="nv-btn" slot="toggle">Click Toggle</button>
         <nv-dropmenu>
-          <nv-dropmenu-item>选项一</nv-dropmenu-item>
-          <nv-dropmenu-item>
-            选项二
+          <nv-dropmenu-item @click="menuClick">选项一</nv-dropmenu-item>
+          <nv-dropmenu-item>选项二
             <nv-dropmenu slot="sub">
-              <nv-dropmenu-item>选项一</nv-dropmenu-item>
+              <nv-dropmenu-item disabled>选项一</nv-dropmenu-item>
               <nv-dropmenu-item>选项一</nv-dropmenu-item>
             </nv-dropmenu>  
           </nv-dropmenu-item>
@@ -72,7 +70,13 @@
   </div>
 </template>
 <script>
-  export default {}
+  export default {
+    methods: {
+      menuClick (e) {
+        console.log(e)
+      }
+    },
+  }
 </script> 
 ```
 :::
@@ -113,6 +117,8 @@
 | 属性名  |  描述  | 类型 | 默认值 |
 |---|---|---|---|
 | `divider` | 是否是分隔符 | boolean |  false |
+| `disabled` | 是否禁用 | boolean |  false |
+| `click` | 点击回调 | function |  e |
 
 
 ### DropmenuItem Slots

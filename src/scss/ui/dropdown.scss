@@ -92,7 +92,7 @@
     position: relative;
     font-style: 0;
 
-    &:not(.is-divider):hover {
+    &:not(.is-divider):not(.nv-disabled):hover {
       background-color: $color-select-hover;
     }
 
@@ -147,6 +147,11 @@
       > .nv-dropmenu {
         display: block;
       }
+    }
+
+    &.nv-disabled > .item-inner {
+      color: $color-text-disabled;
+      cursor: not-allowed;
     }
   }
 }
