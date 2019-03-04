@@ -1,9 +1,9 @@
 export const skeletonTpl = `
 <li role="treeitem" class="nv-tree__node<% if(expandAll || node.expanded) {%> tree-node--expanded<% } if(disabled || node.disabled) {%> nv-disabled<% } if(node.children && node.children.length) {%> tree-node--branch<% } else {%> tree-node--leaf<% } if(!node.visible) {%> tree-node--hidden<% }%>" data-node="<%= node.id%>">
-  <div class="tree-node__inner" style="padding-left:<%= (node.level * indent)%>px;"> 
-    <% if(node.children && node.children.length) {%>
-    <i class="tree-node__icon"></i>
-    <% }%> 
+  <div class="tree-node__inner" style="padding-left:<%= (node.level * indent)%>px;">
+    <span class="tree-node__icon<% if(!node.children || !node.children.length) {%> is-leaf<% }%>">
+      <i class="nv-icon-arrow-right"></i>
+    </span> 
     <% if(checkable) { %>
     <label class="nv-<%= chooseType %> tree-node__check" role="<%= chooseType%>">
       <input type="<%= chooseType%>" class="tree-node__value" name="<%= checkName %>" value="<%= node.id%>"<% if(disabled || node.disabled) {%> disabled<% } if (node.checked) {%> checked<% }%> />

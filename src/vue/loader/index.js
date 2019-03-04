@@ -14,7 +14,11 @@ function createLoader(el, modifiers, value) {
   }
 
   if (el.$nv__loader) {
-    el.$nv__loader.close()
+    try {
+      el.$nv__loader.close()
+    } catch (error) {
+      // 
+    }
     el.$nv__loader = null
     delete el.$nv__loader
   }
@@ -51,7 +55,11 @@ export const directive = {
 
   unbind(el) {
     if (el.$nv__loader) {
-      el.$nv__loader.close()
+      try {
+        el.$nv__loader.close()
+      } catch (error) {
+        // 
+      }
       el.$nv__loader = null
       delete el.$nv__loader
     }

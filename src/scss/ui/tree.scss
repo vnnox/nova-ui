@@ -36,17 +36,36 @@
   }
 
   .tree-node__icon {
-    display: block;
-    width: 8px;
-    height: 8px;
-    border-left: 1.6px solid rgb(180, 190, 216);
-    border-bottom: 1.6px solid rgb(180, 190, 216);
-    transform: rotate(-135deg);
-    transition: transform .2s;
+    display: flex;
+    font-size: 13px;
+    color: $color-placeholder;
+    padding: 0;
+    width: 20px;
+    height: 16px;
+    align-items: center;
+    justify-content: center;
     position: relative;
-    top: 1px;
-    margin-left: 3px;
-    margin-right: 8px;
+    margin-right: 2px;
+    // background-color: aqua;
+
+    i {
+      transition: transform .2s;
+    }
+
+    &.is-leaf {
+      visibility: hidden;
+      color: transparent;
+    }
+    // width: 8px;
+    // height: 8px;
+    // border-left: 1.6px solid rgb(180, 190, 216);
+    // border-bottom: 1.6px solid rgb(180, 190, 216);
+    // transform: rotate(-135deg);
+    // transition: transform .2s;
+    // position: relative;
+    // top: 1px;
+    // margin-left: 3px;
+    // margin-right: 8px;
   }
 
   .tree-node__check {
@@ -83,11 +102,19 @@
 
     &.tree-node--branch {
       > .tree-node__inner > .tree-node__icon {
-        transform: rotate(-45deg);
-        top: 0;
+        //align-items: flex-start;
+        justify-content: center;
+
+        i {
+          transform: rotate(90deg);
+        }
+        // transform: rotate(-45deg);
+        // top: 0;
       }
     }
-  } // 选中时
+  }
+
+  // 选中时
   .tree-node--selected > .tree-node__inner > .tree-node__label {
     // background-color: $color-bg-item-selected;
   }
@@ -101,7 +128,7 @@
       > .tree-node__check {
         cursor: inherit;
       }
-         
+
       > .tree-node__label {
         color: $color-text-disabled;
       }

@@ -40,6 +40,8 @@ const defaults = {
   checkName: '',
   // [ boolean ] checkable状态下节点选择完全受控（父子节点选中状态不再关联）
   checkStrictly: false,
+  // [ boolean ] // 是否在点击节点的时候选中节点，默认值为 false，即只有在点击复选框时才会选中节点。
+  nodeClickCheck: false,
   // [ boolean ] 是否展开所有节点
   expandAll: false,
   // [ boolean ] 高亮当前节点的label
@@ -88,8 +90,8 @@ function deepToNode(data, parent, options) {
     defaultCheckedKeys = options.defaultCheckedKeys
   }
   while (++i < len) {
-    data[i].expanded = data[i].expanded || expandAll || 
-    defaultExpandedKeys.indexOf(data[i].id) > -1
+    data[i].expanded = data[i].expanded || expandAll ||
+      defaultExpandedKeys.indexOf(data[i].id) > -1
     data[i].checked = data[i].checked || defaultCheckedKeys.indexOf(data[i].id) > -1
     let node = new Node(data[i])
     if (parent) {
@@ -330,9 +332,22 @@ function bindEvents() {
     if (event.target.closest(Selectors.check) || event.target.closest('.nv-event-stop')) {
       return
     }
+
     let $parent = this.parentNode
     let id = $parent.getAttribute('data-node')
     let node = states.nodesMap[id]
+    if (props.nodeClickCheck && props.checkable && !node.disabled) {
+      const $check = this.querySelector(Selectors.input)
+      $check.checked = !$check.checked
+      const checked = $check.checked
+      node.updateStates('checked', checked)
+      if (!props.checkStrictly && !props.radio) {
+        toggleAllChecked.call(self, node)
+      }
+      self.emit('check', checked, node, findNodeDomById(node.id, states.$nodes))
+    }
+
+
     self.emit('click', node, $parent)
     if (node.children && node.children.length) {
       $parent.classList[node.expanded ? 'remove' : 'add'](CLASS_EXPANDED)
@@ -379,7 +394,7 @@ function bindEvents() {
  * @date 2018-11-13
  * @private
  */
-function unbindEvents () {
+function unbindEvents() {
   const { props, states } = this
   const handles = states.handles
   unbind(states.$el, 'click', handles.nodeClick)
@@ -492,7 +507,7 @@ export class Tree extends Events {
     return node
   }
 
-  
+
   /**
    * 过滤树结构
    * 并且返回匹配的结果总数
@@ -525,9 +540,9 @@ export class Tree extends Events {
    * @returns
    * @memberof Tree
    */
-  getNode (node) {
+  getNode(node) {
     if (node instanceof Node) {
-      return node 
+      return node
     }
     return this.states.nodesMap[node]
   }
@@ -540,7 +555,7 @@ export class Tree extends Events {
    * @param {*} node
    * @memberof Tree
    */
-  appendNode (parent, node) {
+  appendNode(parent, node) {
     let parentNode = this.getNode(parent)
     if (parentNode) {
       node = parentNode.insertChild(node)
@@ -558,16 +573,16 @@ export class Tree extends Events {
    * @param {boolean} [deep=true]
    * @memberof Tree
    */
-  removeNode (node, deep = true) {
+  removeNode(node, deep = true) {
     // 这地方根节点有点问题，暂时强制deep = true
     deep = true
     node = this.getNode(node)
     if (node.parent) {
-      node.remove(deep)  
+      node.remove(deep)
     } else {
       // 如果是根节点
       let index = this.states.nodes.indexOf(node)
-      this.states.nodes.splice(index, 1) 
+      this.states.nodes.splice(index, 1)
     }
     this.states.nodesMap = nodesToMap(this.states.nodes)
     render.call(this)
@@ -581,7 +596,7 @@ export class Tree extends Events {
    * @returns {Array}
    * @memberof Tree
    */
-  getCheckedNodes (useDisabled = false) {
+  getCheckedNodes(useDisabled = false) {
     const isRadio = this.props.radio
     const nodes = []
     const finder = node => {
@@ -608,7 +623,7 @@ export class Tree extends Events {
    * @date 2018-11-13
    * @memberof Tree
    */
-  destroy () {
+  destroy() {
     unbindEvents.call(this)
     removeNode(this.states.$el)
     this.states = null
