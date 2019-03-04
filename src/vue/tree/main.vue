@@ -20,13 +20,14 @@
       radio: Boolean,
       checkName: String,
       checkStrictly: Boolean,
+      nodeClickCheck: Boolean,
       expandAll: Boolean,
       highlight: Boolean,
       nodeFilter: Function,
       defaultCheckedKeys: Array,
       defaultExpandedKeys: Array,
       noDataText: String,
-      noMatchDataText: String
+      noMatchDataText: String,
     },
     data () {
       return {

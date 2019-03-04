@@ -58,6 +58,19 @@ export const once = (el, name, handle) => {
 }
 
 
+
+/**
+ * 主动触发某个事件
+ * @param {*} el 
+ * @param {*} eventName 
+ */
+export const dispatchEvent = (el, eventName) => {
+  const evt = document.createEvent('HTMLEvents')
+  evt.initEvent(eventName, false, true)
+  el.dispatchEvent(evt)
+}
+
+
 /**
  * DOM 选择器
  * 统一API，返回一个DOM集合
@@ -88,6 +101,7 @@ export const qsa = (selector, context) => {
   }
   return []
 }
+
 
 
 /**
@@ -366,5 +380,6 @@ export default {
   getScrollParent,
   getSize,
   getIndex,
-  reqAnimationFrame
+  reqAnimationFrame,
+  dispatchEvent,
 }

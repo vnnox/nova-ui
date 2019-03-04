@@ -75,12 +75,14 @@
       .then(response => response.json())
       .then(data => {
         var list = data.data.projects
-        if (pageIndex === 1) {
-          ins1.reset(list)
-        } else {
-          ins1.push(list)
-          ins1.refresh(true)
-        }
+        try {
+          if (pageIndex === 1) {
+            ins1.reset(list)
+          } else {
+            ins1.push(list)
+            ins1.refresh(true)
+          }
+        } catch(e) {}
         setTimeout(function() {
            loading = false
            if (dataLoaded) {

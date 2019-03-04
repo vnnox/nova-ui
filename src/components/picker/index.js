@@ -60,6 +60,9 @@ export const defaults = {
  */
 const handleToggle = function () {
   const { states } = this
+  if (!states) {
+    return
+  }
   const display = states.$picker && states.$picker.style.display
   if (display === 'none' || !states.visible) {
     this.open()
