@@ -96,7 +96,7 @@
       border-bottom-left-radius: $input-radius;
 
       &::after {
-        content: '\e900';
+        content: '\e901';
       }
     }
 
@@ -108,7 +108,7 @@
       border-bottom-right-radius: $input-radius;
 
       &::after {
-        content: '\e901';
+        content: '\e900';
       }
     }
   }
