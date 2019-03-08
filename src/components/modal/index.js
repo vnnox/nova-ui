@@ -98,6 +98,42 @@ function createBtn(btn) {
 
 
 /**
+ * update top
+ * @private
+ */
+function updateTop () {
+  const {props, states} = this
+  if (props.top) {
+    let top
+    if (NUMBER_REG.test(props.top)) {
+      top = props.top + 'px'
+    } else if (!isNaN(parseFloat(props.top))) {
+      top = props.top 
+    }
+    top && (states.$dialog.style.top = top)
+  }
+}
+
+
+/**
+ * @private
+ * 更新width
+ */
+function updateWidth () {
+  const {props, states} = this
+  if (props.width) {
+    let width
+    if (NUMBER_REG.test(props.width)) {
+      width = props.width + 'px'
+    } else if (!isNaN(parseFloat(props.width))) {
+      width = props.width 
+    }
+    width && (states.$dialog.style.width = width)
+  }
+}
+
+
+/**
  * render
  * @private
  */
@@ -147,26 +183,9 @@ function render() {
   states.$footSlot = qsa(Selectors.footSlot, $el)[0]
   states.$btnsWrap = qsa(Selectors.btns, $el)[0]
   
-  if (props.top) {
-    let top
-    if (NUMBER_REG.test(props.top)) {
-      top = props.top + 'px'
-    } else if (!isNaN(parseFloat(props.top))) {
-      top = props.top 
-    }
-    top && (states.$dialog.style.top = top)
-  }
-
-  if (props.width) {
-    let width
-    if (NUMBER_REG.test(props.width)) {
-      width = props.width + 'px'
-    } else if (!isNaN(parseFloat(props.width))) {
-      width = props.width 
-    }
-    width && (states.$dialog.style.width = width)
-  }
-
+  updateTop.call(this)
+  updateWidth.call(this)
+  
   // render content
   if (props.content) {
     isElement(props.content) ? states.$body.appendChild(props.content) :
@@ -340,6 +359,26 @@ export class Modal extends Events {
       this.emit('close', type, states.$el)
     }
     states.visible = false
+  }
+
+
+  /**
+   * 更新options
+   * @date 2019-03-08
+   * @param {*} options
+   * @memberof Modal
+   */
+  updateOptions (options) {
+    const { states } = this
+    if (!options || !isPlainObject(options)) {
+      return
+    }
+
+    this.props = mixins({}, defaults, this.props, options)
+
+    updateTop.call(this)
+    updateWidth.call(this)
+    states.$title.textContent = (this.props.title || '').toString()
   }
 
 

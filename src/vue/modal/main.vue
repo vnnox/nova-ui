@@ -62,6 +62,8 @@
         this.$emit('close', type, $el)
         this.$emit('input', false)
       })
+
+      // this.baywatch(['title', 'closeBtn', 'backdrop', 'backdropBackground', 'backdropClose', 'escClose', 'width', 'top', 'scrollLock'], this.updateOptions.bind(this))
     },
     watch: {
       value(val, oldVal) {
@@ -73,7 +75,19 @@
             this.instance.close()
           }
         }
-      }
+      },
+
+      title (val) {
+        this.updateOptions({title: val})
+      },
+
+      width (val) {
+        this.updateOptions({width: val})
+      },
+
+      top (val) {
+        this.updateOptions({top: val})
+      },
     },
     methods: {
       open() {
@@ -81,7 +95,17 @@
       },
       close(type) {
         this.instance && this.instance.close(type)
-      }
+      },
+      updateOptions (options) {
+        this.instance && this.instance.updateOptions(options)
+      },
+      
+      // baywatch (props, watcher) {
+      //   const iterator = function(prop) {
+      //     this.$watch(prop, watcher)
+      //   }
+      //   props.forEach(iterator, this)
+      // },
     },
     beforeDestroy() {
       try {
