@@ -10,7 +10,7 @@
     <div class="doc-row__body">
       <button type="button" class="nv-btn" @click="visible=true">打开模态框</button>
       <button type="button" class="nv-btn" @click="visible2=true">打开模态框</button>
-      <nv-modal title="Modal" v-model="visible">
+      <nv-modal :title="modalTitle" v-model="visible">
         这里是模态框内容
         <template slot="btns">
           <button type="button" class="nv-btn nv-btn--primary" @click="confirm">Confirm</button>
@@ -35,7 +35,8 @@
     data () {
       return {
         visible: false,
-        visible2: false
+        visible2: false,
+        modalTitle: 'title 1'
       }
     },
     methods: {
@@ -44,9 +45,16 @@
         this.visible = false
       }
     },
+    mounted () {
+     
+    },
     watch: {
       visible(val) {
-        console.log(val)
+        if (val) {
+          setTimeout(() => {
+            this.modalTitle = 'title open'
+          }, 2000)
+        }
       }
     }
   }
