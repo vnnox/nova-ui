@@ -1,12 +1,12 @@
 <template>
   <div class="nv-select--wrap">
     <slot />
-  </div>  
+  </div>
 </template>
 
 <script>
   import Select from '../../components/select'
-  import {compareJson, objectClone} from '../../utils/utils'
+  import { objectClone } from '../../utils/utils'
   export default {
     name: 'nv-select',
     props: {
@@ -45,33 +45,33 @@
       align: String
     },
 
-    data () {
+    data() {
       return {
         data: objectClone(this.options),
         instance: null
       }
     },
-    
+
     methods: {
-      addOption (option) {
+      addOption(option) {
         this.data.push(objectClone(option))
         this.instance && this.instance.setOptions(this.data)
       }
     },
 
-    mounted () {
-      let props = this.$props
+    mounted() {
+      let props = objectClone(this.$props)
       props.options = this.data
       this.instance = new Select(this.$el, props)
       this.instance
-      .on('open', () => this.$emit('open'))
-      .on('close', () => this.$emit('close'))
-      .on('focus', event => this.$emit('focus', event))
-      .on('blur', event => this.$emit('blur', event))
-      .on('change', (value, options) => {
-        this.$emit('change', value, options)
-        this.$emit('input', value)
-      })
+        .on('open', () => this.$emit('open'))
+        .on('close', () => this.$emit('close'))
+        .on('focus', event => this.$emit('focus', event))
+        .on('blur', event => this.$emit('blur', event))
+        .on('change', (value, options) => {
+          this.$emit('change', value, options)
+          this.$emit('input', value)
+        })
     },
 
     beforeDestroy() {
@@ -83,12 +83,12 @@
       disabled(val) {
         val ? this.instance.disable() : this.instance.enable()
       },
-      value () {
+      value() {
         this.instance.setValue(this.value)
       },
       options: {
-        handler (val, old) {
-          if (this.instance && !compareJson(val, old)) {
+        handler(val, old) {
+          if (this.instance) {
             this.data = objectClone(val)
             this.instance.setOptions(this.data)
           }

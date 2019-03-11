@@ -11,9 +11,9 @@
     <p class="doc-row__describe"></p>
     <div class="doc-row__body">
       <nv-select v-model="value" :options="options"></nv-select>
-      <nv-select v-model="value2" clearable>
+      <!-- <nv-select v-model="value2" clearable>
         <nv-option v-for="option in options" :key="option.value" :value="option.value">{{option.label}}</nv-option>
-      </nv-select>  
+      </nv-select>   -->
     </div>
   </div>
 </template>  
@@ -49,12 +49,12 @@
       }
     },
     mounted () {
-      // setTimeout(() => {
-      //   this.options.push({
-      //     value: '081',
-      //     label: '日本'
-      //   })
-      // }, 200)
+      setTimeout(() => {
+        this.options.push({
+          value: '081',
+          label: '日本'
+        })
+      }, 2000)
     }
   }
 </script>  
