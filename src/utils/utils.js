@@ -303,6 +303,16 @@ export const throwError = (message,  type) => {
   throw new method(message)
 }
 
+
+/**
+ * 比较两个JSON
+ * @param {*} v1 
+ * @param {*} v2 
+ */
+export const compareJson = (v1, v2) => v1 && v2 && JSON.stringify(v1) === JSON.stringify(v2)
+
+
+
 export default {
   isString,
   isObject,
@@ -326,5 +336,6 @@ export default {
   getObjectValue,
   uuid,
   throwError,
+  compareJson,
 }
 
