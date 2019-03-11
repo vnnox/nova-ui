@@ -6,6 +6,7 @@
 
 <script>
   import Select from '../../components/select'
+  import {compareJson, objectClone} from '../../utils/utils'
   export default {
     name: 'nv-select',
     props: {
@@ -46,14 +47,14 @@
 
     data () {
       return {
-        data: this.options,
+        data: objectClone(this.options),
         instance: null
       }
     },
     
     methods: {
       addOption (option) {
-        this.data.push(option)
+        this.data.push(objectClone(option))
         this.instance && this.instance.setOptions(this.data)
       }
     },
@@ -84,7 +85,16 @@
       },
       value () {
         this.instance.setValue(this.value)
-      }
+      },
+      options: {
+        handler (val, old) {
+          if (this.instance && !compareJson(val, old)) {
+            this.data = objectClone(val)
+            this.instance.setOptions(this.data)
+          }
+        },
+        deep: true
+      },
     }
   }
 </script>

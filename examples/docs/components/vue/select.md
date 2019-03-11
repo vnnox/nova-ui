@@ -47,6 +47,14 @@
       value () {
         console.log(this.value)
       }
+    },
+    mounted () {
+      // setTimeout(() => {
+      //   this.options.push({
+      //     value: '081',
+      //     label: '日本'
+      //   })
+      // }, 200)
     }
   }
 </script>  
