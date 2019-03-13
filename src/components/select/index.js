@@ -12,7 +12,7 @@
  */
 
 import { Events } from '../../utils/events'
-import { mixins, isElement, isArray, isPlainObject, isFunction, isString, isPrimitive, escapeRegExp, throwError } from '../../utils/utils'
+import { mixins, isElement, isArray, isPlainObject, isFunction, isString, isPrimitive, escapeRegExp, throwError, encodeHtml } from '../../utils/utils'
 import { template } from '../../utils/template'
 import { insertAfter, qsa, proxy, bind, unbind, addClass, scrollTo, getOffsetByParent, removeNode } from '../../utils/dom'
 import { debounce } from '../../utils/debounce'
@@ -740,13 +740,13 @@ export class Select extends Events {
           // 如果是分组
           let item = Object.create(null)
           if (props.groupable) {
-            item.label = option.label
+            item.label = encodeHtml(option.label)
             item.options = []
             if (option.options && isArray(option.options)) {
               option.options.forEach(child => {
                 if (child.value !== void 0) {
                   item.options.push({
-                    label: child.label || child.value,
+                    label: encodeHtml(child.label || child.value),
                     value: child.value,
                     disabled: child.disabled
                   })
@@ -756,7 +756,7 @@ export class Select extends Events {
           } else {
             if (option.value !== void 0) {
               item = {
-                label: option.label || option.value,
+                label: encodeHtml(option.label || option.value),
                 value: option.value,
                 disabled: option.disabled
               }
@@ -768,6 +768,9 @@ export class Select extends Events {
     }
     states.options = items
     renderOptions.call(this)
+
+    // 防止options是异步加载来的
+    this.setValue(this.states.value || this.props.value, false)
   }
 
 

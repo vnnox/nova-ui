@@ -31,6 +31,10 @@
     margin-top: 12px;
   }
 
+  .tree-node--leaf .tree-node__inner {
+    cursor: default;
+  }
+
   > .nv-tree__node:first-child > .tree-node__inner {
     margin-top: 0;
   }
