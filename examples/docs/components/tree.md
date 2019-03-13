@@ -48,7 +48,7 @@
         },
         {
           id: '110108',
-          label: '海淀区',
+          label: '<script>alert(1)<\/script>',
         }
       ]
     },

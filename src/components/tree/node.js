@@ -12,7 +12,7 @@
 * Copyright 2018, NovaStar Tech Co., Ltd
 */
 
-import { uuid, isPlainObject, hasKey, throwError } from '../../utils/utils'
+import { uuid, isPlainObject, hasKey, throwError, encodeHtml } from '../../utils/utils'
 
 // 节点状态
 const STATES = ['checked', 'disabled', 'expanded', 'visible']
@@ -99,6 +99,7 @@ export class Node {
         }
       }
     }
+    this.label = encodeHtml(this.label || '')
     this.level = 0
     this.children = []
     if (this.parent) {
