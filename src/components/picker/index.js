@@ -241,6 +241,7 @@ const render = function () {
   document.body.appendChild($picker)
   states.$picker = $picker
   states.visible = false
+  states.zIndex = zIndex
 
   if (!states.handles.pickerClick) {
     const self = this
@@ -323,6 +324,13 @@ export class Picker extends Events {
     // 容错
     if (states.visible) {
       return
+    }
+
+    let zIndex = states.zIndex
+    if (zIndex < Popup.getCurrentZindex()) {
+      zIndex = Popup.nextZIndex()
+      states.zIndex = zIndex
+      $picker.style.zIndex = zIndex
     }
 
     $picker.style.visibility = 'hidden'

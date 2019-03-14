@@ -107,6 +107,14 @@ export class Popup {
     return zIndex
   }
 
+
+  /**
+   * 获取当前z-Index
+   */
+  static getCurrentZindex () {
+    return zIndex
+  }
+
   
   /**
    *
