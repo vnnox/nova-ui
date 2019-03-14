@@ -83,6 +83,16 @@
         data2: JSON.parse(JSON.stringify(TreeData)),
         data3: JSON.parse(JSON.stringify(TreeData))
       }
+    },
+    mounted () {
+      // setTimeout(() => {
+      //   this.data = [
+      //     {
+      //       id: '610602',
+      //       label: '宝塔区'
+      //     }
+      //   ]
+      // }, 2000)
     }
   }
 </script>  
