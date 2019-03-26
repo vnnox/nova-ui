@@ -12,7 +12,7 @@
  */
 
 import Events from '../../utils/events'
-import { isElement, throwError, mixins, isNumber, isNumberString } from '../../utils/utils'
+import { isElement, throwError, mixins, isNumber, isNumberString, isPlainObject } from '../../utils/utils'
 import { correctProps } from './utils'
 import template from '../../utils/template'
 import { addClass, qsa, bind, unbind, removeNode } from '../../utils/dom'
@@ -380,6 +380,17 @@ export class InputNumber extends Events {
     states.$el.classList.remove('nv-disabled')
     states.$input.removeAttribute('disabled')
     states.$input.setAttribute('aria-disabled', false)
+    toggleBtnDisabled.call(this)
+  }
+
+
+  /**
+   * 设置属性
+   * @date 2019-03-26
+   * @param {*} options 
+   */
+  setOptions (options) {
+    this.props = correctProps(mixins({}, defaults, this.props, options || {}))
     toggleBtnDisabled.call(this)
   }
 

@@ -46,8 +46,10 @@
     mounted() {
       this.instance = new InputNumber(this.$el, this.$props)
       this.instance.on('change', (newVal, oldVal) => {
-        this.$emit('input', newVal)
-        this.$emit('change', newVal, oldVal)
+        if (newVal !== this.value) {
+          this.$emit('input', newVal)
+          this.$emit('change', newVal, oldVal)
+        }
       })
     },
 
@@ -61,6 +63,16 @@
         if (val !== old && this.instance) {
           val ? this.instance.disable() : this.instance.enable()
         }
+      },
+      min (val) {
+        this.instance && this.instance.setOptions({
+          min: val
+        })
+      },
+      max (val) {
+        this.instance && this.instance.setOptions({
+          max: val
+        })
       }
     },
 

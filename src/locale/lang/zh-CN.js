@@ -6,7 +6,8 @@ export default {
     year: '年',
     confirm: '确定',
     cancel: '取消',
-    today: '今天'
+    today: '今天',
+    now: '此刻',
   },
   pagination: {
     total: '共{total}条记录，第{index}/{pages}页',

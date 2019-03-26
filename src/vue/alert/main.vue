@@ -1,6 +1,6 @@
 <template>
   <transition name="fade">
-    <div role="alert" class="nv-alert" :class="className" v-show="visible">
+    <div role="alert" class="nv-alert" :class="className" v-if="visible">
       <div class="nv-alert__inner">
         <span class="nv-alert__icon" v-if="showIcon">
           <i :class="icon"></i>

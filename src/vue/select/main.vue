@@ -54,13 +54,16 @@
 
     methods: {
       addOption(option) {
+        if (this.data.find(item => item.value === option.value)) {
+          return
+        }
         this.data.push(objectClone(option))
         this.instance && this.instance.setOptions(this.data)
       }
     },
 
     mounted() {
-      let props = objectClone(this.$props)
+      const props = objectClone(this.$props)
       props.options = this.data
       this.instance = new Select(this.$el, props)
       this.instance
@@ -69,8 +72,8 @@
         .on('focus', event => this.$emit('focus', event))
         .on('blur', event => this.$emit('blur', event))
         .on('change', (value, options) => {
-          this.$emit('change', value, options)
           this.$emit('input', value)
+          this.$emit('change', value, options)
         })
     },
 

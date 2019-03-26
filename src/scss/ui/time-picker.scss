@@ -1,124 +1,279 @@
+// .nv-time-picker {
+//   position: relative;
+//   user-select: none;
+//   overflow: hidden;
+//   width: 160px;
+
+//   .nv-time-picker__body {
+//     display: flex;
+//     flex-flow: row nowrap;
+//     position: relative;
+//     height: 160px;
+//     // margin: 10px;
+//     // border: 1px solid $color-line;
+//     margin: 5px 0;
+
+//     &::before,
+//     &::after {
+//       content: '';
+//       height: 1px;
+//       position: absolute;
+//       top: 50%;
+//       left: 0;
+//       right: 0;
+//       z-index: 2;
+//       background-color: $color-line;
+//       margin-top: -16px;
+//     }
+
+//     &::after {
+//       margin-top: 16px;
+//     }
+//   }
+
+//   .nv-time-picker__wrap {
+//     min-width: 50px;
+//     flex: 1 1 auto;
+//     height: 100%;
+//     flex-shrink: 0;
+//     position: relative;
+//     z-index: 1;
+//     overflow: hidden;
+//   }
+
+//   .nv-time-picker__separator {
+//     position: absolute;
+//     width: 100%;
+//     top: 50%;
+//     height: 0;
+//     display: flex;
+
+//     span {
+//       flex: 1 1 auto;
+//       font-size: 16px;
+//       font-weight: bold;
+//       margin-top: -9px;
+//       margin-left: -1px;
+//       z-index: 0;
+//       color: $color-spin;
+//       line-height: 1;
+
+//       &:first-child {
+//         opacity: 0;
+//         z-index: -1;
+//       }
+//     }
+//   }
+
+//   .nv-scroller {
+//     overflow: hidden;
+//     overflow-y: auto;
+//     height: 100%;
+//     margin: 0;
+//     margin-right: -20px;
+//   }
+
+//   .nv-time-picker__select {
+//     margin: 0;
+//     padding: 0;
+//     list-style: none;
+
+//     &::before,
+//     &::after {
+//       content: '';
+//       display: block;
+//       width: 100%;
+//       height: 64px;
+//     }
+//   }
+
+//   .nv-time-picker__option {
+//     height: 32px;
+//     line-height: 22px;
+//     padding: 5px 0;
+//     text-align: center;
+//     white-space: nowrap;
+//     cursor: pointer;
+
+//     &:not(.nv-disabled):not(.nv-actived):hover,
+//     &.nv-hover {
+//       color: $color-primary;
+//     }
+
+//     &.nv-actived {
+//       color: $color-primary;
+//       font-weight: bold;
+//     }
+
+//     &.nv-disabled {
+//       color: $color-text-disabled;
+//       cursor: not-allowed;
+//     }
+//   }
+
+//   .nv-time-picker__foot {
+//     margin-top: -2px;
+//     padding: 6px 10px 8px 10px;
+//     text-align: right;
+//     border-top: 1px solid $color-line;
+
+//     .nv-btn {
+//       margin-left: 10px;
+//     }
+//   }
+// }
+
+// .nv-time-picker--wrap.nv-select {
+//   background-color: white;
+
+//   .nv-input {
+//     background-color: transparent;
+//     position: relative;
+//     z-index: 1;
+//   }
+
+//   .nv-select__clean {
+//     z-index: 2;
+//   }
+
+//   &::after {
+//     z-index: 0;
+//   }
+
+//   &.nv-disabled {
+//     background-color: $color-bg-disabled;
+//   }
+// }
+
 .nv-time-picker {
-  position: relative;
-  user-select: none;
-  overflow: hidden;
-  width: 160px;
+  min-width: 168px;
+  text-align: center;
+  border: 1px solid $color-line;
 
   .nv-time-picker__body {
+    user-select: none;
+    padding: 8px 15px;
+  }
+
+  .nv-time-picker__btns {
+    padding: 10px 15px;
+    font-size: 0;
+    text-align: right;
+    border-top: 1px solid $color-line;
+
+    .nv-btn:not(.nv-btn--link) {
+      padding-left: 10px;
+      padding-right: 10px;
+      margin-left: 10px;
+    }
+  }
+
+  .nv-time-picker__inputs,
+  .nv-time-picker__spinners {
     display: flex;
-    flex-flow: row nowrap;
-    position: relative;
-    height: 160px;
-    // margin: 10px;
-    // border: 1px solid $color-line;
-    margin: 5px 0;
-
-    &::before,
-    &::after {
-      content: '';
-      height: 1px;
-      position: absolute;
-      top: 50%;
-      left: 0;
-      right: 0;
-      z-index: 2;
-      background-color: $color-line;
-      margin-top: -16px;
-    }
-
-    &::after {
-      margin-top: 16px;
-    }
-  }
-
-  .nv-time-picker__wrap {
-    min-width: 50px;
-    flex: 1 1 auto;
-    height: 100%;
-    flex-shrink: 0;
-    position: relative;
-    z-index: 1;
-    overflow: hidden;
-  }
-
-  .nv-time-picker__separator {
-    position: absolute;
+    align-items: center;
+    justify-content: center;
+    height: 28px;
     width: 100%;
-    top: 50%;
-    height: 0;
-    display: flex;
 
-    span {
-      flex: 1 1 auto;
-      font-size: 16px;
-      font-weight: bold;
-      margin-top: -9px;
-      margin-left: -1px;
-      z-index: 0;
-      color: $color-spin;
-      line-height: 1;
+    .nv-input {
+      width: 100%;
+      padding-left: 5px;
+      padding-right: 5px;
+      text-align: center;
+    }
 
-      &:first-child {
-        opacity: 0;
-        z-index: -1;
+    .time-picker__divider {
+      padding: 0 4px;
+      font-size: 14px;
+      color: $color-text;
+      width: 12px;
+      text-align: center;
+    }
+
+    .time-picker__cell {
+      width: 38px;
+      white-space: nowrap;
+
+      &.is-ms {
+        width: 48px;
       }
     }
   }
 
-  .nv-scroller {
-    overflow: hidden;
-    overflow-y: auto;
-    height: 100%;
-    margin: 0;
-    margin-right: -20px;
-  }
-
-  .nv-time-picker__select {
-    margin: 0;
-    padding: 0;
-    list-style: none;
+  .nv-time-picker__spinners {
+    margin: 8px 0 0 0;
+    position: relative;
+    height: 130px;
 
     &::before,
     &::after {
       content: '';
-      display: block;
-      width: 100%;
-      height: 64px;
+      position: absolute;
+      left: -15px;
+      right: -15px;
+      height: 1px;
+      background-color: $color-line;
+      z-index: 1;
+    }
+
+    &::before {
+      top: 50px;
+    }
+
+    &::after {
+      top: 80px;
     }
   }
 
-  .nv-time-picker__option {
-    height: 32px;
-    line-height: 22px;
-    padding: 5px 0;
+  .time-spinner {
+    width: 38px;
     text-align: center;
-    white-space: nowrap;
-    cursor: pointer;
 
-    &:not(.nv-disabled):not(.nv-actived):hover,
-    &.nv-hover {
-      color: $color-primary;
+    .time-spinner__ctrl {
+      width: 100%;
+      height: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      color: rgba(black, .45);
+      text-decoration: none;
+
+      &:hover,
+      &:active {
+        color: $color-primary;
+      }
     }
 
-    &.nv-actived {
-      color: $color-primary;
-      font-weight: bold;
+    .time-spinner__times {
+      width: 100%;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      height: 90px;
     }
 
-    &.nv-disabled {
-      color: $color-text-disabled;
-      cursor: not-allowed;
+    .time-spinner__time {
+      height: 30px;
+      line-height: 30px;
+      font-size: 14px;
+      color: $color-text;
+      white-space: nowrap;
+
+      &.nv-placeholder {
+        color: $color-placeholder;
+      }
+
+      &.nv-actived {
+        color: $color-primary;
+      }
     }
   }
 
-  .nv-time-picker__foot {
-    margin-top: -2px;
-    padding: 6px 10px 8px 10px;
-    text-align: right;
-    border-top: 1px solid $color-line;
-
-    .nv-btn {
-      margin-left: 10px;
+  &.is-simple {
+    .nv-time-picker__body .time-picker__divider {
+      margin: 0 10px;
     }
   }
 }

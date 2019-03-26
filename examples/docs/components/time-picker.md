@@ -10,16 +10,24 @@
     <div class="doc-cells">
       <div class="doc-cell">
         <h5>默认</h5>
-        <input class="nv-input" id="ins1" value="" placeholder="请选择时间" readonly>
+        <input class="nv-input" id="ins1" placeholder="请选择时间" readonly>
       </div>
       <div class="doc-cell">
         <h5>时分</h5>
-        <input class="nv-input" id="ins2" value=""  placeholder="请选择时间" readonly>
+        <input class="nv-input" id="ins2" placeholder="请选择时间" readonly>
+      </div>
+      <div class="doc-cell">
+        <h5>时分秒毫秒</h5>
+        <input class="nv-input" id="ins3" placeholder="请选择时间" readonly>
       </div>
       <div class="doc-cell">
         <h5>显示按钮</h5>
-        <input class="nv-input" id="ins3" value="16:40:38"  placeholder="请选择时间" readonly>
-      </div> 
+        <input class="nv-input" id="ins4" placeholder="请选择时间" readonly>
+      </div>
+       <div class="doc-cell">
+        <h5>不显示微调</h5>
+        <input class="nv-input" id="ins5" placeholder="请选择时间" readonly>
+      </div>  
     </div>  
   </div>  
 </div>
@@ -30,36 +38,27 @@
     value: new Date()
   })
   var ins3 = new Nova.TimePicker(document.getElementById('ins3'), {
+    value: new Date(),
+    format: 'HH:mm:ss.SSS',
+  })
+  var ins4 = new Nova.TimePicker(document.getElementById('ins4'), {
+    value: new Date(),
+    now: true,
     confirm: true,
-    cancel: true
+  })
+
+  var ins5 = new Nova.TimePicker(document.getElementById('ins5'), {
+    value: new Date(),
+    format: 'HH:mm:ss.SSS',
+    spinner: false,
   })
   // 回收实例
-  window.instances.push(ins1, ins2, ins3)
+  window.instances.push(ins1, ins2, ins3, ins4, ins5)
 </script>  
 ```
 :::
 
-### 最小最大时间
-:::demo
-```html
-<div class="doc-row">
-  <p class="doc-row__describe">通过设置配置项<code>minTime/maxTime</code>，则组件仅可在有效时间内选择时间。同时，组件实例提供了<code>setMinTime</code>和<code>setMaxTime</code>方法来随时调整最小时间和最大时间</p>
-  <div class="doc-row__body">
-    <input class="nv-input" id="ins4" value=""  placeholder="请选择时间"> 
-  </div>  
-</div> 
 
-<script>
-  var ins5 = new Nova.TimePicker(document.getElementById('ins4'), {
-    value: '10:24:48',
-    minTime: '06:20:00',
-    maxTime: '23:40:30'
-  })
-  // 回收实例
-  window.instances.push(ins4)
-</script>  
-```
-:::
 
 
 ## API
@@ -73,7 +72,6 @@
 | `hh` | 小时（12），补零 | 01 02 ... 11 12 |
 | `m` | 分钟，不补零 | 0 1 ... 58 59 |
 | `mm` | 分钟，补零 | 00 01 ... 58 59 |
-
 
 
 ### Options

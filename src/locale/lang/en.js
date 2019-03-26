@@ -6,7 +6,8 @@ export default {
     year: '',
     confirm: 'Confirm',
     cancel: 'Cancel',
-    today: 'Today'
+    today: 'Today',
+    now: 'Now',
   },
   pagination: {
     total: '{total} record(s) in total , Page {index}/{pages}',
