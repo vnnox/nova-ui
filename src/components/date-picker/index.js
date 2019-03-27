@@ -12,7 +12,7 @@
  */
 
 import { Events } from '../../utils/events'
-import { mixins, isElement, isFunction, throwError } from '../../utils/utils'
+import { mixins, isElement, isFunction, throwError, isArray } from '../../utils/utils'
 import { getLocales } from '../../utils/locale'
 import template from '../../utils/template'
 import { parseDate, formatDate, isSameDay, toDate, isSameDate, pad, getDaysInMonth, getFirstDayInMonth } from './utils'
@@ -64,7 +64,9 @@ const defaults = {
   // [ boolean ] 显示今天按钮
   today: false,
   // [ boolean ] 显示确定按钮
-  confirm: false
+  confirm: false,
+  // [ boolean ] 多个日期
+  multiple: false
 }
 
 // selectors
@@ -784,9 +786,19 @@ export class DatePicker extends Events {
     if (isInput && !value) {
       value = target.value
     }
+
+    // 多选
+    if (props.multiple) {
+      value = isArray(value) ? value[0] : value
+    }
+
     setMinMaxDate.call(this)
     setValueState.call(this, value)
     states.bindValue = states.value
+
+    // 多选使用multipleValue
+    states.multipleValue = isArray(value) ? value : (value ? [value] : [])
+
     render.call(this)
     if (states.isInput) {
       states.$target.value =  this.getValue(true)

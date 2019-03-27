@@ -16,7 +16,11 @@
         </div>
         <div class="doc-cell">
           <h5>时分</h5>
-          <nv-time-picker v-model="value2" placeholder="请选择时间" format="HH:ss"></nv-time-picker>
+          <nv-time-picker v-model="value2" placeholder="请选择时间" format="HH:mm"></nv-time-picker>
+        </div>
+        <div class="doc-cell">
+          <h5>时分秒毫秒</h5>
+          <nv-time-picker v-model="value3" placeholder="请选择时间" format="HH:mm:ss.SSS"></nv-time-picker>
         </div> 
       </div>  
     </div>  
@@ -29,6 +33,7 @@
       return {
         value1: date,
         value2: date,
+        value3: date,
       }
     }
   }
@@ -46,16 +51,16 @@
     <div class="doc-row__body">
       <div class="doc-cells">
         <div class="doc-cell">
-          <h5>输入框只读</h5>
-          <nv-time-picker v-model="value2" placeholder="请选择时间" readonly></nv-time-picker>
-        </div> 
-        <div class="doc-cell">
           <h5>可清空</h5>
-          <nv-time-picker v-model="value3" placeholder="请选择时间" clearable @change="change"></nv-time-picker>
+          <nv-time-picker v-model="value2" placeholder="请选择时间" clearable @change="change"></nv-time-picker>
+        </div>
+        <div class="doc-cell">
+          <h5>不显示spinner</h5>
+          <nv-time-picker v-model="value3" placeholder="请选择时间" :spinner="false" @change="change"></nv-time-picker>
         </div>
         <div class="doc-cell">
           <h5>显示按钮</h5>
-          <nv-time-picker v-model="value4" placeholder="请选择时间" cancel confirm @done="done"></nv-time-picker>
+          <nv-time-picker v-model="value4" placeholder="请选择时间" now cancel confirm @change="done"></nv-time-picker>
         </div>
       </div>  
     </div>  
@@ -97,10 +102,6 @@
           <nv-time-picker v-model="value1" placeholder="请选择时间" :disabled="!enable"></nv-time-picker>
           <nv-switch v-model="enable">启用</nv-switch>
         </div>
-        <div class="doc-cell">
-          <h5>minTime/MaxTime</h5>
-          <nv-time-picker v-model="value2" placeholder="请选择时间" min-time="12:30:00" max-time="16:20:30"></nv-time-picker>
-        </div> 
       </div>  
     </div>  
   </div>
@@ -111,7 +112,6 @@
       let date = new Date()
       return {
         value1: date,
-        value2: date,
         enable: false
       }
     }
@@ -131,7 +131,6 @@
 | Attribute   | Description | Type |  Default Values |
 | ----------- | ----------- | ----------- | ----------- |
 | `placeholder` | 输入框占位符 | string | -- |
-| `readonly` | 输入框只读 | boolean | false |
 | `clearable` | 显示清空按钮 | boolean | false |
 | `name` | 输入框名称 | string | -- |
 

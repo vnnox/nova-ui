@@ -10,16 +10,24 @@
     <div class="doc-cells">
       <div class="doc-cell">
         <h5>默认</h5>
-        <input class="nv-input" id="ins1" value="" placeholder="请选择时间" readonly>
+        <input class="nv-input" id="ins1" placeholder="请选择时间" readonly>
       </div>
       <div class="doc-cell">
         <h5>时分</h5>
-        <input class="nv-input" id="ins2" value=""  placeholder="请选择时间" readonly>
+        <input class="nv-input" id="ins2" placeholder="请选择时间" readonly>
+      </div>
+      <div class="doc-cell">
+        <h5>时分秒毫秒</h5>
+        <input class="nv-input" id="ins3" placeholder="请选择时间" readonly>
       </div>
       <div class="doc-cell">
         <h5>显示按钮</h5>
-        <input class="nv-input" id="ins3" value="16:40:38"  placeholder="请选择时间" readonly>
-      </div> 
+        <input class="nv-input" id="ins4" placeholder="请选择时间" readonly>
+      </div>
+       <div class="doc-cell">
+        <h5>不显示微调</h5>
+        <input class="nv-input" id="ins5" placeholder="请选择时间" readonly>
+      </div>  
     </div>  
   </div>  
 </div>
@@ -30,36 +38,27 @@
     value: new Date()
   })
   var ins3 = new Nova.TimePicker(document.getElementById('ins3'), {
+    value: new Date(),
+    format: 'HH:mm:ss.SSS',
+  })
+  var ins4 = new Nova.TimePicker(document.getElementById('ins4'), {
+    value: new Date(),
+    now: true,
     confirm: true,
-    cancel: true
+  })
+
+  var ins5 = new Nova.TimePicker(document.getElementById('ins5'), {
+    value: new Date(),
+    format: 'HH:mm:ss.SSS',
+    spinner: false,
   })
   // 回收实例
-  window.instances.push(ins1, ins2, ins3)
+  window.instances.push(ins1, ins2, ins3, ins4, ins5)
 </script>  
 ```
 :::
 
-### 最小最大时间
-:::demo
-```html
-<div class="doc-row">
-  <p class="doc-row__describe">通过设置配置项<code>minTime/maxTime</code>，则组件仅可在有效时间内选择时间。同时，组件实例提供了<code>setMinTime</code>和<code>setMaxTime</code>方法来随时调整最小时间和最大时间</p>
-  <div class="doc-row__body">
-    <input class="nv-input" id="ins4" value=""  placeholder="请选择时间"> 
-  </div>  
-</div> 
 
-<script>
-  var ins5 = new Nova.TimePicker(document.getElementById('ins4'), {
-    value: '10:24:48',
-    minTime: '06:20:00',
-    maxTime: '23:40:30'
-  })
-  // 回收实例
-  window.instances.push(ins4)
-</script>  
-```
-:::
 
 
 ## API
@@ -73,8 +72,9 @@
 | `hh` | 小时（12），补零 | 01 02 ... 11 12 |
 | `m` | 分钟，不补零 | 0 1 ... 58 59 |
 | `mm` | 分钟，补零 | 00 01 ... 58 59 |
-
-
+| `s` | 秒，不补零 | 0 1 ... 58 59 |
+| `ss` | 秒，补零 | 00 01 ... 58 59 |
+| `SSS` | 毫秒 | 000 001 ... 988 999 |
 
 ### Options
 | Attribute   | Description | Type |  Default Values |
@@ -83,23 +83,19 @@
 | value | 当前绑定值 | string/Date | -- |
 | defaultValue | 默认值 | string/Date | '00:00:00' |
 | format | 格式化，见`Format` | string | `HH:mm:ss` |
-| minTime | 可选的最小时间 | string/Date | -- |
-| maxTime | 可选的最大时间 | string/Date | -- |
-| cancel | 是否显示取消按钮 | boolean | false |
+| now | 是否显示此刻按钮 | boolean | false |
 | confirm | 是否显示确定按钮 | boolean | false |
 | align | picker相对target的位置 | string`<left,center,right>` | `left` |
 | disabled | 是否禁用组件 | boolean | false |
+| spinner | 是否显示微调器 | boolean | true |
 | customClass | 自定义样式名称，多样式以逗号`,`分隔 | string | -- |
 
 
 ### Methods
 | Method  | Description | Parameters |
 | ----------- | ----------- | ----------- |
-| setValue | 设定当前值 | (value:Date) |
-| clear | 清空当前值，只有该方法才会清空绑定值 | -- |
+| setValue | 设定当前值 | (value:Date|null) |
 | getValue | 获取当前值 | (format:boolean) |
-| setMinTime | 设置最小时间 | (value:string`<date>`) |
-| setMaxTime | 设置最大时间 | (value:string`<date>`) |
 | open | 打开Picker | -- |
 | close | 关闭Picker | -- |
 | disable | 禁用Picker | -- |
@@ -117,5 +113,4 @@
 | open | 打开弹框时触发 | (PickerInstance) |
 | close | 关闭弹框时触发 | (PickerInstance) |
 | change | 当面板上的值改变时触发，此时绑定值不会改变 | (formatValue, newValue) |
-| done | 点击确定按钮时触发，此时绑定值会改变 | (formatValue, newValue) |
 

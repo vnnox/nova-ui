@@ -111,6 +111,7 @@
 | Prop   | Description | Type |  Default Values |
 | ----------- | ----------- | ----------- | ----------- |
 | `mode` | 选择器模式 | string`<select:选择器模式/lump:色块模式>` | `select` |
+| `readonly`| 输入框只读 | boolean | false |
 
 其他同 `Native Options`
 
@@ -119,7 +120,6 @@
 | 方法名  |  描述  | 参数 |
 |---|---|---|
 | `addRecentlyColor` | 增加最近使用色 | (color`<string/array>`) |
-
 
 
 ### Events
