@@ -19,15 +19,22 @@
       value: {},
       defaultValue: {},
       placeholder: String,
-      readonly: Boolean,
+      readonly: {
+        type: Boolean,
+        default: true
+      },
       clearable: Boolean,
       name: String,
       format: {
         type: String,
         default: 'HH:mm:ss'
       },
-      minTime: {},
-      maxTime: {},
+      spinner: {
+        type: Boolean,
+        default: true
+      },
+      // minTime: {},
+      // maxTime: {},
       disabled: Boolean,
       customClass: String,
       align: {
@@ -37,10 +44,10 @@
           return ['left', 'center', 'right'].indexOf(value) > -1
         }
       },
-      cancel: Boolean,
+      now: Boolean,
       confirm: Boolean,
       width: [String, Number],
-      itemHeight: String
+      // itemHeight: String
     },
     data() {
       return {
@@ -62,10 +69,11 @@
     methods: {
       change(formatValue, value) {
         this.$emit('input', formatValue)
-        this.$emit('done', formatValue, value)
+        this.$emit('change', formatValue, value)
       },
       clear() {
-        this.instance.clear()
+        this.instance && this.instance.setValue(null)
+        this.change('', null)
       }
     },
     mounted() {
@@ -77,7 +85,7 @@
         .on('done', (formatValue, value) => this.change(formatValue, value))
         .on('open', () => this.$emit('open'))
         .on('close', () => this.$emit('close'))
-        .on('change', (formatValue, value) => this.$emit('change', formatValue, value || ''))
+        .on('change', (formatValue, value) => this.change(formatValue, value || ''))
     },
     beforeDestroy() {
       this.instance && this.instance.destroy()

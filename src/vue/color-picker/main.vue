@@ -1,7 +1,7 @@
 <template>
   <label class="nv-select nv-color-picker__target target-select" :class="{'nv-disabled': disabled}" v-if="mode === 'select'">
     <span class="nv-color-lump" :style="lumpBackground"></span>
-    <input class="nv-input" ref="input" v-model.lazy="inputVal" :disabled="disabled">
+    <input class="nv-input" ref="input" v-model.lazy="inputVal" :readonly="readonly" :disabled="disabled">
   </label>
   <div class="nv-color-picker__target target-lump" :title="value" :class="{'nv-disabled': disabled}" :style="lumpColor" v-else>
     <button type="button" class="target-lump__outer">
@@ -29,6 +29,7 @@
         type: Boolean,
         default: true
       },
+      readonly: Boolean,
       mode: {
         type: String,
         default: 'select',

@@ -12,7 +12,7 @@
  */
 
 import Events from '../../utils/events'
-import { isElement, throwError, mixins, isNumber, isNumberString, isPlainObject } from '../../utils/utils'
+import { isElement, throwError, mixins, isNumber, isNumberString } from '../../utils/utils'
 import { correctProps } from './utils'
 import template from '../../utils/template'
 import { addClass, qsa, bind, unbind, removeNode } from '../../utils/dom'
@@ -127,6 +127,21 @@ function handleInputKeydown(e) {
 
 
 /**
+ * input mousewheel
+ * @private
+ * @param {*} e 
+ */
+function handleInputMousewheel (e) {
+  if (this.props.disabled) {
+    return
+  }
+  e.preventDefault()
+  const delta = Math.max(-1, Math.min(1, e.wheelDelta || -e.detail))
+  delta < 0 ? this.increase() : this.decrease()
+}
+
+
+/**
  * 绑定DOM事件
  * @private
  */
@@ -137,11 +152,14 @@ function bindEvents() {
   handles.decrease = this.decrease.bind(this)
   handles.inputChange = handleInputChange.bind(this)
   handles.inputKeydown = handleInputKeydown.bind(this)
+  handles.inputMousewheel = handleInputMousewheel.bind(this)
 
   bind(states.$increase, 'click', handles.increase)
   bind(states.$decrease, 'click', handles.decrease)
   bind(states.$input, 'change', handles.inputChange)
   bind(states.$input, 'keydown', handles.inputKeydown)
+  bind(states.$input, 'mousewheel', handles.inputMousewheel)
+  bind(states.$input, 'DOMMouseScroll', handles.inputMousewheel)
 }
 
 
@@ -156,6 +174,8 @@ function unbindEvents() {
   unbind(states.$decrease, 'click', handles.decrease)
   unbind(states.$input, 'change', handles.inputChange)
   unbind(states.$input, 'keydown', handles.inputKeydown)
+  unbind(states.$input, 'mousewheel', handles.inputMousewheel)
+  unbind(states.$input, 'DOMMouseScroll', handles.inputMousewheel)
 }
 
 

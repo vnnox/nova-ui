@@ -410,7 +410,7 @@ function updateMapBySpinner(key, action, isUpdate = true) {
   states.map[key] = value
   const $el = states[`$${key}Spinner`]
   const $input = states[`$${key}Input`]
-  $el && updateSpinnerItems($el, value, min, max)
+  $el && updateSpinnerItems($el, value, min, max, padLen)
   if ($input) {
     $input.value = pad(value, padLen)
   }
