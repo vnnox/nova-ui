@@ -4,7 +4,7 @@
       <span class="nv-tag__label" :title="label">
         <slot>{{label}}</slot>
       </span>
-      <a class="nv-tag__close nv-icon-close" v-if="removeable" @click="remove"></a>
+      <a class="nv-tag__close nv-icon-close" v-if="removeable" @click.stop="remove"></a>
     </span>
   </transition>
 </template>
@@ -50,7 +50,7 @@
     methods: {
       remove() {
         this.visible = false
-        this.$emit('remove')
+        this.$emit('remove', this.label)
       }
     }
   }

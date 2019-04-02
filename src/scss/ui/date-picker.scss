@@ -229,3 +229,83 @@
     margin-left: 10px;
   }
 }
+
+.nv-date-picker--wrap {
+  width: 100%;
+
+  .nv-select__clean {
+    right: 10px;
+  }
+
+  .nv-input {
+    width: 100%;
+  }
+
+  &.is-multiple {
+    display: flex;
+    align-items: center;
+
+    .nv-input {
+      min-height: 32px;
+      max-height: 32px;
+      resize: none;
+    }
+  }
+
+  .multiple-value {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    max-width: 100%;
+    border-radius: 4px;
+    border: 1px solid $color-line;
+    padding: 6px 0 6px 2px;
+    min-height: 32px;
+
+    &.is-tag {
+      padding: 3px 0;
+    }
+  }
+
+  .nv-tag {
+    margin: 2px;
+  }
+
+  .multiple-value__contents {
+    overflow: auto;
+    max-height: 60px;
+    padding: 0 10px;
+  }
+
+  .multiple-value__item {
+    line-height: 1;
+  }
+
+  &.show-clean {
+    .nv-input, .multiple-value__contents {
+      padding-right: 32px;
+    }
+  }
+
+  &.nv-disabled {
+    .multiple-value {
+      border-color: $color-line;
+      background-color: $color-bg-disabled;
+      color: $input-disabled-color;
+      cursor: not-allowed;
+      user-select: none;
+    }
+  }
+
+  &:not(.nv-disabled) {
+    &:hover, &:active {
+      .multiple-value {
+        border-color: $color-primary;
+      }
+    }
+  }
+
+  .nv-color-placeholder {
+    padding: 0 12px;
+  }
+}

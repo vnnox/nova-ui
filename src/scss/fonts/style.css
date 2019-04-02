@@ -1,9 +1,9 @@
 @font-face {
   font-family: 'Nova';
   src:
-    url('fonts/Nova.ttf?olyqeq') format('truetype'),
-    url('fonts/Nova.woff?olyqeq') format('woff'),
-    url('fonts/Nova.svg?olyqeq#Nova') format('svg');
+    url('fonts/Nova.ttf?hgy0xv') format('truetype'),
+    url('fonts/Nova.woff?hgy0xv') format('woff'),
+    url('fonts/Nova.svg?hgy0xv#Nova') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -94,6 +94,9 @@
 }
 .nv-icon-delete:before {
   content: "\e923";
+}
+.nv-icon-clear1:before {
+  content: "\e962";
 }
 .nv-icon-fullscreen:before {
   content: "\e929";

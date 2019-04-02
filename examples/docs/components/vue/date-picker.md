@@ -108,7 +108,7 @@
         </div>
         <div class="doc-cell">
           <h5>disabledDate</h5>
-          <nv-date-picker v-model="value3" placeholder="请选择日期" :disabled-date="disabledDate"></nv-date-picker>
+          <nv-date-picker v-model="value3" placeholder="请选择日期" :disabled-date="disabledDate" ></nv-date-picker>
         </div> 
       </div>  
     </div>  
@@ -136,6 +136,58 @@
 :::
 
 
+### 多选日期
+:::vue-demo
+```html
+<template>
+  <div class="doc-row">
+    <div class="doc-row__body" style="max-width:640px;">
+      <h5>Normal</h5>
+      <nv-date-picker v-model="value2" placeholder="请选择日期" multiple></nv-date-picker>
+      <br/>
+      <br/>
+      <h5>禁用</h5>
+      <nv-date-picker v-model="value1" placeholder="请选择日期" :disabled="!enable" multiple></nv-date-picker>
+      <nv-switch v-model="enable">启用</nv-switch>
+      <br/>
+      <br/>
+      <h5>最多可选日期个数</h5>
+      <nv-date-picker v-model="value3" placeholder="请选择日期"  multiple :max-multiple-count="5"></nv-date-picker>
+      <br/>
+      <br/>
+      <h5>可清除</h5>
+      <nv-date-picker v-model="value4" placeholder="请选择日期"  multiple clearable></nv-date-picker>
+      <br/>
+      <br/>
+      <h5>Tag模式</h5>
+      <nv-date-picker v-model="value5" placeholder="请选择日期" tag multiple></nv-date-picker>
+      <br/>
+      <br/>
+      <h5>Tag模式可移除单个选项</h5>
+      <nv-date-picker v-model="value6" placeholder="请选择日期" tag multiple removeable></nv-date-picker>
+    </div>  
+  </div>
+</template>  
+<script>
+  export default {
+    data () {
+      let date = new Date()
+      return {
+        value1: date,
+        value2: date,
+        value3: ['2019-04-01'],
+        value4: date,
+        value5: date,
+        value6: date,
+        enable: false
+      }
+    },
+  }
+</script> 
+```
+:::
+
+
 ## API
 
   
@@ -149,6 +201,8 @@
 | `readonly` | 输入框只读 | boolean | false |
 | `clearable` | 显示清空按钮 | boolean | false |
 | `name` | 输入框名称 | string | -- |
+| `tag` | 多选使用tag模式 | boolean | false |
+| `removeable` | 多选使用tag模式时可移除 | boolean | false |
 
 其他同 `Native Options`
 
