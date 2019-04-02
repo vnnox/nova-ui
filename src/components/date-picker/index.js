@@ -12,7 +12,7 @@
  */
 
 import { Events } from '../../utils/events'
-import { mixins, isElement, isFunction, throwError, isArray } from '../../utils/utils'
+import { mixins, isElement, isFunction, throwError, isString, isArray } from '../../utils/utils'
 import { getLocales } from '../../utils/locale'
 import template from '../../utils/template'
 import { parseDate, formatDate, isSameDay, toDate, isSameDate, pad, getDaysInMonth, getFirstDayInMonth } from './utils'
@@ -66,7 +66,11 @@ const defaults = {
   // [ boolean ] 显示确定按钮
   confirm: false,
   // [ boolean ] 多个日期
-  multiple: false
+  multiple: false,
+  // [ number ] 最多可选日期个数
+  maxMultipleCount: Infinity,
+  // [ string ] 多选分隔符
+  multipleSeparator: '; '
 }
 
 // selectors
@@ -142,8 +146,13 @@ function initPickerInstance() {
   states.pickerInstance
     .on('open', () => {
       states.pickeOpened = true
-      setValueState.call(this, states.bindValue)
-      states.view = props.mode
+      if (props.multiple) {
+        states.view = props.mode = 'date'
+        initMultipleValue.call(this, states.bindValue)
+      } else {
+        setValueState.call(this, states.bindValue)
+        states.view = props.mode
+      }
       this.toggleView()
       this.emit('open', states.pickerInstance)
     })
@@ -194,6 +203,12 @@ function handleTodayClick(e) {
  */
 function handleConfirmClick(e) {
   e.stopPropagation()
+  // 多选
+  if (this.props.multiple) {
+    this.setValue(this.states.multipleValue, true)
+    return
+  } 
+
   if (!this.states.value) {
     return
   }
@@ -248,7 +263,7 @@ function bindEvents() {
         break
     }
     if (set) {
-      self.setValue(value)
+      props.multiple ? setMultipleValue.call(self, value) : self.setValue(value)
     }
   })
 
@@ -551,7 +566,7 @@ function getADateStr(year, month, day) {
  * @private
  */
 function afterViewChange() {
-  const { states } = this
+  const { states, props } = this
   const { locales } = states
   const { $currentYear, $currentMonth, $monthPrev, $monthNext, year, month, view, dates, $dates } = states
 
@@ -579,8 +594,19 @@ function afterViewChange() {
   }
 
   dates.forEach((date, index) => {
-    let actived = isSameDate(states.value, date.date, view)
+    let actived
+    if (props.multiple) {
+      actived = states.multipleValue.some(v => isSameDate(v, date.date, view))
+    } else {
+      actived = isSameDate(states.value, date.date, view)
+    }
+
     let disabled = this.isDisabled(date.date)
+    // 如果是多选还要开是否超过多选的个数
+    if (!disabled && !actived && view === 'date' && props.multiple && states.multipleValue.length >= props.maxMultipleCount) {
+      disabled = true
+    }
+
     date.disabled = disabled
     $dates[index].classList[disabled ? 'add' : 'remove'](CLASS_STATUS_DISABLED)
     $dates[index].classList[actived ? 'add' : 'remove'](CLASS_STATES_ACTIVED)
@@ -744,6 +770,66 @@ function setMinMaxDate(min, max) {
 }
 
 
+/**
+ * 设置multipleValue的值
+ * @date 2019-04-01
+ * @param {*} value
+ */
+function setMultipleValue(value) {
+  const { props, states } = this
+  const { multipleValue } = states
+  const date = formatDate(value, props.format)
+  const index = multipleValue.indexOf(date)
+  if (index === -1) {
+    addDateToMultipleValue.call(this, value)
+  } else {
+    multipleValue.splice(index, 1)
+  }
+  states.multipleValue = multipleValue
+  setValueState.call(this, value)
+  this.toggleView()
+}
+
+
+
+/**
+ * 向multipleValue中追加格式化后的日期
+ * @date 2019-04-01
+ * @param {*} date
+ */
+function addDateToMultipleValue(date) {
+  const { states, props } = this
+  const { multipleValue } = states
+  // 不能超过最大值
+  if (multipleValue.length >= props.maxMultipleCount) 
+    return
+  date = formatDate(date, props.format)
+  date && multipleValue.push(date)
+}
+
+
+/**
+ * 初始化multipleValue
+ * @date 2019-04-01
+ * @param {*} value
+ */
+function initMultipleValue(value) {
+  const { states, props } = this
+  states.multipleValue = []
+  if (value && !isArray(value)) {
+    if (value instanceof Date) {
+      value = [value]
+    } else if (isString(value)) {
+      value = value.split(props.multipleSeparator)
+    } else {
+      value = void 0
+    }
+  }
+  value = value || []
+  value.forEach(val => addDateToMultipleValue.call(this, val))
+  setValueState.call(this, value[0] || '')
+}
+
 
 /**
  * Date Picker Component
@@ -785,23 +871,34 @@ export class DatePicker extends Events {
     // get value from target
     if (isInput && !value) {
       value = target.value
+      if (props.multiple) {
+        value = (value || '').split(',')
+      }
     }
 
     // 多选
     if (props.multiple) {
-      value = isArray(value) ? value[0] : value
+      states.view = props.mode = 'date'
+      props.confirm = true
     }
 
     setMinMaxDate.call(this)
-    setValueState.call(this, value)
-    states.bindValue = states.value
 
     // 多选使用multipleValue
-    states.multipleValue = isArray(value) ? value : (value ? [value] : [])
+    if (props.multiple) {
+      initMultipleValue.call(this, value)
+      states.bindValue = [...states.multipleValue]
+    } else {
+      setValueState.call(this, value)
+      states.bindValue = states.value
+    }
 
     render.call(this)
+
+    // 取值
     if (states.isInput) {
-      states.$target.value =  this.getValue(true)
+      const showValue = this.getValue(true)
+      states.$target.value = props.multiple ? showValue.join(props.multipleSeparator) : showValue
     }
   }
 
@@ -832,10 +929,10 @@ export class DatePicker extends Events {
     if (disabled) {
       return true
     }
-    
+
     if (states.view === 'year' || states.view === 'month') {
       let year = date.getFullYear()
-      let {minYear, maxYear, minDate, maxDate} = {}
+      let { minYear, maxYear, minDate, maxDate } = {}
       if (min) {
         minYear = min.getFullYear()
         minDate = min.setDate(1)
@@ -857,7 +954,7 @@ export class DatePicker extends Events {
     } else {
       disabled = (min && +date < +min) || (max && +date > +max)
     }
-    
+
     return disabled
   }
 
@@ -871,6 +968,31 @@ export class DatePicker extends Events {
    */
   setValue(value, updateBind) {
     const { states, props } = this
+
+    // 多选的话调多选的方法
+    if (props.multiple) {
+      initMultipleValue.call(this, value)
+      this.toggleView()
+      if (states.multipleValue.join('') !== states.bindValue.join('')) {
+        this.emit('change', states.multipleValue.join(props.multipleSeparator), states.multipleValue)
+      }
+
+      if (updateBind) {
+        const oldBind = states.bindValue.join('')
+        states.bindValue = [...states.multipleValue]
+        if (oldBind !== states.bindValue.join('')) {
+          this.emit('done', states.bindValue.join(props.multipleSeparator), states.bindValue)
+        }
+        this.close()
+        if (states.isInput) {
+          states.$target.value = states.bindValue.join(props.multipleSeparator)
+          states.$target.focus()
+        }
+      }
+      return
+    }
+
+
     if (value === null) {
       // todo
     } else {
@@ -909,6 +1031,9 @@ export class DatePicker extends Events {
    * @memberof DatePicker
    */
   getValue(format) {
+    if (this.props.multiple) {
+      return this.bindValue || []
+    }
     if (this.states.value) {
       return format ? formatDate(this.states.value, this.props.format) : this.states.value
     }
@@ -949,7 +1074,8 @@ export class DatePicker extends Events {
     }
 
     if (states.$confirm) {
-      if (states.value) {
+      const isDisabled = props.multiple ? !states.multipleValue.length : !states.value
+      if (!isDisabled) {
         states.$confirm.removeAttribute('disabled')
       } else {
         states.$confirm.setAttribute('disabled', '')

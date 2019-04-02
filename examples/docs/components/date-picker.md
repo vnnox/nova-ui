@@ -19,6 +19,10 @@
       <div class="doc-cell">
         <h5>以 [月] 为单位</h5>
         <input class="nv-input" id="ins3" value="2018-11">
+      </div>
+      <div class="doc-cell">
+        <h5>日期多选</h5>
+        <input class="nv-input" id="ins33" >
       </div>   
     </div>  
   </div>  
@@ -32,6 +36,11 @@
   var ins3 = new Nova.DatePicker(document.getElementById('ins3'), {
     mode: 'month',
     format: 'YYYY-MM'
+  })
+
+   var ins33 = new Nova.DatePicker(document.getElementById('ins33'), {
+    format: 'YYYY-MM-DD',
+    multiple: true,
   })
 
   // 回收实例
@@ -109,7 +118,6 @@
 :::
 
 
-
 ## API
 
 ### Format
@@ -136,7 +144,7 @@
 | ----------- | ----------- | ----------- | ----------- |
 | lang | 当前语言 | string | -- |
 | inline | 非`Picker`，直接插入到指定容器 | boolean  | false |
-| value | 当前绑定值 | string/Date | -- |
+| value | 当前绑定值 | string/Date/Array<Date> | -- |
 | mode | 模式 | string`<date/year/month>`  | `date` |
 | format | 格式化，见`Format` | string | `YYYY-MM-DD` |
 | weekStart | 一周的起始日 | number`<0 - 6>` | 0 |
@@ -148,7 +156,9 @@
 | align | picker相对target的位置 | string`<left,center,right>` | `left` |
 | disabled | 是否禁用组件 | boolean | false |
 | customClass | 自定义样式名称，多样式以逗号`,`分隔 | string | -- |
-
+| multiple | 是否支持多选日期 | boolean | false |
+| maxMultipleCount | 最多可选的日期个数 | number | `Infinity` |
+| multipleSeparator | 多选日期分隔符 | string | `; `|
 
 ### Methods
 | Method  | Description | Parameters |

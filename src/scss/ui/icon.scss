@@ -99,6 +99,9 @@
 .nv-icon-delete:before {
   content: "\e923";
 }
+.nv-icon-clear1:before {
+  content: "\e962";
+}
 .nv-icon-fullscreen:before {
   content: "\e929";
 }
@@ -216,7 +219,9 @@
 .nv-icon-flow:before {
   content: "\e937";
 }
-
+.nv-icon-font-color:before {
+  content: "\e942";
+}
 .nv-icon-video:before {
   content: "\e958";
 }
@@ -231,10 +236,6 @@
 }
 .nv-icon-maximize:before {
   content: "\e961";
-}
-
-.nv-icon-font-color:before {
-  content: "\e942";
 }
 .nv-icon-bold:before {
   content: "\e93b";
