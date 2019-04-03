@@ -28,6 +28,7 @@ const TimePicker = require('../docs/components/time-picker.md')
 const VirtualScrollList = require('../docs/components/virtual-scroll-list.md')
 const Dropdown = require('../docs/components/dropdown.md')
 const Progress = require('../docs/components/progress.md')
+const Tooltip = require('../docs/components/tooltip.md')
 
 // Vue
 const RadioVue = require('../docs/components/vue/radio.md')
@@ -275,6 +276,10 @@ router
     native: Dropdown,
     vue: DropdownVue
   }, 'Dropdown', runScript))
+  .set('/tooltip', setPage({
+    native: Tooltip,
+    //vue: Tooltip
+  }, 'Tooltip', runScript))
   .init()
 
 

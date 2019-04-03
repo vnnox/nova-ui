@@ -20,7 +20,7 @@ import DatePicker from './components/date-picker'
 import TimePicker from './components/time-picker'
 import VirtualScrollList from './components/virtual-scroll-list'
 import Progress from './components/progress'
-
+import Tooltip from './components/tooltip'
 
 
 const Nova = Object.create(null)
@@ -52,6 +52,7 @@ Nova.DatePicker = DatePicker
 Nova.TimePicker = TimePicker
 Nova.VirtualScrollList = VirtualScrollList
 Nova.Progress = Progress
+Nova.Tooltip = Tooltip
 
 
 function routeChangeDestory() {
