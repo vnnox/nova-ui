@@ -1,6 +1,6 @@
 <template>
   <div class="nv-date-picker--wrap nv-select"
-    :class="{'is-multiple': multiple, 'show-clean': clearable && (inputValue || multipleValue)  && !disabled, 'nv-disabled': disabled}"
+    :class="{'is-multiple': multiple, 'show-clean': clearable && !disable && hasValue, 'nv-disabled': disabled}"
     role="combobox">
     <input type="text" class="nv-input" :disabled="disabled" :readonly="readonly" :placeholder="placeholder"
       :name="name" ref="input" v-model.lazy="inputValue" v-if="!multiple" />
@@ -30,6 +30,7 @@
     parseDate,
     formatDate
   } from '../../components/date-picker/utils'
+  import {compareJson} from '../../utils/utils'
   export default {
     name: 'nv-date-picker',
     props: {
@@ -111,6 +112,13 @@
           return ''
         }
       },
+      // 是否有值
+      hasValue () {
+        if (this.multiple) {
+          return this.multipleValue.length
+        }
+        return this.value
+      }
     },
     methods: {
 
@@ -166,14 +174,19 @@
           val ? this.instance.disable() : this.instance.enable()
         }
       },
-      value(val, old) {
-        if (this.multiple) {
-          this.setMultipleValue()
-        }
-        if (val !== old && this.instance) {
-          this.instance.setValue(val, true)
-        }
-      }
+      value: {
+        handler (val, old) {
+          if (this.multiple) {
+            this.setMultipleValue()
+          } 
+          else {
+            if (val !== old && this.instance) {
+              this.instance.setValue(val, true)
+            }
+          }
+        },
+        deep: true
+      },
     },
     mounted() {
       if (this.multiple) {
