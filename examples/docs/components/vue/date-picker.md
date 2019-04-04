@@ -84,7 +84,7 @@
       done (formatValue, value) {
         console.log(formatValue, value)
       },
-    }
+    },
   }
 </script>  
 ```
@@ -152,7 +152,7 @@
       <br/>
       <br/>
       <h5>最多可选日期个数</h5>
-      <nv-date-picker v-model="value3" placeholder="请选择日期"  multiple :max-multiple-count="5"></nv-date-picker>
+      <nv-date-picker v-model="value3" placeholder="请选择日期"  multiple :max-multiple-count="5" @done="done"></nv-date-picker>
       <br/>
       <br/>
       <h5>可清除</h5>
@@ -180,6 +180,16 @@
         value5: date,
         value6: date,
         enable: false
+      }
+    },
+    mounted () {
+      setTimeout(() => {
+        this.value3 = ['2019-04-04', '2019-04-05']
+      }, 2000)
+    },
+    methods: {
+      done (val) {
+        console.log(val)
       }
     },
   }

@@ -1,6 +1,6 @@
 <template>
   <div class="nv-date-picker--wrap nv-select"
-    :class="{'is-multiple': multiple, 'show-clean': clearable && !disable && hasValue, 'nv-disabled': disabled}"
+    :class="{'is-multiple': multiple, 'show-clean': clearable && !disabled && hasValue, 'nv-disabled': disabled}"
     role="combobox">
     <input type="text" class="nv-input" :disabled="disabled" :readonly="readonly" :placeholder="placeholder"
       :name="name" ref="input" v-model.lazy="inputValue" v-if="!multiple" />
@@ -30,7 +30,6 @@
     parseDate,
     formatDate
   } from '../../components/date-picker/utils'
-  import {compareJson} from '../../utils/utils'
   export default {
     name: 'nv-date-picker',
     props: {
@@ -113,7 +112,7 @@
         }
       },
       // 是否有值
-      hasValue () {
+      hasValue() {
         if (this.multiple) {
           return this.multipleValue.length
         }
@@ -124,8 +123,21 @@
 
       // change
       change(formatValue, value) {
-        this.$emit('input', formatValue)
-        this.$emit('done', formatValue, value)
+        let isTrueChange = false
+        if (this.multiple) {
+          if ((this.multipleValue || []).join(this.multipleSeparator) != formatValue) {
+            isTrueChange = true
+          }
+        }
+        else {
+          if (formatValue !== this.value) {
+            isTrueChange = true
+          }
+        }
+        if (isTrueChange) {
+          this.$emit('input', formatValue)
+          this.$emit('done', formatValue, value)
+        }
       },
 
       // 清空
@@ -157,6 +169,7 @@
           })
         }
         this.multipleValue = vals
+        this.instance && this.instance.setValue([...this.multipleValue], true)
       },
 
       // 移除值
@@ -175,10 +188,10 @@
         }
       },
       value: {
-        handler (val, old) {
+        handler(val, old) {
           if (this.multiple) {
             this.setMultipleValue()
-          } 
+          }
           else {
             if (val !== old && this.instance) {
               this.instance.setValue(val, true)
