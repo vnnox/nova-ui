@@ -1,9 +1,9 @@
 @font-face {
   font-family: 'Nova';
   src:
-    url('fonts/Nova.ttf?hgy0xv') format('truetype'),
-    url('fonts/Nova.woff?hgy0xv') format('woff'),
-    url('fonts/Nova.svg?hgy0xv#Nova') format('svg');
+    url('fonts/Nova.ttf?yj6mjh') format('truetype'),
+    url('fonts/Nova.woff?yj6mjh') format('woff'),
+    url('fonts/Nova.svg?yj6mjh#Nova') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -232,6 +232,21 @@
 }
 .nv-icon-maximize:before {
   content: "\e961";
+}
+.nv-icon-lock:before {
+  content: "\e963";
+}
+.nv-icon-user-fill:before {
+  content: "\e966";
+}
+.nv-icon-email-fill:before {
+  content: "\e967";
+}
+.nv-icon-succeed:before {
+  content: "\e968";
+}
+.nv-icon-phone-fill:before {
+  content: "\e969";
 }
 .nv-icon-bold:before {
   content: "\e93b";
