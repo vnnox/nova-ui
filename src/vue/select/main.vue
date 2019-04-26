@@ -65,6 +65,8 @@
     mounted() {
       const props = objectClone(this.$props)
       props.options = this.data
+      props.filter = this.filter
+      props.render = this.render
       this.instance = new Select(this.$el, props)
       this.instance
         .on('open', () => this.$emit('open'))
