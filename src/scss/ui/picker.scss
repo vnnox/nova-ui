@@ -8,7 +8,7 @@
   .nv-picker__body {
     background-color: white;
     border: 1px solid $color-line;
-    box-shadow: 0 0 10px 0 rgba(24, 91, 193, .25);
+    box-shadow: $shdow-dropdown;
     padding: 0;
     margin: 0;
     min-width: 80px;

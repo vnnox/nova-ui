@@ -22,7 +22,7 @@
         type: String,
         default: 'info',
         validator(value) {
-          return ['info', 'success', 'error', 'warning'].indexOf(value) > -1
+          return ['info', 'success', 'error', 'warning', 'default'].indexOf(value) > -1
         }
       },
       content: String,
@@ -44,7 +44,7 @@
     },
     computed: {
       className () {
-        let className = this.type !== 'info' ? [`nv-alert--${this.type}`] : []
+        let className = this.type !== 'default' ? [`nv-alert--${this.type}`] : []
         if (this.closable) {
           className.push('has-close')
         }

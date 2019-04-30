@@ -23,7 +23,7 @@
     line-height: 1;
     width: 1px;
     height: 10px;
-    background-color: $color-placeholder;
+    background-color: $color-text--placeholder;
     font-size: 0;
     transform: rotate(20deg);
   }
@@ -32,7 +32,7 @@
     display: inline-block;
     vertical-align: middle;
     font-size: $font-size-base;
-    color: $color-hint;
+    color: $color-text--hint;
     position: relative;
 
     + .nv-breadcrumb__item {
@@ -47,7 +47,7 @@
         line-height: 1;
         width: 1px;
         height: 10px;
-        background-color: $color-placeholder;
+        background-color: $color-text--placeholder;
         font-size: 0;
         transform: rotate(20deg) translateY(-50%);
       }

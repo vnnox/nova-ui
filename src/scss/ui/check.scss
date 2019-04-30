@@ -145,7 +145,7 @@
 
       &:checked ~ .nv-check__btn {
         z-index: 2;
-        @include ButtonSpreadStyle($btn-group-actived);
+        @include ButtonSpreadStyle($btn-group--actived);
       }
 
       &:disabled ~ .nv-check__btn {
@@ -155,7 +155,7 @@
 
       &:not([disabled]):not(:checked) ~ .nv-check__btn:hover {
         z-index: 1;
-        @include ButtonSpreadStyle($btn-group-hover);
+        @include ButtonSpreadStyle($btn-group--hover);
       }
     }
   }
@@ -170,7 +170,7 @@
     input[type="radio"] {
       &:checked ~ .nv-check__btn {
         z-index: 0;
-        box-shadow: -1px 0 0 0 $color-btn-hover-bg;
+        box-shadow: -1px 0 0 0 $color-info--alert;
         @include ButtonSpreadStyle($btn-primary);
       }
     }

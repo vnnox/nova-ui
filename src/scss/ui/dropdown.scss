@@ -33,7 +33,7 @@
   .nv-dropdown__body {
     background-color: white;
     border: 1px solid $color-line;
-    box-shadow: 0 0 10px 0 rgba(#185bc1, .25);
+    box-shadow: $shdow-dropdown;
     position: absolute;
     top: 100%;
     margin-top: 2px;
@@ -93,9 +93,9 @@
     position: relative;
     font-style: 0;
 
-    &:not(.is-divider):not(.nv-disabled):hover {
-      background-color: $color-select-hover;
-    }
+    // &:not(.is-divider):not(.nv-disabled):hover {
+    //   background-color: $color-item--hover;
+    // }
 
     &.is-divider {
       height: 0;
@@ -118,7 +118,7 @@
 
       &:hover,
       &:active {
-        color: $color-btn-hover;
+        color: $color-primary;
       }
     }
 
@@ -129,7 +129,7 @@
       margin-left: 2px;
       background-color: white;
       border: 1px solid $color-line;
-      box-shadow: 0 0 10px 0 rgba(#185bc1, .25);
+      box-shadow: $shdow-dropdown;
       z-index: 1;
       display: none;
 

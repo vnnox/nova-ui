@@ -14,7 +14,7 @@
 // 因为chrome无法支持10px的字号，
 // 因此font-size,padding,height等全部放大两倍，然后在缩小一半
 .nv-badge {
-  background-color: $color-danger;
+  background-color: $color-error;
   color: white;
   display: inline-flex;
   flex-flow: column;

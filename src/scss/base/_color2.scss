@@ -1,0 +1,111 @@
+/*
+ * File: _color2.scss
+ * Project: @vnnox/novaui
+ * Description: Used for ...
+ * Created: 2018-10-25 03:56
+ * Author: smohan (mengxw@novastar.tech)
+ * -----
+ * Last Modified: 2019-04-30 05:37
+ * Modified By: smohan (mengxw@novastar.tech>)
+ * v2 2019.04.30 by smohan
+ * -----
+ * Copyright 2019, NovaStar Tech Co., Ltd
+ */
+
+// 基础色： 主色调
+$color-base--primary: #257cef !default;
+
+// 基础色： 文字色
+$color-base--text: #464c5b !default;
+
+// 基础色： 成功色
+$color-base--success: #2fc25b !default;
+
+// 基础色： 失败色
+$color-base--error: #ff6c60 !default;
+
+// 基础色： 警告色
+$color-base--warning: #f89d34 !default;
+
+// 基础色： 文字色
+$color-base--line: #e0eafa !default;
+
+// 纯白
+$color-white: white !default;
+
+// 纯黑
+$color-black: black !default;
+
+// primary
+// 系统中强调按钮、文字按钮颜色
+$color-primary: #5196f2 !default;
+
+// 按钮、文字按钮鼠标悬停颜色
+$color-primary--hover: $color-base--primary !default;
+
+// 按钮、文字按钮禁用颜色
+$color-primary--disabled: #a8cbf9 !default;
+
+// text
+// 主要文字，系统中默认的文字、icon颜色
+$color-text: $color-base--text !default;
+
+// 标题
+$color-title: $color-text !default;
+
+// 次要文字颜色
+$color-text--describe: #90949d !default;
+
+// hint
+$color-text--hint: $color-text--describe !default;
+
+// 输入框和文本域中占位符文字颜色
+$color-text--placeholder: #b5b7bd !default;
+
+// 文字禁用颜色
+$color-text--disabled: #dadbde !default;
+
+// line & background
+// 表格、基础控件描边、分割线默认颜色
+$color-line: $color-base--line !default;
+
+// 表格悬停色
+$color-table--hover: #ecf2fc !default;
+
+// 折叠面板title
+$color-accordion--title:  #f3f7fd !default;
+
+// 表格头部、斑马线、侧边导航底色
+$color-table--head: #f9fbfe !default;
+
+// 辅助色
+$color-success: $color-base--success !default;
+$color-error: $color-base--error !default;
+$color-warning: $color-base--warning !default;
+// alert 成功背景
+$color-success--alert: #f2ffea !default;
+// alert 失败背景
+$color-error--alert: #ffedec !default;
+// alert 警告背景
+$color-warning--alert: #fff9e6 !default;
+$color-info: $color-primary !default;
+// alert 提示背景
+$color-info--alert: #e7f5fe !default;
+// alert 默认边框色
+$color-base--alert-line:#d7dee9 !default;
+$color-base--alert-bg: $color-table--head !default;
+
+// link
+$color-link: $color-primary !default;
+$color-link--hover: $color-primary--hover !default;
+
+// btn
+$btn-default: (color: $color-text, border: $color-line, background: $color-white) !default;
+$btn-default--hover: (color: $color-text, border: $color-primary, background: $color-white) !default;
+
+$btn-primary: (color: $color-white, border: $color-primary, background: $color-primary) !default;
+$btn-primary--hover: (color: $color-white, border: $color-primary--hover, background: $color-primary--hover) !default;
+
+$btn-group--hover: (color: $color-primary, border: $color-primary, background: $color-white) !default;
+
+$btn-group--actived: (color: $color-primary, border: $color-primary, background: $color-info--alert) !default;

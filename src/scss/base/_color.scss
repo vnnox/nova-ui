@@ -12,45 +12,34 @@
  */
 
 // 主色调
-$color-primary: #43a3fb !default;
-// 成功色
-$color-success: #2fc25b !default;
-// 告警色
-$color-danger: #ff6c60 !default;
+// $color-primary: #43a3fb !default;
+
 // 标题色
-$color-title: #464c5b !default;
-// 主文本色
-$color-text: #464c5b !default;
-// 次级文本色
-$color-hint: #657180 !default;
-// 占位符色
-$color-placeholder: #9ea8b4 !default;
+// $color-title: #464c5b !default;
+// // 主文本色
+// $color-text: #464c5b !default;
+
+// // 占位符色
+// $color-text--placeholder: #9ea8b4 !default;
 // 描边色
-$color-line: #dce3f3 !default;
+// $color-line: #dce3f3 !default;
 // 加深描边
 $color-line-dark: #c9cace !default;
 // 文字禁用
 $color-text-disabled: $color-line-dark !default;
 // 按钮hover，active
-$color-btn-hover: #3b93ff !default;
+// $color-btn-hover: #3b93ff !default;
 // 链接色
-$color-link: #257cef !default;
-$color-btn-hover-bg: #dcf0fe !default;
+// $color-link: #257cef !default;
+// $color-btn-hover-bg: #dcf0fe !default;
 // 禁用背景色
 $color-bg-disabled: #fbfcfe !default;
 
 // btn
-$btn-default: (color: $color-text, border: $color-line, background: white) !default;
 
-$btn-default-hover: (color: $color-btn-hover, border: $color-btn-hover, background: white) !default;
+// $btn-group-hover: (color: $color-btn-hover, border: $color-btn-hover, background: white) !default;
 
-$btn-group-hover: (color: $color-btn-hover, border: $color-btn-hover, background: white) !default;
-
-$btn-group-actived: (color: $color-btn-hover, border: $color-btn-hover, background: $color-btn-hover-bg) !default;
-
-$btn-primary: (color: white, border: $color-primary, background: $color-primary) !default;
-
-$btn-primary-hover: (color: white, border: #1e81fa, background: #1e81fa) !default;
+// $btn-group-actived: (color: $color-btn-hover, border: $color-btn-hover, background: $color-btn-hover-bg) !default;
 
 // switch 默背景色
 $color-switch-bg: #dcdfe6 !default;
@@ -58,30 +47,8 @@ $color-switch-bg: #dcdfe6 !default;
 $color-spin: #9caacc !default;
 $color-spin-disabled: #d5dbea !default;
 
-// table
-$color-table-thead-bg: #f4f7fc !default;
-$color-table-hover: #f6faff !default;
-$color-table-even-bg: #fbfcfe !default;
-
 // select
-$color-select-hover: #f3f9ff !default;
-
-// alert
-$color-alert-info-line: #c6e8fd !default;
-$color-alert-info-bg: #e7f5fe !default;
-$color-alert-info-color: #047fcf !default;
-
-$color-alert-success-line: #c7ddb9 !default;
-$color-alert-success-bg: #f2ffea !default;
-$color-alert-success-color: #090 !default;
-
-$color-alert-error-line: #ffd4d3 !default;
-$color-alert-error-bg: #ffedec !default;
-$color-alert-error-color: #ef2e46 !default;
-
-$color-alert-warning-line: #fff1c4 !default;
-$color-alert-warning-bg: #fff9e6 !default;
-$color-alert-warning-color: #9d7437 !default;
+// $color-select-hover: #f3f9ff !default;
 
 // tag
 $color-tag-line: #d9ecff !default;

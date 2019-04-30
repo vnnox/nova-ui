@@ -101,13 +101,10 @@
     overflow: hidden;
     text-overflow: ellipsis;
 
-    &:not(.nv-disabled):hover {
-      background-color: $color-select-hover;
-      color: $color-primary;
-    }
-
+    &:not(.nv-disabled):hover,
     &.nv-hover {
-      background-color: $color-select-hover;
+      // background-color: $color-item--hover;
+      color: $color-primary;
     }
 
     &.nv-actived {
@@ -146,7 +143,7 @@
     }
 
     .nv-select__title {
-      color: $color-placeholder;
+      color: $color-text--placeholder;
       font-size: 12px;
       line-height: 30px;
       margin: 0;
