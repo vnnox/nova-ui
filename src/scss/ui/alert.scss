@@ -14,25 +14,25 @@
 
   &.nv-alert--success {
     border-color: $color-success;
-    background-color: $color-success--alert;
+    background-color: $color-success--lighten;
     color: $color-success;
   }
 
   &.nv-alert--error {
     border-color: $color-error;
-    background-color: $color-error--alert;
+    background-color: $color-error--lighten;
     color: $color-error;
   }
 
   &.nv-alert--warning {
     border-color: $color-warning;
-    background-color: $color-warning--alert;
+    background-color: $color-warning--lighten;
     color: $color-warning;
   }
 
   &.nv-alert--info {
     border-color: $color-info;
-    background-color: $color-info--alert;
+    background-color: $color-info--lighten;
     color: $color-info;
   }
 

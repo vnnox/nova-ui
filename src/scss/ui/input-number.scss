@@ -39,11 +39,11 @@
     }
 
     &:hover {
-      color: $color-text--hint;
+      color: $color-spin--hover;
     }
 
     &.nv-disabled {
-      color: $color-spin-disabled;
+      color: $color-spin--disabled;
       cursor: not-allowed;
     }
   }
@@ -84,7 +84,7 @@
       font-size: 12px;
 
       &.nv-disabled {
-        background-color: $color-bg-disabled;
+        background-color: $color-bg--disabled;
       }
     }
 

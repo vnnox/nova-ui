@@ -14,7 +14,7 @@
     margin: 0 auto 30px auto;
     top: 10%;
     background-color: white;
-    box-shadow: 0 5px 15px 0 rgba(38, 38, 38, .5);
+    box-shadow: $shdow-modal;
     font-size: $font-size-base;
     min-width: 450px;
   }

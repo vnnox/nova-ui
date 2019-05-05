@@ -170,7 +170,7 @@
     input[type="radio"] {
       &:checked ~ .nv-check__btn {
         z-index: 0;
-        box-shadow: -1px 0 0 0 $color-info--alert;
+        box-shadow: -1px 0 0 0 $color-info--lighten;
         @include ButtonSpreadStyle($btn-primary);
       }
     }

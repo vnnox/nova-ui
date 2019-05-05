@@ -116,7 +116,7 @@
       }
 
       &.nv-disabled {
-        color: $color-text-disabled;
+        color: $color-text--disabled;
         cursor: not-allowed;
       }
     }
@@ -167,7 +167,7 @@
       }
 
       &.nv-disabled {
-        color: $color-text-disabled;
+        color: $color-text--disabled;
         cursor: not-allowed;
       }
     }
@@ -290,7 +290,7 @@
   &.nv-disabled {
     .multiple-value {
       border-color: $color-line;
-      background-color: $color-bg-disabled;
+      background-color: $color-bg--disabled;
       color: $input-disabled-color;
       cursor: not-allowed;
       user-select: none;

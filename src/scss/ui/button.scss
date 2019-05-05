@@ -149,7 +149,7 @@ a.nv-btn:hover {
       @include ButtonSpreadStyle($btn-primary);
 
       + .nv-btn.nv-actived {
-        box-shadow: -1px 0 0 0 $color-info--alert;
+        box-shadow: -1px 0 0 0 $color-info--lighten;
       }
     }
   }

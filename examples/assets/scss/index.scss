@@ -555,3 +555,80 @@ pre {
     }
   }
 }
+
+
+.color-grids {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  // grid-template-rows: repeat(auto-fill, 100px);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  grid-gap: 10px;
+
+  .grid {
+    border: 1px solid #f0f1f2;
+    display: block;
+    padding: 10px;
+    text-align: center;
+    position: relative;
+
+    .copy {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      font-size: 12px;
+      user-select: none;
+      color: #464c5b;
+      &:hover {
+        color: #257cef;
+      }
+    }
+
+    .color-block {
+      width: 120px;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      text-transform: uppercase;
+      margin: 0 auto;
+    }
+
+    .color-name,
+    .color-describe {
+      margin: 10px 0 0 0;
+      line-height: 20px;
+      font-size: 14px;
+    }
+    .color-describe {
+      font-size: 12px;
+    }
+  }
+}
+
+@media screen and (max-width: 1500px) {
+  .color-grids {
+    grid-template-columns: repeat(5, 1fr);
+  }
+}
+
+
+@media screen and (max-width: 1300px) {
+  .color-grids {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media screen and (max-width: 1200px) {
+  .color-grids {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  .color-grids {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}

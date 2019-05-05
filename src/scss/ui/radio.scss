@@ -46,7 +46,7 @@
 
     &:not([disabled]):not([checked]) {
       ~ .nv-radio__icon:hover {
-        border-color: $color-line-dark;
+        border-color: $color-line--dark;
       }
     }
 
@@ -57,7 +57,7 @@
       }
 
       ~ .nv-radio__label {
-        color: $color-text-disabled;
+        color: $color-text--disabled;
         cursor: not-allowed;
       }
     }

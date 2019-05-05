@@ -17,7 +17,7 @@
     height: 20px;
     border: none;
     border-radius: 10px;
-    background-color: $color-switch-bg;
+    background-color: $color-switch--bg;
     transition: background-color .2s cubic-bezier(.71, -.46, .88, .6);
 
     &::before {
@@ -52,7 +52,7 @@
       }
 
       ~ .nv-switch__label {
-        color: $color-text-disabled;
+        color: $color-text--disabled;
         cursor: not-allowed;
       }
     }
