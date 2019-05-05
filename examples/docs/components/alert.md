@@ -11,27 +11,27 @@
   <div class="doc-row__body">
     <div role="alert" class="nv-alert">
       <div class="nv-alert__inner">
-        <span class="nv-alert__content">用于页面中展示重要的提示信息。</span>
+        <span class="nv-alert__content">[default] 用于页面中展示重要的提示信息。</span>
       </div>  
     </div>
-    <div role="alert" class="nv-alert">
+    <div role="alert" class="nv-alert nv-alert--info">
       <div class="nv-alert__inner">
-        <span class="nv-alert__content">用于页面中展示重要的提示信息。用于页面中展示重要的提示信息。用于页面中展示重要的提示信息。用于页面中展示重要的提示信息。用于页面中展示重要的提示信息。用于页面中展示重要的提示信息。用于页面中展示重要的提示信息。用于页面中展示重要的提示信息。用于页面中展示重要的提示信息。用于页面中展示重要的提示信息。用于页面中展示重要的提示信息。用于页面中展示重要的提示信息。用于页面中展示重要的提示信息。用于页面中展示重要的提示信息。用于页面中展示重要的提示信息。</span>
+        <span class="nv-alert__content">[info] 用于页面中展示重要的提示信息。</span>
       </div>  
     </div>
     <div role="alert" class="nv-alert nv-alert--success">
       <div class="nv-alert__inner">
-        <span class="nv-alert__content">用于页面中展示重要的提示信息。</span>
+        <span class="nv-alert__content">[success] 用于页面中展示重要的提示信息。</span>
       </div>  
     </div>
     <div role="alert" class="nv-alert nv-alert--error">
       <div class="nv-alert__inner">
-        <span class="nv-alert__content">用于页面中展示重要的提示信息。</span>
+        <span class="nv-alert__content">[error] 用于页面中展示重要的提示信息。</span>
       </div>  
     </div> 
     <div role="alert" class="nv-alert nv-alert--warning">
       <div class="nv-alert__inner">
-        <span class="nv-alert__content">用于页面中展示重要的提示信息。</span>
+        <span class="nv-alert__content">[warning] 用于页面中展示重要的提示信息。</span>
       </div>  
     </div>
   </div>  
@@ -52,12 +52,12 @@
         <span class="nv-alert__content">用于页面中展示重要的提示信息。</span>
       </div>  
     </div>
-    <div role="alert" class="nv-alert">
+    <div role="alert" class="nv-alert nv-alert--info">
       <div class="nv-alert__inner">
         <span class="nv-alert__icon">
           <i class="nv-icon-circle-info"></i>
         </span>
-        <span class="nv-alert__content">用于页面中展示重要的提示信息。用于页面中展示重要的提示信息。用于页面中展示重要的提示信息。用于页面中展示重要的提示信息。用于页面中展示重要的提示信息。用于页面中展示重要的提示信息。用于页面中展示重要的提示信息。用于页面中展示重要的提示信息。用于页面中展示重要的提示信息。用于页面中展示重要的提示信息。用于页面中展示重要的提示信息。用于页面中展示重要的提示信息。用于页面中展示重要的提示信息。用于页面中展示重要的提示信息。用于页面中展示重要的提示信息。</span>
+        <span class="nv-alert__content">用于页面中展示重要的提示信息。</span>
       </div>  
     </div>
     <div role="alert" class="nv-alert nv-alert--success">
@@ -96,7 +96,7 @@
 ```html
 <div class="doc-row">
   <div class="doc-row__body">
-    <div role="alert" class="nv-alert has-close">
+    <div role="alert" class="nv-alert nv-alert--info has-close">
       <div class="nv-alert__inner">
         <span class="nv-alert__icon">
           <i class="nv-icon-circle-info"></i>
@@ -105,7 +105,7 @@
         <button type="button" class="nv-alert__close" data-dismiss="alert" aria-label="Close"><i class="nv-icon-close"></i></button>
       </div>
     </div>
-    <div role="alert" class="nv-alert has-close">
+    <div role="alert" class="nv-alert nv-alert--info has-close">
       <div class="nv-alert__inner">
         <span class="nv-alert__icon">
           <i class="nv-icon-circle-info"></i>

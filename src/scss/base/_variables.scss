@@ -18,7 +18,7 @@ $font-family-code:Menlo,Monaco,Consolas,'Liberation Mono','Courier New' monospac
 $font-size-root: 16px !default;
 $font-size-title: 15px !default;
 $font-size-nav: 14px !default;
-$font-size-base: 12px !default;
+$font-size-base: 14px !default;
 $line-height-base: 1.5 !default;
 
 // btn
@@ -40,7 +40,7 @@ $input-radius: 4px !default;
 $input-height: 32px !default;
 $input-padding-x: 12px !default;
 $input-line-height: 1.5 !default;
-$input-disabled-color: $color-text-disabled !default;
+$input-disabled-color: $color-text--disabled !default;
 $input-height-small: 28px !default;
 $input-padding-x-small: 10px !default;
 // transition 运动曲线

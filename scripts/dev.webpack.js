@@ -30,8 +30,8 @@ module.exports = env => {
     output: {
       publicPath: '/',
       path: path.resolve(__dirname, '../docs/'),
-      filename: isProd ? 'assets/js/[name]-[hash:7].js' : 'assets/js/[name].js',
-      chunkFilename: isProd ? 'assets/js/[name]-[hash:7].js' : 'assets/js/[name].js'
+      filename: isProd ? 'assets/js/[name]-[hash:7].js' : 'assets/js/[name]-[hash].js',
+      chunkFilename: isProd ? 'assets/js/[name]-[hash:7].js' : 'assets/js/[name].[hash].js'
     },
     devtool: isProd ? false : 'source-map',
     resolve: {
@@ -180,7 +180,7 @@ module.exports = env => {
           loader: 'url-loader',
           options: {
             limit: 10000,
-            name: isProd ? 'assets/fonts/[name]-[hash:7].[ext]' : 'assets/fonts/[name].[ext]'
+            name: isProd ? 'assets/fonts/[name]-[hash:7].[ext]' : 'assets/fonts/[name].[hash].[ext]'
           }
         }
       ]
@@ -262,13 +262,24 @@ module.exports = env => {
       }),
 
       new MiniCssExtractPlugin({
-        filename: isProd ? 'assets/css/[name]-[hash:7].css' : 'assets/css/[name].css',
-        chunkFilename: isProd ? 'assets/css/[name]-[hash:7].css' : 'assets/css/[name].css'
+        filename: isProd ? 'assets/css/[name]-[hash:7].css' : 'assets/css/[name].[hash].css',
+        chunkFilename: isProd ? 'assets/css/[name]-[hash:7].css' : 'assets/css/[name].[hash].css'
       }),
 
       new OptimizeCSSPlugin({ safe: true, map: false, discardComments: { removeAll: true } }),
 
       new VueLoaderPlugin(),
-    ]
+    ],
+
+
+    devServer: {
+      contentBase: path.join(__dirname, 'docs'),
+      compress: true,
+      port: 9000,
+      hot: true,
+      open: true
+    }
+
+
   }
 }

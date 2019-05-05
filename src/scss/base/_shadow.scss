@@ -1,0 +1,24 @@
+/*
+ * File: _shadow.scss
+ * Project: @vnnox/novaui
+ * Description: 定义各种场景下的投影
+ * Created: 2019-04-30 03:44
+ * Author: smohan (mengxw@novastar.tech)
+ * -----
+ * Last Modified: 2019-04-30 03:46
+ * Modified By: smohan (mengxw@novastar.tech>)
+ * -----
+ * Copyright 2019, NovaStar Tech Co., Ltd
+ */
+
+// 用于组件中，如下拉菜单
+$shdow-dropdown: 0 0 10px 2px rgba(24, 91, 193, .25) !default;
+
+// 用于模态框
+$shdow-modal: 0 5px 15px 2px rgba(38, 38, 38, .5) !default;
+
+// 用于卡片
+$shdow-card: 0 2px 3px 2px rgba(black, .05) !default;
+
+// 用于表格
+$shdow-table: 0 0 10px 0 rgba(194, 194, 194, .5) !default;

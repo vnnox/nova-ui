@@ -8,7 +8,7 @@
   .nv-picker__body {
     background-color: white;
     border: 1px solid $color-line;
-    box-shadow: 0 0 10px 0 rgba(24, 91, 193, .25);
+    box-shadow: $shdow-dropdown;
     padding: 0;
     margin: 0;
     min-width: 80px;
@@ -31,7 +31,7 @@
   &[x-placement="top-end"] {
     .nv-picker__arrow {
       bottom: -4px;
-      box-shadow: 3px 3px 7px rgba(24, 91, 193, .07);
+      box-shadow: 3px 3px 7px rgba(black, .07);
     }
   }
 
@@ -39,7 +39,7 @@
   &[x-placement="bottom"],
   &[x-placement="bottom-end"] {
     .nv-picker__arrow {
-      box-shadow: -2px -2px 5px rgba(24, 91, 193, .06);
+      box-shadow: -2px -2px 5px rgba(black, .06);
       top: -4px;
     }
   }
@@ -49,7 +49,7 @@
   &[x-placement="left-end"] {
     .nv-picker__arrow {
       right: -4px;
-      box-shadow: 3px -3px 7px rgba(24, 91, 193, .07);
+      box-shadow: 3px -3px 7px rgba(black, .07);
     }
   }
 
@@ -58,7 +58,7 @@
   &[x-placement="right-end"] {
     .nv-picker__arrow {
       left: -4px;
-      box-shadow: -3px 3px 7px rgba(24, 91, 193, .07);
+      box-shadow: -3px 3px 7px rgba(black, .07);
     }
   }
 

@@ -1,6 +1,6 @@
 {
   "name": "@vnnox/novaui",
-  "version": "1.4.3",
+  "version": "1.4.4",
   "description": "nova ui components",
   "main": "libs/nova.js",
   "directories": {
@@ -8,7 +8,7 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "rm -rf docs/assets/* && webpack --env=development  --mode=development  --config scripts/dev.webpack.js --watch",
+    "dev": "rm -rf docs/* && webpack-dev-server --env=development  --mode=development  --config scripts/dev.webpack.js",
     "doc": "rm -rf docs/assets/* && webpack --env=production --mode=production --config scripts/dev.webpack.js",
     "build": "webpack --env=production --mode=production --config scripts/build.webpack.js && webpack --env=production --mode=production --config scripts/vue.webpack.js",
     "stylelint": "stylelint src/**/*.scss examples/**/*.scss",
@@ -58,6 +58,7 @@
     "vue-loader": "^15.4.2",
     "vue-template-compiler": "^2.5.17",
     "webpack": "^4.17.2",
-    "webpack-cli": "^3.1.0"
+    "webpack-cli": "^3.1.0",
+    "webpack-dev-server": "^3.3.1"
   }
 }

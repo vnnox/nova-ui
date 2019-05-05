@@ -44,7 +44,7 @@
 
   @include Size($input-font-size, $input-height, $input-padding-x);
   @include Placeholder {
-    color: $color-placeholder;
+    color: $color-text--placeholder;
   }
 
   &:not([disabled]):not(.nv-disabled):not(.nv-input--error) {
@@ -59,7 +59,7 @@
   }
 
   &.nv-input--error {
-    border-color: $color-danger;
+    border-color: $color-error;
   }
 
   &.nv-input--success {
@@ -78,8 +78,8 @@
 
   &:disabled,
   &.nv-disabled {
-    border-color: $color-line;
-    background-color: $color-bg-disabled;
+    border-color: $color-line--disabled;
+    background-color: $color-bg--disabled;
     color: $input-disabled-color;
     cursor: not-allowed;
     user-select: none;
@@ -175,7 +175,7 @@ textarea.nv-input {
     display: flex;
     align-items: center;
     justify-content: center;
-    color: $color-placeholder;
+    color: $color-text--placeholder;
     padding: 0 6px;
   }
 }

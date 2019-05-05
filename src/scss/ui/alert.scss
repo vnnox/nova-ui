@@ -1,9 +1,9 @@
 .nv-alert {
   padding: 8px 12px;
   font-size: $font-size-base;
-  border: 1px solid $color-alert-info-line;
-  background-color: $color-alert-info-bg;
-  color: $color-alert-info-color;
+  border: 1px solid $color-base--alert-line;
+  background-color: $color-base--alert-bg;
+  color: $color-text--describe;
   line-height: 18px;
   min-width: 400px;
   max-width: 100%;
@@ -13,21 +13,27 @@
   }
 
   &.nv-alert--success {
-    border: 1px solid $color-alert-success-line;
-    background-color: $color-alert-success-bg;
-    color: $color-alert-success-color;
+    border-color: $color-success;
+    background-color: $color-success--lighten;
+    color: $color-success;
   }
 
   &.nv-alert--error {
-    border: 1px solid $color-alert-error-line;
-    background-color: $color-alert-error-bg;
-    color: $color-alert-error-color;
+    border-color: $color-error;
+    background-color: $color-error--lighten;
+    color: $color-error;
   }
 
   &.nv-alert--warning {
-    border: 1px solid $color-alert-warning-line;
-    background-color: $color-alert-warning-bg;
-    color: $color-alert-warning-color;
+    border-color: $color-warning;
+    background-color: $color-warning--lighten;
+    color: $color-warning;
+  }
+
+  &.nv-alert--info {
+    border-color: $color-info;
+    background-color: $color-info--lighten;
+    color: $color-info;
   }
 
   a,

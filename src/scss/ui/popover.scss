@@ -2,13 +2,13 @@
 .nv-picker--popover {
   .nv-picker__body {
     min-height: 32px;
-    box-shadow: none !important;
+    box-shadow: $shdow-card !important;
     border: 1px solid $color-line;
     background-color: white;
   }
 
   .nv-picker__arrow {
-    box-shadow: none !important;
+    // box-shadow: none !important;
     border: 1px solid $color-line;
     z-index: 1;
   }
@@ -63,7 +63,7 @@
   &.nv-popover--error {
     .nv-picker__body,
     .nv-picker__arrow {
-      border-color: $color-danger;
+      border-color: $color-error;
     }
   }
 }

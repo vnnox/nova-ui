@@ -33,11 +33,11 @@
 
 .nv-btn {
   transition: color .2s $transition-timing-function, background-color .2s $transition-timing-function, border-color .2s $transition-timing-function;
-  @include ButtonStyle($btn-default, $btn-default-hover);
+  @include ButtonStyle($btn-default, $btn-default--hover);
 
   // primary
   &.nv-btn--primary {
-    @include ButtonStyle($btn-primary, $btn-primary-hover);
+    @include ButtonStyle($btn-primary, $btn-primary--hover);
   }
 
   // small size
@@ -88,7 +88,7 @@
   }
 
   &.nv-btn--link {
-    color: $color-primary !important;
+    color: $color-link !important;
   }
 
   &.nv-btn--text {
@@ -111,7 +111,7 @@ a.nv-btn:hover {
   > .nv-btn {
     margin-left: 0;
     transition: none;
-    @include ButtonStyle(false, $btn-group-hover);
+    @include ButtonStyle(false, $btn-group--hover);
 
     + .nv-btn {
       margin-left: -1px !important;
@@ -140,7 +140,7 @@ a.nv-btn:hover {
     &.nv-actived {
       position: relative;
       z-index: 2;
-      @include ButtonSpreadStyle($btn-group-actived);
+      @include ButtonSpreadStyle($btn-group--actived);
     }
   }
 
@@ -149,7 +149,7 @@ a.nv-btn:hover {
       @include ButtonSpreadStyle($btn-primary);
 
       + .nv-btn.nv-actived {
-        box-shadow: -1px 0 0 0 $color-btn-hover-bg;
+        box-shadow: -1px 0 0 0 $color-info--lighten;
       }
     }
   }

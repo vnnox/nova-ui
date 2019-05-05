@@ -1,7 +1,7 @@
 # Javascript DOM操作函数库
 
 ```javascript
-import Dom '@vnnox/novaui/src/utils/dom'
+import Dom '@vnnox/novaui/src/scss/dom'
 ```
 
 ## bind

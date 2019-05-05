@@ -42,7 +42,7 @@
   .tree-node__icon {
     display: flex;
     font-size: 13px;
-    color: $color-placeholder;
+    color: $color-text--placeholder;
     padding: 0;
     width: 20px;
     height: 16px;
@@ -134,7 +134,7 @@
       }
 
       > .tree-node__label {
-        // color: $color-text-disabled;
+        // color: $color-text--disabled;
       }
     }
   }
@@ -147,11 +147,11 @@
   .nv-tree__empty {
     line-height: 24px;
     padding: 6px 0;
-    color: $color-hint;
+    color: $color-text--hint;
     cursor: text;
 
     &.no-match {
-      color: $color-danger;
+      color: $color-error;
     }
   }
 }
