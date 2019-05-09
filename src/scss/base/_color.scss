@@ -113,14 +113,14 @@ $color-link--hover: $color-primary--hover !default;
 
 // btn
 $btn-default: (color: $color-text, border: $color-line, background: $color-white) !default;
-$btn-default--hover: (color: $color-text, border: $color-primary, background: $color-white) !default;
+$btn-default--hover: (color: $color-text, border: $color-primary--hover, background: $color-white) !default;
 
 $btn-primary: (color: $color-white, border: $color-primary, background: $color-primary) !default;
 $btn-primary--hover: (color: $color-white, border: $color-primary--hover, background: $color-primary--hover) !default;
 
-$btn-group--hover: (color: $color-primary, border: $color-primary, background: $color-white) !default;
+$btn-group--hover: (color: $color-primary--hover, border: $color-primary--hover, background: $color-white) !default;
 
-$btn-group--actived: (color: $color-primary, border: $color-primary, background: $color-info--lighten) !default;
+$btn-group--actived: (color: $color-primary--hover, border: $color-primary--hover, background: $color-info--lighten) !default;
 
 // switch
 $color-switch--bg: #dcdfe6 !default;

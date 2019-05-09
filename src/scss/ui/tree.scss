@@ -20,15 +20,13 @@
   .tree-node__inner {
     display: flex;
     align-items: center;
-    height: 16px;
-    line-height: 16px;
-    padding: 0;
+    height: 28px;
+    line-height: 20px;
+    padding: 4px 0;
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
-    cursor: pointer;
     user-select: none;
-    margin-top: 12px;
   }
 
   .tree-node--leaf .tree-node__inner {
@@ -41,16 +39,15 @@
 
   .tree-node__icon {
     display: flex;
-    font-size: 13px;
-    color: $color-text--placeholder;
-    padding: 0;
+    font-size: 14px;
+    color: $color-text;
     width: 20px;
-    height: 16px;
+    height: 20px;
     align-items: center;
     justify-content: center;
     position: relative;
-    margin-right: 2px;
-    // background-color: aqua;
+    padding: 2px;
+    cursor: pointer;
 
     i {
       transition: transform .2s;
@@ -60,45 +57,28 @@
       visibility: hidden;
       color: transparent;
     }
-    // width: 8px;
-    // height: 8px;
-    // border-left: 1.6px solid rgb(180, 190, 216);
-    // border-bottom: 1.6px solid rgb(180, 190, 216);
-    // transform: rotate(-135deg);
-    // transition: transform .2s;
-    // position: relative;
-    // top: 1px;
-    // margin-left: 3px;
-    // margin-right: 8px;
   }
 
   .tree-node__check {
-    width: 16px;
-    margin-right: 5px;
+    width: 20px;
+    height: 20px;
+    padding: 2px;
+    margin: 0;
     position: relative;
     cursor: pointer; // 扩大checkbox的范围，防止点击周围时触发click事件
-    &::after {
-      content: '';
-      position: absolute;
-      top: 0;
-      bottom: 0;
-      left: -4px;
-      right: -4px;
-    }
   }
 
   .tree-node__label {
     @include clearFix;
 
+    padding: 0 2px;
     user-select: text;
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
-
-    &:hover {
-      // background-color: $color-bg-item-hover;
-    }
-  } // 展开时
+    cursor: pointer;
+  }
+  // 展开时
   .tree-node--expanded {
     > .tree-node__children {
       display: block;
@@ -120,21 +100,17 @@
 
   // 选中时
   .tree-node--selected > .tree-node__inner > .tree-node__label {
-    // background-color: $color-bg-item-selected;
+    color: $color-primary;
   }
 
+  // 禁用时
   .nv-disabled {
     pointer-events: visible;
 
     > .tree-node__inner {
-      cursor: default;
-
-      > .tree-node__check {
-        cursor: inherit;
-      }
-
+      > .tree-node__check,
       > .tree-node__label {
-        // color: $color-text--disabled;
+        cursor: default;
       }
     }
   }
