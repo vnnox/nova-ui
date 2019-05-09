@@ -31,7 +31,7 @@ const defaults = {
   // [ function ] 渲染器
   labelRender: null,
   // [ number ] 缩进
-  indent: 16,
+  indent: 20,
   // [ boolean ] 是否可选择
   checkable: false,
   // [ boolean ] 是否单选, 默认复选
@@ -40,8 +40,8 @@ const defaults = {
   checkName: '',
   // [ boolean ] checkable状态下节点选择完全受控（父子节点选中状态不再关联）
   checkStrictly: false,
-  // [ boolean ] // 是否在点击节点的时候选中节点，默认值为 false，即只有在点击复选框时才会选中节点。
-  nodeClickCheck: false,
+  // [ boolean ] // 是否在点击节点的时候选中节点
+  nodeClickCheck: true,
   // [ boolean ] 是否展开所有节点
   expandAll: false,
   // [ boolean ] 高亮当前节点的label
@@ -61,8 +61,10 @@ const defaults = {
 // selectors
 const Selectors = {
   node: '.nv-tree__node',
+  fold: '.tree-node__fold',
   input: '.tree-node__value',
   check: '.tree-node__check',
+  label: '.tree-node__label',
   children: '.tree-node__children',
   inner: '.tree-node__inner',
   noMatch: '.no-match'
@@ -300,7 +302,8 @@ function render(nodes) {
     checkName: props.checkName || `${UI_NAME}-${states.treeId}`,
     expandAll: props.expandAll,
     disabled: props.disabled,
-    labelRender: isFunction(props.labelRender) ? props.labelRender : null
+    nodeClickCheck: props.nodeClickCheck,
+    labelRender: isFunction(props.labelRender) ? props.labelRender : null,
   }
 
   nodes = nodes && isArray(nodes) ? nodes : states.nodes
@@ -327,17 +330,34 @@ function bindEvents() {
   const handles = states.handles
   const self = this
 
-  // 点击Node节点
-  handles.nodeClick = proxy(states.$el, Selectors.inner, function (event) {
-    if (event.target.closest(Selectors.check) || event.target.closest('.nv-event-stop')) {
+  // 点击折叠按钮 toggle expanded
+  handles.foldClick = proxy(states.$el, Selectors.fold, function () {
+    const $parent = this.parentNode.parentNode
+    const id = $parent.getAttribute('data-node')
+    const node = states.nodesMap[id]
+    
+    if (node.children && node.children.length) {
+      $parent.classList[node.expanded ? 'remove' : 'add'](CLASS_EXPANDED)
+      node.updateStates('expanded', !node.expanded)
+      self.emit('expend', node.expanded, node, $parent)
+    }
+  })
+
+
+  // 点击label文本
+  handles.labelClick = proxy(states.$el, Selectors.label, function (event) {
+    // 如果设置了阻止冒泡，则return
+    if (event.target.closest('.nv-event-stop')) {
       return
     }
 
-    let $parent = this.parentNode
-    let id = $parent.getAttribute('data-node')
-    let node = states.nodesMap[id]
-    if (props.nodeClickCheck && props.checkable && !node.disabled) {
-      const $check = this.querySelector(Selectors.input)
+    const $parent = this.parentNode.parentNode
+    const id = $parent.getAttribute('data-node')
+    const node = states.nodesMap[id]
+    
+    // 如果关联了选中节点
+    if (props.nodeClickCheck && props.checkable && !props.disabled && !node.disabled) {
+      const $check = $parent.querySelector(Selectors.input)
       $check.checked = !$check.checked
       const checked = $check.checked
       node.updateStates('checked', checked)
@@ -347,14 +367,9 @@ function bindEvents() {
       self.emit('check', checked, node, findNodeDomById(node.id, states.$nodes))
     }
 
-
     self.emit('click', node, $parent)
-    if (node.children && node.children.length) {
-      $parent.classList[node.expanded ? 'remove' : 'add'](CLASS_EXPANDED)
-      node.updateStates('expanded', !node.expanded)
-      self.emit('expend', node.expanded, node, $parent)
-    }
-    if (!node.disabled) {
+    // 选中高亮
+    if (!props.disabled && !node.disabled) {
       self.emit('selected', node, $parent, event)
       if (props.highlight) {
         $parent.classList.add(CLASS_SELECTED)
@@ -367,11 +382,34 @@ function bindEvents() {
     }
   })
 
+
+  // 点击Node节点
+  // handles.nodeClick = proxy(states.$el, Selectors.inner, function (event) {
+  //   if (event.target.closest(Selectors.check) || event.target.closest('.nv-event-stop')) {
+  //     return
+  //   }
+  //   const $parent = this.parentNode
+  //   const id = $parent.getAttribute('data-node')
+  //   const node = states.nodesMap[id]
+  //   self.emit('click', node, $parent)
+  //   if (!props.disabled && !node.disabled) {
+  //     self.emit('selected', node, $parent, event)
+  //     if (props.highlight) {
+  //       $parent.classList.add(CLASS_SELECTED)
+  //       states.$nodes.map($node => {
+  //         if ($node !== $parent) {
+  //           $node.classList.remove(CLASS_SELECTED)
+  //         }
+  //       })
+  //     }
+  //   }
+  // })
+
   // 选中/取消选中
   handles.onCheckChange = proxy(states.$el, Selectors.input, function (e) {
     e.stopPropagation()
     let node = states.nodesMap[this.value]
-    if (node.disabled) {
+    if (props.disabled || node.disabled) {
       return
     }
     let checked = this.checked
@@ -382,7 +420,10 @@ function bindEvents() {
     self.emit('check', checked, node, findNodeDomById(node.id, states.$nodes))
   })
 
-  bind(states.$el, 'click', handles.nodeClick)
+  // bind(states.$el, 'click', handles.nodeClick)
+  bind(states.$el, 'click', handles.foldClick)
+  bind(states.$el, 'click', handles.labelClick)
+
   if (props.checkable) {
     bind(states.$el, 'change', handles.onCheckChange)
   }
@@ -397,7 +438,9 @@ function bindEvents() {
 function unbindEvents() {
   const { props, states } = this
   const handles = states.handles
-  unbind(states.$el, 'click', handles.nodeClick)
+  // unbind(states.$el, 'click', handles.nodeClick)
+  unbind(states.$el, 'click', handles.foldClick)
+  unbind(states.$el, 'click', handles.labelClick)
   if (props.checkable) {
     unbind(states.$el, 'change', handles.onCheckChange)
   }
