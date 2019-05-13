@@ -13,7 +13,7 @@
       disabled: Boolean,
       indent: {
         type: Number,
-        default: 16
+        default: 20
       },
       labelRender: Function,
       checkable: Boolean,
@@ -45,20 +45,36 @@
       filter (value) {
         this.instance.filter(value)
       },
-      appendNode (parent, newNode) {
-        this.instance.appendNode(parent, newNode)
+
+      appendNode (parent, newNode, index) {
+        this.instance.appendNode(parent, newNode, index)
       },
+
+      insertBeforeNode (newNode, target) {
+        this.instance.insertBeforeNode(newNode, target)
+      },
+
       removeNode (node) {
         this.instance.removeNode(node)
       },
+
       getCheckedNodes(useDisabled) {
         this.instance.getCheckedNodes(useDisabled)
       },
+
       updateByOptions (key, val) {
         if (this.instance) {
           this.instance.props[key] = val
           this.instance.setNodesTree(this.data)
         }
+      },
+      
+      updateNode (id, newNode) {
+        this.instance.updateNode(id, newNode)
+      },
+
+      getNode (node) {
+        return this.instance.getNode(node)
       }
     },
     beforeDestroy () {
