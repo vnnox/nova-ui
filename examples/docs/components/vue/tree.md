@@ -12,13 +12,13 @@
     <p class="doc-row__describe">可用于基础树结构展示/复选/单选</p>
     <div class="doc-row__body">
       <div class="doc-cells">
-        <div class="doc-cell" style="width:30%;">
+        <div class="doc-cell" style="width: 30%;">
           <nv-tree :data="data" expand-all></nv-tree>
         </div>
-        <div class="doc-cell" style="width:30%;">
+        <div class="doc-cell" style="width: 30%;">
           <nv-tree :data="data2" checkable expand-all></nv-tree>
         </div>
-        <div class="doc-cell" style="width:30%;">
+        <div class="doc-cell" style="width: 30%;">
           <nv-tree :data="data3" checkable radio expand-all></nv-tree>
         </div>  
       </div>   
@@ -275,8 +275,11 @@
 
 - `filter`
 - `appendNode`
+- `insertBeforeNode`
 - `removeNode`
 - `getCheckedNodes`
+- `updateNode`
+- `getNode`
 
 ### Events
 

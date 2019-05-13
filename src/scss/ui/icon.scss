@@ -27,6 +27,9 @@
   @extend .icon-font;
 }
 
+.nv-icon-more:before {
+  content: "\e945";
+}
 .nv-icon-zoom-in:before {
   content: "\e910";
 }
@@ -288,80 +291,17 @@
 .nv-icon-server-add:before {
   content: "\e941";
 }
-.nv-icon-light:before {
-  content: "\e945";
-}
-.nv-icon-power:before {
-  content: "\e946";
-}
-.nv-icon-proofread-time:before {
-  content: "\e947";
-}
-.nv-icon-reboot:before {
-  content: "\e948";
-}
-.nv-icon-screen-power:before {
-  content: "\e949";
-}
-.nv-icon-play-circle:before {
-  content: "\e94a";
-}
-.nv-icon-video-switch:before {
-  content: "\e94b";
-}
-.nv-icon-volume:before {
-  content: "\e94c";
-}
-.nv-icon-remote-log:before {
-  content: "\e955";
-}
-.nv-icon-player-log:before {
-  content: "\e950";
-}
-.nv-icon-vert-center:before {
-  content: "\e951";
-}
-.nv-icon-vert-bottom:before {
-  content: "\e952";
-}
-.nv-icon-vert-top:before {
-  content: "\e953";
-}
-.nv-icon-vert-fill:before {
-  content: "\e954";
-}
-.nv-icon-hori-center:before {
-  content: "\e979";
-}
-.nv-icon-hori-right:before {
-  content: "\e97a";
-}
-.nv-icon-hori-left:before {
-  content: "\e97b";
-}
-.nv-icon-hori-fill:before {
-  content: "\e97c";
-}
 .nv-icon-clear:before {
   content: "\e964";
 }
 .nv-icon-setting:before {
   content: "\e96a";
 }
-.nv-icon-fullscreen1:before {
-  content: "\e965";
-}
 .nv-icon-move-up:before {
   content: "\e9a2";
 }
 .nv-icon-move-down:before {
   content: "\e9a3";
-}
-.nv-icon-order:before {
-  content: "\e957";
-}
-.nv-icon-random:before {
-  content: "\e956";
 }
 .nv-icon-list-add:before {
   content: "\e925";

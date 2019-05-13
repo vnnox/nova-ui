@@ -598,12 +598,29 @@ export class Tree extends Events {
    * @param {*} node
    * @memberof Tree
    */
-  appendNode(parent, node) {
-    let parentNode = this.getNode(parent)
+  appendNode(parent, node, index = void 0) {
+    const parentNode = this.getNode(parent)
     if (parentNode) {
-      node = parentNode.insertChild(node)
+      node = parentNode.insertChild(node, index)
       parentNode.expanded = true
       this.states.nodesMap[node.id] = node
+      render.call(this)
+    }
+  }
+
+
+  /**
+   * 在目标元素前插入节点
+   * @date 2019-05-13
+   * @param {*} newNode
+   * @param {*} target
+   * @memberof Tree
+   */
+  insertBeforeNode (newNode, target) {
+    const targetNode = this.getNode(target)
+    if (targetNode) {
+      newNode = targetNode.insertBefore(newNode, targetNode)
+      this.states.nodesMap[newNode.id] = newNode
       render.call(this)
     }
   }
@@ -629,6 +646,26 @@ export class Tree extends Events {
     }
     this.states.nodesMap = nodesToMap(this.states.nodes)
     render.call(this)
+  }
+
+
+  /**
+   * 更新节点的非parent和children属性
+   * @param {*} id 
+   * @param {*} newNode 
+   */
+  updateNode (id, newNode) {
+    const node = this.getNode(id)
+    if (node && newNode) {
+      for (let k in newNode) {
+        if (k !== 'parent' && k !== 'children') {
+          node[k] = newNode[k]
+        }
+      }
+
+      this.states.nodesMap[node.id] = node
+      render.call(this)
+    }
   }
 
 
