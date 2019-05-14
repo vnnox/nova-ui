@@ -65,11 +65,12 @@
 
 | 属性名  |  描述  | 类型 | 默认值 |
 |---|---|---|---|
-| `type` | 类型 | string [`error`] |  `default` |
+| `type` | 类型 | string [`info`,`success`,`error`,`warning`] |  `info` |
 | `size` | 尺寸 | string [`small`, `tiny`] | `default` |
 | `label`|  文本内容 | string | -- |
 | `removeable`| 是否可移除 | boolean | false |
-
+| `pill`| 大圆角，药片式的 | boolean | false |
+| `hoverable`| 可悬浮的，带有hover效果的 | boolean | false |
 
 
 ### Slots

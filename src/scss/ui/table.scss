@@ -56,14 +56,20 @@
     }
   }
 
-  thead th {
-    font-weight: bold;
-    white-space: nowrap;
+  thead {
+    tr {
+      background-color: $color-table--head;
+    }
 
-    .nv-table__cell {
+    th {
+      font-weight: bold;
       white-space: nowrap;
-      min-height: 20px;
-      line-height: 20px;
+
+      .nv-table__cell {
+        white-space: nowrap;
+        min-height: 20px;
+        line-height: 20px;
+      }
     }
   }
 
@@ -84,23 +90,23 @@
   // 斑马纹
   &.nv-table--striped {
     thead {
-      tr {
-        background-color: $color-table--head;
-      }
+      // tr {
+      //   background-color: $color-table--head;
+      // }
 
-      th {
-        border-top: 1px solid $color-line;
+      // th {
+      //   border-top: 1px solid $color-line;
 
-        &:not(:first-child)::before {
-          content: '';
-          position: absolute;
-          top: 10px;
-          bottom: 10px;
-          width: 1px;
-          left: 0;
-          background-color: $color-line;
-        }
-      }
+      //   &:not(:first-child)::before {
+      //     content: '';
+      //     position: absolute;
+      //     top: 10px;
+      //     bottom: 10px;
+      //     width: 1px;
+      //     left: 0;
+      //     background-color: $color-line;
+      //   }
+      // }
     }
 
     tbody {

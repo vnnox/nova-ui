@@ -15,6 +15,10 @@
     props: {
       removeable: Boolean,
       label: String,
+      // 大圆角， 药片式
+      pill: Boolean,
+      // 可悬浮的
+      hoverable: Boolean,
       size: {
         type: String,
         default: 'default',
@@ -24,9 +28,9 @@
       },
       type: {
         type: String,
-        default: 'default',
+        default: 'info',
         validator(value) {
-          return ['default', 'error'].indexOf(value) > -1
+          return ['default', 'error', 'info', 'warning', 'success'].indexOf(value) > -1
         }
       }
     },
@@ -38,6 +42,12 @@
         }
         if (this.type !== 'default') {
           className.push(`nv-tag--${this.type}`)
+        }
+        if (this.pill) {
+          className.push('nv-pill')
+        }
+        if (this.hoverable) {
+          className.push('nv-hover')
         }
         return className
       }
