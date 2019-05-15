@@ -15,7 +15,7 @@
     <div class="doc-row__body">
       <nv-dropdown trigger="hover">
         <button type="button" class="nv-btn" slot="toggle">Hover Toggle</button>
-        <div style="padding:10px;">
+        <div style="padding: 10px;">
           我是下拉内容
           <br/>
           我是下拉内容
@@ -62,7 +62,9 @@
             </nv-dropmenu>  
           </nv-dropmenu-item>
           <nv-dropmenu-item divider>选项二</nv-dropmenu-item>
-          <nv-dropmenu-item>选项二</nv-dropmenu-item>
+          <nv-dropmenu-item :wrapped="false">
+            <a class="item-inner">选项二</a>
+          </nv-dropmenu-item>
         </nv-dropmenu>  
       </nv-dropdown>
 
@@ -118,6 +120,7 @@
 |---|---|---|---|
 | `divider` | 是否是分隔符 | boolean |  false |
 | `disabled` | 是否禁用 | boolean |  false |
+| `wrapped`  | 是否在默认插槽外生成一个class为`item-inner`的包裹元素 | boolean | true 
 | `click` | 点击回调 | function |  e |
 
 
