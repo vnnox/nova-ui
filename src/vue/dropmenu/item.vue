@@ -2,7 +2,7 @@
   <li class="nv-dropmenu__item is-divider" v-if="divider"></li>
   <li class="nv-dropmenu__item" :class="className" @click.stop="onClick" v-else>
     <div class="item-inner" v-if="wrapped"><slot></slot></div>
-    <slot v-else></slot>
+    <template v-else><slot></slot></template>
     <slot name="sub"></slot>
   </li>
 </template>
@@ -16,7 +16,9 @@
       // 如果在li > a 这种情况下，可以去掉包裹元素
       wrapped: {
         type: Boolean,
-        default: true
+        default() {
+          return true
+        }
       }
     },
     computed: {

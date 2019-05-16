@@ -537,7 +537,7 @@ export class Tree extends Events {
     // 拷贝一份数据
     object = JSON.parse(JSON.stringify(object))
     let { defaultCheckedKeys, defaultExpandedKeys } = this.props
-    object.expanded = object.expanded || this.props.expandAll || defaultExpandedKeys.indexOf(object.id) > -1
+    object.expanded = this.props.expandAll || object.expanded || defaultExpandedKeys.indexOf(object.id) > -1
     object.checked = object.checked || defaultCheckedKeys.indexOf(object.id) > -1
     let node = new Node(object)
     if (isArray(object.children) && object.children.length) {

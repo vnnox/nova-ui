@@ -10,7 +10,8 @@
   padding: 0;
   overflow: hidden;
   user-select: none;
-  pointer-events: none;
+  // 会导致遮罩层穿透
+  // pointer-events: none;
 
   .nv-loader__backdrop {
     position: absolute;
