@@ -37,7 +37,7 @@
       return {
         font: 32,
         color: '#464c5b',
-        icons: 'care,doc-help,language,email,menu,list-add,menu-set,user,bell,upload,gear,export,move,copy,delete,edit,clear,add,search,zoom-out,zoom-in,mall,help,warning,info,count,info-square,cart,yuan,refresh,eye,filter,list,download,fullscreen,check,close,arrow-left,arrow-right,arrow-down,arrow-up,plus,minus,caret-top,caret-bottom,arrow-d-left,arrow-d-right,arrow-d-top,arrow-d-bottom,flow,video,image,file,audio,maximize,font-color,bold,italic,underline,shield,map,redo,undo,release-line,server-add,setting,move-up,move-down,more,screen-close,screen-open,circle-check,circle-close,circle-minus,time,circle-warning,circle-info,square-help,malfunction,play,pause,triangle-warning,circle-plus,circle-remove,lock,back,release,user-fill,email-fill,succeed,phone-fill'.split(','),
+        icons: 'care,doc-help,language,earth,email,menu,list-add,menu-set,user,bell,upload,gear,export,move,copy,delete,edit,clear,add,search,zoom-out,zoom-in,mall,help,warning,info,count,info-square,cart,yuan,refresh,eye,filter,list,download,fullscreen,check,close,arrow-left,arrow-right,arrow-down,arrow-up,plus,minus,caret-top,caret-bottom,arrow-d-left,arrow-d-right,arrow-d-top,arrow-d-bottom,flow,video,image,file,audio,maximize,font-color,bold,italic,underline,shield,map,redo,undo,release-line,server-add,setting,move-up,move-down,more,screen-close,screen-open,circle-check,circle-close,circle-minus,time,circle-warning,circle-info,square-help,malfunction,play,pause,triangle-warning,circle-plus,circle-remove,lock,back,release,user-fill,email-fill,succeed,phone-fill'.split(','),
       }
     },
     computed: {
